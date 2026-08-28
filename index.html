@@ -8,107 +8,114 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="#top">GEONU</a>
-      <nav aria-label="주요 메뉴">
-        <a href="#projects">Projects</a>
-        <a href="#skills">Focus</a>
-        <a href="https://github.com/ge-onu" target="_blank" rel="noreferrer">GitHub</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero container">
-      <p class="eyebrow">Cloud · Kubernetes · Observability · Automation · AI/ML</p>
-      <h1>이건우</h1>
-      <p class="role">Infrastructure-aware AIOps Engineer</p>
-      <p class="intro">
-        서비스의 데이터와 시스템 흐름을 따라 문제 발생 지점을 좁히고,
-        인프라 운영 데이터와 AI를 연결하는 엔지니어를 목표로 합니다.
-      </p>
-      <div class="actions">
-        <a class="button primary" href="#projects">프로젝트 보기</a>
-        <a class="button" href="https://github.com/ge-onu" target="_blank" rel="noreferrer">GitHub</a>
+  <main class="page">
+    <header class="profile" id="top">
+      <div class="profile-main">
+        <p class="kicker">PORTFOLIO / 2026</p>
+        <h1>이건우</h1>
+        <p class="role">Infrastructure-aware AIOps Engineer</p>
+        <p class="summary">
+          시스템과 데이터의 흐름을 따라 문제 발생 지점을 좁히고,
+          Cloud·Kubernetes·Observability와 AI/ML을 운영 관점에서 연결하는 엔지니어를 지향합니다.
+        </p>
       </div>
-    </section>
+      <div class="profile-meta" aria-label="프로필 링크">
+        <a href="https://github.com/ge-onu" target="_blank" rel="noreferrer">GitHub ↗</a>
+        <span>Seoul, KR</span>
+        <span>geonu.site</span>
+      </div>
+    </header>
 
-    <section id="projects" class="section container">
-      <div class="section-heading">
-        <p class="eyebrow">Selected work</p>
-        <h2>Projects</h2>
+    <section class="section" aria-labelledby="work-title">
+      <div class="section-label">
+        <span>01</span>
+        <h2 id="work-title">Selected work</h2>
       </div>
 
-      <article class="card featured">
-        <div class="card-top">
+      <article class="work work-primary">
+        <div class="work-head">
           <div>
-            <p class="meta">2026.06 – 2026.08 · 5인 팀 프로젝트</p>
+            <p class="work-index">01 / TEAM PROJECT</p>
             <h3>Mealplanning</h3>
           </div>
-          <span class="tag">AI / Data / Cloud</span>
+          <p class="work-date">2026.06 — 2026.08</p>
         </div>
-        <p>
-          월 식비 예산 기반 서비스에서 개인화 Ranking 학습·서빙과 클릭스트림 데이터 흐름을 다뤘습니다.
-          모델뿐 아니라 Frontend, API, 이벤트 데이터, 학습 데이터가 연결되는 경로를 따라 문제를 분석했습니다.
+
+        <p class="work-lead">
+          월 식비 예산 기반 서비스에서 개인화 Ranking의 학습·서빙과 클릭스트림 데이터 흐름을 다뤘습니다.
+          모델만 보지 않고 Frontend → API → Event → Training Dataset으로 이어지는 경로를 따라 문제를 분석했습니다.
         </p>
-        <ul>
-          <li>개인화 Ranking 학습 및 서빙 흐름</li>
-          <li>클릭스트림 데이터 정합성 문제 추적</li>
-          <li>Target Leakage / Train-Serve Skew 점검</li>
-          <li>Cloud·Infrastructure 구성 및 협업 경험</li>
-        </ul>
-        <p class="note">상세 Architecture, 실험 결과, 개인 기여 Evidence는 정리 후 순차적으로 공개합니다.</p>
+
+        <div class="evidence-list">
+          <div class="evidence-row">
+            <span class="evidence-no">01</span>
+            <p><strong>Clickstream consistency</strong><span>session_id 전달 누락으로 노출·행동 데이터 연결이 끊긴 지점을 추적하고 학습 label 생성 흐름을 점검</span></p>
+          </div>
+          <div class="evidence-row">
+            <span class="evidence-no">02</span>
+            <p><strong>ML reliability</strong><span>Target Leakage와 Train-Serve Skew 가능성을 확인하고 학습·서빙 데이터 기준을 점검</span></p>
+          </div>
+          <div class="evidence-row">
+            <span class="evidence-no">03</span>
+            <p><strong>Training & serving</strong><span>LightGBM LambdaMART 기반 개인화 Ranking 학습 및 서비스 연결 경험</span></p>
+          </div>
+        </div>
+
+        <p class="stack">Python · LightGBM · PostgreSQL · Redis · React/TypeScript · Cloud</p>
       </article>
 
-      <article class="card">
-        <div class="card-top">
+      <article class="work">
+        <div class="work-head">
           <div>
-            <p class="meta">2026 · Infrastructure Lab</p>
+            <p class="work-index">02 / INFRASTRUCTURE LAB</p>
             <h3>Kubernetes Multi-node Lab</h3>
           </div>
-          <span class="tag">Kubernetes</span>
+          <p class="work-date">2026</p>
         </div>
-        <p>
-          kubeadm 기반 멀티노드 Kubernetes 환경을 구축하고 네트워크, 외부 노출, 스토리지,
-          권한, 오토스케일링, 모니터링을 단계적으로 구성했습니다.
+
+        <p class="work-lead compact">
+          kubeadm 기반 멀티노드 Kubernetes 환경에서 Network, Storage, Security,
+          Autoscaling, Monitoring을 단계적으로 구성하고 리소스 상태와 Event를 활용해 장애를 분석했습니다.
         </p>
-        <ul>
-          <li>Calico · CoreDNS · NGINX Ingress · MetalLB</li>
-          <li>PV/PVC · NFS · RBAC · NetworkPolicy</li>
-          <li>HPA · KEDA · Prometheus · Grafana</li>
-          <li>Kubernetes Event와 리소스 상태를 활용한 장애 분석</li>
-        </ul>
+
+        <p class="stack">kubeadm · Calico · CoreDNS · NGINX Ingress · MetalLB · PV/PVC · NFS · RBAC · NetworkPolicy · HPA/KEDA · Prometheus · Grafana</p>
       </article>
     </section>
 
-    <section id="skills" class="section container">
-      <div class="section-heading">
-        <p class="eyebrow">Engineering focus</p>
-        <h2>What I focus on</h2>
+    <section class="section" aria-labelledby="focus-title">
+      <div class="section-label">
+        <span>02</span>
+        <h2 id="focus-title">Engineering focus</h2>
       </div>
-      <div class="grid">
-        <div class="mini-card">
+
+      <div class="focus-list">
+        <div class="focus-row">
+          <span>01</span>
           <h3>Infrastructure</h3>
-          <p>Linux, Network, Cloud, Kubernetes의 동작 원리를 서비스 장애 분석과 연결합니다.</p>
+          <p>Linux · Network · Cloud · Kubernetes</p>
         </div>
-        <div class="mini-card">
+        <div class="focus-row">
+          <span>02</span>
           <h3>Observability</h3>
-          <p>Metrics와 시스템 상태를 기반으로 증상에서 원인까지 좁혀가는 관측 방식을 지향합니다.</p>
+          <p>Metrics · Logs · System state · Troubleshooting</p>
         </div>
-        <div class="mini-card">
-          <h3>Automation & AI</h3>
-          <p>Python과 운영 데이터를 활용해 반복 작업과 탐지·진단 과정을 개선하는 방향을 학습하고 있습니다.</p>
+        <div class="focus-row">
+          <span>03</span>
+          <h3>Automation</h3>
+          <p>Python · IaC · Repetitive operations</p>
+        </div>
+        <div class="focus-row">
+          <span>04</span>
+          <h3>AI for Operations</h3>
+          <p>ML · LLM · Operational data</p>
         </div>
       </div>
     </section>
-  </main>
 
-  <footer>
-    <div class="container footer-inner">
-      <span>© 2026 Geonu Lee</span>
-      <a href="https://github.com/ge-onu" target="_blank" rel="noreferrer">github.com/ge-onu</a>
-    </div>
-  </footer>
+    <footer class="footer">
+      <p>이건우 · Infrastructure-aware AIOps Engineer</p>
+      <a href="https://github.com/ge-onu" target="_blank" rel="noreferrer">github.com/ge-onu ↗</a>
+    </footer>
+  </main>
 </body>
 </html>
