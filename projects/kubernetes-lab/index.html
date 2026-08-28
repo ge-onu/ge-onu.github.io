@@ -3,146 +3,188 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Kubernetes multi-node lab — kubeadm, networking, storage, security, scaling and troubleshooting">
-  <meta name="theme-color" content="#f6f8fb">
+  <meta name="description" content="Kubernetes Multi-node Lab — kubeadm, networking, storage, security, scaling and troubleshooting">
+  <meta name="theme-color" content="#f5f8fe">
   <title>Kubernetes Multi-node Lab | Geonu Lee</title>
   <link rel="stylesheet" href="../../style.css">
-  <link rel="stylesheet" href="../../projects.css">
+  <link rel="stylesheet" href="../../projects.css?v=20260829-1">
+  <script src="../../project-tabs.js?v=20260829-1" defer></script>
 </head>
 <body class="project-page project-page--k8s">
   <div class="shell">
     <header class="topbar">
-      <a class="identity" href="../../" aria-label="포트폴리오 홈"><span class="identity-mark">GO</span><span>Geonu Lee</span></a>
+      <a class="identity" href="../../" aria-label="포트폴리오 홈">
+        <span class="identity-mark">GO</span><span>Geonu Lee</span>
+      </a>
       <nav class="nav" aria-label="주요 메뉴">
         <a href="../../#work">Projects</a>
         <a class="github-button github-button--small" href="https://github.com/ge-onu" target="_blank" rel="noreferrer">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.3 11.3 0 0 0-3.6 22c.57.1.77-.25.77-.55v-2.12c-3.15.68-3.82-1.34-3.82-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16A10.9 10.9 0 0 1 12 7.08c.97 0 1.94.13 2.85.38 2.17-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.03.77 2.08v3.14c0 .3.21.66.78.55A11.3 11.3 0 0 0 12 .7Z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.3 11.3 0 0 0-3.6 22c.57.1.77-.25.77-.55v-2.12c-3.15.68-3.82-1.34-3.82-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16A10.9 10.9 0 0 1 12 7.08c.97 0 1.94.13 2.85.38 2.17-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.03.77 2.08v3.14c0 .3.21.66.78.55A11.3 11.3 0 0 0 12 .7Z"/></svg>
           <span>GitHub</span>
         </a>
       </nav>
     </header>
 
     <main>
-      <section class="project-hero project-hero--with-image">
+      <section class="project-hero">
         <div>
           <a class="project-back" href="../../#work">← Projects</a>
-          <p class="section-kicker" style="margin-top:26px">02 / Infrastructure lab</p>
-          <h1>Kubernetes<br>Multi-node Lab</h1>
-          <p class="project-hero-subtitle">kubeadm 기반 멀티노드 구축과 장애 분석</p>
-          <p class="project-hero-summary">Network, Storage, RBAC, Scaling을 직접 구성했습니다. 문제가 생기면 설정을 먼저 바꾸지 않고 <strong>Event와 Resource State에서 어디까지 정상인지</strong>부터 확인했습니다.</p>
+          <p class="section-kicker" style="margin-top:24px">Infrastructure lab</p>
+          <h1>Kubernetes Multi-node Lab</h1>
+          <p class="project-hero-subtitle">kubeadm 기반 클러스터 구축과 장애 확인</p>
+          <p class="project-hero-summary">
+            멀티노드 Kubernetes 환경을 직접 구성하고 Network, Storage, RBAC, Scaling을 연결해 봤습니다.
+            문제가 생기면 설정부터 바꾸기보다 Event와 Resource State를 먼저 확인했습니다.
+          </p>
           <div class="project-hero-actions">
             <a class="github-button" href="https://github.com/ge-onu" target="_blank" rel="noreferrer">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.3 11.3 0 0 0-3.6 22c.57.1.77-.25.77-.55v-2.12c-3.15.68-3.82-1.34-3.82-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16A10.9 10.9 0 0 1 12 7.08c.97 0 1.94.13 2.85.38 2.17-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.03.77 2.08v3.14c0 .3.21.66.78.55A11.3 11.3 0 0 0 12 .7Z"/></svg><span>My GitHub</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.3 11.3 0 0 0-3.6 22c.57.1.77-.25.77-.55v-2.12c-3.15.68-3.82-1.34-3.82-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16A10.9 10.9 0 0 1 12 7.08c.97 0 1.94.13 2.85.38 2.17-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.03.77 2.08v3.14c0 .3.21.66.78.55A11.3 11.3 0 0 0 12 .7Z"/></svg>
+              <span>GitHub</span>
             </a>
           </div>
         </div>
-        <div class="project-hero-media project-hero-media--k8s"><img src="../../assets/kubernetes-lab-cover.svg" alt="Kubernetes 멀티노드 랩 구성도"></div>
-      </section>
-
-      <section class="always-visible-overview" aria-labelledby="overview-title">
-        <div class="overview-heading"><span>01 / Overview</span><h2 id="overview-title">무엇을 직접 구성했는지부터.</h2></div>
-        <div class="overview-grid">
-          <div class="overview-block"><span>Type</span><strong>Personal / training lab</strong></div>
-          <div class="overview-block"><span>Period</span><strong>2026</strong></div>
-          <div class="overview-block overview-block--wide"><span>Scope</span><strong>Cluster · Network · Storage · Security · Scaling · Monitoring</strong></div>
-        </div>
-        <div class="overview-result-grid">
-          <article><strong>kubeadm</strong><span>multi-node</span><p>Control Plane / Worker 구성</p></article>
-          <article><strong>Calico</strong><span>network path</span><p>Service · Ingress · MetalLB 연결</p></article>
-          <article><strong>Events</strong><span>troubleshooting</span><p>상태와 Event로 범위 좁히기</p></article>
+        <div class="project-hero-media project-hero-media--k8s">
+          <img src="../../assets/kubernetes-lab-cover.svg?v=20260829-1" alt="Kubernetes Multi-node Lab 커버">
         </div>
       </section>
 
-      <section class="accordion-section" aria-labelledby="deep-dive-title">
-        <div class="accordion-intro"><span>Deep dive</span><h2 id="deep-dive-title">필요한 부분만 펼쳐서 보세요.</h2><p>구성 요소별로 무엇을 확인했는지 정리했습니다.</p></div>
-        <div class="project-accordion project-accordion--k8s">
-          <details>
-            <summary><span class="accordion-no">02</span><span class="accordion-copy"><strong>Cluster</strong><small>멀티노드 환경을 어떻게 구성했나</small></span><span class="accordion-toggle" aria-hidden="true">+</span></summary>
-            <div class="accordion-body">
-              <div class="architecture-flow">
-                <div class="arch-node"><strong>Control Plane</strong><span>API / scheduling</span></div><span class="flow-sep">↔</span>
-                <div class="arch-node accent"><strong>Worker Nodes</strong><span>Pod runtime</span></div><span class="flow-sep">↔</span>
-                <div class="arch-node"><strong>Calico</strong><span>Pod networking</span></div><span class="flow-sep">↔</span>
-                <div class="arch-node"><strong>CoreDNS</strong><span>service discovery</span></div>
-              </div>
-              <p class="body-note">구성 후에는 Node Ready 여부만 보지 않고 Pod가 스케줄되고 서로 통신하는지까지 확인했습니다.</p>
-            </div>
-          </details>
+      <section class="project-overview" aria-labelledby="overview-title">
+        <div class="overview-head">
+          <span>01 / Overview</span>
+          <h2 id="overview-title">프로젝트 개요</h2>
+        </div>
+        <div class="overview-meta">
+          <div><span>Period</span><strong>2026</strong></div>
+          <div><span>Type</span><strong>Personal / training lab</strong></div>
+          <div><span>Scope</span><strong>Cluster · Network · Storage · RBAC · Scaling · Monitoring</strong></div>
+        </div>
+        <div class="overview-metrics">
+          <div><strong>kubeadm</strong><span>cluster</span><p>Control Plane / Worker 구성</p></div>
+          <div><strong>Calico</strong><span>network</span><p>Service · Ingress · NetworkPolicy</p></div>
+          <div><strong>Events</strong><span>troubleshooting</span><p>Resource State와 함께 원인 범위 확인</p></div>
+        </div>
+        <p class="scope-note">이 Lab은 팀 프로젝트 환경이 아니라 제가 직접 구성하고 문제를 확인한 실습입니다.</p>
+      </section>
 
-          <details>
-            <summary><span class="accordion-no">03</span><span class="accordion-copy"><strong>Network</strong><small>외부 요청이 Pod까지 어디를 거쳐 가나</small></span><span class="accordion-toggle" aria-hidden="true">+</span></summary>
-            <div class="accordion-body">
-              <div class="trace-flow">
-                <div class="trace-node"><strong>Client</strong><span>request</span></div><span class="flow-sep">→</span>
-                <div class="trace-node"><strong>MetalLB</strong><span>external IP</span></div><span class="flow-sep">→</span>
-                <div class="trace-node accent"><strong>Ingress</strong><span>host / path</span></div><span class="flow-sep">→</span>
-                <div class="trace-node"><strong>Service</strong><span>endpoint</span></div><span class="flow-sep">→</span>
-                <div class="trace-node"><strong>Pod</strong><span>app</span></div>
-              </div>
-              <div class="case-table">
-                <div class="case-row"><strong>Service</strong><p>Selector와 Endpoint가 실제 Pod를 가리키는지 확인했습니다.</p></div>
-                <div class="case-row"><strong>Ingress</strong><p>Host/Path와 Service port가 맞는지 대조했습니다.</p></div>
-                <div class="case-row"><strong>DNS</strong><p>Service 이름이 CoreDNS를 통해 해석되는 흐름을 확인했습니다.</p></div>
-              </div>
-            </div>
-          </details>
+      <section class="story-section" aria-labelledby="stories-title">
+        <div class="story-heading">
+          <span>02–07 / Lab notes</span>
+          <h2 id="stories-title">구성 요소보다 확인 순서 중심으로.</h2>
+          <p>왼쪽에서 항목을 고르면 제가 무엇을 구성했고 무엇을 확인했는지 오른쪽에 표시됩니다.</p>
+        </div>
 
-          <details>
-            <summary><span class="accordion-no">04</span><span class="accordion-copy"><strong>Storage</strong><small>PVC가 Pending일 때 무엇부터 봤나</small></span><span class="accordion-toggle" aria-hidden="true">+</span></summary>
-            <div class="accordion-body">
-              <div class="detail-grid-2">
-                <article class="detail-panel"><p class="detail-kicker">Local PV</p><h3>Node와 묶이는 저장소</h3><p>Local PV를 통해 Node Affinity와 Scheduling 제약을 확인했습니다.</p></article>
-                <article class="detail-panel"><p class="detail-kicker">NFS</p><h3>공유 저장소</h3><p>NFS를 PVC와 연결하고 상태 저장 워크로드에서 사용했습니다.</p></article>
-              </div>
-              <p class="body-note">PVC가 Pending이면 PVC만 보지 않고 PV, StorageClass, Access Mode, Node 조건과 Event를 같이 봤습니다.</p>
-            </div>
-          </details>
+        <div class="story-browser" data-story-browser>
+          <div class="story-nav" role="tablist" aria-label="Kubernetes Lab 작업 목록">
+            <button class="story-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="k8s-cluster" data-story-tab="cluster">
+              <span class="story-tab-no">02</span><span class="story-tab-copy"><strong>클러스터 구성</strong><small>Control Plane과 Worker를 어떻게 연결했는지</small></span>
+            </button>
+            <button class="story-tab" type="button" role="tab" aria-selected="false" aria-controls="k8s-traffic" data-story-tab="traffic">
+              <span class="story-tab-no">03</span><span class="story-tab-copy"><strong>외부 트래픽 경로</strong><small>Client → Ingress → Service → Pod</small></span>
+            </button>
+            <button class="story-tab" type="button" role="tab" aria-selected="false" aria-controls="k8s-storage" data-story-tab="storage">
+              <span class="story-tab-no">04</span><span class="story-tab-copy"><strong>Storage</strong><small>PVC가 Pending일 때 무엇을 확인했는지</small></span>
+            </button>
+            <button class="story-tab" type="button" role="tab" aria-selected="false" aria-controls="k8s-security" data-story-tab="security">
+              <span class="story-tab-no">05</span><span class="story-tab-copy"><strong>권한과 통신 제한</strong><small>ServiceAccount · RBAC · NetworkPolicy</small></span>
+            </button>
+            <button class="story-tab" type="button" role="tab" aria-selected="false" aria-controls="k8s-scaling" data-story-tab="scaling">
+              <span class="story-tab-no">06</span><span class="story-tab-copy"><strong>Scaling과 Monitoring</strong><small>HPA/KEDA를 Metrics와 연결</small></span>
+            </button>
+            <button class="story-tab" type="button" role="tab" aria-selected="false" aria-controls="k8s-trouble" data-story-tab="trouble">
+              <span class="story-tab-no">07</span><span class="story-tab-copy"><strong>Troubleshooting</strong><small>ImagePull · Service · RBAC · PVC</small></span>
+            </button>
+          </div>
 
-          <details>
-            <summary><span class="accordion-no">05</span><span class="accordion-copy"><strong>Security</strong><small>누가 무엇을 할 수 있는지, 어디까지 통신할 수 있는지</small></span><span class="accordion-toggle" aria-hidden="true">+</span></summary>
-            <div class="accordion-body">
-              <div class="three-state-row"><div><span>01</span><strong>ServiceAccount</strong><p>Pod identity</p></div><div><span>02</span><strong>RBAC</strong><p>API permission</p></div><div><span>03</span><strong>NetworkPolicy</strong><p>traffic scope</p></div></div>
-              <p class="body-note">권한 오류가 나면 ServiceAccount와 Role/RoleBinding을 대조하고, 통신 문제는 NetworkPolicy 범위를 따로 확인했습니다.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="accordion-no">06</span><span class="accordion-copy"><strong>Scaling</strong><small>Replica 수는 어떤 신호로 바뀌나</small></span><span class="accordion-toggle" aria-hidden="true">+</span></summary>
-            <div class="accordion-body">
-              <div class="detail-grid-2">
-                <article class="detail-panel"><p class="detail-kicker">HPA</p><h3>Resource metric</h3><p>CPU/Memory 기준으로 replica가 조정되는 흐름을 확인했습니다.</p></article>
-                <article class="detail-panel"><p class="detail-kicker">KEDA</p><h3>Event-driven</h3><p>외부 Metric/Event를 기준으로 확장·축소되는 구조를 실습했습니다.</p></article>
+          <div class="story-panels" data-story-panels>
+            <article class="story-panel" id="k8s-cluster" role="tabpanel" data-story-panel="cluster">
+              <h3>클러스터 구성</h3>
+              <p class="story-lead">kubeadm으로 Control Plane과 Worker Node를 구성하고, CNI와 DNS가 붙은 뒤 Pod가 실제로 통신하는지 확인했습니다.</p>
+              <div class="flow-strip" aria-label="Kubernetes cluster flow">
+                <div class="flow-step"><strong>Control Plane</strong><span>API / scheduling</span></div><span class="flow-arrow">↔</span>
+                <div class="flow-step is-key"><strong>Worker Nodes</strong><span>Pod runtime</span></div><span class="flow-arrow">↔</span>
+                <div class="flow-step"><strong>Calico</strong><span>Pod network</span></div><span class="flow-arrow">↔</span>
+                <div class="flow-step"><strong>CoreDNS</strong><span>service discovery</span></div>
               </div>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="accordion-no">07</span><span class="accordion-copy"><strong>Observability</strong><small>상태를 바꾸기 전에 어떤 증거를 봤나</small></span><span class="accordion-toggle" aria-hidden="true">+</span></summary>
-            <div class="accordion-body">
-              <div class="detail-grid-2">
-                <article class="detail-panel"><p class="detail-kicker">Metrics</p><h3>Prometheus / Grafana</h3><p>리소스 사용량과 workload 상태를 보고 Scaling 실습과 연결했습니다.</p></article>
-                <article class="detail-panel"><p class="detail-kicker">State</p><h3>Events / Resource status</h3><p>Pod, Service, PVC, RBAC 문제에서 실제 상태와 Event를 먼저 확인했습니다.</p></article>
+              <div class="story-steps">
+                <div class="story-step"><strong>확인한 것</strong><p>Node 상태, System Pod 상태, CNI 적용 여부, CoreDNS 동작을 순서대로 확인했습니다.</p></div>
+                <div class="story-step"><strong>목표</strong><p>설치 완료가 아니라 Pod가 스케줄되고 서로 통신하는 상태까지 보는 데 초점을 맞췄습니다.</p></div>
               </div>
-            </div>
-          </details>
+            </article>
 
-          <details>
-            <summary><span class="accordion-no">08</span><span class="accordion-copy"><strong>Troubleshooting</strong><small>증상별로 만든 확인 순서</small></span><span class="accordion-toggle" aria-hidden="true">+</span></summary>
-            <div class="accordion-body">
-              <div class="case-table">
-                <div class="case-row"><strong>ImagePullBackOff</strong><p>Pod Event에서 image 이름, Registry 접근, pull 조건 중 어디서 실패했는지 좁혔습니다.</p></div>
-                <div class="case-row"><strong>Service / Ingress</strong><p>Selector → Endpoint → Port → Ingress Rule 순으로 요청 경로를 확인했습니다.</p></div>
-                <div class="case-row"><strong>RBAC</strong><p>ServiceAccount와 Role/RoleBinding을 비교해 어떤 API 동작에 권한이 없는지 봤습니다.</p></div>
-                <div class="case-row"><strong>PVC Binding</strong><p>PVC·PV·StorageClass와 Event를 같이 보고 Capacity, Access Mode, Node 조건을 확인했습니다.</p></div>
+            <article class="story-panel" id="k8s-traffic" role="tabpanel" data-story-panel="traffic" hidden>
+              <h3>외부 트래픽 경로</h3>
+              <p class="story-lead">요청이 Pod까지 도달하는 경로를 한 단계씩 나눠, 어느 계층에서 끊기는지 확인할 수 있게 구성했습니다.</p>
+              <div class="flow-strip" aria-label="External traffic path">
+                <div class="flow-step"><strong>Client</strong><span>request</span></div><span class="flow-arrow">→</span>
+                <div class="flow-step"><strong>MetalLB</strong><span>external IP</span></div><span class="flow-arrow">→</span>
+                <div class="flow-step is-key"><strong>Ingress</strong><span>host / path</span></div><span class="flow-arrow">→</span>
+                <div class="flow-step"><strong>Service</strong><span>endpoint</span></div><span class="flow-arrow">→</span>
+                <div class="flow-step"><strong>Pod</strong><span>application</span></div>
               </div>
-              <p class="body-note">실습을 통해 Kubernetes 장애는 Pod 하나만 봐서는 설명되지 않는 경우가 많다는 점을 확인했습니다.</p>
-            </div>
-          </details>
+              <div class="story-steps">
+                <div class="story-step"><strong>Service</strong><p>Selector와 Endpoint가 실제 Pod를 가리키는지 확인했습니다.</p></div>
+                <div class="story-step"><strong>Ingress</strong><p>Host/Path Rule과 Service Port가 맞는지 확인했습니다.</p></div>
+                <div class="story-step"><strong>DNS</strong><p>Service 이름 기반 통신이 CoreDNS를 통해 해석되는지 확인했습니다.</p></div>
+              </div>
+            </article>
+
+            <article class="story-panel" id="k8s-storage" role="tabpanel" data-story-panel="storage" hidden>
+              <h3>Storage</h3>
+              <p class="story-lead">PV/PVC, Local PV, NFS, StatefulSet을 구성하고 PVC가 Pending일 때 바인딩 조건을 확인했습니다.</p>
+              <div class="check-list">
+                <div class="check-item"><strong>PVC / PV</strong><p>요청 용량과 Access Mode가 맞는지 확인했습니다.</p></div>
+                <div class="check-item"><strong>StorageClass</strong><p>어떤 방식으로 PV를 제공하는지 확인했습니다.</p></div>
+                <div class="check-item"><strong>Local PV</strong><p>Node와 Storage가 강하게 묶일 때 Scheduling 제약을 확인했습니다.</p></div>
+                <div class="check-item"><strong>NFS</strong><p>공유 Storage를 PVC에 연결해 상태 저장 워크로드를 구성했습니다.</p></div>
+              </div>
+              <p class="story-note">PVC가 Pending이면 Storage 하나만 보지 않고 PVC·PV·StorageClass·Access Mode·Event를 함께 확인했습니다.</p>
+            </article>
+
+            <article class="story-panel" id="k8s-security" role="tabpanel" data-story-panel="security" hidden>
+              <h3>권한과 통신 제한</h3>
+              <p class="story-lead">Identity, API 권한, Pod 간 통신 범위를 따로 나눠 실습했습니다.</p>
+              <div class="state-row">
+                <div><span>Identity</span><strong>ServiceAccount</strong><p>Pod가 사용하는 Kubernetes Identity</p></div>
+                <div><span>Authorization</span><strong>RBAC</strong><p>Role / RoleBinding으로 API 권한 제한</p></div>
+                <div><span>Network</span><strong>NetworkPolicy</strong><p>Pod 간 통신 허용 범위 제한</p></div>
+              </div>
+              <div class="story-steps">
+                <div class="story-step"><strong>RBAC 오류</strong><p>ServiceAccount와 Role / RoleBinding을 대조해 어떤 API 동작에 권한이 부족한지 확인했습니다.</p></div>
+                <div class="story-step"><strong>구성 분리</strong><p>Secret과 ConfigMap을 사용해 민감 정보와 일반 설정을 분리했습니다.</p></div>
+              </div>
+            </article>
+
+            <article class="story-panel" id="k8s-scaling" role="tabpanel" data-story-panel="scaling" hidden>
+              <h3>Scaling과 Monitoring</h3>
+              <p class="story-lead">Replica 수가 임의로 바뀌는 것이 아니라 어떤 Metric/Event를 보고 Controller가 결정하는지 확인했습니다.</p>
+              <div class="state-row">
+                <div><span>HPA</span><strong>Resource metrics</strong><p>CPU/Memory 기준 Scaling</p></div>
+                <div><span>KEDA</span><strong>Event metrics</strong><p>외부 Event/Metric 기준 Scaling</p></div>
+                <div><span>Observe</span><strong>Prometheus / Grafana</strong><p>Resource 상태와 Metrics 확인</p></div>
+              </div>
+              <div class="story-steps">
+                <div class="story-step"><strong>확인</strong><p>Scaling 전후 Replica 변화와 Metrics를 함께 봤습니다.</p></div>
+                <div class="story-step"><strong>관점</strong><p>Scaling을 설정값이 아니라 관측된 신호와 Controller의 결정 결과로 이해하려고 했습니다.</p></div>
+              </div>
+            </article>
+
+            <article class="story-panel" id="k8s-trouble" role="tabpanel" data-story-panel="trouble" hidden>
+              <h3>Troubleshooting</h3>
+              <p class="story-lead">증상마다 명령어를 외우기보다, 먼저 상태와 Event를 보고 확인할 범위를 줄였습니다.</p>
+              <div class="check-list">
+                <div class="check-item"><strong>ImagePullBackOff</strong><p>Pod Event를 보고 Image 이름, Registry 접근, Pull 조건 중 어디서 실패했는지 좁혔습니다.</p></div>
+                <div class="check-item"><strong>Service / Ingress</strong><p>Selector, Endpoint, Port, Rule을 순서대로 확인했습니다.</p></div>
+                <div class="check-item"><strong>RBAC</strong><p>ServiceAccount와 Role/RoleBinding을 대조했습니다.</p></div>
+                <div class="check-item"><strong>PVC Binding</strong><p>PVC·PV·StorageClass 상태와 Event를 함께 확인했습니다.</p></div>
+              </div>
+              <p class="story-note">문제를 바로 수정하기보다 관측 → 가설 → 확인 → 변경 → 재검증 순서로 접근하는 연습에 초점을 맞췄습니다.</p>
+            </article>
+          </div>
         </div>
       </section>
     </main>
 
-    <footer class="project-page-footer"><a href="../../#work">← 다른 프로젝트 보기</a></footer>
+    <footer class="project-page-footer"><a href="../../#work">← 프로젝트 목록으로</a></footer>
   </div>
 </body>
 </html>
