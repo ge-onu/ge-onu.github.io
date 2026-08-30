@@ -68,7 +68,7 @@ a.back{display:inline-block;margin-bottom:18px;font-size:13px;color:#5b6474;text
 <div class="prov"><b>가드레일 수정 효과 — 같은 275건 재측정</b><span class="badge">정제한 실측 원본</span><br>
 출처 문서 · AI 품질 고도화 검증 — 실험 A &nbsp;|&nbsp; 측정 시점 · 2026-07-28<br>
 지표 · 통과 건수 / 275 (pass count · 정확도 아님)<br>
-이 근거로 내린 판단 · 모델을 바꾸지 않고 판정 로직만 고쳐 통과를 회수함<br>
+이 근거로 내린 판단 · 모델 교체나 LLM 호출 추가 없이 판정 로직 수정으로 통과 건수를 개선함<br>
 <span style="color:#7a818d">원문에서 해당 구간만 추출해 공개용으로 정제한 사본입니다. 측정값은 원본과 동일합니다.</span>
 </div>
 <h2>실험 A — 가드레일 수정 효과 (추가 호출 0건)</h2>
@@ -88,7 +88,7 @@ a.back{display:inline-block;margin-bottom:18px;font-size:13px;color:#5b6474;text
 <div class="row"><div class="lb">qwen3-32b-tokyo</div><div class="bar"><i style="width:44.0%;background:var(--s1)"></i><i style="width:28.0%;background:var(--s3)"></i></div><div class="val">11→18</div></div>
 <div class="row"><div class="lb">claude-3-haiku-seoul</div><div class="bar"><i style="width:40.0%;background:var(--s1)"></i><i style="width:28.0%;background:var(--s3)"></i></div><div class="val">10→17</div></div>
 </div>
-<p><b>합계 166/275(60%) → 247/275(90%)</b> · <b>81건 회수</b> · 추가 비용 0원. 프로덕션에서는 오판된 refine이 template으로 fallback되므로 <b>유료 호출을 하고 결과를 버리던 낭비</b>가 그만큼 사라진다.</p>
+<p><b>합계 166/275(60%) → 247/275(90%)</b> · <b>81건 회수</b> · <b>추가 LLM 호출 없음</b>. 근거 문자열 구성만 바꾼 변경이라 판정 로직 밖의 호출을 새로 만들지 않는다.</p>
 <p>수정 후에도 남은 실패는 <b>지식경계 창작</b>(C04 김치찌개·C08 된장찌개·C15 불고기)에 집중 — 이것이 실험 B의 표적이 됐다.</p>
 
 </body></html>
