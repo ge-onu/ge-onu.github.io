@@ -1,0 +1,94 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>측정 방법과 뒤집힌 1차 판단 · 실측 근거</title>
+<style>html,body{margin:0;background:#fff}
+body{max-width:960px;margin:0 auto;padding:26px 24px 56px;font-family:-apple-system,'Segoe UI',Roboto,'Malgun Gothic',sans-serif;color:#14161a}
+.prov{border:1px solid #e3e5ea;border-radius:10px;padding:14px 16px;margin:0 0 22px;background:#fafbfc;font-size:12.5px;line-height:1.7;color:#454a54}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;background:#eef1f6;color:#3d4756;margin-left:6px}
+.warn{border:1px solid #e8c97a;background:#fff9ec;border-radius:10px;padding:13px 16px;margin:0 0 20px;font-size:13px;line-height:1.7;color:#6b4e12}
+h2{font-size:19px;margin:26px 0 12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid #ebedf1;padding:8px 10px;text-align:left}
+th{color:#5b6474;font-weight:600;font-size:12px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+b.ok{color:#1b7f4d} b.no{color:#b3402f}
+pre{background:#1e2230;color:#e6e9ef;border-radius:10px;padding:16px 18px;font-size:12px;line-height:1.65;overflow-x:auto;font-family:'Cascadia Mono',Consolas,monospace}
+pre .c{color:#8b94a6} pre .g{color:#7ee0a5}
+p{font-size:13.5px;line-height:1.65} .m{color:#5b6474;font-size:12.5px}
+a.back{display:inline-block;margin-bottom:18px;font-size:13px;color:#5b6474;text-decoration:none}</style></head><body>
+<a class="back" href="../../../../projects/mealplanning/">← Mealplanning 으로</a>
+<div class="prov"><b>측정 방법과 뒤집힌 1차 판단</b><span class="badge">정제한 실측 원본</span><br>
+출처 · AI 모델 이전 실측 벤치마크 &nbsp;|&nbsp; 시점 · 2026-07-28<br>지표 · 11모델 × 50케이스 = 550건 · 에러 0<br>
+이 근거로 내린 판단 · 코드 구조상 이관 가능하다는 초기 판단을 실제 측정으로 다시 검토함</div><style>
+:root{--bg:#fcfcfb;--fg:#0b0b0b;--fg2:#52514e;--line:#e3e2de;--card:#fff;
+ --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--track:#eeeeec;--good:#008300;--bad:#e34948;--warn:#eda100;}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){
+ --bg:#1a1a19;--fg:#fff;--fg2:#c3c2b7;--line:#3a3a37;--card:#232322;
+ --s1:#3987e5;--s2:#d95926;--s3:#199e70;--track:#2f2f2d;--good:#3fae54;--bad:#e66767;--warn:#c98500;}}
+:root[data-theme="dark"]{--bg:#1a1a19;--fg:#fff;--fg2:#c3c2b7;--line:#3a3a37;--card:#232322;
+ --s1:#3987e5;--s2:#d95926;--s3:#199e70;--track:#2f2f2d;--good:#3fae54;--bad:#e66767;--warn:#c98500;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif}
+.wrap{max-width:1140px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:31px;margin:0 0 8px;letter-spacing:-.02em;line-height:1.24}
+h2{font-size:22px;margin:46px 0 14px;padding-top:22px;border-top:1px solid var(--line)}
+h3{font-size:16.5px;margin:26px 0 10px}
+p,li{color:var(--fg2)} strong,b{color:var(--fg)}
+.sub{color:var(--fg2);font-size:14px;margin:0 0 4px}
+.tbl-scroll{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:600px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{color:var(--fg2);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+code{background:var(--track);padding:1px 5px;border-radius:4px;font-size:12.5px}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:18px 0}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.tile .k{font-size:12px;color:var(--fg2);text-transform:uppercase;letter-spacing:.05em}
+.tile .v{font-size:26px;font-weight:650;margin-top:6px;letter-spacing:-.02em}
+.tile .n{font-size:12.5px;color:var(--fg2);margin-top:3px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:18px 0}
+.fhead{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;margin-bottom:12px}
+.fhead .t{font-size:17px;font-weight:650;color:var(--fg)}
+.frow{display:grid;grid-template-columns:minmax(86px,110px) 1fr;gap:12px;padding:7px 0;border-top:1px solid var(--line)}
+.frow .k{font-size:12px;color:var(--fg2);text-transform:uppercase;letter-spacing:.04em;padding-top:2px}
+.frow .v{font-size:14px;color:var(--fg2)}
+.pill{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--fg2)}
+.badge{display:inline-block;font-size:12px;padding:3px 11px;border-radius:99px;font-weight:600}
+.b-ok{background:rgba(0,131,0,.12);color:var(--good)}
+.b-no{background:rgba(227,73,72,.12);color:var(--bad)}
+.b-wn{background:rgba(237,161,0,.14);color:var(--warn)}
+.b-x{background:var(--track);color:var(--fg2)}
+.ok{color:var(--good);font-weight:600}.no{color:var(--bad);font-weight:600}.wn{color:var(--warn);font-weight:600}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}
+.flow .n{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 13px;font-size:13px;color:var(--fg)}
+.flow .a{color:var(--fg2);font-size:15px}
+blockquote{border-left:3px solid var(--s2);margin:14px 0;padding:2px 0 2px 14px;color:var(--fg2)}
+.foot{margin-top:50px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--fg2)}
+.row{display:grid;grid-template-columns:minmax(130px,200px) 1fr minmax(56px,auto);gap:12px;align-items:center;padding:3px 0}
+.row .lb{font-size:13px;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{height:19px;background:var(--track);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%}
+.row .val{font-size:12.5px;color:var(--fg2);text-align:right;font-variant-numeric:tabular-nums}
+</style><h2 id="1-측정-방법-재현-가능하게-전부-명시">1. 측정 방법 (재현 가능하게 전부 명시)</h2>
+<h3 id="1-1-무엇을-몇-번-측정했나">1.1 무엇을 몇 번 측정했나</h3>
+<div class="tbl-scroll"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>모델 수</td><td><strong>11개</strong> (서울 4 · 도쿄 5 · 리전비교 1 · Google 1)</td></tr><tr><td>모델당 케이스</td><td><strong>50개</strong> = 평문 챗 25 + 무말투 구조화 25</td></tr><tr><td>총 LLM 호출</td><td><strong>550건</strong> (에러 0건)</td></tr><tr><td>추가 OCR 실측</td><td>claude-3-haiku × 15장(실물 13 + 합성 2)</td></tr><tr><td>사전 OCR 실측</td><td>Nova Lite/Pro × 15장, Gemini 기준선(문서 T4)</td></tr><tr><td>측정일</td><td>2026-07-28</td></tr></tbody></table></div>
+<h3 id="1-2-트랙-a-평문-사람-말투-반영">1.2 트랙 A — 평문(사람 말투 반영)</h3>
+<ul><li><strong>입력</strong>: 실제 서비스의 refine 프롬프트를 <strong>코드에서 원문 추출</strong>(<code>services/chat/app/pipeline/generator/gemini.py</code>의 <code>_SYSTEM</code>) + 동일 content 포맷 <code>[질문]\n…\n\n[근거]\n…</code></li><li><strong>파라미터</strong>: <code>max_tokens=200</code>, <code>temperature=0.3</code> (실제 <code>config.py</code> 값과 동일)</li><li><strong>케이스 25개</strong>: 재료추천 15 + 예산추천 10. 근거는 실제 <code>TemplateGenerator._recommend()</code> 출력형식 그대로</li><li><strong>채점</strong>: 실제 프로덕션 가드레일 <strong><code>check_output_grounded()</code> 를 import 해서 그대로 사용</strong> (출력의 모든 숫자·재료 item_id가 근거 안에 존재해야 통과) + 레시피 이름 보존율</li></ul>
+<h3 id="1-3-트랙-b-무말투-구조화-추출">1.3 트랙 B — 무말투(구조화 추출)</h3>
+<ul><li><strong>입력</strong>: 영수증 텍스트 → JSON. 매장 10종 × 품목 카탈로그 24종에서 <strong>결정적 생성(seed=7)</strong>, 정답(truth) 동봉</li><li><strong>파라미터</strong>: <code>max_tokens=800</code>, <code>temperature=0.0</code></li><li><strong>채점</strong>: 매장명 exact · <strong>품목명+가격 쌍 정확도</strong> · 합계 exact (정답 대조)</li></ul>
+<h3 id="1-4-채점의-정직한-한계">1.4 채점의 정직한 한계</h3>
+<ul><li>챗 25케이스 중 <strong>7개(<code>C01, C03, C05, C17, C21, C22, C23</code>)는 11모델 전원 실패</strong> — 질문에 나온 재료·예산(&quot;대파&quot;,&quot;8천원&quot;)을 답변이 되풀이하면 가드레일이 &#x27;근거 밖&#x27;으로 판정하기 때문. <strong>모델 변별력이 없는 구조적 케이스</strong>라 리더보드는 나머지 <strong>18개(변별 케이스)</strong> 기준으로도 함께 제시했다.</li><li>프로덕션에서 이 판정은 <strong>template 출력으로 안전 fallback</strong> 되므로 사용자 피해는 없다(비용만 낭비).</li><li>구조화 트랙은 합성 텍스트라 <strong>레이아웃 난이도가 없다</strong> — 이미지 OCR 난이도와 동일시하면 안 됨(그래서 OCR은 실물 이미지로 별도 측정).</li></ul>
+<hr>
+<h2 id="4-5-부수-발견-가드레일-오탐-모델-이전과-독립된-개선건">4.5 부수 발견 — 가드레일 오탐 (모델 이전과 독립된 개선건)</h2>
+<p>챗 실패 <strong>109건</strong>(11모델 합산)을 분해하면 대부분이 모델 결함이 아니다.</p>
+<div class="tbl-scroll"><table><thead><tr><th>구분</th><th>건수</th><th>비율</th><th>성격</th></tr></thead><tbody><tr><td><strong>질문-되풀이 오탐</strong></td><td><strong>82건</strong></td><td><strong>75%</strong></td><td>환각 아님 — 가드레일 결함</td></tr><tr><td>실제 결함(환각·이름누락)</td><td>27건</td><td>25%</td><td>진짜 모델 문제</td></tr></tbody></table></div>
+<p><strong>원인</strong>: <code>check_output_grounded(answer, reference)</code>가 <strong>template 출력만</strong> 근거로 삼고 <strong>유저 질문은 보지 않는다.</strong></p>
+<ul><li><code>C01</code> &quot;두부랑 <strong>대파</strong>로 뭐 해먹지&quot; → 답변 &quot;두부와 <strong>대파</strong>로…&quot; → 근거에 &#x27;대파&#x27;가 없어 <strong>환각으로 오판</strong>. 그러나 대파는 <strong>유저가 말한 재료</strong>다.</li><li><code>C17</code> &quot;<strong>8천원</strong> 예산으로…&quot; → 답변 &quot;8천원…&quot; → 근거엔 <code>8000</code>뿐이라 숫자 <code>8</code>이 위반으로 잡힘.</li></ul>
+<p><strong>프로덕션 영향</strong>: 오판 시 refine 결과를 버리고 template으로 fallback → <strong>유료 LLM 호출을 하고도 결과를 폐기</strong>(비용 낭비 + 자연스러운 문장 손실). 해당 패턴(&quot;재료 말하며 추천 요청&quot;, &quot;예산 말하며 추천 요청&quot;)은 <strong>실사용 빈도가 높다</strong>.</p>
+<p><strong>수정안</strong> — 근거에 질문을 합산(유저가 이미 말한 것의 되풀이는 환각이 아니다):</p>
+<pre class="code"><code># services/chat/app/pipeline/generator/gemini.py 호출부
+check_output_grounded(polished, base.text + &quot;\n&quot; + question.raw_text, self._ingredient_index)</code></pre>
+<p>추가로 한글 수사 정규화(&quot;8천원&quot;→8000)를 넣으면 숫자 오탐도 해소된다.</p>
+<blockquote class="card">⚠️ <strong>이 수정은 모델 순위·이전 결론을 바꾸지 않는다</strong> — 전 모델(현행 Gemini 포함) 점수가 함께 오르기 때문. 리더보드의 &quot;변별 18케이스&quot;는 이미 이 오탐을 제외한 값이다.</blockquote>
+<hr>
+</body></html>

@@ -1,0 +1,10 @@
+{
+  "id": "model-benchmark-method",
+  "title": "측정 방법과 뒤집힌 1차 판단",
+  "kind": "sanitized-source",
+  "source_document": "AI 모델 이전 실측 벤치마크",
+  "source_date": "2026-07-28",
+  "metric": "11모델 × 50케이스 = 550건 · 에러 0",
+  "decision": "코드 구조상 이관 가능하다는 초기 판단을 실제 측정으로 다시 검토함",
+  "sha256_of_published": "1be4a5122f5c2818"
+}

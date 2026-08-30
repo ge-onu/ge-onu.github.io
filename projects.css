@@ -723,3 +723,6 @@
 
 .project-card-points { margin: 10px 0 0; padding-left: 17px; color: var(--muted); font-size: 13px; line-height: 1.75; }
 .project-card-points li { margin: 3px 0; }
+
+.ev--sub { background: var(--surface-soft); }
+.ev--sub .ev-head { background: transparent; }

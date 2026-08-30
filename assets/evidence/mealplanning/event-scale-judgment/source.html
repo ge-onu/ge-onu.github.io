@@ -1,0 +1,21 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>학습 데이터 규모를 과장하지 않기로 한 판단 · 실측 근거</title>
+<style>html,body{margin:0;background:#fff}
+body{max-width:960px;margin:0 auto;padding:26px 24px 56px;font-family:-apple-system,'Segoe UI',Roboto,'Malgun Gothic',sans-serif;color:#14161a}
+.prov{border:1px solid #e3e5ea;border-radius:10px;padding:14px 16px;margin:0 0 22px;background:#fafbfc;font-size:12.5px;line-height:1.7;color:#454a54}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;background:#eef1f6;color:#3d4756;margin-left:6px}
+.warn{border:1px solid #e8c97a;background:#fff9ec;border-radius:10px;padding:13px 16px;margin:0 0 20px;font-size:13px;line-height:1.7;color:#6b4e12}
+h2{font-size:19px;margin:26px 0 12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid #ebedf1;padding:8px 10px;text-align:left}
+th{color:#5b6474;font-weight:600;font-size:12px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+b.ok{color:#1b7f4d} b.no{color:#b3402f}
+pre{background:#1e2230;color:#e6e9ef;border-radius:10px;padding:16px 18px;font-size:12px;line-height:1.65;overflow-x:auto;font-family:'Cascadia Mono',Consolas,monospace}
+pre .c{color:#8b94a6} pre .g{color:#7ee0a5}
+p{font-size:13.5px;line-height:1.65} .m{color:#5b6474;font-size:12.5px}
+a.back{display:inline-block;margin-bottom:18px;font-size:13px;color:#5b6474;text-decoration:none}</style></head><body>
+<a class="back" href="../../../../projects/mealplanning/">← Mealplanning 으로</a>
+<div class="prov"><b>학습 데이터 규모를 과장하지 않기로 한 판단</b><span class="badge">근거 기반 정리</span><br>
+출처 · 발표 슬라이드 구성안 (내부 판단 기록) &nbsp;|&nbsp; 시점 · 2026-08-18<br>지표 · 추천 노출 이벤트 320건 (2026-08-18 실측)<br>
+이 근거로 내린 판단 · 데이터 규모를 실제보다 크게 표현하지 않기로 함</div><h2>실제로 쌓여 있던 학습용 이벤트 규모</h2><table><tr><th>항목</th><th class="num">실측</th><th>시점</th></tr><tr><td>추천 노출 이벤트</td><td class="num"><b>320건</b></td><td>2026-08-18</td></tr></table><h2>이 숫자로 내린 판단</h2><p>랭킹 학습에 쓸 이벤트는 존재했지만 <b>320건</b>이었습니다. 발표 자료와 포트폴리오에서 이 데이터를 대규모 행동 데이터처럼 표현하면 질문 한 번에 근거가 무너진다고 보고, <b>규모를 실제보다 크게 표현하지 않기로 했습니다.</b></p><p>그래서 공개 자료에서는 규모를 앞세우는 표현 대신 <b>실제로 확인한 건수와 그 한계</b>만 적습니다. 학습 label 이 생성되지 않던 문제(조회 44건 전부 NULL)도 같은 이유로 규모가 아니라 <b>원인 경로</b>를 근거로 서술했습니다.</p><p class="m">이 판단은 D-1(학습 label 이 생성되지 않은 경로) · B-2(랭킹을 켜지 않은 판단)와 이어집니다. 실사용 라벨이 충분히 쌓이지 않은 상태였다는 사실이 세 항목의 공통 전제입니다.</p></body></html>

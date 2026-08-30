@@ -1,0 +1,10 @@
+{
+  "id": "event-scale-judgment",
+  "title": "학습 데이터 규모를 과장하지 않기로 한 판단",
+  "kind": "source-derived",
+  "source_document": "발표 슬라이드 구성안 (내부 판단 기록)",
+  "source_date": "2026-08-18",
+  "metric": "추천 노출 이벤트 320건 (2026-08-18 실측)",
+  "decision": "데이터 규모를 실제보다 크게 표현하지 않기로 함",
+  "sha256_of_published": "223a92d1973af4ea"
+}
