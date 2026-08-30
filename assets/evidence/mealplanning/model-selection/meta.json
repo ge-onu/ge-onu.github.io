@@ -1,0 +1,10 @@
+{
+  "id": "model-selection",
+  "title": "후보 15종 전수 실측",
+  "kind": "sanitized-source",
+  "source_document": "AI 기능별 모델 선정 — 최종 리포트",
+  "source_date": "2026-07-28",
+  "metric": "모델별 품질(HARD) n/25 · 안전(환각) n/25 · 원/콜 · 월비용 · 품질손실%",
+  "decision": "절감액이 품질 손실을 상쇄하지 못해 즉시 교체를 보류함",
+  "sha256_of_published": "eb807e2fee9167f7"
+}

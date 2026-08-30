@@ -1,0 +1,10 @@
+{
+  "id": "model-version-pin",
+  "title": "모델 별칭 드리프트와 버전 고정",
+  "kind": "source-derived",
+  "source_document": "Git commit d6488da",
+  "source_date": "2026-07-22",
+  "metric": "변경 파일 12 · 컴포넌트 6",
+  "decision": "재발 가능 지점 전부 고정",
+  "sha256_of_published": "e771e2fb02c676c8"
+}

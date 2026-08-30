@@ -1,0 +1,10 @@
+{
+  "id": "validation-9rounds",
+  "title": "9회차 반복 검증과 되돌린 판단",
+  "kind": "source-derived",
+  "source_document": "services/chat/validation/runs.json",
+  "source_date": "2026-07-14 ~ 07-15",
+  "metric": "30건 스위트 정답 수 · seed 별 일반화 확인",
+  "decision": "점수가 올라도 조건이 한정되면 되돌리고, seed 를 바꿔 다시 확인함",
+  "sha256_of_published": "82bb91f2a262e331"
+}

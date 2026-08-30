@@ -1,0 +1,10 @@
+{
+  "id": "chat-mass",
+  "title": "튜닝 전후 2,276회 비교",
+  "kind": "sanitized-source",
+  "source_document": "챗 refine 대규모 계측",
+  "source_date": "2026-07-29",
+  "metric": "치명 결함률 = (금액 손실 + 이름 누락) / 케이스 수",
+  "decision": "좋아진 항목과 나빠진 항목을 함께 남기고 프로덕션 경로 기준으로 판단함",
+  "sha256_of_published": "e72e3adcd96d177e"
+}

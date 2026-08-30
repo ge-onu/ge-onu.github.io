@@ -1,0 +1,10 @@
+{
+  "id": "ocr-comparison",
+  "title": "영수증 OCR 5개 방식 비교",
+  "kind": "source-derived",
+  "source_document": "OCR 모델 벤치마크 (원본이 Markdown 이라 동일 수치로 표 재구성)",
+  "source_date": "2026-07-21",
+  "metric": "합계 정합 성공률 · 방식별 비용/오류",
+  "decision": "지표의 한계를 먼저 규정하고 상대 순위로 방식을 선택함",
+  "sha256_of_published": "0ef77ea5442c2bf3"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "serverless-judgment",
+  "title": "서버리스 판정 5축과 포기한 것",
+  "kind": "sanitized-source",
+  "source_document": "서버리스 판단근거 — 왜 갔고, 무엇을 안 옮겼나",
+  "source_date": "2026-08-18",
+  "metric": "이전 후보 12종 → 채택 10 / 제외 2",
+  "decision": "하나라도 막히면 후보에서 제외하는 기준을 먼저 정하고 적용함",
+  "sha256_of_published": "3e5002674cf5612c"
+}

@@ -1,0 +1,51 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>모델 별칭 드리프트와 버전 고정 · 실측 근거</title>
+<style>html,body{margin:0;background:#fff}
+body{max-width:960px;margin:0 auto;padding:26px 24px 56px;font-family:-apple-system,'Segoe UI',Roboto,'Malgun Gothic',sans-serif;color:#14161a}
+.prov{border:1px solid #e3e5ea;border-radius:10px;padding:14px 16px;margin:0 0 22px;background:#fafbfc;font-size:12.5px;line-height:1.7;color:#454a54}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;background:#eef1f6;color:#3d4756;margin-left:6px}
+.warn{border:1px solid #e8c97a;background:#fff9ec;border-radius:10px;padding:13px 16px;margin:0 0 20px;font-size:13px;line-height:1.7;color:#6b4e12}
+h2{font-size:19px;margin:26px 0 12px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid #ebedf1;padding:8px 10px;text-align:left}
+th{color:#5b6474;font-weight:600;font-size:12px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+b.ok{color:#1b7f4d} b.no{color:#b3402f}
+pre{background:#1e2230;color:#e6e9ef;border-radius:10px;padding:16px 18px;font-size:12px;line-height:1.65;overflow-x:auto;font-family:'Cascadia Mono',Consolas,monospace}
+pre .c{color:#8b94a6} pre .g{color:#7ee0a5}
+p{font-size:13.5px;line-height:1.65} .m{color:#5b6474;font-size:12.5px}
+a.back{display:inline-block;margin-bottom:18px;font-size:13px;color:#5b6474;text-decoration:none}</style></head><body>
+<a class="back" href="../../../../projects/mealplanning/">← Mealplanning 으로</a>
+<div class="prov"><b>모델 별칭 드리프트와 버전 고정</b><span class="badge">source-derived</span><br>
+출처 · Git 커밋 d6488da (팀 저장소) &nbsp;|&nbsp; 시점 · 2026-07-22<br>
+지표 · 변경 파일 12 · 정렬한 컴포넌트 6<br>
+이 근거로 내린 판단 · 장애가 난 기능만이 아니라 재발 가능 지점 전부를 고정함</div><h2>커밋에 남은 조치 범위</h2><pre>$ git show --stat d6488da
+
+fix(gemini): 전 컴포넌트 -latest 별칭 → 3.5 버전 핀 고정(드리프트 근절)
+
+벤치마크(docs/ocr-model-benchmark.md)가 선정한 실체는 3.5 세대이므로
+`-latest` 별칭을 특정 버전으로 고정. 별칭 롤링으로 계약이 바뀌어
+깨지는 일(OCR 400 사고)을 전 컴포넌트에서 원천 차단.
+
+매핑: flash-lite-latest → gemini-3.5-flash-lite, flash-latest → gemini-3.5-flash
+- chat(config·build_alias), ner(gemini_dict), video-recipe(extract·pipeline),
+  chat-insights(reports), compose(chat·ocr GEMINI_MODEL 기본값)
+- 운영 문서(ocr README/INTEGRATION, video README, reports README, 벤치마크) 갱신
+- 2.5-*는 404(신규 사용자 불가·벤치 확인)라 핀 불가 → 3.5 채택
+- 전 컴포넌트 thinking_budget=0은 OCR 한 곳뿐(PR 앞 커밋서 처리), 나머지 미사용
+
+Co-Authored-By: (AI 협업 표기)
+
+deploy/app/docker-compose.yml      | 4 ++--
+docs/ocr-model-benchmark.md        | 7 ++++++-
+ml/chat-insights/reports.py        | 2 +-
+ml/ingredient-ner/gemini_dict.py   | 2 +-
+ml/video-recipe/README.md          | 6 +++---
+ml/video-recipe/extract.py         | 8 ++++----
+ml/video-recipe/pipeline.py        | 4 ++--
+reports/chat/README.md             | 2 +-
+services/chat/app/config.py        | 5 ++++-
+services/chat/tools/build_alias.py | 2 +-
+services/ocr/INTEGRATION.md        | 2 +-
+services/ocr/README.md             | 2 +-
+12 files changed, 27 insertions(+), 19 deletions(-)</pre><h2>왜 한 곳만 고치지 않았나</h2><p>별칭으로 부르던 외부 모델이 상위 세대로 바뀌면서 기존 파라미터가 거부돼 기능이 실패했습니다. 문제가 드러난 곳은 한 기능이었지만, <b>실측으로 고른 모델과 런타임이 실제로 부르는 모델이 어긋날 수 있는 지점</b>은 여러 곳이었습니다. 그 지점을 전부 찾아 <b>6개 컴포넌트</b>를 특정 버전으로 고정했습니다. 벤치마크로 고른 모델이 아닌 것이 돌면 그 벤치마크 결과 자체가 무효가 되기 때문입니다.</p><p class="m">실패를 처음 인지한 주체가 저라는 기록은 없습니다. 제가 한 것은 <b>수정 범위를 어디까지로 할지 정한 판단</b>이고, 변경 반영은 AI 협업으로 진행했습니다.</p></body></html>

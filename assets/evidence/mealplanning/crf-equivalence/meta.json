@@ -1,0 +1,10 @@
+{
+  "id": "crf-equivalence",
+  "title": "CRF 서빙 포맷 등가성 — 실제 재실행",
+  "kind": "re-executed",
+  "source_document": "ml/ingredient-ner (score_gold.py · 등가성 검증 스크립트)",
+  "source_date": "2026-08-31 재실행",
+  "metric": "span P/R/F1 (사람 검수 gold 50건) · 두 경로 예측 일치 건수",
+  "decision": "예측이 완전히 같음을 확인한 뒤에만 서빙 포맷을 바꿈",
+  "sha256_of_published": "8fdf36fcdc22a033"
+}

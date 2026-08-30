@@ -1,0 +1,10 @@
+{
+  "id": "dataflow-sessionid",
+  "title": "학습 label 이 생성되지 않은 경로",
+  "kind": "source-derived",
+  "source_document": "사전 이전 계획 문서 §근본 원인 (내부 경로·테이블명 비공개)",
+  "source_date": "2026-08 초",
+  "metric": "조인 키 NULL 비율 — 조회 44건 전부 NULL",
+  "decision": "모델이 아니라 신호 전달 경로를 먼저 확인해 원인을 특정함",
+  "sha256_of_published": "e4838926614b25ae"
+}

@@ -1,0 +1,120 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>서버리스 판정 5축과 포기한 것 · 실측 근거</title>
+<style>
+  :root{
+    --bg:#fbfbfa; --fg:#1f2328; --muted:#5b636b; --line:#e3e5e8; --card:#fff;
+    --accent:#1f6feb; --warn:#b42318; --ok:#0f7b4f; --hl:#fff6d8;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  /* 기본 = 밝은 테마. 어두운 테마는 우측 상단 버튼으로만 켜진다(OS 설정을 안 따라간다) */
+  :root[data-theme="dark"]{
+    --bg:#14161a;--fg:#e6e8ea;--muted:#9aa3ad;--line:#2b3038;--card:#1b1e24;
+    --accent:#69a8ff;--warn:#ff8a80;--ok:#5ddba4;--hl:#3a3320;
+  }
+  #themeBtn{position:fixed;top:16px;right:16px;z-index:99;
+    background:var(--card);color:var(--fg);border:1px solid var(--line);
+    border-radius:999px;padding:8px 15px;font-size:13px;font-weight:700;cursor:pointer;
+    font-family:inherit;letter-spacing:-0.01em;box-shadow:0 1px 5px rgba(0,0,0,.10);
+    display:flex;align-items:center;gap:7px;line-height:1}
+  #themeBtn:hover{border-color:var(--accent);color:var(--accent)}
+  #themeBtn:active{transform:translateY(1px)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+    line-height:1.75; font-size:16px; letter-spacing:-0.01em;}
+  .wrap{max-width:960px;margin:0 auto;padding:48px 24px 96px}
+  header.top{border-bottom:3px solid var(--fg);padding-bottom:20px;margin-bottom:36px}
+  header.top h1{font-size:30px;line-height:1.35;margin:0 0 10px;letter-spacing:-0.03em}
+  header.top .sub{color:var(--muted);font-size:14px}
+  h2{font-size:22px;margin:52px 0 14px;padding-top:22px;border-top:1px solid var(--line);letter-spacing:-0.02em}
+  h3{font-size:17px;margin:30px 0 10px;letter-spacing:-0.02em}
+  p{margin:12px 0}
+  strong{font-weight:700}
+  code{font-family:var(--mono);font-size:0.88em;background:var(--line);padding:1px 5px;border-radius:4px}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--line);font-weight:700;white-space:nowrap}
+  .tw{overflow-x:auto}
+  blockquote{margin:18px 0;padding:16px 20px;border-left:4px solid var(--accent);
+    background:var(--card);border-radius:0 8px 8px 0}
+  blockquote p:first-child{margin-top:0} blockquote p:last-child{margin-bottom:0}
+  .callout{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:20px 0}
+  .callout.red{border-left:4px solid var(--warn)}
+  .callout.blue{border-left:4px solid var(--accent)}
+  .callout.green{border-left:4px solid var(--ok)}
+  .callout .t{font-weight:700;margin-bottom:6px;display:block}
+  .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:22px 0}
+  .kpi .c{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .kpi .n{font-size:26px;font-weight:800;letter-spacing:-0.03em;line-height:1.2}
+  .kpi .l{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+  .kpi .c.hot .n{color:var(--warn)}
+  .kpi .c.cool .n{color:var(--accent)}
+  .flow{counter-reset:step;margin:24px 0}
+  .flow .s{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 18px 58px;margin:12px 0;position:relative}
+  .flow .s::before{counter-increment:step;content:counter(step);
+    position:absolute;left:18px;top:17px;width:26px;height:26px;border-radius:50%;
+    background:var(--accent);color:#fff;font-weight:800;font-size:14px;
+    display:flex;align-items:center;justify-content:center}
+  .flow .s h4{margin:0 0 8px;font-size:16px}
+  .flow .s .say{color:var(--fg);background:var(--hl);border-radius:8px;padding:12px 14px;
+    font-size:14.5px;line-height:1.85;margin-top:10px}
+  .tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;
+    border:1px solid var(--line);color:var(--muted);margin-right:6px;vertical-align:2px}
+  .tag.m{border-color:var(--ok);color:var(--ok)}
+  .tag.e{border-color:var(--warn);color:var(--warn)}
+  ul,ol{padding-left:22px} li{margin:6px 0}
+  a{color:var(--accent)}
+  footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  @media print{body{background:#fff}.wrap{max-width:none;padding:0}
+    h2{page-break-after:avoid}table{page-break-inside:avoid}#themeBtn{display:none}}
+
+html,body{margin:0;background:#fff}
+body{max-width:960px;margin:0 auto;padding:26px 24px 56px;
+ font-family:-apple-system,'Segoe UI',Roboto,'Malgun Gothic',sans-serif}
+.prov{border:1px solid #e3e5ea;border-radius:10px;padding:14px 16px;margin:0 0 22px;
+ background:#fafbfc;font-size:12.5px;line-height:1.7;color:#454a54}
+.prov b{color:#14161a}
+.prov .kind{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;
+ background:#eef1f6;color:#3d4756;margin-left:6px}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;
+ background:#eef1f6;color:#3d4756;margin-left:6px}
+.warn{border:1px solid #e8c97a;background:#fff9ec;border-radius:10px;padding:13px 16px;
+ margin:0 0 20px;font-size:13px;line-height:1.7;color:#6b4e12}
+h2{font-size:19px;margin:0 0 12px} table{font-size:13px;width:100%}
+.tbl-scroll{overflow-x:auto} p{font-size:13.5px;line-height:1.65}
+a.back{display:inline-block;margin-bottom:18px;font-size:13px;color:#5b6474;text-decoration:none}
+</style></head><body>
+<a class="back" href="../../../../projects/mealplanning/">← Mealplanning 으로</a>
+
+<div class="prov"><b>서버리스 판정 5축과 포기한 것</b><span class="badge">sanitized-source</span><br>
+출처 문서 · 서버리스 판단근거 — 왜 갔고, 무엇을 안 옮겼나 &nbsp;|&nbsp; 측정 시점 · 2026-08-18<br>
+지표 · 이전 후보 12종 → 채택 10 / 제외 2<br>
+이 근거로 내린 판단 · 하나라도 막히면 후보에서 제외하는 기준을 먼저 정하고 적용함<br>
+<span style="color:#7a818d">원문에서 해당 구간만 추출해 공개용으로 정제한 사본입니다. 측정값은 원본과 동일합니다.</span>
+</div>
+<h2>2. 판정 5축 — 하나라도 🔴면 후보에서 제외</h2>
+<div class="tw"><table>
+<tr><th>축</th><th>묻는 것</th><th>🔴 인 경우</th></tr>
+<tr><td>①</td><td>디스크에 <strong>상태</strong>를 들고 있는가</td><td>Kafka PV · ES 인덱스 · DB 데이터</td></tr>
+<tr><td>②</td><td><strong>상시 연결</strong>을 유지하는가</td><td>PGSync 의 replication slot · WebSocket · 스트림 컨슈머</td></tr>
+<tr><td>③</td><td><strong>최소 과금</strong>이 실사용을 초과하는가</td><td>OpenSearch Serverless(최소 OCU 상시) · MSK Serverless(클러스터 시간 과금)</td></tr>
+<tr><td>④</td><td><strong>실행 시간</strong>이 15분을 넘는가</td><td>대량 재색인</td></tr>
+<tr><td>⑤</td><td><strong>저지연 + 무거운 초기화</strong>가 겹치는가</td><td>랭킹 서빙(모델 언피클)</td></tr>
+</table></div>
+<p>🔴 ②가 특히 중요하다 — 기준은 «실행 시간» 이 아니라 <strong>«연결 지속성»</strong> 이다.
+🔴 ③은 가장 놓치기 쉽다 — “서버리스”라는 이름이 붙었다고 요청당 과금인 게 아니다.</p>
+
+<h2>4. 잃는 것을 먼저 인정했다</h2>
+<div class="tw"><table>
+<tr><th>잃는 것</th><th>내용</th></tr>
+<tr><td><strong>GitOps 서사</strong></td><td>ArgoCD · Kustomize · NetworkPolicy · KEDA 는 전부 K8s 전제 — <strong>기술 문제가 아니라 프로젝트 정체성 문제</strong></td></tr>
+<tr><td><strong>락인 방향이 반대</strong></td><td>K8s 매니페스트는 이동 가능 / Step Functions·EventBridge 배선은 이동 불가</td></tr>
+<tr><td><strong>이전이 아니라 리라이트</strong></td><td>Kafka → EventBridge/SQS · PGSync 대체 · LGTM → CloudWatch. 일정 산정 단위가 다르다</td></tr>
+</table></div>
+<p>그리고 <strong>새로 생기는 위험 4가지</strong> — ① 같은 작업의 이중 실행(재시도가 기본) ② 실패가 조용히 사라짐(→ DLQ 전부 부착)
+③ 스케줄 미실행은 에러가 안 남(→ «돌았어야 할 시간» 알람) ④ 파드 개수라는 자연 상한이 사라져 외부 API 쿼터에 먼저 걸림(→ 동시성 명시 제한).</p>
+
+
+</body></html>
