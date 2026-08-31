@@ -131,8 +131,8 @@
         <details class="cat" id="cat-decisions">
           <summary>
             <span class="cat-no">B</span>
-            <span class="cat-copy"><strong>결정</strong><small>무엇을 고르고, 무엇을 켜지 않기로 했는지</small></span>
-            <span class="cat-count">3개 항목</span>
+            <span class="cat-copy"><strong>결정</strong><small>어떤 기준으로 기술과 모델을 선택했는지</small></span>
+            <span class="cat-count">2개 항목</span>
           </summary>
           <div class="cat-body">
 
@@ -162,34 +162,8 @@
               </div>
             </details>
 
-            <details class="case" id="b2-ranking">
-              <summary><span class="case-id">B-2</span><span class="case-copy"><strong>왜 랭킹을 켜지 않았나</strong><small>지표는 좋게 나왔지만 배포하지 않기로 했습니다</small></span></summary>
-              <div class="case-body">
-                <div class="step"><h4>문제 상황</h4><p>개인화 랭킹 모델의 학습·평가·서빙 경로를 만들어 두고, 켜기만 하면 되는 상태였습니다.</p></div>
-                <div class="step"><h4>확인 및 분석</h4><p>합성 라벨로 끝까지 돌려 지표를 냈습니다. 규칙 기반보다 확실히 높게 나왔습니다. 평가 분할은 행이 아니라 <b>그룹 경계</b>로 잡았습니다 — 같은 세션이 학습과 평가에 걸쳐 들어가면 점수가 부풀기 때문입니다.</p></div>
-                <div class="step"><h4>가설 및 선택지</h4><ul><li>켠다 — 숫자가 좋으니 개인화가 될 것이다.</li><li>켜지 않고 규칙 기반을 유지한다.</li><li>일부 사용자에게만 켠다.</li></ul></div>
-                <div class="step"><h4>수행 및 결정</h4><p><b>켜지 않기로 했습니다.</b> 근거는 셋입니다.</p>
-                  <ul>
-                    <li>실사용 라벨로 학습한 것이 아니어서, 재고·소비기한·예산을 보는 규칙 기반 순서를 <b>근거 없는 재정렬로 덮게</b> 됩니다.</li>
-                    <li>규칙 기반 추천은 당시 정상 동작했습니다. 계정별로 결과가 다르게 나오는 것을 직접 확인했습니다.</li>
-                    <li><b>되돌려도 흔적이 남습니다.</b> 켜져 있는 동안 사용자가 본 잘못된 순서가 노출 이벤트로 쌓이고, 그 데이터로 다음 모델을 학습하게 됩니다.</li>
-                  </ul>
-                </div>
-                <div class="step"><h4>결과</h4><p>규칙 기반 추천을 유지했습니다. 학습 파이프라인은 배관이 끊기지 않았다는 것을 확인한 자산으로 보존했습니다.</p></div>
-                <div class="limit"><b>한계 및 고려사항</b> — 개인화 성과를 숫자로 보여줄 수 없게 됐습니다. 실사용 라벨이 쌓이기 전까지 개인화 효과는 <b>검증되지 않은 상태</b>입니다. 아래 지표는 성과가 아니라 <b>판단을 설명하기 위한 대조 근거</b>입니다.</div>
-                <div class="step"><h4>배운 점 / 다음 판단</h4><p>기능을 되돌려도 이미 생성된 노출 데이터는 남기 때문에, 배포 여부를 판단할 때 데이터 영향까지 함께 확인해야 한다는 점을 배웠습니다.</p></div>
-                <div class="ownership"><b>기여 범위</b> — 미배포 결정·평가 분할 기준·해석: <b>본인 판단</b> · 합성 라벨 생성·학습 스크립트: AI 도구 활용</div>
-                <div class="ev">
-                  <div class="ev-head"><strong>랭킹을 켜지 않은 판단의 대조 근거</strong><span class="ev-kind" data-k="derived-excerpt">원본 일부 발췌</span><span class="ev-date">2026-07-20</span></div>
-                  <div class="ev-body"><b>합성 라벨 · 오프라인 검증 결과입니다.</b> 실사용자 데이터가 아니며 개인화가 개선된다는 증거가 아닙니다. 원본 리포트는 공개하지 않고, 판단을 설명하는 데 필요한 수치만 발췌했습니다.
-                    <span class="ev-metric">지표 · NDCG@5 / MAP@5 / MRR — 오프라인 합성 라벨 기준</span>
-                    <a class="ev-open" href="../../assets/evidence/mealplanning/ranking-hold/source.html">발췌 근거 보기 →</a></div>
-                </div>
-              </div>
-            </details>
-
             <details class="case" id="b3-ocr">
-              <summary><span class="case-id">B-3</span><span class="case-copy"><strong>영수증 OCR은 어떤 기준으로 골랐나</strong><small>실물 13장 · 5개 방식 · 성공 기준을 먼저 정의했습니다</small></span></summary>
+              <summary><span class="case-id">B-2</span><span class="case-copy"><strong>영수증 OCR은 어떤 기준으로 골랐나</strong><small>실물 13장 · 5개 방식 · 성공 기준을 먼저 정의했습니다</small></span></summary>
               <div class="case-body">
                 <div class="step"><h4>문제 상황</h4><p>영수증을 찍어 품목과 금액을 자동으로 넣으려면 감열지 인쇄와 구겨진 종이에서도 구조화된 결과가 나와야 했습니다.</p></div>
                 <div class="step"><h4>확인 및 분석</h4><p>실물 영수증 13장을 <b>같은 조건</b>에서 5개 방식에 통과시켰습니다. 다운스케일, 재시도, 타임아웃을 모두 고정했습니다.</p></div>
@@ -320,7 +294,7 @@
                 <div class="step"><h4>가설 및 선택지</h4><ul><li>모델 문제 — 학습을 다시 돌린다.</li><li>SQL 조인 조건 문제.</li><li>값이 애초에 전달되지 않는다.</li></ul></div>
                 <div class="step"><h4>수행 및 결정</h4><p>세 번째로 좁히고 값을 따라 올라갔습니다. Frontend의 세션 생성 → API 요청 본문 → 이벤트 저장 → 학습 데이터 순서로 각 구간에서 값이 실려 있는지 확인했고, 요청에 필드가 실리지 않는 지점을 찾아 전달 경로를 고쳤습니다.</p></div>
                 <div class="step"><h4>결과</h4><p>끊겨 있던 노출과 행동의 연결이 복구돼, 이후 쌓이는 데이터부터는 label이 만들어질 수 있는 상태가 됐습니다.</p></div>
-                <div class="limit"><b>한계 및 고려사항</b> — 이미 지나간 기간의 label은 되살릴 수 없습니다. 그래서 개인화 모델 학습은 데이터가 다시 쌓이기를 기다려야 했고, 이것이 <b>B-2에서 랭킹을 켜지 않기로 한 판단</b>과 직접 이어집니다.<br>규모를 주장하는 사례가 아닙니다. 조회한 44건이 전부 비어 있었다는 사실과 그 원인 경로만을 근거로 씁니다.</div>
+                <div class="limit"><b>한계 및 고려사항</b> — 이미 지나간 기간의 label은 복구할 수 없어, 이후 데이터가 다시 쌓이는지 확인해야 했습니다.<br>규모를 주장하는 사례가 아닙니다. 조회한 44건이 전부 비어 있었다는 사실과 그 원인 경로만을 근거로 씁니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>«어느 기술이 고장났나»보다 <b>«신호가 어느 구간에서 끊겼나»</b>를 먼저 보게 됐습니다. AI 기능의 이상도 모델 내부 문제로 단정하면 원인을 놓칩니다.</p></div>
                 <div class="ownership"><b>기여 범위</b> — 발견·원인 분석·수정: <b>본인</b></div>
                 <div class="ev">
