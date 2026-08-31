@@ -726,3 +726,5 @@
 
 .ev--sub { background: var(--surface-soft); }
 .ev--sub .ev-head { background: transparent; }
+
+.ai-note { margin: 10px 0 0; color: var(--soft); font-size: 13px; line-height: 1.7; }
