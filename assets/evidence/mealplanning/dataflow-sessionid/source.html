@@ -15,8 +15,8 @@ pre{background:#1e2230;color:#e6e9ef;border-radius:10px;padding:16px 18px;font-s
 pre .c{color:#8b94a6} pre .g{color:#7ee0a5}
 p{font-size:13.5px;line-height:1.65} .m{color:#5b6474;font-size:12.5px}
 a.back{display:inline-block;margin-bottom:18px;font-size:13px;color:#5b6474;text-decoration:none}</style></head><body>
-<a class="back" href="../../../../projects/mealplanning/">← Mealplanning 으로</a>
+<a class="back" href="../../../../projects/mealplanning/">← Mealplanning 페이지로</a>
 <div class="prov"><b>학습 label 이 생성되지 않은 경로</b><span class="badge">근거 기반 정리</span><br>
 출처 · 사전 이전 계획 문서 §근본 원인 (내부 경로·테이블명 비공개) &nbsp;|&nbsp; 시점 · 2026-08 초<br>지표 · 조인 키 NULL 비율 — 조회 44건 전부 NULL<br>
 이 근거로 내린 판단 · 모델이 아니라 신호 전달 경로를 먼저 확인해 원인을 특정함</div>
-<h2>값을 따라간 순서</h2><table><tr><th>구간</th><th>확인한 것</th><th>결과</th></tr><tr><td>학습 SQL</td><td>노출 이벤트와 행동 이벤트를 잇는 join 조건</td><td>양쪽 키가 맞아야 label 이 생성됨</td></tr><tr><td>저장된 이벤트</td><td>조인 키 값 실제 조회</td><td><b class="no">조회한 44건이 전부 비어 있음</b></td></tr><tr><td>API 요청</td><td>요청 본문에 키가 실려 오는지</td><td>필드 자체가 전달되지 않음</td></tr><tr><td>Frontend</td><td>세션 값 생성·전달 지점</td><td>생성은 되나 요청에 싣지 않음</td></tr></table><h2>왜 모델부터 보지 않았나</h2><p>label 이 0건이면 모델을 다시 학습해도 결과가 같습니다. 그래서 <b>모델이 아니라 신호가 어디서 끊겼는지</b>를 먼저 봤습니다. 학습 SQL 의 조인 조건과 실제 저장된 값을 대조하니 한쪽이 전부 비어 있었고, 거기서부터 값을 거슬러 올라가 전달이 끊긴 지점을 찾았습니다.</p><p class="m">규모를 주장하는 자료가 아닙니다. 조회한 44건이 전부 비어 있었다는 사실과 그 원인 경로만을 근거로 씁니다.</p></body></html>
+<h2>값을 따라간 순서</h2><table><tr><th>구간</th><th>확인한 것</th><th>결과</th></tr><tr><td>학습 SQL</td><td>노출 이벤트와 행동 이벤트를 잇는 join 조건</td><td>양쪽 키가 맞아야 label 이 생성됨</td></tr><tr><td>저장된 이벤트</td><td>조인 키 값 실제 조회</td><td><b class="no">조회한 44건이 전부 비어 있음</b></td></tr><tr><td>API 요청</td><td>요청 본문에 키가 실려 오는지</td><td>필드 자체가 전달되지 않음</td></tr><tr><td>Frontend</td><td>세션 값 생성·전달 지점</td><td>생성은 되나 요청에 싣지 않음</td></tr></table><h2>왜 모델부터 보지 않았나</h2><p>label 이 0건이면 모델을 다시 학습해도 결과가 같습니다. 그래서 모델을 고치기 전에 <b>값이 어느 구간에서 끊겼는지</b>를 먼저 확인했습니다. 학습 SQL 의 조인 조건과 실제 저장된 값을 대조하니 한쪽이 전부 비어 있었고, 거기서부터 값을 거슬러 올라가 전달이 끊긴 지점을 찾았습니다.</p><p class="m">규모를 주장하는 자료가 아닙니다. 조회한 44건이 전부 비어 있었다는 사실과 그 원인 경로만을 근거로 씁니다.</p></body></html>

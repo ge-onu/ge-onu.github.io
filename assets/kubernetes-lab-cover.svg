@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
   <title id="title">Kubernetes Multi-node Lab cover</title>
-  <desc id="desc">A simple portfolio cover for a Kubernetes multi-node infrastructure lab.</desc>
+  <desc id="desc">Kubernetes 멀티노드 실습 커버 이미지</desc>
   <rect width="1200" height="675" fill="#f5f8fe"/>
   <rect x="70" y="70" width="1060" height="535" rx="28" fill="#ffffff" stroke="#c9d7ef" stroke-width="3"/>
 
@@ -15,10 +15,10 @@
   </g>
 
   <g font-family="Inter, Pretendard, Arial, sans-serif" fill="#17264A">
-    <text x="355" y="205" font-size="28" font-weight="700" fill="#326CE5">INFRASTRUCTURE LAB</text>
+    <text x="355" y="205" font-size="28" font-weight="700" fill="#326CE5">KUBERNETES 실습</text>
     <text x="355" y="275" font-size="54" font-weight="750">Kubernetes Multi-node Lab</text>
     <text x="355" y="330" font-size="25" fill="#66707A">kubeadm 기반 클러스터를 직접 구성하고</text>
-    <text x="355" y="368" font-size="25" fill="#66707A">Network · Storage · RBAC · Scaling을 점검했습니다.</text>
+    <text x="355" y="368" font-size="25" fill="#66707A">Network · Storage · RBAC · Scaling을 구성하고 확인했습니다.</text>
   </g>
 
   <g font-family="Inter, Pretendard, Arial, sans-serif" font-size="19" font-weight="700">
@@ -35,5 +35,5 @@
     <text x="897" y="462" text-anchor="middle" fill="#285BBD">PV / PVC</text>
   </g>
 
-  <text x="355" y="535" font-family="Inter, Pretendard, Arial, sans-serif" font-size="21" fill="#8C959F">Build · Observe · Troubleshoot</text>
+  <text x="355" y="535" font-family="Inter, Pretendard, Arial, sans-serif" font-size="21" fill="#8C959F">구성 · 확인 · 문제 해결</text>
 </svg>
