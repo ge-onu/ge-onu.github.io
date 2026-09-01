@@ -18,6 +18,7 @@
       </a>
       <nav class="nav" aria-label="주요 메뉴">
         <a href="#work">Projects</a>
+        <a href="#incidents">Incidents</a>
         <a href="#focus">Skills</a>
         <a class="github-button github-button--small" href="https://github.com/ge-onu" target="_blank" rel="noreferrer" aria-label="GitHub 프로필 열기">
           <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.3 11.3 0 0 0-3.6 22c.57.1.77-.25.77-.55v-2.12c-3.15.68-3.82-1.34-3.82-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16A10.9 10.9 0 0 1 12 7.08c.97 0 1.94.13 2.85.38 2.17-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.03.77 2.08v3.14c0 .3.21.66.78.55A11.3 11.3 0 0 0 12 .7Z"/></svg>
@@ -105,10 +106,189 @@
         </div>
       </section>
 
+      <section class="section" id="incidents" aria-labelledby="incidents-title">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">02 / Incident &amp; Runbook</p>
+            <h2 id="incidents-title">문제 기록</h2>
+          </div>
+          <p class="section-description">크고 작은 문제를 확인한 순서대로 남긴 기록입니다. 카드를 열면 무엇을 보고 무엇을 바꿨는지 확인할 수 있습니다.</p>
+        </div>
+
+        <div class="incident-grid">
+
+          <details class="incident" id="inc-https">
+            <summary>
+              <span class="incident-thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M7 10V7.5a5 5 0 0 1 10 0V10M5.5 10h13v9h-13zM12 13.6v2"/></svg></span>
+              <span class="incident-copy">
+                <span class="incident-head"><span class="incident-badge" data-kind="runbook">Runbook</span><span class="incident-project">geonu.site</span></span>
+                <strong>HTTPS 인증서가 발급되지 않아 카카오톡에서 링크가 열리지 않던 문제</strong>
+                <small>DNS는 정상이었고 GitHub이 커스텀 도메인 인증서를 발급하지 않은 상태였습니다.</small>
+                <span class="incident-tags"><span>GitHub Pages</span><span>DNS</span><span>TLS</span><span>Let's Encrypt</span></span>
+              </span>
+            </summary>
+            <div class="incident-body">
+              <div class="istep"><h4>문제</h4><p>카카오톡에서 <code>geonu.site</code> 링크를 누르면 보안상의 이유로 열리지 않았습니다. 데스크톱 브라우저에서는 경고를 넘기면 접속돼서 바로 드러나지 않았습니다.</p></div>
+              <div class="istep"><h4>확인 순서</h4>
+                <ol>
+                  <li>DNS부터 확인했습니다. apex A 레코드는 GitHub Pages IP 4개(<code>185.199.108~111.153</code>)를 정확히 가리켰고, <code>www</code> CNAME도 정상이었습니다. 리졸버 두 곳에서 같은 값이 나왔습니다.</li>
+                  <li>CAA 레코드가 발급을 막는 경우가 있어 조회했지만 <b>레코드 자체가 없었습니다</b>. apex에 CNAME이 잘못 들어간 것도 아니었습니다.</li>
+                  <li>인증서를 직접 받아봤습니다. <code>openssl s_client</code>로 확인한 subject가 <code>CN=*.github.io</code>였고, SAN 목록에 <b><code>geonu.site</code>가 없었습니다.</b></li>
+                  <li>GitHub Pages API를 조회하니 <code>https_certificate</code> 객체 자체가 없었습니다.</li>
+                </ol>
+              </div>
+              <div class="istep"><h4>원인</h4><p>DNS 문제가 아니라 GitHub 쪽에서 <b>커스텀 도메인 인증서 발급이 끝나지 않은 상태</b>였습니다. 그래서 기본 와일드카드 인증서가 그대로 제시됐고, 호스트명이 맞지 않아 TLS 연결이 실패했습니다. 카카오톡 인앱 브라우저는 이 경우 우회 선택지 없이 차단합니다.</p></div>
+              <div class="istep"><h4>조치</h4><p>DNS는 손대지 않았습니다. GitHub Pages 설정에서 커스텀 도메인을 지웠다가 다시 등록해 인증서 발급을 새로 걸었고, 발급이 끝난 뒤 <code>Enforce HTTPS</code>를 켰습니다.</p></div>
+              <div class="istep"><h4>결과</h4><p><code>https://geonu.site</code>가 <b>HTTP/2 200</b>으로 응답하고, Pages API의 인증서 상태가 <b>approved</b>, <code>https_enforced</code>가 <b>true</b>로 바뀌었습니다. 저장소 전체에 <code>http://</code> 참조는 0건이라 혼합 콘텐츠 문제는 없었습니다.</p></div>
+              <div class="ilimit"><b>다시 겪는다면</b> — 브라우저가 열린다고 HTTPS가 정상인 것은 아닙니다. 인증서의 SAN에 도메인이 들어 있는지부터 보면 DNS를 뒤지는 시간을 아낄 수 있습니다.</div>
+              <div class="iown"><b>기여 범위</b> — 진단·원인 판단·조치: 본인</div>
+            </div>
+          </details>
+
+          <details class="incident" id="inc-sessionid">
+            <summary>
+              <span class="incident-thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 6.5h7M4 12h16M4 17.5h11M17.5 4.5v5M15 7h5"/></svg></span>
+              <span class="incident-copy">
+                <span class="incident-head"><span class="incident-badge" data-kind="incident">Incident</span><span class="incident-project">Mealplanning</span></span>
+                <strong>추천 노출·행동 이벤트의 session_id가 전달되지 않아 학습 label이 0건이던 문제</strong>
+                <small>조회한 44건이 전부 비어 있었고, 값을 따라가 전달이 끊긴 지점을 찾았습니다.</small>
+                <span class="incident-tags"><span>PostgreSQL</span><span>SQL</span><span>Frontend</span><span>데이터 흐름</span></span>
+              </span>
+            </summary>
+            <div class="incident-body">
+              <div class="istep"><h4>문제</h4><p>추천이 화면에 노출된 기록은 쌓이는데, 개인화 랭킹 학습에 필요한 긍정 label이 한 건도 만들어지지 않았습니다.</p></div>
+              <div class="istep"><h4>확인 순서</h4>
+                <ol>
+                  <li>모델을 다시 학습시키기 전에 학습 SQL의 join 조건과 실제 저장된 이벤트를 대조했습니다.</li>
+                  <li>노출과 행동을 잇는 키 값을 조회하니 <b>44건이 전부 비어 있었습니다.</b> label이 0건이면 재학습해도 결과가 같으므로 모델이 아니라 값의 경로를 봤습니다.</li>
+                  <li>Frontend의 세션 생성 → API 요청 본문 → 이벤트 저장 → 학습 데이터 순서로 각 구간에서 값이 실려 있는지 확인했습니다.</li>
+                </ol>
+              </div>
+              <div class="istep"><h4>원인</h4><p>백엔드 요청 모델에는 필드가 있었지만 <b>Frontend가 요청 본문에 값을 싣지 않아</b> 저장 시점부터 비어 있었습니다. 학습 SQL은 그 키로 조인하므로 한쪽이 비면 영원히 매칭되지 않습니다.</p></div>
+              <div class="istep"><h4>조치</h4><p>전달 경로를 수정하고, 수정 후 이벤트가 실제로 값을 갖고 저장되는지와 학습 데이터가 연결되는지를 다시 확인했습니다.</p></div>
+              <div class="istep"><h4>결과</h4><p>끊겨 있던 노출과 행동의 연결이 복구돼, 이후 쌓이는 데이터부터는 label이 생성될 수 있는 상태가 됐습니다.</p></div>
+              <div class="ilimit"><b>한계</b> — 이미 지나간 기간의 label은 복구할 수 없어 데이터가 다시 쌓이기를 기다려야 했습니다. 규모를 주장하는 사례가 아니라, 조회한 44건이 전부 비어 있었다는 사실과 원인 경로만을 근거로 씁니다.</div>
+              <div class="iown"><b>기여 범위</b> — 발견·원인 분석·수정: 본인</div>
+              <a class="ievidence" href="assets/evidence/mealplanning/dataflow-sessionid/source.html">확인 경로 정리 보기 →</a>
+            </div>
+          </details>
+
+          <details class="incident" id="inc-guardrail">
+            <summary>
+              <span class="incident-thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M12 3.6 19 6v6.2c0 3.6-2.8 6.6-7 8.2-4.2-1.6-7-4.6-7-8.2V6zM9 12l2.2 2.2L15.4 10"/></svg></span>
+              <span class="incident-copy">
+                <span class="incident-head"><span class="incident-badge" data-kind="decision">Decision Note</span><span class="incident-project">Mealplanning</span></span>
+                <strong>정상 응답이 검증 단계에서 막히던 문제</strong>
+                <small>같은 275건을 다시 재서 통과 건수를 166건에서 247건으로 늘렸습니다.</small>
+                <span class="incident-tags"><span>LLM</span><span>Guardrail</span><span>프롬프트</span><span>재측정</span></span>
+              </span>
+            </summary>
+            <div class="incident-body">
+              <div class="istep"><h4>문제</h4><p>응답 내용은 문제가 없는데 검증 단계에서 막히는 경우가 반복됐습니다. 막히면 템플릿 답변으로 대체되므로 사용자가 보는 답의 품질이 떨어졌습니다.</p></div>
+              <div class="istep"><h4>확인 순서</h4>
+                <ol>
+                  <li>모델을 바꾸자는 판단으로 가기 전에 실패한 케이스를 모아 다시 봤습니다.</li>
+                  <li>상당수가 환각이 아니라 <b>사용자가 질문에 쓴 재료와 금액을 그대로 되풀이한 것</b>이었고, 검증 로직이 그것을 근거 없는 내용으로 오판하고 있었습니다.</li>
+                </ol>
+              </div>
+              <div class="istep"><h4>원인</h4><p>근거로 인정하는 범위에 <b>사용자 질문이 빠져 있었습니다.</b> 「8천원」 같은 한글 수사 표현도 숫자와 이어지지 않았습니다.</p></div>
+              <div class="istep"><h4>조치</h4><p>근거 문자열에 사용자 질문 원문과 한글 수사를 숫자로 편 정규화 결과를 함께 넣도록 처리 방식을 바꿨습니다. 모델은 교체하지 않았습니다.</p></div>
+              <div class="istep"><h4>결과</h4><p>같은 275건 평가 세트를 다시 돌려 통과가 <b>166건에서 247건</b>으로 늘었습니다(약 60% → 90%). 문자열 구성만 바꾼 변경이라 <b>LLM 호출은 늘지 않았습니다.</b></p></div>
+              <div class="ilimit"><b>한계</b> — 근거로 인정하는 범위를 넓힌 만큼, 사용자가 잘못된 전제를 질문에 담으면 그것이 근거로 통과할 여지가 생깁니다. 수정 후에도 남은 실패는 모르는 것을 지어내는 유형에 몰려 있었습니다.</div>
+              <div class="iown"><b>기여 범위</b> — 오탐 의심 제기·재측정 요구·채택: 본인 판단</div>
+              <a class="ievidence" href="assets/evidence/mealplanning/guardrail/source.html">실측 문서 보기 →</a>
+              <a class="ievidence" href="assets/evidence/mealplanning/guardrail/full.html">기록 전문 보기 →</a>
+            </div>
+          </details>
+
+          <details class="incident" id="inc-registry">
+            <summary>
+              <span class="incident-thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 7.5 12 4l8 3.5-8 3.5zM4 12l8 3.5 8-3.5M4 16.5 12 20l8-3.5"/></svg></span>
+              <span class="incident-copy">
+                <span class="incident-head"><span class="incident-badge" data-kind="incident">Incident</span><span class="incident-project">프로젝트 종료 후 점검</span></span>
+                <strong>파드는 Running인데 새 배포만 실패하던 상태</strong>
+                <small>주기적 점검이 실패 신호를 내고 있었지만 그 실패에는 알림이 없었습니다.</small>
+                <span class="incident-tags"><span>Kubernetes</span><span>Registry</span><span>배포</span><span>관측</span></span>
+              </span>
+            </summary>
+            <div class="incident-body">
+              <div class="ipost"><b>프로젝트 종료 후 점검</b> — 프로젝트가 끝난 뒤 실행 환경을 살펴보며 확인한 사례입니다. 프로젝트 기간 중 대응한 장애가 아닙니다.</div>
+              <div class="istep"><h4>문제</h4><p>워크로드는 정상으로 보이는데 새 배포만 실패했습니다. 파드 상태와 재시작 횟수만 보면 이상이 없었습니다.</p></div>
+              <div class="istep"><h4>확인 순서</h4>
+                <ol>
+                  <li>기존 파드가 왜 멀쩡한지부터 봤습니다. 노드에 남아 있던 이미지로 계속 실행되고 있었고 재시작도 0이었습니다.</li>
+                  <li>실패가 언제 드러나는지 좁혔습니다. <b>레지스트리 접근이 필요한 순간</b>, 즉 새 배포나 재스케줄링에서만 실패했습니다.</li>
+                  <li>주기적으로 도는 점검이 이미 실패 신호를 만들고 있었는데, <b>그 실패 자체에는 알림이 걸려 있지 않아</b> 아무도 모르고 있었습니다.</li>
+                </ol>
+              </div>
+              <div class="istep"><h4>원인</h4><p>레지스트리에 닿지 못하는 상태였고, 캐시된 이미지 덕분에 겉으로는 정상처럼 보였습니다.</p></div>
+              <div class="istep"><h4>결과 / 배운 점</h4><p>파드가 Running인 것과 새 배포가 가능한 것은 다릅니다. 현재 상태가 정상인 것과 다음 변경을 수행할 수 있는 것은 별개이고, 둘 다 운영 상태의 일부입니다. 실패를 만들어 내는 점검이 있어도 그 실패에 알림이 없으면 없는 것과 같습니다.</p></div>
+              <div class="iown"><b>기여 범위</b> — 종료 후 개인 점검: 본인 · 클러스터 구축·운영: 팀</div>
+              <a class="ievidence" href="projects/mealplanning/#d3-runtime">Mealplanning 상세에서 보기 →</a>
+            </div>
+          </details>
+
+          <details class="incident" id="inc-crawler">
+            <summary>
+              <span class="incident-thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M12 4.2a7.8 7.8 0 1 0 7.8 7.8M12 8.4v4.2l2.8 1.7M17.4 4.2v4.6M15.1 6.5h4.6"/></svg></span>
+              <span class="incident-copy">
+                <span class="incident-head"><span class="incident-badge" data-kind="incident">Incident</span><span class="incident-project">Mealplanning</span></span>
+                <strong>한 카테고리만 매일 새벽에 실패하는데 작업은 성공으로 기록되던 문제</strong>
+                <small>15.4초를 성분으로 나눠 재고, 로컬에서 35회 측정해 대조했습니다.</small>
+                <span class="incident-tags"><span>크롤러</span><span>Playwright</span><span>관측 공백</span><span>로그</span></span>
+              </span>
+            </summary>
+            <div class="incident-body">
+              <div class="istep"><h4>문제</h4><p>매일 새벽 3시 30분에 도는 수집 작업에서 <b>첫 카테고리 하나만</b> 사흘 연속 아무것도 못 가져왔습니다. 그런데 작업 자체는 실패 건수 0으로 기록돼 성공처럼 보였습니다.</p></div>
+              <div class="istep"><h4>확인 순서</h4>
+                <ol>
+                  <li>실패한 실행의 소요 시간 15.4초를 성분으로 나눴습니다. 대기 루프가 구조상 최소 15초를 차지하므로, 페이지를 여는 데 쓴 시간은 아무리 커도 <b>0.4초 미만</b>이었습니다.</li>
+                  <li>정상일 때와 비교했습니다. 같은 클러스터의 정상 파드는 0.62초, 프로덕션과 같은 브라우저로 <b>로컬에서 35회</b> 재보니 전부 0.49~0.95초였습니다. 페이지가 무거워 그 아래로 내려갈 수 없는 구조였습니다.</li>
+                  <li>총 소요가 정상 셸의 대기 루프 단독보다도 짧았습니다. 매 폴링마다 도는 요소 개수 조회가 훨씬 쌌다는 뜻이고, 곧 <b>받은 문서가 작았다</b>는 뜻입니다.</li>
+                </ol>
+              </div>
+              <div class="istep"><h4>원인</h4><p>그 시각 첫 요청이 받은 것은 평소의 카테고리 페이지가 아니라 <b>앱 번들이 붙지 않은 작은 문서</b>였습니다. 차단·오류 페이지가 전형적으로 그 모양입니다. 네트워크 지연이나 파드 축출, DNS 재시작 같은 후보는 근거가 맞지 않아 기각 목록에 남겼습니다.</p></div>
+              <div class="istep"><h4>조치</h4><p>원인 자체는 외부 요인이지만, <b>그것을 가린 것은 코드였습니다.</b> 페이지 이동의 응답 객체를 버려서 HTTP 상태코드가 로그에 남지 않았고(브라우저 자동화는 4xx·5xx에 예외를 던지지 않습니다), 렌더 대기 함수의 반환값도 버려서 「한 장도 렌더되지 않음」과 「렌더는 됐지만 파싱이 0」이 구분되지 않았습니다. 이 관측 공백을 조사 기록으로 남겼습니다.</p></div>
+              <div class="istep"><h4>결과 / 배운 점</h4><p>부분 실패를 성공으로 적으면 다음 사람이 같은 조사를 처음부터 다시 합니다. 실패 건수만 보지 않고 <b>기대 수량 대비 실제 수집량</b>을 함께 보는 편이 안전합니다. 조사 내내 클러스터는 읽기만 했고 변경은 로컬에서만 재현했습니다.</p></div>
+              <div class="ilimit"><b>한계</b> — 차단 페이지 정황까지 좁혔지만 외부 응답 본문을 직접 확보하지는 못해, 원인을 단정하지 않고 정황과 기각 근거를 함께 적었습니다.</div>
+              <div class="iown"><b>기여 범위</b> — 조사·원인 좁히기·기록: 본인 · 크롤러 운영: 팀</div>
+            </div>
+          </details>
+
+          <details class="incident" id="inc-ocr">
+            <summary>
+              <span class="incident-thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M6.5 3.8h11v16.4l-2.7-1.7-2.8 1.7-2.8-1.7-2.7 1.7zM9.4 8h5.2M9.4 12h5.2"/></svg></span>
+              <span class="incident-copy">
+                <span class="incident-head"><span class="incident-badge" data-kind="decision">Decision Note</span><span class="incident-project">Mealplanning</span></span>
+                <strong>영수증 OCR 방식을 고를 때 성공 기준을 먼저 정한 이유</strong>
+                <small>실물 13장을 5개 방식에 같은 조건으로 통과시키고, 지표의 한계를 함께 적었습니다.</small>
+                <span class="incident-tags"><span>OCR</span><span>Vision</span><span>비용</span><span>지표 정의</span></span>
+              </span>
+            </summary>
+            <div class="incident-body">
+              <div class="istep"><h4>문제</h4><p>영수증을 찍어 품목과 금액을 자동으로 넣으려면 감열지 인쇄와 구겨진 종이에서도 구조화된 결과가 나와야 했습니다. 어떤 방식이 맞는지 미리 알 수 없었습니다.</p></div>
+              <div class="istep"><h4>확인 순서</h4>
+                <ol>
+                  <li>무엇을 성공으로 셀지부터 정했습니다. <b>합계 정합</b> — 추출한 품목 금액의 합이 영수증 총액과 맞으면 성공입니다.</li>
+                  <li>같은 지표의 한계도 같이 적었습니다. 품목이 한두 개인 영수증은 쉽게 통과하고, 총액을 못 읽으면 품목이 맞아도 실패로 처리됩니다. 즉 <b>절대 수치는 무르고 방식 간 상대 순위만 견고</b>합니다.</li>
+                  <li>실물 13장을 5개 방식에 통과시켰습니다. 다운스케일, 재시도, 타임아웃을 모두 고정했습니다.</li>
+                </ol>
+              </div>
+              <div class="istep"><h4>결과</h4><p>경량 비전 모델이 <b>합계 정합 기준 13장 중 12장</b>이었고 실행 오류가 없었습니다. 추론 옵션을 켠 상위 모델은 더 낫지 않으면서 비용이 수십 배였고, 로컬 엔진은 구조화 출력 자체가 나오지 않았습니다.</p></div>
+              <div class="istep"><h4>조치</h4><p>경량 비전 모델을 채택하고, 사용자가 결과를 확인·수정하는 단계를 앞에 둬서 인식 오류를 사람이 보정할 수 있게 했습니다.</p></div>
+              <div class="ilimit"><b>한계</b> — 13장은 작은 표본이고 품목명과 가격의 개별 정오는 따로 검증하지 않았습니다. 그래서 「인식 정확도」라고 쓰지 않고 합계 정합 기준이라고 적습니다. 영수증 원본은 개인정보라 로컬에만 두고 Git에 올리지 않았습니다.</p></div>
+              <div class="iown"><b>기여 범위</b> — 비교 착수·성공 기준 정의·한계 명시·채택: 본인 판단</div>
+              <a class="ievidence" href="assets/evidence/mealplanning/ocr-comparison/source.html">비교 결과 보기 →</a>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
       <section class="section" id="focus" aria-labelledby="focus-title">
         <div class="section-head compact-head">
           <div>
-            <p class="section-kicker">02 / Skills</p>
+            <p class="section-kicker">03 / Skills</p>
             <h2 id="focus-title">주요 기술 영역</h2>
           </div>
         </div>
@@ -133,5 +313,6 @@
       </div>
     </footer>
   </div>
+  <script src="project-tabs.js?v=20260902-1" defer></script>
 </body>
 </html>

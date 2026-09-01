@@ -749,3 +749,57 @@
   .github-button--small,
   .icon-button--small { min-height: 44px; padding-inline: 12px; }
 }
+
+/* ── Incident / Runbook — 프로젝트 카드보다 작은 compact card ─────────── */
+.incident-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+
+.incident { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.incident > summary { list-style: none; cursor: pointer; display: flex; gap: 12px; padding: 15px 16px; align-items: flex-start; }
+.incident > summary::-webkit-details-marker { display: none; }
+.incident > summary:hover { background: var(--surface-soft); }
+.incident:focus-within { border-color: var(--line-strong); }
+.incident[open] > summary { border-bottom: 1px solid var(--line); }
+.incident > summary::after { content: "+"; margin-left: auto; font-size: 17px; line-height: 1; color: var(--muted); flex: none; }
+.incident[open] > summary::after { content: "−"; }
+
+.incident-thumb { flex: none; display: grid; place-items: center; width: 38px; height: 38px;
+  border: 1px solid var(--line); border-radius: 9px; background: var(--surface-soft); color: var(--text); }
+.incident-thumb svg { display: block; width: 20px; height: 20px; }
+
+.incident-copy { min-width: 0; }
+.incident-head { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; flex-wrap: wrap; }
+.incident-badge { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; padding: 2px 7px; border-radius: 4px; }
+.incident-badge[data-kind="incident"] { background: #fdecea; color: #a3301f; }
+.incident-badge[data-kind="runbook"]  { background: #e8f1fb; color: #1f5497; }
+.incident-badge[data-kind="decision"] { background: #eef1f6; color: #454f5e; }
+.incident-project { font-size: 11.5px; color: var(--muted); }
+.incident-copy strong { display: block; font-size: 14.5px; line-height: 1.5; letter-spacing: -.01em; }
+.incident-copy small { display: block; margin-top: 5px; font-size: 12.5px; line-height: 1.65; color: var(--muted); }
+.incident-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+.incident-tags span { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 2px 6px; }
+
+.incident-body { padding: 4px 16px 17px; }
+.istep { margin-top: 14px; }
+.istep > h4 { margin: 0 0 5px; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.istep > p, .istep > ol { margin: 0; font-size: 13.5px; line-height: 1.75; color: var(--text); }
+.istep > ol { padding-left: 19px; }
+.istep > ol li { margin: 5px 0; }
+.istep code { font-size: 12.5px; background: var(--code-bg); border-radius: 4px; padding: 1px 5px; }
+
+.ilimit, .ipost, .iown { margin-top: 13px; padding: 11px 13px; border-radius: 9px; font-size: 13px; line-height: 1.7; }
+.ilimit { border: 1px solid #e8d9b0; background: #fdfaf2; color: #6f5a26; }
+.ilimit b { color: #54441a; }
+.ipost { border: 1px solid #d9c9ee; background: #faf7fd; color: #56407a; }
+.ipost b { color: #402f5c; }
+.iown { border: 1px solid var(--line); background: var(--surface-soft); color: var(--muted); }
+.iown b { color: var(--text); }
+.ievidence { display: inline-block; margin: 12px 12px 0 0; font-size: 12.5px; font-weight: 600; color: var(--accent-ink); text-decoration: none; }
+.ievidence:hover { text-decoration: underline; }
+
+@media (max-width: 860px) { .incident-grid { grid-template-columns: 1fr; } }
+@media (max-width: 680px) {
+  .incident > summary { padding: 14px; gap: 11px; }
+  .incident-thumb { width: 34px; height: 34px; }
+  .incident-thumb svg { width: 18px; height: 18px; }
+  .incident-body { padding: 4px 14px 15px; }
+}

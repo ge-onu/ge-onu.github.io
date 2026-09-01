@@ -44,8 +44,9 @@
 /* ── Evidence hub accordion: deep links + expand/collapse all ───────────── */
 (() => {
   const cats = [...document.querySelectorAll('details.cat')];
+  const incidents = [...document.querySelectorAll('details.incident')];
   const cases = [...document.querySelectorAll('details.case')];
-  if (!cats.length && !cases.length) return;
+  if (!cats.length && !cases.length && !incidents.length) return;
 
   // Open the category that contains a targeted case, then the case itself.
   const openFromHash = () => {
@@ -65,7 +66,7 @@
   openFromHash();
 
   // Give every case a copyable anchor without adding visual noise.
-  cases.forEach((c) => {
+  [...cases, ...incidents].forEach((c) => {
     const summary = c.querySelector('summary');
     if (!summary || !c.id) return;
     summary.addEventListener('click', () => {
@@ -74,7 +75,7 @@
   });
 
   const setAll = (open) => {
-    [...cats, ...cases].forEach((d) => { d.open = open; });
+    [...cats, ...cases, ...incidents].forEach((d) => { d.open = open; });
   };
   document.querySelector('[data-expand-all]')?.addEventListener('click', () => setAll(true));
   document.querySelector('[data-collapse-all]')?.addEventListener('click', () => setAll(false));
