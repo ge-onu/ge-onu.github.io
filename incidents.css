@@ -205,6 +205,7 @@
 }
 
 @media (max-width: 680px) {
+  .nav a[href="#notes"] { display: none; }
   .notes-grid { grid-template-columns: 1fr; }
   .note-card[open] { grid-column: auto; }
   .note-visual { height: 86px; }
