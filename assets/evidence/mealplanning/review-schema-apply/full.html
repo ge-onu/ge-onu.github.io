@@ -83,11 +83,11 @@ a{color:var(--s1)}
 <div class="mp-card"><h2>무엇이 나왔나</h2><p>사전 점검을 통과해 DDL 3개를 적용하고 크롤러 실동작까지 확인했습니다. 설계 수정 사항은 없었습니다.</p><p>측정하면서 두 가지를 발견했습니다. 가격 이력이 아직 짧아 <b>기준선이 미성숙</b>했고, 원설계처럼 두 소매의 가격을 합치면 <b>편차가 중앙값 기준 2배 넘게 부풀어 탐지가 죽는다</b>는 것이었습니다.</p></div>
 <div class="mp-card"><h2>무엇을 얻고 무엇을 포기했나</h2><ul><li><b>얻은 것</b> — 소매별로 기준선을 나눠 탐지가 동작하게 만든 구조. 그리고 미성숙한 기준선의 급락은 기록만 하고 알리지 않는 게이트.</li><li><b>포기한 것</b> — 두 소매를 합친 단일 기준선. 실측에서 오탐이 확인돼 통합안을 버렸습니다.</li><li><b>남은 한계</b> — 이력이 더 쌓이기 전까지 기준선은 미성숙 상태로 둡니다.</li></ul></div>
 
-<div class="mp-orig"><p class="mp-orig-label">아래부터 당시 작성한 문서 전문입니다.</p></div>
+<div class="mp-orig"><p class="mp-orig-label">아래부터 당시 작성한 기록을 공개용으로 정제한 전문입니다.</p></div>
 </div>
 <div class="wrap">
 <h1 id="적용-결과-리포트-리뷰-수집-가격-이상탐지-스키마-2026-07-29">적용 결과 리포트 — 리뷰 수집 + 가격 이상탐지 스키마 (2026-07-29)</h1>
-<blockquote class="card">설계 문서 <code><code>recipe-review-handoff.md</code></code><span style="color:#8c959f"> — 당시 별도 설계 핸드오프 문서에 기록</span>는 <em>&quot;무엇을 왜 바꾸려는가&quot;</em> 다. <strong>이 리포트는 <em>&quot;실제로 무엇이 바뀌었는가&quot;</em> 다.</strong> 설계는 DB에 접속하지 못한 PC에서 스키마 파일만 보고 만들어졌고(핸드오프 §12), 이 문서는 <strong>실 DB에 붙는 환경에서 검증·적용한 결과</strong>다.  수신: 데이터 담당자 · 작성: AI 파트 · 대상 DB: <code>[내부 주소 비공개]/foodbudget</code></blockquote>
+<blockquote class="card">설계 문서 <code>recipe-review-handoff.md</code><span style="color:#8c959f"> — 당시 별도 설계 핸드오프 문서에 기록</span>는 <em>&quot;무엇을 왜 바꾸려는가&quot;</em> 다. <strong>이 리포트는 <em>&quot;실제로 무엇이 바뀌었는가&quot;</em> 다.</strong> 설계는 DB에 접속하지 못한 PC에서 스키마 파일만 보고 만들어졌고(핸드오프 §12), 이 문서는 <strong>실 DB에 붙는 환경에서 검증·적용한 결과</strong>다.  수신: 데이터 담당자 · 작성: AI 파트 · 대상 DB: <code>[내부 주소 비공개]/foodbudget</code></blockquote>
 <hr>
 <h2 id="0-결론">0. 결론</h2>
 <p><strong>프리플라이트 PASS → DDL 3개 적용 완료 → 크롤러 실동작 검증 완료.</strong> 스키마를 고정해도 된다(G4).</p>
