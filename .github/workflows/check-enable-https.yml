@@ -1,0 +1,67 @@
+name: Check and enable portfolio HTTPS
+
+on:
+  push:
+    branches:
+      - feat/public-copy-style-sweep
+    paths:
+      - .github/workflows/check-enable-https.yml
+
+permissions:
+  contents: read
+  pages: write
+
+jobs:
+  check-https:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect DNS and TLS
+        shell: bash
+        run: |
+          set +e
+          echo '=== DNS ==='
+          dig +short geonu.site A
+          echo '-- www --'
+          dig +short www.geonu.site CNAME
+
+          echo '=== Pages API before ==='
+          GH_TOKEN='${{ github.token }}' gh api repos/${{ github.repository }}/pages | tee /tmp/pages-before.json
+
+          echo '=== TLS certificate ==='
+          timeout 15 openssl s_client -connect geonu.site:443 -servername geonu.site -showcerts </dev/null 2>&1 | tee /tmp/openssl.txt
+
+          echo '=== curl apex ==='
+          curl -sSIk --max-time 15 https://geonu.site/ || true
+          echo '=== curl http apex ==='
+          curl -sSI --max-time 15 http://geonu.site/ || true
+          echo '=== curl www ==='
+          curl -sSIk --max-time 15 https://www.geonu.site/ || true
+
+      - name: Enable HTTPS when certificate is ready
+        shell: bash
+        run: |
+          set -euo pipefail
+          before=$(GH_TOKEN='${{ github.token }}' gh api repos/${{ github.repository }}/pages)
+          echo "$before" | jq .
+          cert=$(echo "$before" | jq -r '.https_certificate // empty')
+          state=$(echo "$before" | jq -r '.https_certificate.state // empty')
+          domains=$(echo "$before" | jq -r '.https_certificate.domains[]?')
+          enforced=$(echo "$before" | jq -r '.https_enforced')
+
+          echo "certificate_state=$state"
+          echo "certificate_domains=$domains"
+          echo "https_enforced=$enforced"
+
+          if [[ -n "$cert" ]] && echo "$domains" | grep -Fxq 'geonu.site'; then
+            if [[ "$enforced" != "true" ]]; then
+              echo 'Certificate covers geonu.site; enabling HTTPS.'
+              GH_TOKEN='${{ github.token }}' gh api --method PUT repos/${{ github.repository }}/pages -F https_enforced=true
+            else
+              echo 'HTTPS already enforced.'
+            fi
+          else
+            echo 'Certificate not ready for geonu.site yet; leaving setting unchanged.'
+          fi
+
+          echo '=== Pages API after ==='
+          GH_TOKEN='${{ github.token }}' gh api repos/${{ github.repository }}/pages | jq .
