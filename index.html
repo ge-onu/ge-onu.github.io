@@ -8,6 +8,7 @@
   <title>이건우 | Cloud Infrastructure / AIOps Engineer</title>
   <link rel="stylesheet" href="style.css?v=20260901-2">
   <link rel="stylesheet" href="projects.css?v=20260901-1">
+  <link rel="stylesheet" href="incidents.css?v=20260902-1">
 </head>
 <body>
   <div class="shell">
@@ -18,6 +19,7 @@
       </a>
       <nav class="nav" aria-label="주요 메뉴">
         <a href="#work">Projects</a>
+        <a href="#notes">Notes</a>
         <a href="#focus">Skills</a>
         <a class="github-button github-button--small" href="https://github.com/ge-onu" target="_blank" rel="noreferrer" aria-label="GitHub 프로필 열기">
           <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.3 11.3 0 0 0-3.6 22c.57.1.77-.25.77-.55v-2.12c-3.15.68-3.82-1.34-3.82-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16A10.9 10.9 0 0 1 12 7.08c.97 0 1.94.13 2.85.38 2.17-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.03.77 2.08v3.14c0 .3.21.66.78.55A11.3 11.3 0 0 0 12 .7Z"/></svg>
@@ -105,10 +107,142 @@
         </div>
       </section>
 
+      <section class="section" id="notes" aria-labelledby="notes-title">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">02 / Incident · Runbook · Decision Note</p>
+            <h2 id="notes-title">문제 해결 기록</h2>
+          </div>
+          <p class="section-description">큰 프로젝트와 별개로, 실제로 막혔던 지점과 확인 순서·판단 기준을 짧은 기록으로 남깁니다. 카드를 누르면 확인한 근거와 다음에 다시 볼 순서를 펼쳐볼 수 있습니다.</p>
+        </div>
+
+        <div class="notes-grid">
+          <details class="note-card" id="note-https">
+            <summary>
+              <div class="note-visual note-visual--tls" aria-hidden="true"><svg viewBox="0 0 80 60" fill="none" stroke-width="2"><rect x="14" y="16" width="52" height="34" rx="5"/><path d="M23 16v-3a17 17 0 0 1 34 0v3"/><rect x="34" y="28" width="12" height="11" rx="3"/><path d="M40 39v5"/></svg></div>
+              <div class="note-card-copy">
+                <div class="note-meta"><span class="note-kind">Incident</span><span class="note-date">2026.09</span></div>
+                <h3>GitHub Pages HTTPS가 왜 막혔나</h3>
+                <p class="note-summary">DNS는 정상이었지만 geonu.site용 인증서가 없어 카카오톡 인앱 브라우저에서 차단됐습니다.</p>
+                <div class="note-tags"><span>GitHub Pages</span><span>DNS</span><span>TLS</span><span>KakaoTalk</span></div>
+                <div class="note-open-hint"><span>확인 과정 보기</span></div>
+              </div>
+            </summary>
+            <div class="note-detail">
+              <div class="note-detail-item"><strong>증상</strong><p>HTTP는 열렸지만 HTTPS에서는 서버가 <code>*.github.io</code> 인증서를 제시했고, SAN에 <code>geonu.site</code>가 없어 hostname mismatch가 발생했습니다.</p></div>
+              <div class="note-detail-item"><strong>확인 순서</strong><ol><li>A/CNAME/CAA와 GitHub Pages 연결 상태 확인</li><li>인증서 Subject·SAN·Chain 확인</li><li>Pages의 custom certificate와 HTTPS 상태 확인</li><li>HTTP/HTTPS 및 www/apex redirect를 각각 분리해 확인</li></ol></div>
+              <div class="note-detail-item"><strong>원인과 조치</strong><p>DNS나 mixed content가 아니라 커스텀 도메인 인증서가 발급되지 않은 상태였습니다. Custom Domain을 제거한 뒤 다시 등록해 인증서 provisioning을 재시작했습니다.</p></div>
+              <div class="note-detail-item"><strong>남긴 기준</strong><p>브라우저가 열린다는 사실만으로 끝내지 않고 DNS → TLS 이름 일치 → redirect 순서로 분리해 확인합니다. 인앱 브라우저는 인증서 우회를 허용하지 않을 수 있습니다.</p></div>
+              <div class="note-evidence"><strong>근거</strong><a href="https://github.com/ge-onu/ge-onu.github.io/commit/e87f998a528678af32f5ae4be3a6d093f680e001" target="_blank" rel="noreferrer">Custom Domain 제거 commit ↗</a><a href="https://github.com/ge-onu/ge-onu.github.io/commit/0a700996c8a4cfb473bde53d00b065facc0ea77c" target="_blank" rel="noreferrer">재등록 commit ↗</a></div>
+            </div>
+          </details>
+
+          <details class="note-card" id="note-session-id">
+            <summary>
+              <div class="note-visual note-visual--data" aria-hidden="true"><svg viewBox="0 0 80 60" fill="none" stroke-width="2"><rect x="5" y="21" width="18" height="18" rx="3"/><rect x="31" y="21" width="18" height="18" rx="3"/><rect x="57" y="21" width="18" height="18" rx="3"/><path d="M23 30h8M49 30h8"/><path d="m28 27 3 3-3 3M54 27l3 3-3 3"/></svg></div>
+              <div class="note-card-copy">
+                <div class="note-meta"><span class="note-kind">Incident</span><span class="note-date">2026.08</span></div>
+                <h3>학습 label이 왜 안 만들어졌나</h3>
+                <p class="note-summary">조회한 연결 키 44건이 전부 NULL이어서 모델보다 데이터 전달 경로를 먼저 추적했습니다.</p>
+                <div class="note-tags"><span>Data Flow</span><span>Event</span><span>Training</span><span>session_id</span></div>
+                <div class="note-open-hint"><span>확인 과정 보기</span></div>
+              </div>
+            </summary>
+            <div class="note-detail">
+              <div class="note-detail-item"><strong>증상</strong><p>추천 노출 기록은 쌓였지만 학습에 필요한 긍정 label이 한 건도 만들어지지 않았습니다.</p></div>
+              <div class="note-detail-item"><strong>확인 순서</strong><ol><li>학습 SQL의 조인 조건 확인</li><li>실제 저장 이벤트의 연결 키 확인</li><li>Frontend → API 요청 → Event Storage → Training Dataset 순서로 값 전달 확인</li></ol></div>
+              <div class="note-detail-item"><strong>원인과 조치</strong><p>조회한 44건의 연결 키가 전부 비어 있었고, 요청에 필드가 실리지 않는 구간을 찾아 전달 경로를 수정했습니다.</p></div>
+              <div class="note-detail-item"><strong>남긴 기준</strong><p>AI 기능 이상을 모델 문제로 먼저 단정하지 않고, 신호가 어느 구간에서 끊겼는지를 먼저 확인합니다. 이미 지나간 기간의 label은 복구하지 못한다는 한계도 함께 남겼습니다.</p></div>
+              <div class="note-evidence"><strong>근거</strong><a href="projects/mealplanning/#d1-dataflow">Mealplanning D-1 보기 →</a><a href="assets/evidence/mealplanning/dataflow-sessionid/source.html">근거 문서 →</a></div>
+            </div>
+          </details>
+
+          <details class="note-card" id="note-guardrail">
+            <summary>
+              <div class="note-visual note-visual--guard" aria-hidden="true"><svg viewBox="0 0 80 60" fill="none" stroke-width="2"><path d="M40 7 62 15v15c0 13-9 21-22 25-13-4-22-12-22-25V15z"/><path d="m29 30 7 7 15-16"/></svg></div>
+              <div class="note-card-copy">
+                <div class="note-meta"><span class="note-kind">Incident</span><span class="note-date">2026.07</span></div>
+                <h3>정상 응답을 왜 Guardrail이 막았나</h3>
+                <p class="note-summary">같은 275건에서 통과 166 → 247. 추가 LLM 호출 없이 판정 로직을 수정했습니다.</p>
+                <div class="note-tags"><span>Guardrail</span><span>False Positive</span><span>LLM</span><span>Validation</span></div>
+                <div class="note-open-hint"><span>확인 과정 보기</span></div>
+              </div>
+            </summary>
+            <div class="note-detail">
+              <div class="note-detail-item"><strong>증상</strong><p>응답 내용은 문제가 없는데 검증 단계에서 차단돼 템플릿 응답으로 대체되는 사례가 반복됐습니다.</p></div>
+              <div class="note-detail-item"><strong>확인 순서</strong><ol><li>실패 케이스를 모아 실제 환각인지 분리</li><li>모델 문제와 판정 로직 문제를 분리</li><li>동일 275건으로 변경 전후 재측정</li></ol></div>
+              <div class="note-detail-item"><strong>원인과 조치</strong><p>사용자 질문에 이미 있던 재료·금액을 검증 로직이 근거 없는 내용으로 오판하고 있었습니다. 질문 원문과 숫자 정규화 결과를 근거 범위에 포함했습니다.</p></div>
+              <div class="note-detail-item"><strong>결과와 한계</strong><p>통과 건수가 166건에서 247건으로 늘었고 LLM 호출은 증가하지 않았습니다. 대신 사용자의 잘못된 전제까지 근거로 인정될 수 있는 Trade-off를 남겼습니다.</p></div>
+              <div class="note-evidence"><strong>근거</strong><a href="projects/mealplanning/#c1-guardrail">Mealplanning C-1 보기 →</a><a href="assets/evidence/mealplanning/guardrail/full.html">실측 기록 →</a></div>
+            </div>
+          </details>
+
+          <details class="note-card" id="note-pvc">
+            <summary>
+              <div class="note-visual note-visual--k8s" aria-hidden="true"><svg viewBox="0 0 80 60" fill="none" stroke-width="2"><ellipse cx="40" cy="14" rx="22" ry="8"/><path d="M18 14v28c0 4 10 8 22 8s22-4 22-8V14M18 28c0 4 10 8 22 8s22-4 22-8"/><path d="M40 18v12M34 24h12"/></svg></div>
+              <div class="note-card-copy">
+                <div class="note-meta"><span class="note-kind">Runbook</span><span class="note-date">2026</span></div>
+                <h3>PVC가 Pending이면 무엇부터 볼까</h3>
+                <p class="note-summary">Storage 하나만 보지 않고 PVC·PV·StorageClass·Access Mode·Event를 한 묶음으로 확인합니다.</p>
+                <div class="note-tags"><span>Kubernetes</span><span>PVC</span><span>PV</span><span>Events</span></div>
+                <div class="note-open-hint"><span>확인 순서 보기</span></div>
+              </div>
+            </summary>
+            <div class="note-detail">
+              <div class="note-detail-item"><strong>1. PVC 요청</strong><p>요청 용량, Access Mode, StorageClass 지정 여부를 먼저 확인합니다.</p></div>
+              <div class="note-detail-item"><strong>2. PV 후보</strong><p>용량과 Access Mode가 맞는 PV가 있는지, 이미 다른 Claim에 묶이지 않았는지 확인합니다.</p></div>
+              <div class="note-detail-item"><strong>3. Provisioning / Scheduling</strong><p>StorageClass가 어떤 방식으로 PV를 제공하는지 보고, Local PV라면 Node와 Storage가 묶이는 Scheduling 제약도 확인합니다.</p></div>
+              <div class="note-detail-item"><strong>4. Event</strong><p>마지막으로 상태값만 보지 않고 Event의 바인딩 실패 이유를 함께 읽어 다음 확인 대상을 정합니다.</p></div>
+              <div class="note-evidence"><strong>근거</strong><a href="projects/kubernetes-lab/#k8s-storage">Kubernetes Storage 실습 보기 →</a></div>
+            </div>
+          </details>
+
+          <details class="note-card" id="note-ocr">
+            <summary>
+              <div class="note-visual note-visual--ocr" aria-hidden="true"><svg viewBox="0 0 80 60" fill="none" stroke-width="2"><path d="M25 7h30v46l-5-4-5 4-5-4-5 4-5-4-5 4z"/><path d="M32 18h16M32 25h16M32 32h10M32 40h7"/></svg></div>
+              <div class="note-card-copy">
+                <div class="note-meta"><span class="note-kind">Decision Note</span><span class="note-date">2026.07</span></div>
+                <h3>OCR 모델은 어떤 기준으로 골랐나</h3>
+                <p class="note-summary">실물 영수증 13장 × 5개 방식. ‘정확도’ 대신 합계 정합 기준을 먼저 정의하고 비교했습니다.</p>
+                <div class="note-tags"><span>OCR</span><span>Vision</span><span>Evaluation</span><span>Cost</span></div>
+                <div class="note-open-hint"><span>판단 과정 보기</span></div>
+              </div>
+            </summary>
+            <div class="note-detail">
+              <div class="note-detail-item"><strong>비교 조건</strong><p>실물 영수증 13장을 5개 방식에 같은 조건으로 통과시키고 다운스케일·재시도·타임아웃을 고정했습니다.</p></div>
+              <div class="note-detail-item"><strong>평가 기준</strong><p>추출한 품목 금액의 합이 영수증 총액과 맞는지를 ‘합계 정합’으로 정의했습니다. 품목별 OCR 정확도와는 다른 지표라는 한계를 함께 적었습니다.</p></div>
+              <div class="note-detail-item"><strong>결정</strong><p>경량 비전 모델은 13장 중 12장에서 합계 정합을 확인했고 실행 오류가 없었습니다. 더 비싼 상위 모델이 유의미하게 낫지 않아 경량 모델을 채택했습니다.</p></div>
+              <div class="note-detail-item"><strong>남긴 기준</strong><p>작은 표본과 지표의 한계를 숨기지 않고, 절대 정확도 주장보다 동일 조건의 상대 비교 결과로 사용합니다.</p></div>
+              <div class="note-evidence"><strong>근거</strong><a href="projects/mealplanning/#b3-ocr">Mealplanning B-2 보기 →</a><a href="assets/evidence/mealplanning/ocr-comparison/source.html">비교 기록 →</a></div>
+            </div>
+          </details>
+
+          <details class="note-card" id="note-model-selection">
+            <summary>
+              <div class="note-visual note-visual--model" aria-hidden="true"><svg viewBox="0 0 80 60" fill="none" stroke-width="2"><path d="M13 47h54M18 41V28M30 41V17M42 41V24M54 41V11M66 41V21"/><path d="m17 18 13-6 12 5 12-10 12 4"/></svg></div>
+              <div class="note-card-copy">
+                <div class="note-meta"><span class="note-kind">Decision Note</span><span class="note-date">2026.07</span></div>
+                <h3>저비용 모델이 만점이면 바로 바꿔도 될까</h3>
+                <p class="note-summary">후보 15종·누적 1,750건. 테스트 포화를 의심해 난도를 높이고 판단을 5번 수정했습니다.</p>
+                <div class="note-tags"><span>LLM</span><span>Benchmark</span><span>Latency</span><span>Trade-off</span></div>
+                <div class="note-open-hint"><span>판단 과정 보기</span></div>
+              </div>
+            </summary>
+            <div class="note-detail">
+              <div class="note-detail-item"><strong>문제</strong><p>저비용 모델이 기존 모델과 만점 동률이었지만, 모델이 좋아서가 아니라 테스트가 쉬워 차이가 안 보였을 가능성을 의심했습니다.</p></div>
+              <div class="note-detail-item"><strong>확인</strong><p>응답 품질만 보지 않고 비용·응답 지연·Guardrail을 함께 보고, 더 어려운 케이스를 만들어 정보 완전성 차이를 다시 측정했습니다.</p></div>
+              <div class="note-detail-item"><strong>결정</strong><p>저비용 모델의 비용 43%·속도 2배 이점보다 금액 누락 손실이 크다고 보고 즉시 교체를 보류했습니다. 이후 조건이 충족된 기능만 옮겼습니다.</p></div>
+              <div class="note-detail-item"><strong>남긴 기준</strong><p>평가가 포화되면 모델 차이보다 평가셋 난도를 먼저 점검합니다. 입력 케이스풀이 이후 소실돼 완전히 같은 재현은 불가능하다는 한계도 공개합니다.</p></div>
+              <div class="note-evidence"><strong>근거</strong><a href="projects/mealplanning/#b1-model">Mealplanning B-1 보기 →</a><a href="assets/evidence/mealplanning/model-selection/full.html">정제한 실측 기록 →</a></div>
+            </div>
+          </details>
+        </div>
+      </section>
+
       <section class="section" id="focus" aria-labelledby="focus-title">
         <div class="section-head compact-head">
           <div>
-            <p class="section-kicker">02 / Skills</p>
+            <p class="section-kicker">03 / Skills</p>
             <h2 id="focus-title">주요 기술 영역</h2>
           </div>
         </div>
