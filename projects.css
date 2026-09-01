@@ -11,6 +11,7 @@
 
 /* ---------- shared links / buttons ---------- */
 .github-button,
+.icon-button,
 .primary-action {
   display: inline-flex;
   align-items: center;
@@ -29,7 +30,8 @@
 }
 
 /* Width/height are also written in the HTML so the icon stays small even before CSS is cached. */
-.github-button > svg {
+.github-button > svg,
+.icon-button > svg {
   display: block;
   width: 16px !important;
   height: 16px !important;
@@ -38,12 +40,14 @@
   flex: 0 0 16px;
 }
 
-.github-button:hover {
+.github-button:hover,
+.icon-button:hover {
   border-color: #aeb6bf;
   background: #fafbfc;
 }
 
-.github-button--small {
+.github-button--small,
+.icon-button--small {
   min-height: 32px;
   padding: 7px 9px;
   font-size: 10px;
@@ -731,3 +735,17 @@
 
 .ev-open--full { margin-left: 14px; }
 @media (max-width: 520px) { .ev-open--full { margin-left: 0; display: block; } }
+
+.icon-button { text-decoration: none; }
+.icon-button:focus-visible {
+  outline: none;
+  border-color: var(--accent-ink);
+  box-shadow: 0 0 0 3px rgba(80, 96, 201, .28);
+}
+.project-page-footer { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.project-page-footer .back-link { font-size: 13px; }
+
+@media (max-width: 680px) {
+  .github-button--small,
+  .icon-button--small { min-height: 44px; padding-inline: 12px; }
+}
