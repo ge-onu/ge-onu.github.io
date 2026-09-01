@@ -6,5 +6,8 @@
   "source_date": "2026-07-28",
   "metric": "통과 건수 / 275 (pass count · 정확도 아님)",
   "decision": "모델을 바꾸지 않고 판정 로직만 고쳐 통과를 회수함",
-  "sha256_of_published": "77860d30cf377ab7"
+  "sha256_of_published": "77860d30cf377ab7",
+  "full_document": "full.html",
+  "full_source": "AI 품질 고도화 검증 — 실험 A~H",
+  "full_sha256": "33bdd92b3908e761"
 }

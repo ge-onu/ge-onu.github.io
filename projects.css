@@ -728,3 +728,6 @@
 .ev--sub .ev-head { background: transparent; }
 
 .ai-note { margin: 10px 0 0; color: var(--soft); font-size: 13px; line-height: 1.7; }
+
+.ev-open--full { margin-left: 14px; }
+@media (max-width: 520px) { .ev-open--full { margin-left: 0; display: block; } }

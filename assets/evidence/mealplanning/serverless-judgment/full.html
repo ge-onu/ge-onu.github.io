@@ -1,0 +1,322 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>서버리스 이전 판단 근거 · 실측 기록 전문</title>
+<style>
+  :root{
+    --bg:#fbfbfa; --fg:#1f2328; --muted:#5b636b; --line:#e3e5e8; --card:#fff;
+    --accent:#1f6feb; --warn:#b42318; --ok:#0f7b4f; --hl:#fff6d8;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  /* 기본 = 밝은 테마. 어두운 테마는 우측 상단 버튼으로만 켜진다(OS 설정을 안 따라간다) */
+  :root[data-theme="dark"]{
+    --bg:#14161a;--fg:#e6e8ea;--muted:#9aa3ad;--line:#2b3038;--card:#1b1e24;
+    --accent:#69a8ff;--warn:#ff8a80;--ok:#5ddba4;--hl:#3a3320;
+  }
+  #themeBtn{position:fixed;top:16px;right:16px;z-index:99;
+    background:var(--card);color:var(--fg);border:1px solid var(--line);
+    border-radius:999px;padding:8px 15px;font-size:13px;font-weight:700;cursor:pointer;
+    font-family:inherit;letter-spacing:-0.01em;box-shadow:0 1px 5px rgba(0,0,0,.10);
+    display:flex;align-items:center;gap:7px;line-height:1}
+  #themeBtn:hover{border-color:var(--accent);color:var(--accent)}
+  #themeBtn:active{transform:translateY(1px)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+    line-height:1.75; font-size:16px; letter-spacing:-0.01em;}
+  .wrap{max-width:960px;margin:0 auto;padding:48px 24px 96px}
+  header.top{border-bottom:3px solid var(--fg);padding-bottom:20px;margin-bottom:36px}
+  header.top h1{font-size:30px;line-height:1.35;margin:0 0 10px;letter-spacing:-0.03em}
+  header.top .sub{color:var(--muted);font-size:14px}
+  h2{font-size:22px;margin:52px 0 14px;padding-top:22px;border-top:1px solid var(--line);letter-spacing:-0.02em}
+  h3{font-size:17px;margin:30px 0 10px;letter-spacing:-0.02em}
+  p{margin:12px 0}
+  strong{font-weight:700}
+  code{font-family:var(--mono);font-size:0.88em;background:var(--line);padding:1px 5px;border-radius:4px}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--line);font-weight:700;white-space:nowrap}
+  .tw{overflow-x:auto}
+  blockquote{margin:18px 0;padding:16px 20px;border-left:4px solid var(--accent);
+    background:var(--card);border-radius:0 8px 8px 0}
+  blockquote p:first-child{margin-top:0} blockquote p:last-child{margin-bottom:0}
+  .callout{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:20px 0}
+  .callout.red{border-left:4px solid var(--warn)}
+  .callout.blue{border-left:4px solid var(--accent)}
+  .callout.green{border-left:4px solid var(--ok)}
+  .callout .t{font-weight:700;margin-bottom:6px;display:block}
+  .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:22px 0}
+  .kpi .c{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .kpi .n{font-size:26px;font-weight:800;letter-spacing:-0.03em;line-height:1.2}
+  .kpi .l{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+  .kpi .c.hot .n{color:var(--warn)}
+  .kpi .c.cool .n{color:var(--accent)}
+  .flow{counter-reset:step;margin:24px 0}
+  .flow .s{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 18px 58px;margin:12px 0;position:relative}
+  .flow .s::before{counter-increment:step;content:counter(step);
+    position:absolute;left:18px;top:17px;width:26px;height:26px;border-radius:50%;
+    background:var(--accent);color:#fff;font-weight:800;font-size:14px;
+    display:flex;align-items:center;justify-content:center}
+  .flow .s h4{margin:0 0 8px;font-size:16px}
+  .flow .s .say{color:var(--fg);background:var(--hl);border-radius:8px;padding:12px 14px;
+    font-size:14.5px;line-height:1.85;margin-top:10px}
+  .tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;
+    border:1px solid var(--line);color:var(--muted);margin-right:6px;vertical-align:2px}
+  .tag.m{border-color:var(--ok);color:var(--ok)}
+  .tag.e{border-color:var(--warn);color:var(--warn)}
+  ul,ol{padding-left:22px} li{margin:6px 0}
+  a{color:var(--accent)}
+  footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  @media print{body{background:#fff}.wrap{max-width:none;padding:0}
+    h2{page-break-after:avoid}table{page-break-inside:avoid}#themeBtn{display:none}}
+
+
+.mp-wrap{max-width:900px;margin:0 auto 30px;padding:0 4px;
+ font-family:-apple-system,'Segoe UI',Roboto,'Malgun Gothic',sans-serif}
+.mp-wrap a.back{display:inline-block;margin:22px 0 16px;font-size:13px;color:#5b6474;text-decoration:none}
+.mp-card{border:1px solid #e3e5ea;border-radius:12px;background:#fafbfc;padding:18px 20px;margin-bottom:14px}
+.mp-card h2{margin:0 0 9px;font-size:14px;letter-spacing:.04em;color:#5b6474;
+ text-transform:none;font-weight:700;border:0;padding:0}
+.mp-card p{margin:0;font-size:14px;line-height:1.75;color:#1f2328}
+.mp-card p+p{margin-top:8px}
+.mp-card ul{margin:0;padding-left:18px;font-size:14px;line-height:1.75;color:#1f2328}
+.mp-meta{font-size:12px;color:#8c959f;margin:0 0 18px;line-height:1.7}
+.mp-orig{border-top:1px solid #e3e5ea;margin-top:26px;padding-top:8px}
+.mp-orig-label{font-size:12px;color:#8c959f;margin:0 0 6px}
+</style></head><body>
+<div class="mp-wrap">
+<a class="back" href="../../../../projects/mealplanning/">← Mealplanning 페이지로</a>
+<p class="mp-meta">팀 프로젝트에서 제가 작성한 AI 파트 기록입니다. 원본 문서 · 서버리스 판단근거 — 왜 갔고, 무엇을 안 옮겼나 &nbsp;|&nbsp; 작성 시점 · 2026-08-18<br>
+공개용으로 계정·내부 주소 표기만 가린 사본이며, 측정값과 서술은 원본과 같습니다.</p>
+<div class="mp-card"><h2>왜 쟀나</h2><p>AI 기능이 상시 떠 있는 워크로드로 돌면 쓰지 않는 시간에도 자원을 붙잡습니다. 옮길지 말지를 감으로 정하지 않으려고 <b>검토 기준을 먼저 정해 두고</b> 후보를 전수 판정했습니다.</p></div>
+<div class="mp-card"><h2>무엇이 나왔나</h2><p>기준 5개를 세우고 하나라도 걸리면 후보에서 빼는 방식으로 12종을 확인해 <b>10종은 옮기고 2종은 남겼습니다</b>.</p><p>옮기면 잃는 것도 같은 문서에 먼저 적었습니다. 상시 프로세스에서 유지하던 상태와 연결을 매 호출마다 다시 만들어야 하고, 콜드 스타트가 지연에 더해집니다.</p></div>
+<div class="mp-card"><h2>무엇을 얻고 무엇을 포기했나</h2><ul><li><b>얻은 것</b> — 호출이 있을 때만 실행되는 구조, 그리고 «왜 이건 안 옮겼는가»를 설명할 수 있는 기준.</li><li><b>포기한 것</b> — 전부 옮기는 선택지. 기준에 걸린 2종은 되돌리기 비용이 더 크다고 보고 기존 방식으로 뒀습니다.</li><li><b>남은 한계</b> — 콜드 스타트와 연결 재수립 비용은 구조를 바꾼 대가로 남았습니다.</li></ul></div>
+
+<div class="mp-orig"><p class="mp-orig-label">아래부터 당시 작성한 문서 전문입니다.</p></div>
+</div>
+
+<button id="themeBtn" type="button" aria-label="테마 전환"><span id="themeIcon">🌙</span><span id="themeLabel">어둡게</span></button>
+<div class="wrap">
+
+<header class="top">
+  <h1>서버리스 — 왜 갔고, EKS 와 뭐가 다르고, 무엇을 안 옮겼나</h1>
+  <div class="sub">발표용 판단근거 정리 · 2026-08-18 · 근거 원문 = <code>docs/발표자료/근거문서/</code></div>
+</header>
+
+<blockquote>
+  <p><strong>30초 요약</strong> — 서버리스로 간 목적은 <strong>운영 부담 제거</strong>였습니다. 그런데 재보니
+  <strong>저희가 겪은 문제 중 «서버리스여야만» 해결되는 건 하나도 없었습니다</strong> — 대부분 EKS + 관리형이면 됐습니다.
+  그래서 기준을 <strong>«관리형보다 나은 이유를 숫자로 말할 수 있는가»</strong> 로 잡고 5개 축으로 걸렀고,
+  <strong>AI 12종 중 10종만 옮겼습니다.</strong> 랭킹 서빙은 콜드스타트가 그대로 사용자 체감이라 파드로 남겼습니다.
+  그리고 예상 못 한 발견이 하나 — <strong>비용은 함수가 아니라 네트워크에서 나왔습니다.</strong></p>
+</blockquote>
+
+<h2>1. 왜 고려했나 — 목적을 «운영 부담 제거» 로 못박았다</h2>
+<p>«최신 아키텍처라서» 가 아니다. <strong>우리가 실제로 겪은 고통</strong>을 먼저 나열하고, 각각이 서버리스로 해결되는지 판정했다.</p>
+
+<div class="tw"><table>
+<tr><th>실제 겪은 문제</th><th>원인 계층</th><th>서버리스로 해결되나</th></tr>
+<tr><td>master ×1 단일 장애점(SPOF)</td><td>컨트롤플레인</td><td>🟢 소멸 — <strong>단 EKS 만으로도 소멸</strong></td></tr>
+<tr><td>Redis AOF 손상 → PGSync 16시간 크래시루프</td><td>상태 관리</td><td>🟢 상태 없는 캐시로 재정의하면 소멸</td></tr>
+<tr><td>백업·복구 검증 부담</td><td>데이터 계층</td><td>🟡 관리형 이전으로 대부분 해결</td></tr>
+<tr><td>StorageClass·PV 관리</td><td>스토리지</td><td>🟢 소멸</td></tr>
+<tr><td>파드 스케일 튜닝 (KEDA / HPA)</td><td>오케스트레이션</td><td>🟢 동시성 모델로 대체</td></tr>
+<tr><td>이미지 레지스트리 자격증명</td><td>배포</td><td>🟢 IAM 으로 소멸</td></tr>
+</table></div>
+
+<div class="callout red">
+  <span class="t">🔴 결론이 예상과 반대였다</span>
+  <p style="margin:0">«위 항목 중 <strong>서버리스여야만</strong> 해결되는 것은 없다.
+  대부분 관리형(EKS + 매니지드) 이전만으로도 해결된다.»</p>
+</div>
+
+<blockquote>
+  <p><strong>“이걸 관리형으로 두는 것보다 서버리스로 만드는 게 나은 이유를, 숫자로 말할 수 있는가?”</strong><br>
+  말할 수 없으면 관리형이 정답이다.</p>
+</blockquote>
+
+<div class="callout blue">
+  <span class="t">🔵 이게 «EKS 로 그냥 올린 것과 뭐가 다르냐» 에 대한 답이다</span>
+  <p style="margin:0">우리는 <strong>그 질문을 먼저 던졌고</strong>, 그 기준으로 12종을 전부 걸렀다.</p>
+</div>
+
+<h2>2. 판정 5축 — 하나라도 🔴면 후보에서 제외</h2>
+<div class="tw"><table>
+<tr><th>축</th><th>묻는 것</th><th>🔴 인 경우</th></tr>
+<tr><td>①</td><td>디스크에 <strong>상태</strong>를 들고 있는가</td><td>Kafka PV · ES 인덱스 · DB 데이터</td></tr>
+<tr><td>②</td><td><strong>상시 연결</strong>을 유지하는가</td><td>PGSync 의 replication slot · WebSocket · 스트림 컨슈머</td></tr>
+<tr><td>③</td><td><strong>최소 과금</strong>이 실사용을 초과하는가</td><td>OpenSearch Serverless(최소 OCU 상시) · MSK Serverless(클러스터 시간 과금)</td></tr>
+<tr><td>④</td><td><strong>실행 시간</strong>이 15분을 넘는가</td><td>대량 재색인</td></tr>
+<tr><td>⑤</td><td><strong>저지연 + 무거운 초기화</strong>가 겹치는가</td><td>랭킹 서빙(모델 언피클)</td></tr>
+</table></div>
+<p>🔴 ②가 특히 중요하다 — 기준은 «실행 시간» 이 아니라 <strong>«연결 지속성»</strong> 이다.
+🔴 ③은 가장 놓치기 쉽다 — “서버리스”라는 이름이 붙었다고 요청당 과금인 게 아니다.</p>
+
+<h2>3. 적용 결과 — 12종 중 10종만 갔다</h2>
+<div class="tw"><table>
+<tr><th>분류</th><th>함수</th><th>트리거</th><th>왜 이 자리인가</th></tr>
+<tr><td><strong>배치 5종</strong></td><td><code>shelflife-draft</code> <code>ner-backfill</code> <code>sentiment-batch</code> <code>summarize-batch</code> <code>price-detect</code></td><td>Scheduler · 수동</td><td>저빈도 배치 = 미호출 시 비용 0. <strong>서버리스 최적</strong></td></tr>
+<tr><td><strong>접수·워커 4종</strong></td><td><code>video-api</code>+<code>video-worker</code> · <code>ocr-api</code>+<code>ocr-worker</code></td><td>ALB · SQS</td><td>비동기라 <strong>콜드스타트가 사용자에게 안 보인다</strong></td></tr>
+<tr><td><strong>서비스 1종</strong></td><td><code>chat-api</code></td><td>ALB</td><td>호출이 드물고 콜드스타트를 감내할 수 있다</td></tr>
+<tr><td>⛔ <strong>이관 제외</strong></td><td><s><code>rank-serve</code></s></td><td>—</td><td><strong>동기 · 지연민감</strong> — 아래 참조</td></tr>
+<tr><td>⛔ <strong>설계에서 소거</strong></td><td><s><code>notify-consumer</code></s></td><td>—</td><td>함수를 만드는 대신 <strong>안 만드는 쪽</strong>으로 설계를 줄였다</td></tr>
+</table></div>
+
+<h3>🔵 <code>rank-serve</code> 를 안 옮긴 이유 — 발표의 하이라이트</h3>
+<p>진입점을 무엇으로 할지 고르기 <strong>전에</strong> 물었어야 할 질문이 있었다 — <strong>«Lambda 가 맞는 자리인가?»</strong></p>
+<div class="tw"><table>
+<tr><th>서버리스의 이득</th><th>랭킹 서빙에서는</th></tr>
+<tr><td>scale-to-zero</td><td>🔴 추천은 <strong>상시 호출</strong>된다 — 0 으로 안 내려간다</td></tr>
+<tr><td>요청당 과금</td><td>🔴 상시 호출이면 <strong>파드가 더 싸다</strong></td></tr>
+<tr><td>운영 부담 감소</td><td>🔴 오히려 <strong>는다</strong> — 유일한 컨테이너라 별도 ECR·빌드 경로가 생긴다</td></tr>
+</table></div>
+<blockquote><p><strong>«고칠 것이 없는 것을 옮기는 셈»</strong> 이었다. 세 후보 중 <strong>작업이 0인 것</strong>이 답이었다.</p></blockquote>
+
+<h2>4. 잃는 것을 먼저 인정했다</h2>
+<div class="tw"><table>
+<tr><th>잃는 것</th><th>내용</th></tr>
+<tr><td><strong>GitOps 서사</strong></td><td>ArgoCD · Kustomize · NetworkPolicy · KEDA 는 전부 K8s 전제 — <strong>기술 문제가 아니라 프로젝트 정체성 문제</strong></td></tr>
+<tr><td><strong>락인 방향이 반대</strong></td><td>K8s 매니페스트는 이동 가능 / Step Functions·EventBridge 배선은 이동 불가</td></tr>
+<tr><td><strong>이전이 아니라 리라이트</strong></td><td>Kafka → EventBridge/SQS · PGSync 대체 · LGTM → CloudWatch. 일정 산정 단위가 다르다</td></tr>
+</table></div>
+<p>그리고 <strong>새로 생기는 위험 4가지</strong> — ① 같은 작업의 이중 실행(재시도가 기본) ② 실패가 조용히 사라짐(→ DLQ 전부 부착)
+③ 스케줄 미실행은 에러가 안 남(→ «돌았어야 할 시간» 알람) ④ 파드 개수라는 자연 상한이 사라져 외부 API 쿼터에 먼저 걸림(→ 동시성 명시 제한).</p>
+
+<h2>5. 숫자</h2>
+<h3><span class="tag m">실측</span> CloudWatch 조회 (2026-08-18)</h3>
+<div class="kpi">
+  <div class="c hot"><div class="n">2,999 ms</div><div class="l"><code>chat-api</code> 실물 콜드스타트<br>arm64 · VPC · 평균</div></div>
+  <div class="c cool"><div class="n">93 ms</div><div class="l">접수 함수 콜드스타트<br><code>video-api</code> — 30배 차이</div></div>
+  <div class="c hot"><div class="n">166 초</div><div class="l">연결 타임아웃에 태운 과금<br>× 3함수</div></div>
+  <div class="c"><div class="n">13–44 %</div><div class="l">메모리 실사용 / 할당<br>전 함수 과할당</div></div>
+</div>
+<div class="callout blue">
+  <span class="t">🔵 1번 숫자가 <code>rank-serve</code> 결정을 실물로 확증한다</span>
+  <p style="margin:0">그 결정의 근거는 «로컬 x86 1.05초» 라는 <strong>추정 하한</strong>이었는데, 성격이 가장 비슷한 함수의
+  <strong>실물이 3.0초</strong>로 나왔다. ⇒ 발표에서 «1.05초 추정» 대신 <strong>«실물로 재보니 3초였다»</strong> 를 쓸 수 있다.</p>
+</div>
+
+<h3><span class="tag e">추정</span> 비용 환산 — 단가는 공개 요금 문서값</h3>
+<div class="kpi">
+  <div class="c cool"><div class="n">$0.37</div><div class="l">Lambda 컴퓨트 / 월<br>프리티어 적용 시 <strong>$0</strong></div></div>
+  <div class="c"><div class="n">$7.45</div><div class="l">같은 워크로드 EKS 파드 / 월<br>request 지분 안분</div></div>
+  <div class="c hot"><div class="n">$89.79</div><div class="l">NAT + 엔드포인트 3종 / 월<br><strong>컴퓨트의 243배</strong></div></div>
+  <div class="c"><div class="n">0.56 %</div><div class="l">배치 워크로드 가동률<br>월 4.1시간 / 730시간</div></div>
+</div>
+<blockquote><p><strong>컴퓨트는 20배 싸졌고, 네트워크는 243배 비쌌다.</strong></p></blockquote>
+<p>⚠️ 단, 우리 형상에서는 NAT·엔드포인트가 <strong>EKS 때문에 이미 있어서 증분이 0</strong> 이다.
+정확한 서술 = <strong>«서버리스 단독이었다면 월 $89.79 를 새로 냈어야 했다»</strong> ⇒ <strong>하이브리드가 더 쌌다.</strong></p>
+
+<h2>6. 발표 흐름 ①~④</h2>
+<div class="flow">
+
+  <div class="s">
+    <h4>목적 — 운영 부담 제거였습니다</h4>
+    <div class="say">저희는 온프렘 쿠버네티스를 직접 운영해 왔습니다. 그러면서 겪은 게 —
+    <strong>마스터 노드 한 대짜리 단일 장애점</strong>, <strong>Redis 파일이 깨져서 데이터 동기화가 16시간 크래시루프</strong>,
+    스토리지 볼륨 관리, 파드 스케일 튜닝이었습니다.
+    그래서 AWS 로 가면서 서버리스를 검토했습니다. <strong>목적은 최신 아키텍처가 아니라 이 부담을 없애는 것</strong>이었습니다.</div>
+  </div>
+
+  <div class="s">
+    <h4>그런데 재보니 서버리스여야 할 이유가 없었습니다</h4>
+    <div class="say">표로 정리해 보니 결론이 예상과 반대였습니다.
+    <strong>저 문제들 중 «서버리스여야만» 해결되는 건 하나도 없었습니다</strong> — 대부분 EKS + 관리형이면 됐습니다.
+    그래서 기준을 이렇게 바꿨습니다 — <strong>«관리형보다 서버리스가 나은 이유를 숫자로 말할 수 있는가.»</strong>
+    말할 수 없으면 관리형이 정답입니다. 그리고 5개 축으로 12종을 전부 걸렀습니다.</div>
+  </div>
+
+  <div class="s">
+    <h4>결과 — 10종만 갔고, 2종은 남기거나 없앴습니다</h4>
+    <div class="say"><strong>배치 5종</strong>은 한 달에 4시간 일합니다. 이걸 위해 730시간을 켜 둘 이유가 없어서 옮겼습니다.
+    <strong>접수·워커 4종</strong>은 비동기라 콜드스타트가 사용자에게 안 보입니다.
+    그런데 <strong>추천 랭킹은 남겼습니다.</strong> 모델을 메모리에 올리는 시간이 요청마다 붙는데,
+    <strong>실제로 재보니 3초</strong>였습니다. 동기·지연민감 경로에 초 단위 콜드스타트를 놓는 건
+    «서버리스라서 좋다» 가 아니라 <strong>그냥 느려지는 것</strong>입니다.
+    알림 컨슈머는 함수를 하나 더 만드는 대신 <strong>설계를 줄여서 없앴습니다.</strong></div>
+  </div>
+
+  <div class="s">
+    <h4>예상 못 한 발견 — 비용은 함수가 아니라 네트워크에 있었습니다</h4>
+    <div class="say"><strong>함수 자체는 프리티어 안이라 사실상 0원</strong>입니다. 그런데 그 함수를 VPC 안에 넣어서
+    데이터베이스와 시크릿에 «닿게» 만드는 순간, <strong>NAT 게이트웨이와 엔드포인트로 월 90달러</strong>가 붙습니다.
+    컴퓨트의 <strong>243배</strong>입니다.
+    저희는 이걸 청구서로 배웠습니다 — 배포 초기에 시크릿 매니저로 나가는 길이 없어서
+    <strong>함수 3개가 각각 166초씩 연결 타임아웃을 기다리다 죽었고, 그 시간이 그대로 과금</strong>됐습니다.
+    <strong>서버리스에서 비용은 «실행» 이 아니라 «연결» 에서 나옵니다.</strong>
+    다행히 저희는 EKS 를 이미 갖고 있어서 그 네트워크를 새로 사지 않았습니다 —
+    <strong>결과적으로 하이브리드가 순수 서버리스보다 쌌습니다.</strong></div>
+  </div>
+
+</div>
+
+<h2>7. 예상 질문 — 한 줄 답변</h2>
+<div class="tw"><table>
+<tr><th>질문</th><th>답변</th></tr>
+<tr><td>전부 서버리스로 가나요?</td><td>아닙니다. <strong>재보고 경계를 그었습니다.</strong> 안 맞는 건 파드로 남겼습니다</td></tr>
+<tr><td>쿠버네티스를 배웠는데 왜 버리나요?</td><td>버리는 게 아니라 계층별로 나눕니다. <strong>데이터 계층은 그대로 K8s</strong> 입니다</td></tr>
+<tr><td><strong>EKS 로 그냥 올린 것과 뭐가 다른가요?</strong></td><td><strong>그 질문을 저희가 먼저 던졌습니다.</strong> 대부분은 EKS 로 해결됐고, 서버리스는 «그보다 나은 이유가 있는 것» 만 골랐습니다</td></tr>
+<tr><td>응답이 느려지지 않나요?</td><td>사용자 경로는 <strong>접수 함수가 93 ms</strong> 로 즉답하고 처리는 큐 뒤로 보냅니다. 느려지는 경로(랭킹)는 <strong>안 옮겼습니다</strong></td></tr>
+<tr><td>비용이 정말 줄어드나요?</td><td><strong>과금 축이 달라 단순 비교가 안 됩니다.</strong> 컴퓨트는 20배 싸고 네트워크는 243배 비쌉니다</td></tr>
+<tr><td>잘못되면 되돌릴 수 있나요?</td><td>이전 경로를 살려 두고 병행합니다. 조건 미달이면 그 상태로 되돌립니다</td></tr>
+<tr><td>왜 AI 부터 하나요?</td><td><strong>상태가 없고 이벤트성</strong>이라, 실패해도 다른 계층에 파급이 없습니다</td></tr>
+<tr><td>락인 문제는요?</td><td>인지하고 있습니다 — <strong>비즈니스 로직을 프레임워크에 안 묶이게</strong> 유지했습니다</td></tr>
+</table></div>
+
+<h2>8. 🔴 발표에서 말하지 말 것</h2>
+<div class="tw"><table>
+<tr><th>❌</th><th>왜</th></tr>
+<tr><td>“전부 서버리스로 갑니다”</td><td>사실이 아니다 — 10/12 다</td></tr>
+<tr><td>“비용이 줄었습니다”</td><td>과금 축이 달라 단순 비교 불가. <strong>«비용이 어디서 나오는지 자리가 바뀌었다»</strong> 가 정확하다</td></tr>
+<tr><td>콜드스타트를 숨기기</td><td>어차피 질문 나온다. <strong>먼저 말하는 게 낫다</strong></td></tr>
+<tr><td>“챗봇 응답이 456 ms 입니다”</td><td>§9 — <strong>라벨을 바꾸지 않으면 틀린 말</strong>이 된다</td></tr>
+</table></div>
+
+<h2>9. ⚠️ 챗봇 456 ms — 쓸 수 있다. 단 라벨이 정확해야 한다</h2>
+<p><strong>질문</strong>: “라이브가 template 모드라도 다듬기(refine)에는 LLM 을 쓰는데 왜 못 쓰나?”</p>
+<div class="tw"><table>
+<tr><th>확인 대상</th><th>결과 (2026-08-18 실측)</th></tr>
+<tr><td>코드가 refine 을 지원하나</td><td>🟢 <strong>그렇다</strong> — <code>generator_backend = template | gemini | bedrock</code>, 레시피 추천만 다듬음</td></tr>
+<tr><td>EKS 라이브 설정</td><td>🔴 <code>GENERATOR_BACKEND = template</code></td></tr>
+<tr><td>온프렘 라이브 설정</td><td>🔴 <code>GENERATOR_BACKEND = template</code></td></tr>
+</table></div>
+<p>⇒ <strong>양쪽 클러스터 모두 지금 이 순간 template 이다.</strong> 기능이 없는 게 아니라 <strong>플래그가 꺼져 있는 것</strong>이다.</p>
+<p><strong>456 ms 의 정체</strong> — 모델 선정 벤치마크에서 잰 <code>nova-micro-seoul</code> 의 <strong>refine 응답 지연</strong>이다.
+«프로덕션 refine 경로 20/20 으로 Gemini 와 동률 · 40 % 저렴 · 2배 빠름» 의 근거로 쓰였다. <strong>숫자 자체는 유효한 실측이다.</strong></p>
+<div class="tw"><table>
+<tr><th>❌ 틀림</th><th>✅ 맞음</th></tr>
+<tr><td>“저희 챗봇 응답 속도는 456 ms 입니다”</td><td>“<strong>모델을 고를 때</strong> 후보 5종을 실측 비교했고, 선정된 nova-micro 의 <strong>다듬기 응답이 456 ms</strong> 로 Gemini 대비 2배 빠르고 40 % 저렴했습니다”</td></tr>
+<tr><td>«라이브 성능» 으로 제시</td><td><strong>«모델 선정 근거»</strong> 로 제시 — 이쪽이 «재보고 골랐다» 서사에 더 맞는다</td></tr>
+</table></div>
+<p>🔵 <strong>버릴 숫자가 아니라 자리를 옮길 숫자</strong>다. 다만 «지금 켜져 있느냐» 를 물으면 <strong>꺼져 있다고 답해야 한다</strong>(비용 가드 때문이며, 켜는 것은 팀 결정 사항이다).</p>
+
+<footer>
+근거 원문 = <code>docs/발표자료/근거문서/</code> (A~H) ·
+실측 상세 = <code>02_Lambda_실측_CloudWatch.md</code> ·
+비용 환산 = <code>03_비용비교_Lambda_vs_EKS.md</code><br>
+🟢 = 실측 · 🟡 = 명시된 가정 기반 추정 · 🔴 = 조회 불가 / 주의
+</footer>
+
+</div>
+
+<script>
+(function(){
+  // 기본 밝게. 선택은 localStorage 에 남아 다음에 열 때도 유지된다.
+  var root=document.documentElement, btn=document.getElementById('themeBtn'),
+      icon=document.getElementById('themeIcon'), label=document.getElementById('themeLabel'),
+      KEY='mp-deck-theme';
+  function apply(t){
+    if(t==='dark'){ root.setAttribute('data-theme','dark'); icon.textContent='☀️'; label.textContent='밝게'; }
+    else          { root.removeAttribute('data-theme');     icon.textContent='🌙'; label.textContent='어둡게'; }
+  }
+  var saved=null; try{ saved=localStorage.getItem(KEY); }catch(e){}
+  apply(saved==='dark'?'dark':'light');
+  btn.addEventListener('click',function(){
+    var next = root.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    apply(next);
+    try{ localStorage.setItem(KEY,next); }catch(e){}
+  });
+})();
+</script>
+
+</body></html>

@@ -6,5 +6,8 @@
   "source_date": "2026-08-18",
   "metric": "이전 후보 12종 → 채택 10 / 제외 2",
   "decision": "하나라도 막히면 후보에서 제외하는 기준을 먼저 정하고 적용함",
-  "sha256_of_published": "3e5002674cf5612c"
+  "sha256_of_published": "3e5002674cf5612c",
+  "full_document": "full.html",
+  "full_source": "서버리스 판단근거 — 왜 갔고, 무엇을 안 옮겼나",
+  "full_sha256": "47b08706bab45855"
 }

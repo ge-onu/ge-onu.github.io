@@ -85,7 +85,7 @@
           <summary>
             <span class="cat-no">A</span>
             <span class="cat-copy"><strong>구성과 아키텍처</strong><small>서비스가 어떤 문제를 다루는지와, 제가 맡은 기능을 어디까지 서버리스로 옮겼는지</small></span>
-            <span class="cat-count">2개 항목</span>
+            <span class="cat-count">3개 항목</span>
           </summary>
           <div class="cat-body">
 
@@ -120,7 +120,32 @@
                   <div class="ev-head"><strong>서버리스 검토 기준 5개와 옮기지 않은 것</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-08-18</span></div>
                   <div class="ev-body">이전 후보 12종을 다섯 개 축으로 판정한 표와, 옮기면서 <b>잃는 것</b>을 먼저 적어 둔 절입니다.
                     <span class="ev-metric">지표 · 이전 후보 12종 → 채택 10 / 제외 2</span>
-                    <a class="ev-open" href="../../assets/evidence/mealplanning/serverless-judgment/source.html">실측 문서 보기 →</a></div>
+                    <a class="ev-open" href="../../assets/evidence/mealplanning/serverless-judgment/source.html">실측 문서 보기 →</a>
+                    <a class="ev-open ev-open--full" href="../../assets/evidence/mealplanning/serverless-judgment/full.html">기록 전문 보기 →</a></div>
+                </div>
+              </div>
+            </details>
+
+            <details class="case" id="a3-review">
+              <summary><span class="case-id">A-3</span><span class="case-copy"><strong>레시피 후기는 어떻게 모으고 붙였나</strong><small>후기 141,298건을 분류하고 전 레시피에 요약을 붙인 과정</small></span></summary>
+              <div class="case-body">
+                <div class="step"><h4>문제 상황</h4><p>레시피마다 후기가 쌓여 있어도 사용자가 전부 읽지는 않습니다. 후기를 감정으로 분류하고 요약해 붙이려 했는데, 자유 요약은 근거를 다시 쓰는 작업과 성격이 달라 어떤 모델이 맞는지 미리 정할 수 없었습니다.</p></div>
+                <div class="step"><h4>확인 및 분석</h4><p>후보 5종을 같은 케이스로 재봤습니다. 판정을 가른 것은 문장 품질이 아니라 <b>존댓말 지시를 지키는지</b>였습니다. 지시를 무시하는 모델은 요약이 그럴듯해도 서비스 말투와 어긋났습니다.</p><p>스키마를 실제 DB에 적용하기 전에는 설계 전제가 실 DB와 어긋나지 않는지 먼저 점검했습니다. 그 과정에서 가격 이상탐지의 기준선이 아직 짧고, 두 소매 가격을 합치면 편차가 부풀어 탐지가 죽는다는 것을 확인했습니다.</p></div>
+                <div class="step"><h4>수행 및 결정</h4><p>부정 후기가 있는 레시피만 LLM으로 요약하고 나머지는 템플릿으로 처리했습니다. 가격 기준선은 소매별로 나누고, 이력이 짧은 구간의 급락은 기록만 하고 알리지 않도록 게이트를 뒀습니다.</p></div>
+                <div class="step"><h4>결과</h4><p>후기 <b>141,298건</b>을 수집해 141,282건을 분류하고, 레시피 6,873개 전부에 요약을 붙였습니다. 요약 비용은 36,291원에서 22,000원으로 줄었습니다.</p></div>
+                <div class="limit"><b>한계 및 고려사항</b> — 가격 기준선은 이력이 더 쌓이기 전까지 미성숙 상태로 둡니다. 문서에도 해결하지 못한 항목을 그대로 적어 뒀습니다.</div>
+                <div class="ownership"><b>기여 범위</b> — 요약 모델 선정·비용 구조 설계·스키마 적용 검증: <b>본인</b> · 후기 수집 크롤러 일부: <b>팀</b></div>
+                <div class="ev">
+                  <div class="ev-head"><strong>리뷰 감정분석·요약 완료 리포트</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-07-29</span></div>
+                  <div class="ev-body">모델을 무엇으로 골랐고 비용을 어떻게 낮췄는지, 해결하지 못한 항목까지 당시 그대로 적은 기록입니다.
+                    <span class="ev-metric">지표 · 후기 141,298건 · 분류 99.99% · 요약 커버리지 6,873/6,873</span>
+                    <a class="ev-open ev-open--full" href="../../assets/evidence/mealplanning/review-pipeline/full.html">기록 전문 보기 →</a></div>
+                </div>
+                <div class="ev ev--sub">
+                  <div class="ev-head"><strong>추가 자료 · 스키마 적용과 가격 이상탐지 판정</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-07-29</span></div>
+                  <div class="ev-body">설계 전제를 실 DB에서 점검하고 적용한 결과, 그리고 두 소매를 합친 기준선을 실측으로 기각한 대목입니다.
+                    <span class="ev-metric">지표 · 사전 점검 실패 0 · 소매 합산 시 편차 중앙값 2.08배</span>
+                    <a class="ev-open ev-open--full" href="../../assets/evidence/mealplanning/review-schema-apply/full.html">기록 전문 보기 →</a></div>
                 </div>
               </div>
             </details>
@@ -152,13 +177,15 @@
                   <div class="ev-head"><strong>후보 15종 전수 실측</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-07-28</span></div>
                   <div class="ev-body">모델별 품질·안전·단가·월비용·품질손실을 한 표에 놓고 비교한 실제 리포트 구간입니다. 월비용 산정식도 함께 있습니다.
                     <span class="ev-metric">지표 · 품질(HARD) n/25 · 안전(환각) n/25 · 원/콜 · 월비용 · 품질손실%</span>
-                    <a class="ev-open" href="../../assets/evidence/mealplanning/model-selection/source.html">실측 문서 보기 →</a></div>
+                    <a class="ev-open" href="../../assets/evidence/mealplanning/model-selection/source.html">실측 문서 보기 →</a>
+                    <a class="ev-open ev-open--full" href="../../assets/evidence/mealplanning/model-selection/full.html">기록 전문 보기 →</a></div>
                 </div>
                 <div class="ev ev--sub">
                   <div class="ev-head"><strong>추가 실측 자료 · 측정 방법과 뒤집힌 1차 판단</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-07-28</span></div>
                   <div class="ev-body">코드 구조상 이관 가능하다는 초기 판단을 실제 측정으로 다시 검토한 기록입니다. 무엇을 어떻게 쟀는지와, 같은 모델을 리전만 바꿔 비교한 결과가 함께 있습니다.
                     <span class="ev-metric">지표 · 11모델 × 50케이스 = 550건 · 에러 0</span>
-                    <a class="ev-open" href="../../assets/evidence/mealplanning/model-benchmark-method/source.html">추가 자료 보기 →</a></div>
+                    <a class="ev-open" href="../../assets/evidence/mealplanning/model-benchmark-method/source.html">추가 자료 보기 →</a>
+                    <a class="ev-open ev-open--full" href="../../assets/evidence/mealplanning/model-benchmark-method/full.html">기록 전문 보기 →</a></div>
                 </div>
               </div>
             </details>
@@ -210,7 +237,8 @@
                   <div class="ev-head"><strong>가드레일 수정 효과 — 같은 275건 재측정</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-07-28</span></div>
                   <div class="ev-body">모델 11종 각각에서 몇 건이 회수됐는지 막대로 보여주는 실제 리포트 구간입니다. 합계와 «추가 LLM 호출 없음» 조건이 같은 화면에 있습니다.
                     <span class="ev-metric">지표 · 통과 건수 / 275 (pass count · 정확도가 아닙니다)</span>
-                    <a class="ev-open" href="../../assets/evidence/mealplanning/guardrail/source.html">실측 문서 보기 →</a></div>
+                    <a class="ev-open" href="../../assets/evidence/mealplanning/guardrail/source.html">실측 문서 보기 →</a>
+                    <a class="ev-open ev-open--full" href="../../assets/evidence/mealplanning/guardrail/full.html">기록 전문 보기 →</a></div>
                 </div>
               </div>
             </details>
@@ -250,7 +278,8 @@
                   <div class="ev-head"><strong>튜닝 전후 2,276회 비교</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-07-29</span></div>
                   <div class="ev-body">결과 요약과 카테고리별 통과율을 함께 담은 실제 리포트 구간입니다. 악화된 항목이 그대로 보입니다.
                     <span class="ev-metric">지표 · 치명 결함률 = (금액 손실 + 이름 누락) / 케이스 수</span>
-                    <a class="ev-open" href="../../assets/evidence/mealplanning/chat-mass/source.html">실측 문서 보기 →</a></div>
+                    <a class="ev-open" href="../../assets/evidence/mealplanning/chat-mass/source.html">실측 문서 보기 →</a>
+                    <a class="ev-open ev-open--full" href="../../assets/evidence/mealplanning/chat-mass/full.html">기록 전문 보기 →</a></div>
                 </div>
               </div>
             </details>
