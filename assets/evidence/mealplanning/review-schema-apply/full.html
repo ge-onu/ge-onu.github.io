@@ -77,8 +77,8 @@ a{color:var(--s1)}
 </style></head><body>
 <div class="mp-wrap">
 <a class="back" href="../../../../projects/mealplanning/">← Mealplanning 페이지로</a>
-<p class="mp-meta">팀 프로젝트에서 제가 작성한 AI 파트 기록입니다. 원본 문서 · 적용 결과 리포트 — 리뷰 수집 + 가격 이상탐지 스키마 &nbsp;|&nbsp; 작성 시점 · 2026-07-29<br>
-공개용으로 계정·내부 주소 표기만 가린 사본이며, 측정값과 서술은 원본과 같습니다.</p>
+<p class="mp-meta">팀 프로젝트에서 작성한 당시 기록을 바탕으로 한 공개용 정제 사본입니다. 원본 문서 · 적용 결과 리포트 — 리뷰 수집 + 가격 이상탐지 스키마 &nbsp;|&nbsp; 작성 시점 · 2026-07-29<br>
+계정·내부 주소·팀 내부 식별정보는 공개용으로 정리했으며, 공개된 측정값과 기술적 판단의 의미는 원본과 같습니다.</p>
 <div class="mp-card"><h2>왜 쟀나</h2><p>설계는 DB에 접속하지 못하는 환경에서 스키마 파일만 보고 만들어졌습니다. 그 전제가 <b>실제 DB와 어긋나지 않는지 확인하고 적용</b>하려고, 실 DB에 붙는 환경에서 검증했습니다.</p></div>
 <div class="mp-card"><h2>무엇이 나왔나</h2><p>사전 점검을 통과해 DDL 3개를 적용하고 크롤러 실동작까지 확인했습니다. 설계 수정 사항은 없었습니다.</p><p>측정하면서 두 가지를 발견했습니다. 가격 이력이 아직 짧아 <b>기준선이 미성숙</b>했고, 원설계처럼 두 소매의 가격을 합치면 <b>편차가 중앙값 기준 2배 넘게 부풀어 탐지가 죽는다</b>는 것이었습니다.</p></div>
 <div class="mp-card"><h2>무엇을 얻고 무엇을 포기했나</h2><ul><li><b>얻은 것</b> — 소매별로 기준선을 나눠 탐지가 동작하게 만든 구조. 그리고 미성숙한 기준선의 급락은 기록만 하고 알리지 않는 게이트.</li><li><b>포기한 것</b> — 두 소매를 합친 단일 기준선. 실측에서 오탐이 확인돼 통합안을 버렸습니다.</li><li><b>남은 한계</b> — 이력이 더 쌓이기 전까지 기준선은 미성숙 상태로 둡니다.</li></ul></div>
@@ -87,7 +87,7 @@ a{color:var(--s1)}
 </div>
 <div class="wrap">
 <h1 id="적용-결과-리포트-리뷰-수집-가격-이상탐지-스키마-2026-07-29">적용 결과 리포트 — 리뷰 수집 + 가격 이상탐지 스키마 (2026-07-29)</h1>
-<blockquote class="card">설계 문서 <a href="./recipe-review-handoff.md"><code>recipe-review-handoff.md</code></a>는 <em>&quot;무엇을 왜 바꾸려는가&quot;</em> 다. <strong>이 리포트는 <em>&quot;실제로 무엇이 바뀌었는가&quot;</em> 다.</strong> 설계는 DB에 접속하지 못한 PC에서 스키마 파일만 보고 만들어졌고(핸드오프 §12), 이 문서는 <strong>실 DB에 붙는 환경에서 검증·적용한 결과</strong>다.  수신: 데이터 담당자 · 작성: AI 파트 · 대상 DB: <code>[내부 주소 비공개]/foodbudget</code></blockquote>
+<blockquote class="card">설계 문서 <code><code>recipe-review-handoff.md</code></code><span style="color:#8c959f"> — 당시 별도 설계 핸드오프 문서에 기록</span>는 <em>&quot;무엇을 왜 바꾸려는가&quot;</em> 다. <strong>이 리포트는 <em>&quot;실제로 무엇이 바뀌었는가&quot;</em> 다.</strong> 설계는 DB에 접속하지 못한 PC에서 스키마 파일만 보고 만들어졌고(핸드오프 §12), 이 문서는 <strong>실 DB에 붙는 환경에서 검증·적용한 결과</strong>다.  수신: 데이터 담당자 · 작성: AI 파트 · 대상 DB: <code>[내부 주소 비공개]/foodbudget</code></blockquote>
 <hr>
 <h2 id="0-결론">0. 결론</h2>
 <p><strong>프리플라이트 PASS → DDL 3개 적용 완료 → 크롤러 실동작 검증 완료.</strong> 스키마를 고정해도 된다(G4).</p>
@@ -180,7 +180,7 @@ PREFLIGHT PASS</code></pre>
 <div class="tbl-scroll"><table><thead><tr><th>측정</th><th>결과</th></tr></thead><tbody><tr><td>두 소스가 모두 파는 품목</td><td>175개</td></tr><tr><td>같은 품목의 100g 단가 차이</td><td><strong>중앙값 41.9%</strong> (61%가 30%↑ · 45%가 50%↑)</td></tr><tr><td>소스를 합쳤을 때 σ 부풀림</td><td><strong>중앙값 2.08배</strong> (53%가 2배↑ · 31%가 5배↑)</td></tr></tbody></table></div>
 <p><code>z = (x − μ) / σ</code> 이므로 <strong>σ 가 2배면 모든 z 가 절반</strong>이 된다. <code>z ≤ −2.0</code> 임계에서 실제 −2.4짜리 급락이 −1.2로 찍혀 <strong>탐지되지 않는다.</strong> σ가 5배 부푼 31% 구간은 사실상 탐지 불능이다.</p>
 <p>표본이 2배가 되는 이득은 μ·σ 추정의 <strong>정밀도</strong>에 그치지만, σ 부풀림은 <strong>탐지 자체를 무력화</strong>한다. 교환이 성립하지 않는다. 두 소매가 같은 품목을 다른 가격대에 파는 것은 아티팩트가 아니라 <strong>사실</strong>(매장 포지셔닝)이므로, &quot;평상시 가격&quot;도 소스별로 정의되어야 한다.</p>
-<p>→ <strong>적용</strong>: <a href="./prd/migrations/2026-07-29b_price_baseline_per_source.sql"><code>2026-07-29b_price_baseline_per_source.sql</code></a> 로 <code>price_baseline</code> 에 <code>source</code> 를 추가하고 PK 를 <code>(item_id, source, as_of)</code> 로 교정했다. 세 테이블 모두 0행일 때 고쳐 <strong>무손실</strong>이다. 기존 마이그레이션 파일은 건드리지 않았다(G4 규칙).</p>
+<p>→ <strong>적용</strong>: <a href="./attachments/2026-07-29b_price_baseline_per_source.sql.html"><code>2026-07-29b_price_baseline_per_source.sql</code></a> 로 <code>price_baseline</code> 에 <code>source</code> 를 추가하고 PK 를 <code>(item_id, source, as_of)</code> 로 교정했다. 세 테이블 모두 0행일 때 고쳐 <strong>무손실</strong>이다. 기존 마이그레이션 파일은 건드리지 않았다(G4 규칙).</p>
 <h3 id="6-2-통합-번들-스키마-pr-353-코드">6.2 통합 — 번들 스키마 + PR #353 코드</h3>
 <p>두 설계는 <strong>서로 다른 것을 잘하고 있었다.</strong> 하나를 버리는 대신 합쳤다.</p>
 <div class="tbl-scroll"><table><thead><tr><th>축</th><th>채택</th><th>근거</th></tr></thead><tbody><tr><td>기준선 단위</td><td><strong>(품목, 소스)</strong></td><td>§6.1 실측</td></tr><tr><td>기준선·이상치 영속</td><td><strong>번들 (<code>price_baseline</code>·<code>price_anomaly</code>)</strong></td><td>알림 근거 재현 + 오탐률 사후 측정. PR #353은 계산 후 버려 근거가 남지 않았다</td></tr><tr><td>근거 스냅샷</td><td><strong>번들</strong> (<code>retail_product_id</code>·<code>crawled_at</code>·<code>price</code> NOT NULL)</td><td>합성금액 금지를 스키마가 강제</td></tr><tr><td>발송 멱등</td><td><strong>양쪽 다</strong></td><td>아래 참조</td></tr><tr><td>Kafka 토픽</td><td><strong><code>price.anomaly.detected</code></strong> (PR #353)</td><td>브로커에 이미 생성·코드·k8s 매니페스트·테스트가 이 이름으로 검증 완료</td></tr><tr><td>최소 하락률 게이트</td><td><strong>PR #353</strong></td><td>원설계에 없다. z 단독은 σ 극소 품목을 상위로 올려 체감 없는 알림을 만든다(실측)</td></tr><tr><td>노출 상한 TOP_N=20</td><td><strong>PR #353</strong></td><td>팀 결정</td></tr></tbody></table></div>

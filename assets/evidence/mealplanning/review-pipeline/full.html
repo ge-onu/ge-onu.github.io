@@ -77,20 +77,20 @@ a{color:var(--s1)}
 </style></head><body>
 <div class="mp-wrap">
 <a class="back" href="../../../../projects/mealplanning/">← Mealplanning 페이지로</a>
-<p class="mp-meta">팀 프로젝트에서 제가 작성한 AI 파트 기록입니다. 원본 문서 · 리뷰 감정분석·요약 완료 리포트 &nbsp;|&nbsp; 작성 시점 · 2026-07-29<br>
-공개용으로 계정·내부 주소 표기만 가린 사본이며, 측정값과 서술은 원본과 같습니다.</p>
+<p class="mp-meta">팀 프로젝트에서 작성한 당시 기록을 바탕으로 한 공개용 정제 사본입니다. 원본 문서 · 리뷰 감정분석·요약 완료 리포트 &nbsp;|&nbsp; 작성 시점 · 2026-07-29<br>
+계정·내부 주소·팀 내부 식별정보는 공개용으로 정리했으며, 공개된 측정값과 기술적 판단의 의미는 원본과 같습니다.</p>
 <div class="mp-card"><h2>왜 쟀나</h2><p>레시피마다 후기가 쌓여 있어도 사용자가 전부 읽지는 않습니다. 후기를 <b>감정으로 분류하고 요약해 붙이려고</b> 했고, 자유 요약은 근거 재작성과 성격이 달라 <b>구현한 뒤 실측으로 모델을 확정</b>하기로 했습니다.</p></div>
-<div class="mp-card"><h2>무엇이 나왔나</h2><p>후기 <b>141,298건</b>을 수집해 141,282건(99.99%)을 분류하고, 레시피 6,873개 <b>전부</b>에 요약을 붙였습니다.</p><p>요약 모델은 후보 5종을 같은 케이스로 재서 골랐는데, <b>판정을 가른 것은 문장 품질이 아니라 존댓말 지시를 지키는지</b>였습니다. 부정 후기가 있는 레시피만 LLM으로 요약하고 나머지는 템플릿으로 처리해 비용을 36,291원에서 22,000원으로 낮췄습니다.</p></div>
-<div class="mp-card"><h2>무엇을 얻고 무엇을 포기했나</h2><ul><li><b>얻은 것</b> — 전 레시피 요약 커버리지와, 비용을 구조로 낮추는 방식(필요한 곳에만 LLM).</li><li><b>포기한 것</b> — 모든 레시피를 LLM으로 요약하는 방식. 품질 차이에 비해 비용이 컸습니다.</li><li><b>남은 한계</b> — 문서 §6에 해결하지 못한 항목을 그대로 적어 뒀습니다. 수집·크롤러 일부는 팀원 작업입니다.</li></ul></div>
+<div class="mp-card"><h2>무엇이 나왔나</h2><p>후기 <b>141,298건</b>을 수집해 141,282건(99.99%)을 분류하고, 레시피 6,873개 <b>전부</b>에 요약을 붙였습니다.</p><p>요약 모델은 후보 5종을 같은 케이스로 재서 골랐는데, <b>판정을 가른 것은 문장 품질이 아니라 존댓말 지시를 지키는지</b>였습니다. 부정 후기가 있는 레시피만 LLM으로 요약하고 나머지는 템플릿으로 처리했습니다. 초기 비용 추정 36,291원을 기준으로 LLM 적용 대상과 입력량을 조정해, 예상 비용을 약 2.1~2.2만원 수준으로 낮출 수 있는 구조를 확인했습니다.</p></div>
+<div class="mp-card"><h2>무엇을 얻고 무엇을 포기했나</h2><ul><li><b>얻은 것</b> — 전 레시피 요약 커버리지와, 예상 비용을 구조로 낮추는 방식(필요한 곳에만 LLM).</li><li><b>포기한 것</b> — 모든 레시피를 LLM으로 요약하는 방식. 품질 차이에 비해 비용이 컸습니다.</li><li><b>남은 한계</b> — 문서 §6에 해결하지 못한 항목을 그대로 적어 뒀습니다.</li></ul></div>
 
 <div class="mp-orig"><p class="mp-orig-label">아래부터 당시 작성한 문서 전문입니다.</p></div>
 </div>
 <div class="wrap">
 <h1 id="리뷰-감정분석-요약-완료-리포트-10-2026-07-29">리뷰 감정분석·요약 완료 리포트 (#10) — 2026-07-29</h1>
-<blockquote class="card">만개의레시피 후기 <strong>141,298건</strong>을 수집·분류하고, 레시피 <strong>6,873개 전부</strong>에 요약을 붙였다. 검증 표본 300건은 <a href="./review-summary-samples-300.md"><code>review-summary-samples-300.md</code></a>.  작성: AI 파트 · 대상 DB <code>[내부 주소 비공개]/foodbudget</code></blockquote>
+<blockquote class="card">만개의레시피 후기 <strong>141,298건</strong>을 수집·분류하고, 레시피 <strong>6,873개 전부</strong>에 요약을 붙였다. 검증 표본 300건은 <code><code>review-summary-samples-300.md</code></code><span style="color:#8c959f"> — 당시 별도 검증 표본 파일로 기록</span>.  작성: AI 파트 · 대상 DB <code>[내부 주소 비공개]/foodbudget</code></blockquote>
 <hr>
 <h2 id="0-결과-요약">0. 결과 요약</h2>
-<div class="tbl-scroll"><table><thead><tr><th>단계</th><th>결과</th></tr></thead><tbody><tr><td>리뷰 수집</td><td><strong>141,298건</strong> / 6,873 레시피 · <code>no_review</code> <strong>0.00%</strong> · 실패 0</td></tr><tr><td>감정 분류</td><td><strong>141,282건</strong>(99.99%) · 누락 16건 · 4,749초</td></tr><tr><td>LLM 요약</td><td><strong>2,189건</strong> · 9,312초(2시간 35분) · 건너뜀 0</td></tr><tr><td>주의사항</td><td><strong>636건</strong> (부정 후기 보유 레시피에서만)</td></tr><tr><td>템플릿 요약</td><td><strong>4,678건</strong> · 비용 0</td></tr><tr><td><strong>요약 커버리지</strong></td><td><strong>6,873 / 6,873 = 100%</strong></td></tr></tbody></table></div>
+<div class="tbl-scroll"><table><thead><tr><th>단계</th><th>결과</th></tr></thead><tbody><tr><td>리뷰 수집</td><td><strong>141,298건</strong> / 6,873 레시피 · <code>no_review</code> <strong>0.00%</strong> · 실패 0</td></tr><tr><td>감정 분류</td><td><strong>141,282건</strong>(99.99%) · 누락 16건 · 4,749초</td></tr><tr><td>LLM 요약</td><td><strong>2,189건</strong> · 9,312초(2시간 35분) · 건너뜀 0</td></tr><tr><td>주의사항</td><td><strong>636건</strong> (부정 후기 보유 레시피에서만)</td></tr><tr><td>템플릿 요약</td><td><strong>4,678건</strong> · LLM 호출 없음</td></tr><tr><td><strong>요약 커버리지</strong></td><td><strong>6,873 / 6,873 = 100%</strong></td></tr></tbody></table></div>
 <p><strong>긍정 81.9% · 중립 16.0% · 부정 2.1%</strong> (전수 141,282건 기준).</p>
 <hr>
 <h2 id="1-모델-실측으로-확정">1. 모델 — 실측으로 확정</h2>
@@ -103,7 +103,7 @@ a{color:var(--s1)}
 <hr>
 <h2 id="2-비용-36-291원-22-000원">2. 비용 — 36,291원 → 22,000원</h2>
 <p>첫 추정은 36,291원이었다. <strong>모델을 낮추지 않고</strong> 대상·입력량으로 55% 줄였다.</p>
-<div class="tbl-scroll"><table><thead><tr><th>축</th><th>조치</th><th>근거</th></tr></thead><tbody><tr><td>입력 후기</td><td>고정 30 → <strong>적응형</strong></td><td>15건과 30건의 요약 품질 차이가 보이지 않았다</td></tr><tr><td>대상 임계</td><td>≥5 → <strong>≥10건</strong></td><td>6건을 2문장으로 압축하면 <strong>정보가 준다</strong> — 그냥 읽는 편이 낫다</td></tr><tr><td>저리뷰 레시피</td><td>LLM → <strong>템플릿</strong></td><td>집계 사실만 서술 · <strong>비용 0</strong></td></tr></tbody></table></div>
+<div class="tbl-scroll"><table><thead><tr><th>축</th><th>조치</th><th>근거</th></tr></thead><tbody><tr><td>입력 후기</td><td>고정 30 → <strong>적응형</strong></td><td>15건과 30건의 요약 품질 차이가 보이지 않았다</td></tr><tr><td>대상 임계</td><td>≥5 → <strong>≥10건</strong></td><td>6건을 2문장으로 압축하면 <strong>정보가 준다</strong> — 그냥 읽는 편이 낫다</td></tr><tr><td>저리뷰 레시피</td><td>LLM → <strong>템플릿</strong></td><td>집계 사실만 서술 · <strong>LLM 호출 없음</strong></td></tr></tbody></table></div>
 <p><strong>입력을 줄여도 되는 결정적 이유</strong>: 긍정 비율은 <strong>전수 141,282건 분류</strong>에서 나온다. 요약이 통계를 짊어질 필요가 없고 <strong>테마·팁만 건지면 된다.</strong></p>
 <div class="tbl-scroll"><table><thead><tr><th>항목</th><th>건수</th><th>비용</th></tr></thead><tbody><tr><td>LLM 요약</td><td>2,189</td><td>~19,000원</td></tr><tr><td>주의사항</td><td>636</td><td>~2,000원</td></tr><tr><td>템플릿</td><td>4,678</td><td><strong>0원</strong></td></tr><tr><td><strong>합계</strong></td><td></td><td><strong>~21,000원</strong></td></tr></tbody></table></div>
 <hr>
@@ -139,7 +139,7 @@ a{color:var(--s1)}
 <hr>
 <h2 id="6-남은-한계-해결-못-한-것">6. 남은 한계 (해결 못 한 것)</h2>
 <div class="tbl-scroll"><table><thead><tr><th>한계</th><th>내용</th></tr></thead><tbody><tr><td>표본 절단</td><td>300건+ 레시피는 여전히 30건(10%)만 본다. 드문 1건짜리 경고는 놓칠 수 있다 — <strong>강제 포함이 더 나쁘다는 것이 확인돼</strong> 수용한 한계</td></tr><tr><td>갱신 트리거 없음</td><td>새 후기가 쌓여도 요약은 그대로. <code>--redo</code> 는 있으나 자동 트리거가 없다</td></tr><tr><td>창작 전수 미검증</td><td>표본만 <code>--audit</code> 했다. 자유 서술은 가드레일로 기계 검증이 불가하다</td></tr><tr><td>동적 로딩 절단</td><td>상세 페이지 HTML 에 처음 실린 후기까지만 수집(헤드리스 미사용)</td></tr></tbody></table></div>
-<p>상세·판정 방법은 <a href="./ai-verification-backlog.md"><code>ai-verification-backlog.md</code></a>.</p>
+<p>상세·판정 방법은 <code><code>ai-verification-backlog.md</code></code><span style="color:#8c959f"> — 당시 별도 검증 백로그에 기록</span>.</p>
 <hr>
 <h2 id="7-운영-반영">7. 운영 반영</h2>
 <div class="tbl-scroll"><table><thead><tr><th>항목</th><th>상태</th></tr></thead><tbody><tr><td>크론 (<code>poller-recipe-review</code>)</td><td>⬜ <strong>미등록</strong> — <code>deploy/crontab.fb-pollers</code> 에 줄은 추가됨</td></tr><tr><td>compose</td><td>✅ <code>poller-recipe-review</code> 등록</td></tr><tr><td>마이그레이션</td><td>✅ <code>2026-07-29h</code>(summary_model) · <code>2026-07-29i</code>(caution·summary_kind)</td></tr><tr><td>재실행</td><td>안전 — <code>summary_kind=&#x27;template&#x27;</code> 기준으로 남은 것만 잡는다</td></tr></tbody></table></div>

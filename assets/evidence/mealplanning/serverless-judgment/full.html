@@ -86,8 +86,8 @@
 </style></head><body>
 <div class="mp-wrap">
 <a class="back" href="../../../../projects/mealplanning/">← Mealplanning 페이지로</a>
-<p class="mp-meta">팀 프로젝트에서 제가 작성한 AI 파트 기록입니다. 원본 문서 · 서버리스 판단근거 — 왜 갔고, 무엇을 안 옮겼나 &nbsp;|&nbsp; 작성 시점 · 2026-08-18<br>
-공개용으로 계정·내부 주소 표기만 가린 사본이며, 측정값과 서술은 원본과 같습니다.</p>
+<p class="mp-meta">팀 프로젝트에서 작성한 당시 기록을 바탕으로 한 공개용 정제 사본입니다. 원본 문서 · 서버리스 판단근거 — 왜 갔고, 무엇을 안 옮겼나 &nbsp;|&nbsp; 작성 시점 · 2026-08-18<br>
+계정·내부 주소·팀 내부 식별정보는 공개용으로 정리했으며, 공개된 측정값과 기술적 판단의 의미는 원본과 같습니다.</p>
 <div class="mp-card"><h2>왜 쟀나</h2><p>AI 기능이 상시 떠 있는 워크로드로 돌면 쓰지 않는 시간에도 자원을 붙잡습니다. 옮길지 말지를 감으로 정하지 않으려고 <b>검토 기준을 먼저 정해 두고</b> 후보를 전수 판정했습니다.</p></div>
 <div class="mp-card"><h2>무엇이 나왔나</h2><p>기준 5개를 세우고 하나라도 걸리면 후보에서 빼는 방식으로 12종을 확인해 <b>10종은 옮기고 2종은 남겼습니다</b>.</p><p>옮기면 잃는 것도 같은 문서에 먼저 적었습니다. 상시 프로세스에서 유지하던 상태와 연결을 매 호출마다 다시 만들어야 하고, 콜드 스타트가 지연에 더해집니다.</p></div>
 <div class="mp-card"><h2>무엇을 얻고 무엇을 포기했나</h2><ul><li><b>얻은 것</b> — 호출이 있을 때만 실행되는 구조, 그리고 «왜 이건 안 옮겼는가»를 설명할 수 있는 기준.</li><li><b>포기한 것</b> — 전부 옮기는 선택지. 기준에 걸린 2종은 되돌리기 비용이 더 크다고 보고 기존 방식으로 뒀습니다.</li><li><b>남은 한계</b> — 콜드 스타트와 연결 재수립 비용은 구조를 바꾼 대가로 남았습니다.</li></ul></div>
@@ -155,7 +155,7 @@
 <h2>3. 적용 결과 — 12종 중 10종만 갔다</h2>
 <div class="tw"><table>
 <tr><th>분류</th><th>함수</th><th>트리거</th><th>왜 이 자리인가</th></tr>
-<tr><td><strong>배치 5종</strong></td><td><code>shelflife-draft</code> <code>ner-backfill</code> <code>sentiment-batch</code> <code>summarize-batch</code> <code>price-detect</code></td><td>Scheduler · 수동</td><td>저빈도 배치 = 미호출 시 비용 0. <strong>서버리스 최적</strong></td></tr>
+<tr><td><strong>배치 5종</strong></td><td><code>shelflife-draft</code> <code>ner-backfill</code> <code>sentiment-batch</code> <code>summarize-batch</code> <code>price-detect</code></td><td>Scheduler · 수동</td><td>저빈도 배치 = 미호출 시 실행 요금 없음. <strong>서버리스 최적</strong></td></tr>
 <tr><td><strong>접수·워커 4종</strong></td><td><code>video-api</code>+<code>video-worker</code> · <code>ocr-api</code>+<code>ocr-worker</code></td><td>ALB · SQS</td><td>비동기라 <strong>콜드스타트가 사용자에게 안 보인다</strong></td></tr>
 <tr><td><strong>서비스 1종</strong></td><td><code>chat-api</code></td><td>ALB</td><td>호출이 드물고 콜드스타트를 감내할 수 있다</td></tr>
 <tr><td>⛔ <strong>이관 제외</strong></td><td><s><code>rank-serve</code></s></td><td>—</td><td><strong>동기 · 지연민감</strong> — 아래 참조</td></tr>
@@ -280,7 +280,7 @@
 <tr><td>EKS 라이브 설정</td><td>🔴 <code>GENERATOR_BACKEND = template</code></td></tr>
 <tr><td>온프렘 라이브 설정</td><td>🔴 <code>GENERATOR_BACKEND = template</code></td></tr>
 </table></div>
-<p>⇒ <strong>양쪽 클러스터 모두 지금 이 순간 template 이다.</strong> 기능이 없는 게 아니라 <strong>플래그가 꺼져 있는 것</strong>이다.</p>
+<p>⇒ <strong>양쪽 클러스터 모두 지금 이 순간 template 이다.</strong> 기능이 구현되지 않은 것이 아니라, 생성 백엔드를 고르는 <strong>플래그가 template 으로 설정돼 있는 상태</strong>다.</p>
 <p><strong>456 ms 의 정체</strong> — 모델 선정 벤치마크에서 잰 <code>nova-micro-seoul</code> 의 <strong>refine 응답 지연</strong>이다.
 «프로덕션 refine 경로 20/20 으로 Gemini 와 동률 · 40 % 저렴 · 2배 빠름» 의 근거로 쓰였다. <strong>숫자 자체는 유효한 실측이다.</strong></p>
 <div class="tw"><table>
@@ -288,7 +288,7 @@
 <tr><td>“저희 챗봇 응답 속도는 456 ms 입니다”</td><td>“<strong>모델을 고를 때</strong> 후보 5종을 실측 비교했고, 선정된 nova-micro 의 <strong>다듬기 응답이 456 ms</strong> 로 Gemini 대비 2배 빠르고 40 % 저렴했습니다”</td></tr>
 <tr><td>«라이브 성능» 으로 제시</td><td><strong>«모델 선정 근거»</strong> 로 제시 — 이쪽이 «재보고 골랐다» 서사에 더 맞는다</td></tr>
 </table></div>
-<p>🔵 <strong>버릴 숫자가 아니라 자리를 옮길 숫자</strong>다. 다만 «지금 켜져 있느냐» 를 물으면 <strong>꺼져 있다고 답해야 한다</strong>(비용 가드 때문이며, 켜는 것은 팀 결정 사항이다).</p>
+<p>🔵 <strong>버릴 숫자가 아니라 자리를 옮길 숫자</strong>다. 다만 이 수치는 <strong>모델 선정 벤치마크에서 측정한 값</strong>이며 라이브 트래픽 실적이 아니다. 어느 생성 백엔드를 쓸지는 비용 가드와 함께 팀이 정한다.</p>
 
 <footer>
 근거 원문 = <code>docs/발표자료/근거문서/</code> (A~H) ·

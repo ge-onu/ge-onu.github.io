@@ -35,8 +35,8 @@ RULES: list[tuple[str, str, re.Pattern[str], str]] = [
      "credential assignment"),
     ("PRIVATE_KEY",  "BLOCK", re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
      "private key block"),
-    ("LOCAL_PATH",   "BLOCK", re.compile(r"/home/[a-z][\w.-]*/|/mnt/[cd]/|[A-Z]:\\\\Users\\\\"),
-     "local filesystem path"),
+    ("LOCAL_PATH",   "BLOCK", re.compile(r"/home/[a-z][\w.-]*|/mnt/[cd]/|[A-Z]:\\\\Users\\\\|~/[\w.-]+/"),
+     "absolute or user-specific local filesystem path"),
     ("FORBIDDEN_TERM", "BLOCK", re.compile(r"(?i)클릭스트림|clickstream"),
      "forbidden term (use 추천 노출·행동 이벤트)"),
     ("OVERCLAIM_CASES", "BLOCK", re.compile(r"1,750\s*(?:cases|개\s*평가\s*케이스|평가\s*케이스)"),
@@ -45,6 +45,21 @@ RULES: list[tuple[str, str, re.Pattern[str], str]] = [
      re.compile(r"(?i)개인화[^.\n]{0,18}(?:성공|달성|개선했|향상했|입증)"
                 r"|personalization\s+(?:success|proven|improved)"),
      "unsupported personalization success claim"),
+    # Ranking references are allowed; only activation-state narrative is not.
+    ("RANKING_ACTIVATION_STATE", "BLOCK",
+     re.compile(r"(?:랭킹|Ranking|LightGBM)[^.\n]{0,40}"
+                r"(?:켜지\s*않|끄|꺼져|미배포|배포하지\s*않|활성화하지\s*않|비활성)"
+                r"|(?:켜지\s*않|꺼져|미배포|활성화하지\s*않)[^.\n]{0,40}(?:랭킹|Ranking)"),
+     "ranking activation-state narrative"),
+    ("RANKING_PRODUCTION_CLAIM", "BLOCK",
+     re.compile(r"(?:랭킹|Ranking)[^.\n]{0,30}(?:프로덕션에서 (?:운영|서빙|사용)|실서비스에서 (?:운영|서빙))"),
+     "unsupported production-active ranking claim"),
+    ("AMBIGUOUS_ZERO_COST", "BLOCK",
+     re.compile(r"(?:추가\s*)?비용\s*0\s*(?:원|\b)|비용은?\s*0원|무료로\s*(?:해결|처리)"),
+     "ambiguous zero-cost wording (state the exact call/resource instead)"),
+    ("INTERNAL_IAM_GROUP", "BLOCK",
+     re.compile(r"\bmealplanning-dev\b"),
+     "real internal IAM group name (use the mp-dev alias)"),
     # email is allowed only for the owner's public contact address
     ("EMAIL", "WARN", re.compile(r"\b[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,}\b"),
      "email address"),

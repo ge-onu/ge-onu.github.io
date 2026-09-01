@@ -69,8 +69,8 @@ blockquote{border-left:3px solid var(--s2);margin:14px 0;padding:2px 0 2px 14px;
 </style></head><body>
 <div class="mp-wrap">
 <a class="back" href="../../../../projects/mealplanning/">← Mealplanning 페이지로</a>
-<p class="mp-meta">팀 프로젝트에서 제가 작성한 AI 파트 기록입니다. 원본 문서 · AI 기능별 모델 선정 — 최종 리포트 &nbsp;|&nbsp; 작성 시점 · 2026-07-28<br>
-공개용으로 계정·내부 주소 표기만 가린 사본이며, 측정값과 서술은 원본과 같습니다.</p>
+<p class="mp-meta">팀 프로젝트에서 작성한 당시 기록을 바탕으로 한 공개용 정제 사본입니다. 원본 문서 · AI 기능별 모델 선정 — 최종 리포트 &nbsp;|&nbsp; 작성 시점 · 2026-07-28<br>
+계정·내부 주소·팀 내부 식별정보는 공개용으로 정리했으며, 공개된 측정값과 기술적 판단의 의미는 원본과 같습니다.</p>
 <div class="mp-card"><h2>왜 쟀나</h2><p>크레딧이 생겨 관리형 모델로 옮길 수 있게 되면서, 어떤 기능을 어떤 모델에 맡길지 정해야 했습니다. 싼 모델로 바꿔도 되는지, 바꾸면 무엇을 잃는지를 <b>추정이 아니라 같은 조건의 실측으로</b> 확인하려고 이 검토를 시작했습니다.</p></div>
 <div class="mp-card"><h2>무엇이 나왔나</h2><p>후보 15종을 같은 기준으로 재서 <b>누적 1,750건의 평가 기록</b>을 남겼습니다. 품질만이 아니라 안전(환각)·단가·월비용·품질 손실을 한 표에 놓고 비교했습니다.</p><p>가장 싼 모델로 바꿔도 월 절감액은 크지 않았고, 그 대가는 품질 손실과 데이터 리전 이동이었습니다. 새 측정이 나올 때마다 결론이 바뀌어 <b>권고를 다섯 번 수정</b>했고, 매번 이전 판단을 지우지 않고 시점과 함께 남겼습니다.</p></div>
 <div class="mp-card"><h2>무엇을 얻고 무엇을 포기했나</h2><ul><li><b>얻은 것</b> — 기능별로 모델을 나눠 배치하는 기준. 그리고 «싸다»가 곧 «바꿀 만하다»가 아니라는 것을 숫자로 확인했습니다.</li><li><b>포기한 것</b> — 비용 절감 자체를 목표로 삼는 선택지. 절감액이 품질 손실을 상쇄하지 못했습니다.</li><li><b>남은 한계</b> — 입력 케이스풀이 이후 소실돼 완전히 같은 조건의 재현은 불가능합니다. 채점 스크립트와 결과 문서는 남아 있습니다.</li></ul></div>
@@ -109,7 +109,7 @@ blockquote{border-left:3px solid var(--s2);margin:14px 0;padding:2px 0 2px 14px;
 <h3>발견 ① 이관 판정이 뒤집혔다 — "구조상 가능"이 아니라 "품질상 불가"</h3>
 <p>Nova는 <b>한글 글자 자체를 재현하지 못한다</b>. 영수증에서 삼겹살→"이색", 고리조끼→"가입에이에서"로 <b>통짜 환각</b>했고, 놀랍게도 <b>이미지가 아닌 순수 텍스트</b>에서도 같은 결함이 나왔다(nova-pro: 대파→"냠파", 목살→"리마다"). → OCR 이관 <b>제외 확정</b>.</p>
 <h3>발견 ② 진짜 문제는 모델이 아니라 <span class="wn">가드레일</span>이었다</h3>
-<p>챗 실패 109건을 분해하니 <b>75%(82건)가 오탐</b>이었다. <code>check_output_grounded</code>가 template 출력만 근거로 보고 <b>유저 질문을 보지 않아서</b>, 사용자가 말한 "대파"·"8천원"을 답변이 되풀이하면 환각으로 오판했다. 근거에 질문을 합산하자 <b>60% → 90%</b>로 올랐다(추가 비용 0원).</p>
+<p>챗 실패 109건을 분해하니 <b>75%(82건)가 오탐</b>이었다. <code>check_output_grounded</code>가 template 출력만 근거로 보고 <b>유저 질문을 보지 않아서</b>, 사용자가 말한 "대파"·"8천원"을 답변이 되풀이하면 환각으로 오판했다. 근거에 질문을 합산하자 <b>60% → 90%</b>로 올랐다(추가 LLM 호출 없음).</p>
 <h3>발견 ③ 프롬프트가 모델 교체보다 효과가 컸다</h3>
 <p>남은 실패는 <b>지식경계 창작</b>(근거에 조리법이 없는데 지어냄)에 집중됐다. 금지 규칙 + 좋은예/나쁜예 few-shot을 넣자 <b>전 모델에서 완전 해소</b>(nova-lite 0/3→3/3, claude-3-haiku 0/3→3/3). 이 시점에 nova-micro(서울)가 <b>25/25로 Gemini와 동률</b>이 되어 이전이 가능해 보였다.</p>
 <h3>발견 ④ 그러나 그 동률은 <span class="no">천장 효과</span>였다</h3>
@@ -304,7 +304,7 @@ blockquote{border-left:3px solid var(--s2);margin:14px 0;padding:2px 0 2px 14px;
 <div class="fcard">
 <div class="fhead"><span class="t">9. 재료 NER (CRF) · 개인화 랭킹(LightGBM) · 가격 이상탐지(z-score)</span><span class="pill">🟡/🟢/⬜</span><span class="badge b-x">LLM 미적용</span></div>
 <div class="frow"><div class="k">왜 필요</div><div class="v">재료 표준화·개인화 추천·가격 이상 감지는 <b>서비스의 자체 자산(moat)</b>이다.</div></div>
-<div class="frow"><div class="k">설계 의도</div><div class="v">LLM이 아니라 <b>자체 학습 모델·통계</b>로 푼다 — 재현성·비용 0·오프라인 가능.</div></div>
+<div class="frow"><div class="k">설계 의도</div><div class="v">LLM이 아니라 <b>자체 학습 모델·통계</b>로 푼다 — 재현성·외부 API 호출 없음·오프라인 가능.</div></div>
 <div class="frow"><div class="k">태스크 특성</div><div class="v"><b>LLM 아님</b> (CRF / LightGBM / z-score)</div></div>
 <div class="frow"><div class="k">선정 모델</div><div class="v"><b>자체 모델 (LLM 미사용)</b> · 온프렘</div></div>
 <div class="frow"><div class="k">근거</div><div class="v">이 영역은 <b>LLM 선정 대상이 아니다</b>. 외부 API 의존 없이 동작해야 하고, 학습 데이터가 곧 경쟁력이다. 챗의 스팬 추출도 프로덕션은 <b>rule 백엔드</b>를 쓴다(CRF는 레시피 분포 학습이라 채팅에 적용 시 과다추출 — 스왑 금지).</div></div>
@@ -358,10 +358,10 @@ blockquote{border-left:3px solid var(--s2);margin:14px 0;padding:2px 0 2px 14px;
 </ul>
 <h3>⛔ Claude 4.5 미측정 사유</h3>
 <p><code>AccessDeniedException</code>(403): <i>"not authorized to perform the required AWS Marketplace actions (<code>aws-marketplace:ViewSubscriptions</code>, <code>aws-marketplace:Subscribe</code>)"</i> — Claude는 Bedrock에서 <b>Marketplace 구독형(3rd-party)</b>이라 계정 구독 + IAM 권한이 필요하다. Nova는 Amazon 1st-party라 무관. <code>get_foundation_model_availability</code>도 geonu 권한 밖(스코프 정책).</p>
-<p><b>해제 방법</b>: 계정 owner가 Bedrock 콘솔(리전=서울) Model access에서 Anthropic 활성화 + <code>mealplanning-dev</code> 그룹에 <code>aws-marketplace:ViewSubscriptions</code> 부여. 구형 Claude 3/3.5는 액세스 없이도 호출되어 측정에 포함했다.</p>
+<p><b>해제 방법</b>: 계정 owner가 Bedrock 콘솔(리전=서울) Model access에서 Anthropic 활성화 + <code>mp-dev</code> 그룹에 <code>aws-marketplace:ViewSubscriptions</code> 부여. 구형 Claude 3/3.5는 액세스 없이도 호출되어 측정에 포함했다.</p>
 <h3>데이터셋 위치</h3>
 <ul>
-<li><b>실물 영수증 13장</b>: <code>~/ocr-poc-receipts/receipt_0001~0013</code> — <b>개인정보라 git 미추적</b>(레포 밖 로컬 보관). <code>ocr-model-benchmark.md</code>가 쓴 것과 동일 세트.</li>
+<li><b>실물 영수증 13장</b>: <code>ocr-poc-receipts/receipt_0001~0013</code> — <b>개인정보라 git 미추적</b>(레포 밖 로컬 보관). <code>ocr-model-benchmark.md</code>가 쓴 것과 동일 세트.</li>
 <li><b>합성 영수증 2종</b>: <code>docs/assets/ocr/receipt_synth_{clean,degraded}.jpg</code>(레포 내)</li>
 <li>프롬프트는 전부 <b>운영 코드에서 원문 추출</b> — <code>services/ocr/app/pipeline/backend/vision.py</code>의 <code>_SYSTEM</code>, <code>services/chat/app/pipeline/generator/gemini.py</code>의 <code>_SYSTEM</code></li>
 </ul>
