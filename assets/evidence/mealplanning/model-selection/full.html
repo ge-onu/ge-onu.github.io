@@ -361,7 +361,7 @@ blockquote{border-left:3px solid var(--s2);margin:14px 0;padding:2px 0 2px 14px;
 <p><b>해제 방법</b>: 계정 owner가 Bedrock 콘솔(리전=서울) Model access에서 Anthropic 활성화 + <code>mp-dev</code> 그룹에 <code>aws-marketplace:ViewSubscriptions</code> 부여. 구형 Claude 3/3.5는 액세스 없이도 호출되어 측정에 포함했다.</p>
 <h3>데이터셋 위치</h3>
 <ul>
-<li><b>실물 영수증 13장</b>: <code>ocr-poc-receipts/receipt_0001~0013</code> — <b>개인정보라 git 미추적</b>(레포 밖 로컬 보관). <code>ocr-model-benchmark.md</code>가 쓴 것과 동일 세트.</li>
+<li><b>실물 영수증 13장</b>: <code>ocr-poc-receipts/receipt_0001~0013</code> — <b>로컬 비공개 보관</b> · 개인정보 포함으로 <b>Git 미추적</b>. <code>ocr-model-benchmark.md</code>가 쓴 것과 동일 세트.</li>
 <li><b>합성 영수증 2종</b>: <code>docs/assets/ocr/receipt_synth_{clean,degraded}.jpg</code>(레포 내)</li>
 <li>프롬프트는 전부 <b>운영 코드에서 원문 추출</b> — <code>services/ocr/app/pipeline/backend/vision.py</code>의 <code>_SYSTEM</code>, <code>services/chat/app/pipeline/generator/gemini.py</code>의 <code>_SYSTEM</code></li>
 </ul>
