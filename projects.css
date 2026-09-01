@@ -115,8 +115,7 @@
 
 .project-cover-image--contain {
   object-fit: contain;
-  padding: 18px 20px;
-  background: #f5f8fe;
+  padding: 30px 34px;
 }
 
 .project-cover-shade {
@@ -291,7 +290,7 @@
 
 .project-hero-media--meal { border: 2px solid rgba(242, 100, 25, .62); }
 .project-hero-media--k8s { border: 2px solid rgba(50, 108, 229, .4); background: #f5f8fe; }
-.project-hero-media--k8s > img { object-fit: contain; padding: 20px; background: #f5f8fe; }
+.project-hero-media--k8s > img { object-fit: contain; padding: 34px 38px; }
 
 .project-hero-brand {
   position: absolute;
