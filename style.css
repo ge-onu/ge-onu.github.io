@@ -60,21 +60,47 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-
 .identity-mark {
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
+  flex: none;
+  width: 32px;
+  height: 32px;
   border-radius: 9px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   background: var(--surface);
-  color: var(--muted);
-  transition: color .15s ease, border-color .15s ease, background .15s ease;
+  color: #3a444e;
+  box-shadow: 0 1px 2px rgba(31, 35, 40, .05);
+  transition: color .15s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease;
 }
-.identity:hover .identity-mark,
+
+.identity:hover .identity-mark {
+  color: var(--text);
+  border-color: var(--text);
+  background: var(--surface-soft);
+  box-shadow: 0 2px 6px rgba(31, 35, 40, .1);
+}
+
+.identity:focus-visible { outline: none; }
+
 .identity:focus-visible .identity-mark {
   color: var(--text);
-  border-color: var(--line-strong);
-  background: var(--surface-soft);
+  border-color: var(--accent-ink);
+  box-shadow: 0 0 0 3px rgba(80, 96, 201, .28);
 }
-.identity-home { display: block; }
+
+/* 아이콘 — 인라인 SVG 와 이미지 파일 어느 쪽이든 같은 크기·비율로 표시 */
+.identity-home,
+.identity-home-img {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.identity-home-img { object-fit: contain; }
+
+@media (max-width: 680px) {
+  .identity-mark { width: 34px; height: 34px; }
+  .identity-home,
+  .identity-home-img { width: 19px; height: 19px; }
+}
 
 .nav {
   display: flex;
