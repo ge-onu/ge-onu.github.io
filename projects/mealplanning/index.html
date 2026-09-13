@@ -7,10 +7,12 @@
   <meta name="theme-color" content="#faf8f5">
   <title>Mealplanning | Geonwoo Lee</title>
   <link rel="stylesheet" href="../../style.css?v=20260901-2">
-  <link rel="stylesheet" href="../../projects.css?v=20260901-1">
-  <script src="../../project-tabs.js?v=20260901-1" defer></script>
+  <link rel="stylesheet" href="../../projects.css?v=20260914-1">
+  <script src="../../project-tabs.js?v=20260914-1" defer></script>
+  <link rel="icon" type="image/svg+xml" href="../../assets/images/home-icon.svg">
 </head>
 <body class="project-page project-page--meal">
+  <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
   <div class="shell">
     <header class="topbar">
       <a class="identity" href="../../" aria-label="홈으로 이동" title="홈으로 이동">
@@ -25,7 +27,7 @@
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="project-hero">
         <div>
           <a class="project-back" href="../../#work">← Projects</a>
@@ -60,12 +62,47 @@
           <div><span>참여 인원</span><strong>5명</strong></div>
           <div><span>담당 역할</span><strong>LLM 비교 평가·모델 선정 · Guardrail 로직 개선 · 추천 노출·행동 이벤트 데이터 흐름 분석 · AWS 서버리스 AI 기능 구성·검증</strong></div>
         </div>
-        <div class="overview-metrics">
-          <div><strong>15</strong><span>LLM 후보</span><p>누적 1,750건 평가 기록 · 품질·비용·응답 지연·Guardrail 4축</p></div>
-          <div><strong>166 → 247</strong><span>Guardrail 통과 건수</span><p>같은 275건으로 재측정 · 추가 LLM 호출 없음</p></div>
-          <div><strong>session_id</strong><span>데이터 흐름 문제</span><p>조회한 44건이 전부 NULL · 전달 경로 추적</p></div>
-        </div>
         <p class="scope-note"><strong>팀 환경과 개인 기여를 구분했습니다.</strong> EKS, Argo CD, Prometheus/Grafana 등은 팀 실행 환경이며 개인이 구축·운영한 범위가 아닙니다.</p>
+      </section>
+
+      <nav class="detail-nav" aria-label="Mealplanning 상세 목차">
+        <a href="#decisions-at-a-glance">핵심 판단</a><a href="#chat-comparison">두 Chat 실험</a><a href="#ranking-decision">랭킹 채택 판단</a><a href="#evidence-title">전체 사례와 근거</a>
+      </nav>
+
+      <section class="reading-section" id="decisions-at-a-glance" aria-labelledby="decision-title">
+        <p class="section-kicker">먼저 볼 세 가지 판단</p>
+        <h2 id="decision-title">모델을 바꾸기 전에 무엇을 확인했나</h2>
+        <ol class="decision-list">
+          <li><div><h3>모델 가격보다 실제 응답을 비교했습니다.</h3><p>후보 15종의 <b>누적 1,750건 평가 기록</b>을 놓고 품질·비용·지연·Guardrail을 함께 봤습니다. 새 측정이 기존 결론과 달라지면 선택 기준도 바꿨습니다.</p><p class="reading-note">누적 기록 수이며 서로 다른 1,750개 문제를 뜻하지 않습니다. 입력 케이스풀이 소실돼 완전한 재현은 어렵습니다.</p><a href="#b1-model">모델 선정 과정과 비교표 →</a></div></li>
+          <li><div><h3>모델의 실패와 검증 로직의 오탐을 구분했습니다.</h3><p>정상 답변이 막히는 이유를 근거 문자열에서 찾고, 사용자 질문과 정규화한 한글 숫자를 반영했습니다. 같은 275건의 통과 건수는 <b>166 → 247</b>로 늘었으며 추가 LLM 호출은 없었습니다.</p><a href="#c1-guardrail">변경 범위와 남은 실패 →</a></div></li>
+          <li><div><h3>학습을 다시 돌리기 전에 값이 이어지는지 봤습니다.</h3><p>조회한 44건의 <code>session_id</code>가 모두 NULL이었습니다. <b>Frontend → API → 이벤트 저장 → 학습 데이터</b> 순서로 실제 값을 대조해 전달 누락을 확인·수정했습니다.</p><a href="#d1-dataflow">조사 순서와 데이터 흐름 근거 →</a></div></li>
+        </ol>
+      </section>
+
+      <section class="reading-section" id="chat-comparison" aria-labelledby="chat-title">
+        <p class="section-kicker">측정 조건을 나눠 보기</p>
+        <h2 id="chat-title">270 호출과 2,276 호출은 서로 다른 실험입니다.</h2>
+        <div class="comparison-wrap" role="region" aria-label="두 Chat 실험 비교표" tabindex="0">
+          <table class="comparison-table">
+            <caption>반복 검증과 대량 비교의 조건·판단·한계</caption>
+            <thead><tr><th scope="col">구분</th><th scope="col">반복 검증</th><th scope="col">별도의 대량 비교</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">조건</th><td>9회 × 30건 = 270 호출</td><td>1,138건 × 2라운드 = 2,276 호출</td></tr>
+              <tr><th scope="row">판단</th><td>복합 요리명을 놓치는 변경은 되돌리고 다른 seed 3개로 재확인</td><td>전체 평균과 구분해 실제 서비스 경로 720건에서 치명 결함 88 → 21건(12.2% → 2.9%) 확인</td></tr>
+              <tr><th scope="row">한계</th><td>30건의 작은 스위트. 회차 비교는 같은 조건 안에서만 유효</td><td>금액 손실 26 → 31건으로 악화. 입력 케이스풀 소실로 완전한 재현은 어려움</td></tr>
+              <tr><th scope="row">근거</th><td><a href="#c2-rollback">되돌린 판단과 실측 →</a></td><td><a href="#c3-mass">개선·악화 항목 함께 보기 →</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="reading-section" id="ranking-decision" aria-labelledby="ranking-title">
+        <p class="section-kicker">채택하지 않은 선택</p>
+        <h2 id="ranking-title">학습·평가 경로를 만든 뒤에도 rule-based를 유지했습니다.</h2>
+        <p>LightGBM/LambdaMART의 학습·평가·서빙 경로를 구현·평가했지만, <b>합성 라벨의 지표만으로 실제 사용자에게 더 나은 추천인지 판단할 수 없었습니다.</b> 같은 추천 결과가 다시 학습 근거가 되는 피드백 위험도 고려했습니다.</p>
+        <p>그래서 ML 랭킹을 배포·활성화하지 않고 rule-based ranking을 유지했습니다. 모델을 사용할 수 있다는 것과 사용할 근거가 충분하다는 것을 나눠 판단한 사례입니다.</p>
+        <p class="reading-note">기여 범위 · 구현·평가와 채택 보류 판단. 합성 라벨에서의 평가이며 실제 사용자 대상 효과는 측정하지 않았습니다.</p>
+        <a class="reading-source" href="https://github.com/ge-onu/infra-aiops-career-hub/blob/12f818247e7e0256c1c62cb75e6cd13da66eba45/career-assets/portfolio/RESUME_SYNC_SOURCE_2026-08-30.md#resume-claims-that-portfolio-must-match-exactly">판단 근거 정리 · 항목 5 →</a>
       </section>
 
       <section class="evidence-section" aria-labelledby="evidence-title">

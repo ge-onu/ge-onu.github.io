@@ -50,7 +50,9 @@
 
   // Open the category that contains a targeted case, then the case itself.
   const openFromHash = () => {
-    const id = decodeURIComponent(location.hash.slice(1));
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); }
+    catch { return; } // A malformed shared URL must not break the page controls.
     if (!id) return;
     const el = document.getElementById(id);
     if (!el) return;

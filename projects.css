@@ -97,6 +97,18 @@
 
 .project-showcase-card--meal { border-color: rgba(242, 100, 25, .72); }
 .project-showcase-card--k8s { border-color: rgba(50, 108, 229, .48); }
+.project-showcase-card--rag { border-color: var(--accent); }
+
+.project-cover--rag { padding: 28px; background: var(--accent-soft); color: var(--text); }
+.retrieval-cover-label { color: var(--accent-ink); font-size: 12px; font-weight: 750; letter-spacing: .08em; }
+.retrieval-cover-flow { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+.retrieval-cover-flow span { padding: 7px 10px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--surface); font-size: 12px; }
+.project-cover--rag p { margin: 0; font-size: clamp(20px, 2.4vw, 28px); font-weight: 750; line-height: 1.5; letter-spacing: -.025em; }
+.project-evidence-label { margin: 18px 0 0; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+.practice-heading { margin: 28px 0 12px; font-size: 16px; }
+.practice-card { display: grid; grid-template-columns: minmax(170px, 1fr) 3fr; }
+.practice-card .project-cover { height: 100%; aspect-ratio: auto; border-bottom: 0; border-right: 1px solid var(--line); }
+.practice-card .project-card-title-row h3 { font-size: 22px; }
 
 .project-cover {
   position: relative;
@@ -744,6 +756,67 @@
 }
 .project-page-footer { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
 .project-page-footer .back-link { font-size: 13px; }
+
+/* Reading path: keep the existing palette and native detail controls. */
+.detail-nav { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.detail-nav a { min-height: 44px; display: inline-flex; align-items: center; color: var(--accent-ink); font-size: 13px; font-weight: 650; }
+.reading-section { padding-top: 36px; max-width: 880px; scroll-margin-top: 20px; }
+.reading-section h2 { margin: 0 0 18px; font-size: clamp(23px, 3vw, 30px); line-height: 1.45; letter-spacing: -.025em; }
+.reading-section h3 { margin: 0 0 7px; font-size: 17px; line-height: 1.5; }
+.reading-section p { font-size: 15px; line-height: 1.85; }
+.reading-section a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 4px; font-size: 14px; }
+.reading-section .reading-note { color: var(--muted); font-size: 13px; }
+.decision-list { list-style: none; counter-reset: decision; margin: 0; padding: 0; }
+.decision-list > li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; padding: 20px 0; border-top: 1px solid var(--line); counter-increment: decision; }
+.decision-list > li::before { content: counter(decision, decimal-leading-zero); font-size: 13px; font-weight: 750; color: var(--accent-ink); padding-top: 3px; }
+.decision-list p { margin: 0 0 10px; }
+.comparison-wrap { max-width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+.comparison-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.75; }
+.comparison-table caption { text-align: left; padding: 14px 16px; color: var(--muted); font-size: 13px; }
+.comparison-table th, .comparison-table td { padding: 14px 16px; text-align: left; vertical-align: top; border-top: 1px solid var(--line); }
+.comparison-table thead { background: var(--surface-soft); }
+.comparison-table th[scope="row"] { min-width: 74px; }
+.pipeline-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; padding: 0; list-style: none; counter-reset: pipeline; }
+.pipeline-flow li { padding: 16px; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--accent); counter-increment: pipeline; }
+.pipeline-flow li::before { content: counter(pipeline, decimal-leading-zero); display: block; color: var(--accent-ink); font-size: 12px; margin-bottom: 10px; }
+.pipeline-flow strong, .pipeline-flow span { display: block; font-size: 14px; }
+.pipeline-flow span { color: var(--muted); font-size: 12px; margin-top: 5px; }
+.source-list { padding-left: 20px; }
+.source-list li { margin-bottom: 14px; }
+.project-hero--text { grid-template-columns: minmax(0, 1fr); max-width: 880px; }
+.project-hero--text h1 { line-height: 1.15; }
+.project-hero--text .section-kicker { margin-top: 24px; }
+.project-page .overview-head { justify-content: flex-start; gap: 18px; }
+.project-page .overview-meta strong { font-size: 13px; }
+.project-page .scope-note { font-size: 12px; }
+.project-card-summary { font-size: 14px; }
+.project-hero-summary { font-size: 15px; }
+.project-page :is(p, li, td, th, h1, h2, h3), .project-card-body { word-break: keep-all; overflow-wrap: anywhere; }
+:is(details, section)[id] { scroll-margin-top: 18px; }
+summary:focus-visible, button:focus-visible, .comparison-wrap:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; }
+.skip-link { position: absolute; left: 12px; top: -100px; z-index: 10; padding: 12px 18px; background: var(--surface); border: 2px solid var(--accent-ink); }
+.skip-link:focus { top: 12px; }
+
+@media (max-width: 680px) {
+  .topbar { flex-wrap: wrap; gap: 12px; padding-bottom: 12px; }
+  .nav { flex-wrap: wrap; gap: 14px; }
+  .nav > a { min-height: 44px; display: inline-flex; align-items: center; }
+  .project-cover--rag { aspect-ratio: auto; min-height: 230px; padding: 24px; }
+  .practice-card { grid-template-columns: 1fr; }
+  .practice-card .project-cover { height: 150px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .practice-card .project-cover-image--contain { padding: 18px; }
+  .pipeline-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .comparison-table th, .comparison-table td { padding: 10px; font-size: 13px; }
+  .decision-list > li { gap: 8px; grid-template-columns: 24px minmax(0, 1fr); }
+  .reading-section { padding-top: 28px; }
+  .evidence-toolbar button { min-height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .project-showcase-card { transition: none; }
+  .project-showcase-card:hover { transform: none; }
+}
 
 @media (max-width: 680px) {
   .github-button--small,

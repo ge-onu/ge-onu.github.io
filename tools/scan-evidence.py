@@ -45,12 +45,9 @@ RULES: list[tuple[str, str, re.Pattern[str], str]] = [
      re.compile(r"(?i)개인화[^.\n]{0,18}(?:성공|달성|개선했|향상했|입증)"
                 r"|personalization\s+(?:success|proven|improved)"),
      "unsupported personalization success claim"),
-    # Ranking references are allowed; only activation-state narrative is not.
-    ("RANKING_ACTIVATION_STATE", "BLOCK",
-     re.compile(r"(?:랭킹|Ranking|LightGBM)[^.\n]{0,40}"
-                r"(?:켜지\s*않|끄|꺼져|미배포|배포하지\s*않|활성화하지\s*않|비활성)"
-                r"|(?:켜지\s*않|꺼져|미배포|활성화하지\s*않)[^.\n]{0,40}(?:랭킹|Ranking)"),
-     "ranking activation-state narrative"),
+    # TASK-CAREER-002 explicitly requires the evidence-backed non-deployment
+    # decision. The former blanket activation-state ban is superseded;
+    # unsupported production/personalization and unlabelled NDCG stay blocked.
     ("RANKING_PRODUCTION_CLAIM", "BLOCK",
      re.compile(r"(?:랭킹|Ranking)[^.\n]{0,30}(?:프로덕션에서 (?:운영|서빙|사용)|실서비스에서 (?:운영|서빙))"),
      "unsupported production-active ranking claim"),
