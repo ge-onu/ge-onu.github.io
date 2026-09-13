@@ -45,9 +45,16 @@ RULES: list[tuple[str, str, re.Pattern[str], str]] = [
      re.compile(r"(?i)개인화[^.\n]{0,18}(?:성공|달성|개선했|향상했|입증)"
                 r"|personalization\s+(?:success|proven|improved)"),
      "unsupported personalization success claim"),
-    # TASK-CAREER-002 explicitly requires the evidence-backed non-deployment
-    # decision. The former blanket activation-state ban is superseded;
-    # unsupported production/personalization and unlabelled NDCG stay blocked.
+    # Preserve the public-scope exclusion, including captions and cross-links.
+    ("RANKING_ACTIVATION_STATE", "BLOCK",
+     re.compile(r"(?i)(?:랭킹|ranking|LightGBM)[^.\n]{0,80}"
+                r"(?:켜지\s*않|끄|꺼져|미배포|비배포|배포[^.\n]{0,12}않|활성화하지\s*않|비활성|보류|rule-based)"
+                r"|(?:켜지\s*않|꺼져|미배포|비배포|활성화하지\s*않)[^.\n]{0,40}(?:랭킹|ranking)"
+                r"|ranking-(?:decision|hold)|랭킹\s*채택\s*판단|합성\s*라벨"),
+     "excluded ranking public case or cross-reference"),
+    ("PRIVATE_EVIDENCE_LINK", "BLOCK",
+     re.compile(r"(?i)https?://[^\s\"'<>]*infra-aiops-career-hub[^\s\"'<>]*"),
+     "private evidence repository link"),
     ("RANKING_PRODUCTION_CLAIM", "BLOCK",
      re.compile(r"(?:랭킹|Ranking)[^.\n]{0,30}(?:프로덕션에서 (?:운영|서빙|사용)|실서비스에서 (?:운영|서빙))"),
      "unsupported production-active ranking claim"),

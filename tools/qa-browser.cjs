@@ -48,7 +48,17 @@ const assert = require('node:assert/strict');
             await page.goto(origin + '/', { waitUntil: 'networkidle' });
           }
         }
+        if (name === 'rag') {
+          const link = page.locator('#sources a');
+          assert.equal(await link.count(), 1);
+          // Resolve relative links against the detail page, not the QA origin.
+          const evidenceUrl = new URL(await link.getAttribute('href'), page.url()).href;
+          const evidence = await page.request.get(evidenceUrl);
+          assert.equal(evidence.status(), 200);
+          assert.ok((await evidence.text()).includes('unseen holdout'));
+        }
         if (name === 'mealplanning') {
+          assert.equal(await page.locator('#ranking-decision, a[href*="ranking-decision"]').count(), 0);
           await page.locator('a[href="#d1-dataflow"]').first().click();
           assert.equal(await page.locator('#d1-dataflow').evaluate(e => e.open), true);
           assert.equal(await page.locator('#d1-dataflow').evaluate(e => e.parentElement.closest('details').open), true);

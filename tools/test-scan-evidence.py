@@ -1,4 +1,4 @@
-"""Keep prohibited claims/credentials blocked after the ranking policy change."""
+"""Keep excluded public cases, private links and credentials blocked."""
 import importlib.util
 import unittest
 from pathlib import Path
@@ -9,9 +9,19 @@ spec.loader.exec_module(scan)
 
 
 class PublicationGate(unittest.TestCase):
-    def test_bounded_non_deployment_is_allowed(self):
-        text = "합성 라벨 평가 후 ML 랭킹을 배포하지 않고 rule-based를 유지했습니다."
-        self.assertEqual(scan.scan_text(text), [])
+    def test_ranking_case_and_cross_links_blocked(self):
+        for text in [
+            "합성 라벨 평가 후 ML 랭킹을 배포하지 않고 rule-based를 유지했습니다.",
+            "ML 랭킹을 배포·활성화하지 않고 rule-based ranking을 유지했습니다.",
+            '<a href="#ranking-decision">판단 보기</a>',
+            "랭킹 채택 판단", "왜 랭킹을 켜지 않았나", "랭킹 비배포",
+        ]:
+            with self.subTest(text=text):
+                self.assertIn("RANKING_ACTIVATION_STATE", [h[0] for h in scan.scan_text(text)])
+
+    def test_private_evidence_link_blocked(self):
+        text = "https://github.com/ge-onu/infra-aiops-career-hub/blob/example/evidence.md"
+        self.assertIn("PRIVATE_EVIDENCE_LINK", [h[0] for h in scan.scan_text(text)])
 
     def test_unsupported_claims_stay_blocked(self):
         for text, rule in [
