@@ -637,7 +637,7 @@
 @media (max-width: 680px) {
   .nav .github-button--small span,
   .nav-profile-links .icon-button--small span { display: none; }
-  .topbar--profiles { flex-wrap: wrap; gap: 10px; padding-bottom: 12px; }
+  .topbar--profiles { flex-wrap: wrap; gap: 6px; padding-bottom: 6px; }
   .topbar--profiles .nav { width: 100%; justify-content: space-between; gap: 10px; }
   .topbar--profiles .nav a[href="#focus"] { display: inline-flex; }
   .nav-profile-links .github-button,
@@ -815,7 +815,7 @@ summary:focus-visible, button:focus-visible, .comparison-wrap:focus-visible { ou
 .skip-link:focus { top: 12px; }
 
 @media (max-width: 680px) {
-  .topbar { flex-wrap: wrap; gap: 12px; padding-bottom: 12px; }
+  .topbar { flex-wrap: wrap; gap: 6px; padding-bottom: 6px; }
   .nav { flex-wrap: wrap; gap: 14px; }
   .nav > a { min-height: 44px; display: inline-flex; align-items: center; }
   .project-cover--rag { aspect-ratio: auto; min-height: 230px; padding: 24px; }
