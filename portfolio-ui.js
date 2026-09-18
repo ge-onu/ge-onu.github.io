@@ -18,8 +18,6 @@
 
 /* Animate native disclosures; retain their built-in keyboard semantics. */
 (() => {
- const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- const reduceMotion=()=>reduced.matches;
  const nodes=[...document.querySelectorAll('details')];
  const states=new Map();
  function settle(d,s){ if(s.animation){s.animation.cancel();s.animation=null;} d.style.height='';d.style.overflow=''; }
@@ -27,7 +25,6 @@
   const s=states.get(d);if(!s)return;
   const start=startOverride ?? d.getBoundingClientRect().height;
   settle(d,s);s.target=open;
-  if(reduceMotion()){d.open=open;return;}
   d.open=true;
   const end=open?d.getBoundingClientRect().height:d.querySelector(':scope > summary').getBoundingClientRect().height+parseFloat(getComputedStyle(d).borderTopWidth)+parseFloat(getComputedStyle(d).borderBottomWidth);
   d.style.overflow='hidden';
@@ -50,7 +47,6 @@
   },true);
  }
  window.addEventListener('hashchange',()=>nodes.forEach(d=>settle(d,states.get(d))));
- reduced.addEventListener('change',()=>{if(reduceMotion())nodes.forEach(d=>{const s=states.get(d);if(s.animation){d.open=s.target;settle(d,s);}});});
 })();
 
 
@@ -66,5 +62,15 @@
   cards.forEach(d=>d.style.setProperty('--incident-summary-height',height+'px'));
  };
  new ResizeObserver(entries=>{const width=entries[0].contentRect.width;if(Math.abs(width-lastWidth)>.5){lastWidth=width;sync();}}).observe(grid);
+ document.fonts.ready.then(sync);sync();
+})();
+
+/* Keep the Linux practice card at least as tall as the unchanged Kubernetes card. */
+(() => {
+ const reference=document.querySelector('.practice-card.project-showcase-card--k8s');
+ const target=document.querySelector('.practice-card.infra-card');
+ if(!reference||!target)return;
+ const sync=()=>{target.style.minHeight=reference.getBoundingClientRect().height+'px';};
+ new ResizeObserver(sync).observe(reference);
  document.fonts.ready.then(sync);sync();
 })();

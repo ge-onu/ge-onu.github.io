@@ -81,3 +81,10 @@ details::details-content { height:auto !important; transition:none !important; }
 
 .incident-grid > .incident > summary .incident-copy { align-self:stretch; display:flex; flex-direction:column; flex:1; }
 .incident-grid > .incident > summary .incident-tags { margin-top:auto; padding-top:9px; }
+
+
+/* Keep scroll-position ticks visibly expanding and contracting. */
+.section-rail .section-rail-tick {
+ flex-shrink:0;
+ transition:width 320ms cubic-bezier(.22,.61,.36,1), background-color 320ms ease;
+}

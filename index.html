@@ -9,7 +9,14 @@
   <link rel="stylesheet" href="style.css?v=20260918-compact">
   <link rel="stylesheet" href="projects.css?v=20260918-compact">
   <link rel="icon" type="image/svg+xml" href="assets/images/home-icon.svg">
-<link rel="stylesheet" href="portfolio-ui.css?v=20260919-2">
+<link rel="stylesheet" href="portfolio-ui.css?v=20260919-rail">
+<link rel="stylesheet" href="infrastructure-labs.css">
+<script src="infra-validation.js" defer></script>
+<link rel="stylesheet" href="theme.css?v=2">
+<script src="theme.js?v=1"></script>
+<link rel="stylesheet" href="contact-chat.css">
+<script src="contact-config.js" defer></script>
+<script src="contact-chat.js?v=direct-1" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#top">본문으로 건너뛰기</a>
@@ -21,7 +28,7 @@
       </a>
       <nav class="nav" aria-label="주요 메뉴">
         <a href="#work">Projects</a>
-        <a href="#incidents">Incidents</a>
+        <a href="#incidents">Troubleshooting</a>
         <a href="#focus">Skills</a>
         <div class="nav-profile-links">
           <a class="github-button github-button--small" href="https://github.com/ge-onu" target="_blank" aria-label="Geonwoo Lee GitHub 프로필 열기 (새 탭)" title="GitHub (새 탭)" rel="noreferrer noopener">
@@ -132,6 +139,11 @@
               <div class="project-capability-row"><span>Calico</span><span>Ingress</span><span>PV/PVC</span><span>RBAC</span><span>HPA/KEDA</span></div>
               <div class="project-card-footer"><span>Kubernetes · 실습 · 문제 확인</span><strong>상세 보기</strong></div>
             </div>
+          </a>
+
+          <a class="project-showcase-card practice-card infra-card" id="infra-series" href="projects/infrastructure-lab-series/" aria-label="Infrastructure Fundamentals &amp; Operations Lab Series 상세 보기">
+            <div class="project-cover infra-cover"><div class="practice-brand"><div class="practice-brand-symbol"><img class="linux-brand-symbol" src="assets/linux-network-cover.png" alt="Linux 펭귄과 라우터로 연결된 서버"></div><span class="practice-brand-name">Linux · Network</span></div></div>
+            <div class="project-card-body"><p class="project-kicker">Linux · 네트워크 실습</p><div class="project-card-title-row"><h3>Infrastructure Fundamentals &amp; Operations Lab Series</h3><span aria-hidden="true">↗</span></div><p class="project-card-summary">Linux 네트워크와 이중화 환경을 구성하고, 연결 장애와 복구 과정을 패킷·로그·메트릭으로 확인하는 실습입니다.</p><div class="project-capability-row"><span>Routing / NAT</span><span>DMZ / Firewall</span><span>DNS / VPN</span><span>HAProxy / HA / TLS</span><span>Bastion / NFS</span><span>Logging / Monitoring</span><span>Failure / Recovery</span></div><div class="project-card-footer"><span>Linux · Network · 운영 원리</span><strong>상세 보기</strong></div></div>
           </a>
         </div>
       </section>
@@ -349,6 +361,8 @@
   </div>
   <script src="project-tabs.js?v=20260914-1" defer></script>
   <script src="section-navigation.js?v=20260918-1" defer></script>
-<script src="portfolio-ui.js?v=20260919-1" defer></script>
+<script src="portfolio-ui.js?v=20260919-3" defer></script>
 </body>
 </html>
+
+
