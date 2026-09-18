@@ -18,7 +18,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 body {
   margin: 0;
   background:
@@ -37,15 +37,32 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-
 .shell {
   width: min(calc(100% - 40px), var(--max));
   margin: 0 auto;
-  padding: 20px 0 36px;
+  padding: 0 0 36px;
 }
 
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  isolation: isolate;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 56px;
+  min-height: 76px;
+  padding: 12px 0;
   border-bottom: 1px solid var(--line);
+}
+
+/* Paint an opaque, full-width strip without widening the page. */
+.topbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--bg);
+  box-shadow: 0 0 0 100vmax var(--bg);
+  clip-path: inset(0 -100vmax);
+  pointer-events: none;
 }
 
 .identity {
@@ -627,7 +644,8 @@ code {
 }
 
 @media (max-width: 680px) {
-  .shell { width: min(calc(100% - 28px), var(--max)); padding-top: 12px; }
+  html { scroll-padding-top: 144px; }
+  .shell { width: min(calc(100% - 28px), var(--max)); padding-top: 0; }
   .topbar { min-height: 50px; }
   .nav { gap: 14px; }
   .nav a[href="#focus"] { display: none; }
