@@ -1,0 +1,74 @@
+body:not(.project-page) .hero { max-width:none !important; padding:36px 0 28px !important; }
+body:not(.project-page) .hero-copy { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:0 40px; align-items:start; }
+body:not(.project-page) .status-line { grid-column:1 / -1; margin-bottom:16px; }
+body:not(.project-page) .hero h1 { grid-column:1; grid-row:2 / 5; margin:0; font-size:clamp(28px,3.1vw,44px); line-height:1.2; }
+body:not(.project-page) .hero-role { grid-column:2; grid-row:2; margin:0; }
+body:not(.project-page) .hero-summary { grid-column:2; grid-row:3; margin:12px 0 0; font-size:14px; }
+body:not(.project-page) .hero-actions { grid-column:2; grid-row:4; margin-top:18px; }
+@media(max-width:900px) {
+ body:not(.project-page) .hero-copy { display:block; }
+ body:not(.project-page) .hero { padding:28px 0 24px !important; }
+ body:not(.project-page) .status-line { margin-bottom:12px; }
+ body:not(.project-page) .hero h1 { font-size:clamp(21px,5.6vw,40px); }
+ body:not(.project-page) .hero-role { margin-top:14px; }
+}
+.topbar .nav > a[aria-current="location"] { color:var(--accent-ink); text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:7px; }
+.mobile-contents { border-bottom:1px solid var(--line); }
+.mobile-contents > summary { display:none; padding:15px 0; font-size:13px; font-weight:650; cursor:pointer; }
+.mobile-contents .detail-nav { border-bottom:0; }
+@media(max-width:680px) {
+ .mobile-contents > summary { display:list-item; margin-left:18px; }
+ .mobile-contents .detail-nav { display:grid; gap:0; padding:0 0 12px; }
+ .mobile-contents .detail-nav a { min-height:44px; }
+}
+@media(min-width:1200px) and (min-height:520px) {
+ .section-rail { left:4px; }
+ .section-rail:not([data-dismissed]):is(:hover,:focus-within) { width:240px; border-radius:10px; background:var(--surface); box-shadow:0 5px 24px #18203516; outline:1px solid var(--line); }
+ .section-rail:not([data-dismissed]):is(:hover,:focus-within) a { width:240px; }
+ .section-rail .section-rail-label { left:36px; padding:4px 8px; width:190px; max-width:190px; border:0; border-radius:0; box-shadow:none; background:transparent; font-size:12px; line-height:24px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; pointer-events:none; }
+ .section-rail:not([data-dismissed]):is(:hover,:focus-within) .section-rail-label { visibility:visible; opacity:1; }
+ .section-rail a[aria-current="location"] .section-rail-label { color:var(--accent-ink); font-weight:700; }
+ .section-rail[data-dismissed] a .section-rail-label { visibility:hidden; opacity:0; }
+}
+
+
+.title-keep { display:inline-block; white-space:nowrap; overflow-wrap:normal; word-break:normal; }
+.project-hero-media { border-radius:18px; box-shadow:0 8px 22px rgba(32,49,76,.07); }
+.project-brand-badge, .project-hero-brand { border-radius:12px; background:linear-gradient(145deg,#fff,#f4f0e9); box-shadow:0 3px 7px rgba(35,28,20,.14),0 9px 20px rgba(35,28,20,.12),inset 0 1px 0 rgba(255,255,255,.95); }
+.project-brand-badge img, .project-hero-brand img { border-radius:7px; }
+@media(prefers-reduced-motion:no-preference) {
+ .project-showcase-card { transition:transform 180ms ease-out,box-shadow 180ms ease-out; }
+ .project-showcase-card:focus-visible { transform:translateY(-3px); box-shadow:0 12px 28px rgba(31,35,40,.09); }
+ .primary-action, .github-button, .icon-button { transition:transform 140ms ease-out,box-shadow 140ms ease-out; }
+ .primary-action:active, .github-button:active, .icon-button:active { transform:translateY(1px); }
+ .section-rail .section-rail-label { transition:opacity 140ms ease-out; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .project-showcase-card, .primary-action, .github-button, .icon-button, .section-rail .section-rail-label { transition:none; animation:none; transform:none; }
+ .project-showcase-card:hover, .project-showcase-card:focus-visible { transform:none; }
+}
+
+
+.project-cover--rag { position:relative; isolation:isolate; }
+.project-cover--rag::before { content:""; position:absolute; inset:0; z-index:-1; background:url('assets/rag-thinking-robot.png') center / cover no-repeat; opacity:.25; pointer-events:none; }
+
+
+
+details::details-content { height:auto !important; transition:none !important; }
+
+
+.incident-grid { align-items:start; }
+
+
+.incident-grid > .incident > summary { min-height:var(--incident-summary-height,0px); box-sizing:border-box; }
+
+
+.section-head > div { flex-shrink:0; }
+.section-head .section-description { max-width:none; width:max-content; min-width:0; margin-left:auto; text-align:right; }
+@media(max-width:900px) {
+ .section-head .section-description { max-width:100%; }
+}
+
+
+.incident-grid > .incident > summary .incident-copy { align-self:stretch; display:flex; flex-direction:column; flex:1; }
+.incident-grid > .incident > summary .incident-tags { margin-top:auto; padding-top:9px; }

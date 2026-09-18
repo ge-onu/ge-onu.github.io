@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../../projects.css?v=20260918-compact">
   <script src="../../project-tabs.js?v=20260914-1" defer></script>
   <link rel="icon" type="image/svg+xml" href="../../assets/images/home-icon.svg">
+<link rel="stylesheet" href="../../portfolio-ui.css?v=20260919-1">
 </head>
 <body class="project-page project-page--meal">
   <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
@@ -37,12 +38,12 @@
       <section class="project-hero">
         <div>
           <a class="project-back" href="../../#work">← Projects</a>
-          <p class="section-kicker" style="margin-top:24px">최종 5인 팀 프로젝트</p>
+          <p class="section-kicker" style="margin-top:24px">5인 팀 프로젝트</p>
           <h1>Mealplanning</h1>
           <p class="project-hero-subtitle">식비 예산과 행동 데이터를 연결한 식생활 추천 서비스</p>
           <p class="project-hero-summary">
             LLM 비교 평가·모델 선정, Guardrail 로직 개선, 추천 노출·행동 이벤트 데이터 흐름 분석, AWS 서버리스 AI 기능 구성·검증을 맡았습니다.
-            아래에는 제가 직접 판단하고 확인한 과정을 근거와 함께 정리했습니다.
+            각 사례에 선택 기준, 검증 결과와 기여 범위를 정리했습니다.
           </p>
           <div class="project-hero-actions">
             <a class="primary-action primary-action--meal" href="https://github.com/happyInit/food-budget-app" target="_blank" rel="noreferrer">프로젝트 Repository</a>
@@ -106,7 +107,7 @@
       <section class="evidence-section" aria-labelledby="evidence-title">
         <div class="evidence-head">
           <span>02</span>
-          <h2 id="evidence-title">주요 실측 및 문제 해결 과정</h2>
+          <h2 id="evidence-title">검증 결과와 문제 해결 과정</h2>
           <p>프로젝트에서 담당한 작업과 주요 판단 과정을 실제 측정 결과와 함께 정리했습니다. 각 항목에서 문제를 확인한 과정, 선택 기준, 결과와 한계를 확인할 수 있습니다.</p>
           <p class="ai-note">일부 스크립트·코드 작성과 반복 실행에는 AI 도구를 활용했으며, 비교 기준 설정·실험 조건 결정·결과 해석·채택과 되돌림 판단은 직접 수행했습니다.</p>
         </div>
@@ -149,7 +150,7 @@
                 <div class="step"><h4>수행 및 결정</h4><p>두 번째를 택했습니다. 12종 중 <b>10종을 채택하고 2종은 제외</b>했습니다. Terraform(AWS)으로 Lambda·SQS·SNS·S3·EventBridge Scheduler 구성을 작성하고, 함수가 무엇에 깨어나고 실패하면 어디로 가는지를 트리거와 실패 경로로 먼저 정리했습니다.</p></div>
                 <div class="step"><h4>결과</h4><p>이벤트 기반으로 옮긴 기능은 호출이 있을 때만 실행되도록 구성됐고, 제외한 2종은 근거를 남긴 채 기존 방식으로 유지했습니다.</p></div>
                 <div class="limit"><b>한계 및 고려사항</b> — 옮기면 잃는 것이 있습니다. 상시 프로세스에서 유지하던 상태와 연결을 매 호출마다 다시 만들어야 하고, 콜드 스타트가 지연에 더해집니다. 그래서 «무엇을 잃는가»를 판정표에 먼저 적고 시작했습니다.</div>
-                <div class="step"><h4>여기서 얻은 작은 교훈 — 테스트가 있다는 것과 실행된다는 것은 다릅니다</h4><p>서버리스 테스트 파일이 저장소에 있는데도 CI 설정에는 해당 실행 경로가 들어 있지 않아 <b>한 번도 돌지 않고</b> 있었습니다. 파일 존재가 아니라 «파이프라인이 실제로 무슨 명령을 실행하는지»를 봐야 한다는 것을 확인하고 실행 경로에 편입했습니다. 같은 변경에서 제 스모크 테스트 자체의 오류도 발견해 고쳤습니다 — 잘못된 필드명을 보냈는데 200이 돌아와 통과처럼 보이던 경우였습니다.<br><span style="color:var(--soft);font-size:13px">CI/CD를 구축하거나 운영한 것이 아니라, 기존 검증 과정의 누락을 찾아 보완한 범위입니다.</span></p></div>
+                <div class="step"><h4>CI에서 누락된 테스트 실행 경로 보완</h4><p>서버리스 테스트 파일이 저장소에 있는데도 CI 설정에는 해당 실행 경로가 들어 있지 않아 <b>한 번도 돌지 않고</b> 있었습니다. 파일 존재가 아니라 «파이프라인이 실제로 무슨 명령을 실행하는지»를 봐야 한다는 것을 확인하고 실행 경로에 편입했습니다. 같은 변경에서 제 스모크 테스트 자체의 오류도 발견해 고쳤습니다 — 잘못된 필드명을 보냈는데 200이 돌아와 통과처럼 보이던 경우였습니다.<br><span style="color:var(--soft);font-size:13px">CI/CD를 구축하거나 운영한 것이 아니라, 기존 검증 과정의 누락을 찾아 보완한 범위입니다.</span></p></div>
                 <div class="ownership"><b>기여 범위</b> — 검토 기준 정의·채택/제외 결정·Terraform 작성: <b>본인</b> · 상위 인프라 결정과 클러스터 운영: <b>팀</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>서버리스 검토 기준 5개와 옮기지 않은 것</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-08-18</span></div>
@@ -286,7 +287,7 @@
                 <div class="step"><h4>가설 및 선택지</h4><ul><li>점수가 올랐으니 그대로 둔다.</li><li>되돌린다 — 오매칭이 다시 생길 수 있습니다.</li><li>예외 목록을 덧붙인다 — 규칙이 계속 늘어납니다.</li></ul></div>
                 <div class="step"><h4>수행 및 결정</h4><p><b>되돌렸습니다.</b> 복합 요리명을 놓치는 손실이 오매칭을 막는 이득보다 컸고, 원래 막으려던 주제 이탈은 앞단의 다른 장치가 이미 걸러 주고 있었기 때문입니다.<br>그리고 좋은 점수가 나온 뒤 바로 다음 단계로 가지 않고, <b>학습에 쓰지 않은 seed 3개</b>로 같은 코드를 다시 돌려 특정 케이스에만 맞춘 개선이 아닌지 확인했습니다.</p></div>
                 <div class="step"><h4>결과</h4><p>되돌린 뒤에도 점수가 유지됐고, 서로 다른 seed에서도 비슷한 수준이 나왔습니다. 이후 생성 백엔드를 붙일 때는 «판정 결과가 같아야 한다»를 가설로 먼저 적고 확인했습니다.</p></div>
-                <div class="limit"><b>한계 및 고려사항</b> — 30건은 작은 스위트입니다. «검증 체계를 구축했다»고 할 규모가 아니라 <b>반복 확인의 습관</b>에 가깝습니다. 회차 간 비교는 같은 스위트 안에서만 유효합니다.</div>
+                <div class="limit"><b>한계 및 고려사항</b> — 검증에 사용한 스위트는 <b>30건</b>입니다. 회차 간 비교는 같은 스위트 안에서만 유효하며, 더 넓은 입력에 대한 성능은 확인하지 않았습니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>점수가 오른 변경도 조건이 한정되면 손해일 수 있다는 것, 그리고 좋은 결과일수록 <b>다른 조건에서 먼저 확인</b>해야 한다는 것을 기준으로 삼게 됐습니다.</p></div>
                 <div class="ownership"><b>기여 범위</b> — 되돌림 판단·seed 일반화 확인 단계 삽입·회귀 가설 설정: <b>본인 판단</b></div>
                 <div class="ev">
@@ -306,7 +307,7 @@
                 <div class="step"><h4>가설 및 선택지</h4><ul><li>모델을 바꾼다.</li><li>프롬프트에서 실패 원인을 직접 금지한다.</li><li>후처리로 걸러 낸다.</li></ul></div>
                 <div class="step"><h4>수행 및 결정</h4><p>프롬프트에서 실패 원인을 직접 막았습니다. 여러 줄 근거가 오면 <b>모든 줄의 재료와 금액을 답변에 포함</b>하도록 하고, 질문 문장을 요리 이름처럼 인용하는 것을 금지했습니다. 그리고 전체 평균이 아니라 <b>실제 서비스에서 다듬는 경로</b>를 기준으로 판단했습니다.</p></div>
                 <div class="step"><h4>결과</h4><p>실제 서비스 경로의 치명 결함이 <b>88건에서 21건</b>으로 줄었습니다(720건 기준 12.2% → 2.9%). 전체 1,138건 기준으로는 9.9% → 4.6%입니다.</p></div>
-                <div class="limit"><b>한계 및 고려사항 — 나빠진 것도 있습니다.</b> 같은 변경에서 <b>금액 손실은 26건에서 31건으로 늘었고</b>, 재료비 카테고리 통과율은 72.2%에서 66.7%로 떨어졌습니다. 좋아진 숫자만 남기지 않고 그대로 기록했습니다. 이 실험의 입력 케이스풀도 이후 소실돼 완전한 재현은 불가능합니다.</div>
+                <div class="limit"><b>한계 및 고려사항 — 악화된 지표</b> 같은 변경에서 <b>금액 손실은 26건에서 31건으로 늘었고</b>, 재료비 카테고리 통과율은 72.2%에서 66.7%로 떨어졌습니다. 좋아진 숫자만 남기지 않고 그대로 기록했습니다. 이 실험의 입력 케이스풀도 이후 소실돼 완전한 재현은 불가능합니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>전체 평균은 실제 사용자가 겪는 것과 다를 수 있습니다. 그래서 어느 경로가 실제로 그 코드를 지나가는지 먼저 나눠서 보게 됐습니다.</p></div>
                 <div class="ownership"><b>기여 범위</b> — 실험 규모·조건 지정·판단 기준(실제 서비스 경로) 설정: <b>본인 판단</b></div>
                 <div class="ev">
@@ -328,11 +329,11 @@
                 <div class="step"><h4>수행 및 결정</h4><p>경량화 이후에도 동일 모델로 볼 수 있는지를 확인하기 위해, 채택 기준을 크기 감소가 아니라 <b>예측 결과의 완전 일치</b>로 정했습니다.<br>사람이 검수한 정답 50건으로 두 경로의 예측을 전수 비교했고, <b>라벨과 추출 결과가 50건 모두 일치</b>하는 것을 확인한 뒤에 반영했습니다. 학습은 기존 스택을 그대로 두고 <b>서빙만</b> 네이티브 포맷으로 바꿨습니다.</p></div>
                 <div class="step"><h4>결과</h4><p>배포 패키지가 크게 줄면서 성능 지표는 유지됐습니다. 부수적으로 알게 된 것도 있습니다 — 학습 객체를 그대로 불러오는 방식은 파일 내용에 따라 코드가 실행되는 경로라, 모델을 외부 저장소에서 받아 오는 구조에서는 그 자체가 위험 지점이 됩니다. 네이티브 포맷은 순수 데이터라 그 경로가 없습니다.</p></div>
                 <div class="limit"><b>한계 및 고려사항</b> — 네이티브 포맷에는 학습 이력과 라벨 집합 같은 메타데이터가 담기지 않아 따로 기록해야 합니다. 경량화 아이디어의 최초 제안보다, 기존 출력과의 등가성 검증 기준을 세우고 결과를 확인해 채택 여부를 판단하는 역할을 맡았습니다.</div>
-                <div class="step"><h4>배운 점 / 다음 판단</h4><p>«좋아 보이는 변경»일수록 채택 조건을 먼저 숫자로 못 박아 두면, 나중에 논쟁이 생기지 않습니다.</p></div>
+                <div class="step"><h4>배운 점 / 다음 판단</h4><p>«좋아 보이는 변경»일수록 채택 조건을 먼저 숫자로 못 박아 두면, 변경 전후를 같은 기준으로 판단할 수 있습니다.</p></div>
                 <div class="ownership"><b>기여 범위</b> — 등가성 증명 요구·검증 기준 정의·최종 채택: <b>본인 판단</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>CRF 서빙 포맷 등가성 — 실제 재실행</strong><span class="ev-kind" data-k="re-executed">실제 재실행</span><span class="ev-date">2026-08-31 재실행</span></div>
-                  <div class="ev-body">보존된 학습 산출물과 검수 정답 50건이 남아 있어 <b>지금 다시 돌린 실제 출력</b>입니다. 만들어 낸 화면이 아닙니다.
+                  <div class="ev-body">보존된 학습 산출물과 검수 정답 50건이 남아 있어 <b>2026-08-31에 재실행한 출력</b>입니다.
                     <span class="ev-metric">지표 · span P/R/F1 (검수 정답 50건) · 두 경로 예측 일치 건수</span>
                     <a class="ev-open" href="../../assets/evidence/mealplanning/crf-equivalence/source.html">실행 결과 보기 →</a></div>
                 </div>
@@ -359,7 +360,7 @@
                 <div class="step"><h4>가설 및 선택지</h4><ul><li>모델 문제 — 학습을 다시 돌린다.</li><li>SQL 조인 조건 문제.</li><li>값이 애초에 전달되지 않는다.</li></ul></div>
                 <div class="step"><h4>수행 및 결정</h4><p>세 번째로 좁히고 값을 따라 올라갔습니다. Frontend의 세션 생성 → API 요청 본문 → 이벤트 저장 → 학습 데이터 순서로 각 구간에서 값이 실려 있는지 확인했고, 요청에 필드가 실리지 않는 지점을 찾아 전달 경로를 고쳤습니다.</p></div>
                 <div class="step"><h4>결과</h4><p>끊겨 있던 노출과 행동의 연결이 복구돼, 이후 쌓이는 데이터부터는 label이 만들어질 수 있는 상태가 됐습니다.</p></div>
-                <div class="limit"><b>한계 및 고려사항</b> — 이미 지나간 기간의 label은 복구할 수 없어, 이후 데이터가 다시 쌓이는지 확인해야 했습니다.<br>규모를 주장하는 사례가 아닙니다. 조회한 44건이 전부 비어 있었다는 사실과 그 원인 경로만을 근거로 씁니다.</div>
+                <div class="limit"><b>한계 및 고려사항</b> — 이미 지나간 기간의 label은 복구할 수 없어, 이후 데이터가 다시 쌓이는지 확인해야 했습니다.<br>확인 범위는 조회한 44건의 키 누락과 전달 경로입니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>«어느 기술이 고장났나»보다 <b>«신호가 어느 구간에서 끊겼나»</b>를 먼저 보게 됐습니다. AI 기능의 이상도 모델 내부 문제로 단정하면 원인을 놓칩니다.</p></div>
                 <div class="ownership"><b>기여 범위</b> — 발견·원인 분석·수정: <b>본인</b></div>
                 <div class="ev">
@@ -416,5 +417,6 @@
     <footer class="project-page-footer"><a class="back-link" href="../../#work">← 프로젝트 목록으로</a><a class="icon-button icon-button--small" href="mailto:goonbam009@gmail.com" aria-label="이메일 보내기"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3.5 6.5h17v11h-17zM3.9 7.1 12 13l8.1-5.9"/></svg><span>Email</span></a></footer>
   </div>
   <script src="../../section-navigation.js?v=20260918-1" defer></script>
+<script src="../../portfolio-ui.js?v=20260919-1" defer></script>
 </body>
 </html>

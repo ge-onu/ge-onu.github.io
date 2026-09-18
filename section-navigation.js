@@ -67,6 +67,7 @@
     }
   });
   nav.addEventListener('focusin', () => nav.removeAttribute('data-dismissed'));
-  nav.addEventListener('pointerover', () => nav.removeAttribute('data-dismissed'));
+  nav.addEventListener('pointerenter', () => nav.removeAttribute('data-dismissed'));
   resize();
 })();
+

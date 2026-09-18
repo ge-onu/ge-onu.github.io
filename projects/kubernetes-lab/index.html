@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../../projects.css?v=20260918-compact">
   <script src="../../project-tabs.js?v=20260914-1" defer></script>
   <link rel="icon" type="image/svg+xml" href="../../assets/images/home-icon.svg">
+<link rel="stylesheet" href="../../portfolio-ui.css?v=20260919-1">
 </head>
 <body class="project-page project-page--k8s">
   <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
@@ -38,10 +39,10 @@
         <div>
           <a class="project-back" href="../../#work">← Projects</a>
           <p class="section-kicker" style="margin-top:24px">Kubernetes 실습</p>
-          <h1>Kubernetes Multi-node Lab</h1>
+          <h1>Kubernetes <span class="title-keep">Multi-node</span> Lab</h1>
           <p class="project-hero-subtitle">kubeadm 기반 클러스터 구축과 장애 확인</p>
           <p class="project-hero-summary">
-            멀티노드 Kubernetes 환경을 직접 구성하고 Network, Storage, RBAC, Scaling을 연결해 구성했습니다.
+            멀티노드 Kubernetes 환경에서 네트워크, 스토리지, RBAC, 스케일링을 구성했습니다.
             문제가 생기면 설정부터 바꾸기보다 Event와 리소스 상태를 먼저 확인했습니다.
           </p>
           <div class="project-hero-actions">
@@ -71,14 +72,14 @@
           <div><strong>Calico</strong><span>network</span><p>Service · Ingress · NetworkPolicy</p></div>
           <div><strong>Events</strong><span>troubleshooting</span><p>리소스 상태와 함께 원인 범위 확인</p></div>
         </div>
-        <p class="scope-note">팀 프로젝트 환경이 아니라 개인이 직접 구성하고 문제를 확인한 실습입니다.</p>
+        <p class="scope-note">개인 실습으로 클러스터를 구성하고 리소스 상태와 이벤트를 점검했습니다.</p>
       </section>
 
       <section class="story-section" aria-labelledby="stories-title">
         <div class="story-heading">
           <span>02–07</span>
           <h2 id="stories-title">구성한 항목과 문제를 확인한 순서</h2>
-          <p>항목을 고르면 무엇을 구성했고 어떤 값을 확인했는지 나옵니다.</p>
+          <p>구성 항목별 설정과 문제 진단 시 확인한 값을 정리했습니다.</p>
         </div>
 
         <div class="story-browser" data-story-browser>
@@ -195,5 +196,7 @@
     <footer class="project-page-footer"><a class="back-link" href="../../#work">← 프로젝트 목록으로</a><a class="icon-button icon-button--small" href="mailto:goonbam009@gmail.com" aria-label="이메일 보내기"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3.5 6.5h17v11h-17zM3.9 7.1 12 13l8.1-5.9"/></svg><span>Email</span></a></footer>
   </div>
   <script src="../../section-navigation.js?v=20260918-1" defer></script>
+<script src="../../portfolio-ui.js?v=20260919-1" defer></script>
 </body>
 </html>
+

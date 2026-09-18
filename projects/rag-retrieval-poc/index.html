@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../../style.css?v=20260918-compact">
   <link rel="stylesheet" href="../../projects.css?v=20260918-compact">
   <link rel="icon" type="image/svg+xml" href="../../assets/images/home-icon.svg">
+<link rel="stylesheet" href="../../portfolio-ui.css?v=20260919-1">
 </head>
 <body class="project-page project-page--rag">
   <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
@@ -25,7 +26,7 @@
           <h1>RAG Retrieval PoC</h1>
           <p class="project-hero-subtitle">관련 문서를 찾은 것과 답할 근거가 있는 것을 구분했습니다.</p>
           <p class="project-hero-summary">경험에 대한 질문에서 관련 근거를 검색하고, 그 근거가 답변할 범위와 기여를 실제로 뒷받침하는지 확인하는 실험입니다. BM25 검색 결과와 답변 허용 규칙을 나눠 실패를 분석했습니다.</p>
-          <p class="limit"><b>개발 평가 후 설정 동결 · unseen holdout v2 검증 전</b><br>아래 수치는 개발 데이터에서 확인한 결과입니다. 새로운 질문에 대한 일반화 성능이나 Production RAG 운영 경험을 뜻하지 않습니다.</p>
+          <p class="limit"><b>개발 평가 완료 · 새로운 평가 세트(holdout v2) 검증 전</b><br>아래 수치는 개발 데이터에서 확인한 결과입니다. 새로운 질문에 대한 일반화 성능이나 Production RAG 운영 경험을 뜻하지 않습니다.</p>
         </div>
       </section>
       <nav class="detail-nav" aria-label="RAG PoC 상세 목차"><a href="#question">문제와 범위</a><a href="#failure">실패와 수정</a><a href="#measurement">개발 평가</a><a href="#limits">남은 한계</a><a href="#sources">평가 기록</a></nav>
@@ -56,7 +57,7 @@
 
       <section class="reading-section" id="measurement" aria-labelledby="measurement-title">
         <p class="section-kicker">03 / 개발 평가</p>
-        <h2 id="measurement-title">100건에서 동결 기준을 확인했습니다.</h2>
+        <h2 id="measurement-title">개발 평가 100건에서 설정 확정 기준을 충족했습니다.</h2>
         <p>개발 60건과 이미 확인한 holdout v1 40건을 합친 <b>combined100</b>입니다. 한 번 본 holdout을 개발에 사용했으므로, 이 결과를 새 질문의 성능으로 읽을 수는 없습니다.</p>
         <div class="comparison-wrap" role="region" aria-label="RAG 개발 평가 결과표" tabindex="0">
           <table class="comparison-table">
@@ -78,8 +79,8 @@
         <p class="section-kicker">04 / 남은 한계</p>
         <h2 id="limits-title">찾지 못한 질문과 확인하지 않은 성능을 남겼습니다.</h2>
         <p>데이터 수집부터 학습까지의 기여를 함께 묻는 개발 문항 X08에서는 필요한 근거가 4위에 남았습니다. 질문을 나누는 검색으로도 해결하지 못했고, 한 문항만을 위한 튜닝은 하지 않았습니다.</p>
-        <p>v1에서 R@3가 개발 1.000 → holdout 0.800으로 낮아진 전례가 있습니다. <b>unseen holdout v2가 아직 남아 있으므로</b> 개발 기준 통과는 설정 동결의 근거로만 사용합니다.</p>
-        <p class="limit"><b>이 실험에서 말할 수 있는 것</b> — 검색 실패와 답변 범위 판단 실패를 나눠 분석한 과정, 기각한 대안, 개발 평가 결과입니다. 상용 RAG 운영·Vector DB 운영·RAGAS 활용 경험으로 확대하지 않습니다.</p>
+        <p>v1에서 R@3가 개발 1.000 → holdout 0.800으로 낮아진 전례가 있습니다. <b>새로운 평가 세트(holdout v2)의 검증이 남아 있으므로</b> 개발 기준 통과는 설정 동결의 근거로만 사용합니다.</p>
+        <p class="limit"><b>검증 범위와 미검증 항목</b> — 검색 실패와 답변 범위 판단 실패를 나눠 분석한 과정, 기각한 대안, 개발 평가 결과입니다. 상용 RAG 운영·Vector DB 운영·RAGAS 활용 경험으로 확대하지 않습니다.</p>
       </section>
 
       <section class="reading-section" id="sources" aria-labelledby="sources-title">
@@ -94,5 +95,6 @@
     <footer class="project-page-footer"><a class="back-link" href="../../#work">← 프로젝트 목록으로</a><a class="back-link" href="../mealplanning/">Mealplanning 사례 보기 →</a></footer>
   </div>
   <script src="../../section-navigation.js?v=20260918-1" defer></script>
+<script src="../../portfolio-ui.js?v=20260919-1" defer></script>
 </body>
 </html>
