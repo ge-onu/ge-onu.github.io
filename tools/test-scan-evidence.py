@@ -42,6 +42,41 @@ class PublicationGate(unittest.TestCase):
             with self.subTest(rule=rule):
                 self.assertIn(rule, [hit[0] for hit in scan.scan_text(text)])
 
+    def test_aws_account_rule_does_not_flag_plain_12_digit_numbers(self):
+        """맨몸 12자리 숫자는 AWS 계정이 아니다. 오탐이 발행을 막으면 게이트를 신뢰하지 않게 된다."""
+        for text in (
+            "일련번호 123456789012 입니다",
+            "전화 01012345678 입니다",
+            "측정 타임스탬프 175800000000 기준",
+        ):
+            with self.subTest(text=text):
+                self.assertNotIn("AWS_ACCOUNT", [hit[0] for hit in scan.scan_text(text)])
+
+    def test_aws_account_rule_still_blocks_real_identifiers(self):
+        """오탐을 줄이되 실제 계정 식별자는 계속 막는다."""
+        for text in (
+            "arn:aws:iam::123456789012:role/app",
+            "arn:aws:s3:ap-northeast-2:123456789012:bucket",
+            "aws_account_id: 123456789012",
+            "Account ID = 123456789012",
+        ):
+            with self.subTest(text=text):
+                self.assertIn("AWS_ACCOUNT", [hit[0] for hit in scan.scan_text(text)])
+
+    def test_local_path_rule_catches_windows_and_all_wsl_drives(self):
+        """이전 패턴은 백슬래시 2개를 요구해 실제 Windows 경로를 놓쳤고 /mnt 도 c·d만 봤다."""
+        for text in (
+            r"C:\Users\geonu\notes.txt",
+            r"d:\Users\someone\x",
+            "C:/Users/geonu/x",
+            "/mnt/e/data",
+            "/mnt/c/work",
+            "/home/geonu/x",
+            "~/workspace/repos/",
+        ):
+            with self.subTest(text=text):
+                self.assertIn("LOCAL_PATH", [hit[0] for hit in scan.scan_text(text)])
+
 
 if __name__ == "__main__":
     unittest.main()

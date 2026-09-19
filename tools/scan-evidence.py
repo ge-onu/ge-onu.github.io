@@ -23,7 +23,13 @@ SUFFIXES = {".html", ".json", ".md", ".css", ".js"}
 RULES: list[tuple[str, str, re.Pattern[str], str]] = [
     ("AWS_KEY",      "BLOCK", re.compile(r"\b(?:AKIA|ASIA)[A-Z0-9]{16}\b"),
      "AWS access key id"),
-    ("AWS_ACCOUNT",  "BLOCK", re.compile(r"\biam::\d{12}:|arn:aws:[a-z0-9-]*:[a-z0-9-]*:\d{12}:|\b\d{12}\b"),
+    # 맨몸 12자리 숫자(\b\d{12}\b)는 오탐이 너무 많아 뺐다 — 일련번호·타임스탬프·전화번호가 전부 걸렸다.
+    # AWS account id는 실제로 의미 있는 문맥에서만 잡는다: ARN, iam::, 그리고 account 키워드와 함께 쓰인 경우.
+    ("AWS_ACCOUNT",  "BLOCK", re.compile(
+        r"\biam::\d{12}:"
+        r"|arn:aws:[a-z0-9-]*:[a-z0-9-]*:\d{12}:"
+        r"|(?i:\baws[_\- ]?account[_\- ]?(?:id)?\b\D{0,20}\d{12}\b)"
+        r"|(?i:\baccount[_\- ]?id\b\D{0,20}\d{12}\b)"),
      "AWS account id / IAM arn"),
     ("PRIVATE_IP",   "BLOCK", re.compile(r"\b(?:10|127|192)\.(?:\d{1,3}\.){2}\d{1,3}\b"
                                          r"|\b172\.(?:1[6-9]|2\d|3[01])\.(?:\d{1,3})\.\d{1,3}\b"),
@@ -35,7 +41,9 @@ RULES: list[tuple[str, str, re.Pattern[str], str]] = [
      "credential assignment"),
     ("PRIVATE_KEY",  "BLOCK", re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
      "private key block"),
-    ("LOCAL_PATH",   "BLOCK", re.compile(r"/home/[a-z][\w.-]*|/mnt/[cd]/|[A-Z]:\\\\Users\\\\|~/[\w.-]+/"),
+    # Windows 경로는 백슬래시 1개다. 이전 패턴은 \\\\(리터럴 2개)를 요구해 실제 C:\\Users\\...를 못 잡았다.
+    # /mnt 도 c·d만 보던 것을 전체 드라이브 문자로 넓혔다.
+    ("LOCAL_PATH",   "BLOCK", re.compile(r"/home/[a-z][\w.-]*|/mnt/[a-z]/|[A-Za-z]:[\\\\/]Users[\\\\/]|~/[\w.-]+/"),
      "absolute or user-specific local filesystem path"),
     ("FORBIDDEN_TERM", "BLOCK", re.compile(r"(?i)클릭스트림|clickstream"),
      "forbidden term (use 추천 노출·행동 이벤트)"),
