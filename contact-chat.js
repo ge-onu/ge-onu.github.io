@@ -17,31 +17,26 @@ function showContactSuccess(){
  },1600);
 }
 document.body.append(dialog);contact.addEventListener('click',()=>dialog.showModal());dialog.querySelector('.panel-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
-if(!window.PORTFOLIO_CONTACT?.webhookUrl){dialog.querySelector('[type=submit]').disabled=true;dialog.querySelector('.contact-status').textContent='메시지 전송 연결을 준비 중입니다.';}
+function contactUnavailable(status,attempted=true){
+ status.replaceChildren(document.createTextNode(attempted?'전송을 확인하지 못했습니다. 입력한 내용은 그대로 남아 있습니다. 잠시 후 다시 시도하거나 이메일로 연락해 주세요. ':'현재 메시지 전송 연결을 준비 중입니다. 이메일로 연락해 주세요. '));
+ const link=document.createElement('a');link.href='mailto:goonbam009@gmail.com';link.textContent='goonbam009@gmail.com';status.append(link);
+}
+if(!window.PORTFOLIO_CONTACT?.endpoint){contactUnavailable(dialog.querySelector('.contact-status'),false);}
 dialog.querySelector('form').addEventListener('submit',async e=>{
  e.preventDefault();const form=e.target,button=form.querySelector('[type=submit]'),status=form.querySelector('.contact-status');
- const endpoint=window.PORTFOLIO_CONTACT?.webhookUrl;
- if(!endpoint){status.textContent='메시지 전송 연결을 준비 중입니다. 아직 전송되지 않았습니다.';return;}
+ const endpoint=window.PORTFOLIO_CONTACT?.endpoint;
+ if(!endpoint){contactUnavailable(status);return;}
  button.disabled=true;button.textContent='전송 중…';status.textContent='';
  try{
- const url=new URL(endpoint);if(url.protocol!=='https:'||url.hostname!=='hooks.slack.com'||!url.pathname.startsWith('/services/'))throw new Error('configuration');
+ const url=new URL(endpoint);if(url.protocol!=='https:')throw new Error('configuration');
  const f=new FormData(form);const name=String(f.get('name')).trim(),email=String(f.get('email')).trim(),message=String(f.get('message')).trim();
  if(!name||!email||!message)throw new Error('empty');
- const sender='['+name+'] ('+email+')';
-  const slackText=value=>value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*/g,'∗').replace(/_/g,'＿').replace(/~/g,'～').replace(/`/g,'ˋ');
- const payload={text:sender+'\n\n'+message,blocks:[
-  {type:'section',text:{type:'mrkdwn',text:'👤 *['+slackText(name)+']*',verbatim:true}},
-  {type:'context',elements:[{type:'plain_text',text:'✉️ '+email}]},
-  {type:'divider'},
-  {type:'context',elements:[{type:'plain_text',text:'💬 문의내용'}]},
-  {type:'section',text:{type:'plain_text',text:message}}
- ]};
- const response=await fetch(url.href,{method:'POST',mode:'no-cors',credentials:'omit',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify(payload),signal:AbortSignal.timeout(15000)});
- if(response.type==='opaque'){status.textContent='';showContactSuccess();}
- else if(response.ok){form.reset();status.textContent='';showContactSuccess();}
- else throw new Error('send');
+ const response=await fetch(url.href,{method:'POST',mode:'cors',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,message}),signal:AbortSignal.timeout(12000)});
+ if(!response.ok)throw new Error('send');
+ const result=await response.json();if(result.ok!==true)throw new Error('send');
+ form.reset();status.textContent='';showContactSuccess();
  }
- catch{status.textContent='전송을 확인하지 못했습니다. 내용은 남겨 두었습니다. 잠시 후 다시 시도해 주세요.';}
+ catch{contactUnavailable(status);}
  finally{button.disabled=false;button.textContent='메시지 보내기';}
 });
 const launch=document.createElement('button');launch.type='button';launch.className='chat-launcher';launch.setAttribute('aria-label','포트폴리오 챗봇 열기. 드래그 또는 방향키로 위치 이동');launch.setAttribute('aria-controls','portfolio-chat');launch.setAttribute('aria-expanded','false');launch.innerHTML='<img src="'+avatar+'" alt="" draggable="false">';

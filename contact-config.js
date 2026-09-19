@@ -1,2 +1,2 @@
-// Slack credentials must be configured on a server-side relay.
-window.PORTFOLIO_CONTACT = { webhookUrl: "" };
+// Public HTTPS relay endpoint only; Slack webhook stays in WSL.
+window.PORTFOLIO_CONTACT = { endpoint: "" };
