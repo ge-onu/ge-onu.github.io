@@ -86,19 +86,13 @@
 
 /* Linux wordmark: retain approved Ubuntu Bold; center visible artwork. */
 @font-face { font-family:InfraUbuntu; src:url('assets/fonts/Ubuntu-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
-.infra-card .infra-cover { padding:0 12px; display:flex; align-items:center; justify-content:center; }
-.infra-cover .practice-brand { display:grid; grid-template-rows:105px 45px; width:100%; justify-items:center; }
-.infra-cover .practice-brand-symbol { position:relative; width:190px; height:105px; overflow:hidden; }
-.infra-cover .practice-brand-symbol img { position:absolute; width:220px; height:220px; min-height:0; max-width:none; left:50%; top:50%; transform:translate(-50%,-50%); object-fit:contain; mask-image:radial-gradient(ellipse at center,#000 42%,transparent 72%); }
-.infra-cover .practice-brand-name { display:flex; align-items:center; justify-content:center; font-family:InfraUbuntu,sans-serif; font-size:29px; font-weight:700; letter-spacing:-1px; line-height:35px; color:#373535; white-space:nowrap; margin:0; }
+/* Scale the complete mark against its cover, including the wordmark. */
+.infra-card .infra-cover { padding:0 12px; display:flex; align-items:center; justify-content:center; container-type:inline-size; min-width:0; }
+.infra-cover .practice-brand { display:grid; grid-template-rows:min(105px,42.68cqw) min(45px,18.29cqw); width:100%; min-width:0; justify-items:center; }
+.infra-cover .practice-brand-symbol { position:relative; width:min(190px,77.24cqw); height:min(105px,42.68cqw); overflow:hidden; }
+.infra-cover .practice-brand-symbol img { position:absolute; width:min(220px,89.43cqw); height:min(220px,89.43cqw); min-height:0; max-width:none; left:50%; top:50%; transform:translate(-50%,-50%); object-fit:contain; mask-image:radial-gradient(ellipse at center,#000 42%,transparent 72%); margin-top:max(-2px,-.81cqw); }
+.infra-cover .practice-brand-name { display:flex; align-items:center; justify-content:center; font-family:InfraUbuntu,sans-serif; font-size:min(31px,12.60cqw); font-weight:700; letter-spacing:max(-1px,-.407cqw); line-height:min(35px,14.23cqw); color:#373535; white-space:nowrap; margin:0; transform:translateY(max(-5px,-2.03cqw)); }
 @media(max-width:680px) { .infra-card .infra-cover { height:180px; } }
-
-.infra-cover .practice-brand-symbol img { margin-top:-6px; }
-
-/* Optical alignment requested against the unchanged Kubernetes wordmark. */
-.infra-cover .practice-brand-name { font-size:31px; transform:translateY(-5px); }
-
-.infra-cover .practice-brand-symbol img { margin-top:-2px; }
 
 /* Compact overview and clean section navigation. */
 .infra-overview { align-items:center; gap:8px 20px; margin-top:16px; padding-top:12px; }
