@@ -108,6 +108,8 @@
 .project-showcase-card--meal { border-color: rgba(242, 100, 25, .72); }
 .project-showcase-card--k8s { border-color: rgba(50, 108, 229, .48); }
 .project-showcase-card--rag { border-color: var(--accent); }
+.project-showcase-card--didim { border-color: rgba(31, 95, 91, .45); }
+.project-cover--didim { background: #eef3f2; border-bottom-color: rgba(31, 95, 91, .2); }
 
 .project-cover--rag { padding: 28px; background: var(--accent-soft); color: var(--text); }
 .retrieval-cover-label { color: var(--accent-ink); font-size: 12px; font-weight: 750; letter-spacing: .08em; }

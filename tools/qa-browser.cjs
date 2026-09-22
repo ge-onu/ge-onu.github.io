@@ -16,7 +16,9 @@ const assert = require('node:assert/strict');
     for (const width of [1440, 768, 390, 320]) {
       for (const [name, route] of [
         ['home', '/'], ['mealplanning', '/projects/mealplanning/'],
-        ['rag', '/projects/rag-retrieval-poc/'], ['kubernetes', '/projects/kubernetes-lab/'],
+        ['rag', '/projects/rag-retrieval-poc/'], ['didim', '/projects/didim/'],
+        ['kubernetes', '/projects/kubernetes-lab/'],
+        ['infra', '/projects/infrastructure-lab-series/'],
       ]) {
         const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
         const runtimeErrors = [], consoleErrors = [], failedRequests = [];
@@ -40,7 +42,13 @@ const assert = require('node:assert/strict');
 
         if (name === 'home') {
           const cards = await page.locator('.project-showcase-card').evaluateAll(cards => cards.map(c => c.getAttribute('href')));
-          assert.deepEqual(cards, ['projects/mealplanning/', 'projects/rag-retrieval-poc/', 'projects/kubernetes-lab/']);
+          // 카드가 늘 때 여기도 같이 고친다. 이 단언은 한동안 낡아 있었다 —
+          // infrastructure-lab-series 가 빠져 있어 실제 화면과 달랐다.
+          assert.deepEqual(cards, [
+            'projects/mealplanning/', 'projects/rag-retrieval-poc/',
+            'projects/didim/', 'projects/kubernetes-lab/',
+            'projects/infrastructure-lab-series/',
+          ]);
           for (const href of cards) {
             await page.locator(`a[href="${href}"]`).first().click();
             await page.waitForURL(origin + '/' + href);

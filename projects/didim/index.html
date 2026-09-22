@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="개인 메일 정리 도구 — 메일함을 읽기 전용으로만 다루고, 분류 결과를 한 화면에 모았습니다. 테스트 281개가 모두 통과하는 상태에서 전면 검수로 29가지를 찾아 고친 기록입니다.">
+  <link rel="canonical" href="https://geonu.site/projects/didim/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="geonu.site">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:url" content="https://geonu.site/projects/didim/">
+  <meta property="og:title" content="디딤 · 메일 정리 도구 | 이건우">
+  <meta property="og:description" content="테스트가 전부 통과하는 상태에서 무엇이 틀려 있었는지 찾은 기록. 되돌릴 수 없는 것을 먼저 정하고, 검사를 도구에 넣었습니다.">
+  <meta property="og:image" content="https://geonu.site/assets/didim-mascot.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="디딤 · 메일 정리 도구 | 이건우">
+  <meta name="twitter:description" content="테스트가 전부 통과하는 상태에서 무엇이 틀려 있었는지 찾은 기록. 되돌릴 수 없는 것을 먼저 정하고, 검사를 도구에 넣었습니다.">
+  <meta name="twitter:image" content="https://geonu.site/assets/didim-mascot.png">
+  <meta name="theme-color" content="#f7f8fa">
+  <title>디딤 · 메일 정리 도구 | Geonwoo Lee</title>
+  <link rel="stylesheet" href="../../style.css?v=20260918-compact">
+  <link rel="stylesheet" href="../../projects.css?v=20260922-didim">
+  <link rel="icon" type="image/svg+xml" href="../../assets/images/home-icon.svg">
+<link rel="stylesheet" href="../../portfolio-ui.css?v=20260919-rail">
+<link rel="stylesheet" href="../../theme.css?v=2">
+<script src="../../theme.js?v=1"></script>
+<link rel="stylesheet" href="../../contact-chat.css">
+<script src="../../contact-config.js?v=wsl-1" defer></script>
+<script src="../../contact-chat.js?v=wsl-1" defer></script>
+</head>
+<body class="project-page project-page--didim">
+  <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
+  <div class="shell">
+    <header class="topbar topbar--profiles">
+      <a class="identity" href="../../#top" aria-label="홈으로 이동" title="홈으로 이동">
+        <span class="identity-mark"><img class="identity-home-img" src="../../assets/images/home-icon.svg" alt="" aria-hidden="true" width="96" height="95" decoding="async"></span>
+        <span>Geonwoo Lee</span>
+      </a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="../../#work">Projects</a>
+        <a href="../../#incidents">Troubleshooting</a>
+        <a href="../../#focus">Skills</a>
+        <div class="nav-profile-links">
+          <a class="github-button github-button--small" href="https://github.com/ge-onu" target="_blank" aria-label="Geonwoo Lee GitHub 프로필 열기 (새 탭)" title="GitHub (새 탭)" rel="noreferrer noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.3 11.3 0 0 0-3.6 22c.57.1.77-.25.77-.55v-2.12c-3.15.68-3.82-1.34-3.82-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16A10.9 10.9 0 0 1 12 7.08c.97 0 1.94.13 2.85.38 2.17-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.03.77 2.08v3.14c0 .3.21.66.78.55A11.3 11.3 0 0 0 12 .7Z"/></svg>
+          <span>GitHub</span>
+        </a>
+          <a class="icon-button icon-button--small" href="https://www.linkedin.com/in/geonwooleekr" target="_blank" rel="noreferrer noopener" aria-label="Geonwoo Lee LinkedIn 프로필 열기 (새 탭)" title="LinkedIn (새 탭)">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96C2 21.32 2.69 22 3.55 22h16.9c.86 0 1.55-.68 1.55-1.52V3.52C22 2.68 21.31 2 20.45 2ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.46 7.89a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42ZM19.02 18.75h-2.95v-4.64c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.72H9.78V9.2h2.83v1.3h.04c.39-.74 1.36-1.52 2.79-1.52 2.98 0 3.58 1.96 3.58 4.51v5.26Z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main id="main-content">
+      <section class="project-hero project-hero--text">
+        <div>
+          <a class="project-back" href="../../#work">← 프로젝트 목록</a>
+          <p class="section-kicker">개인 도구 · 자동화/운영</p>
+          <h1>디딤 · 메일 정리 도구</h1>
+          <p class="project-hero-subtitle">테스트가 전부 통과하는 상태에서 무엇이 틀려 있었는지 찾았습니다.</p>
+          <p class="project-hero-summary">지메일과 네이버 메일을 읽기 전용으로 가져와 분류하고, 중요한 것만 알리고, 결과를 개인 상황판 한 화면에 모으는 도구입니다. 만든 뒤 전면 검수를 한 번 돌려 29가지를 찾아 고쳤습니다.</p>
+          <p class="limit"><b>혼자 쓰는 도구입니다 · 계정 2개 · 메일 2,382통</b><br>아래 수치는 제 메일함 한 벌에서 나온 것입니다. 여러 사용자나 운영 규모에서의 성능을 뜻하지 않습니다. 메일 본문과 발신자가 들어 있어 저장소와 화면은 공개하지 않습니다.</p>
+        </div>
+      </section>
+      <nav class="detail-nav" aria-label="디딤 상세 목차"><a href="#scope">문제와 범위</a><a href="#irreversible">되돌릴 수 없는 것</a><a href="#graft">화면 이식</a><a href="#audit">전면 검수</a><a href="#ops">고장 감지</a><a href="#limits">남은 한계</a></nav>
+
+      <section class="reading-section" id="scope" aria-labelledby="scope-title">
+        <p class="section-kicker">01 / 문제와 범위</p>
+        <h2 id="scope-title">메일 2,382통 가운데 78%가 읽지 않아도 되는 것이었습니다.</h2>
+        <p>분류 결과에서 불필요로 판정된 비율입니다. 메일이 많아서가 아니라, 그 안에 섞인 <b>지금 해야 하는 몇 건</b>을 찾는 데 시간이 들었습니다. 읽어야 할 것과 아닌 것을 가르는 일을 도구에 넘기고, 사람은 결과만 보도록 구성했습니다.</p>
+        <p class="ownership"><b>기여 범위</b> — 설계·구현·운영 전부 제가 했습니다. 구현 과정에서 AI 도구를 사용했고, 무엇을 만들지와 무엇이 틀렸는지의 판단은 제가 내렸습니다.</p>
+        <ol class="pipeline-flow" aria-label="처리 흐름">
+          <li><strong>수집</strong><span>IMAP · 읽기 전용</span></li>
+          <li><strong>정제</strong><span>본문 추출 · 개인정보 마스킹</span></li>
+          <li><strong>분류</strong><span>등급 · 할 일 · 결제 추출</span></li>
+          <li><strong>알림</strong><span>중요한 것만 · 채널 분리</span></li>
+          <li><strong>상황판</strong><span>읽기 전용 화면</span></li>
+        </ol>
+        <p class="reading-note">상주 서버 없이 개인 PC의 WSL2에서 5분마다 도는 구조입니다. 대규모 메일 처리 시스템이 아니라 1인용 도구입니다.</p>
+      </section>
+
+      <section class="reading-section" id="irreversible" aria-labelledby="irreversible-title">
+        <p class="section-kicker">02 / 되돌릴 수 없는 것</p>
+        <h2 id="irreversible-title">메일함을 바꾸지 않는다는 약속에 테스트가 한 건도 없었습니다.</h2>
+        <p>본문을 평범하게 가져오면 서버가 읽음 표시를 붙이고, 그것을 되돌릴 방법이 없습니다. 읽음 상태가 오염되면 <b>무엇이 새로 왔는지</b>를 판단할 근거를 잃습니다. 그래서 폴더를 읽기 전용으로 열고, 읽음 표시가 붙지 않는 방식으로만 본문을 가져오도록 정했습니다.</p>
+        <p>코드는 그대로 지켜지고 있었습니다. 문제는 <b>그것을 지키는 테스트가 없었다</b>는 것입니다. 검수에서 확인해 보니 읽기 전용 설정을 지우거나 본문 가져오는 방식을 바꿔도 테스트 281개가 전부 통과했습니다.</p>
+        <p>테스트를 붙인 뒤, 그 테스트가 실제로 깨지는지 코드를 일부러 훼손해 확인했습니다.</p>
+        <div class="comparison-wrap" role="region" aria-label="읽기 전용 테스트 훼손 실험" tabindex="0">
+          <table class="comparison-table">
+            <caption>붙인 테스트가 실제로 잡는지 확인한 결과</caption>
+            <thead><tr><th scope="col">무엇을 망가뜨렸나</th><th scope="col">붙이기 전</th><th scope="col">붙인 뒤</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">읽기 전용 설정을 끔</th><td>281개 전부 통과</td><td>실패 2건</td></tr>
+              <tr><th scope="row">읽음 표시가 붙는 방식으로 본문 수집</th><td>281개 전부 통과</td><td>실패 2건</td></tr>
+              <tr><th scope="row">읽은 메일에 플래그를 붙이는 줄 추가</th><td>281개 전부 통과</td><td>실패 4건</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="reading-note">오간 명령을 기록하는 방식과 소스를 직접 읽는 방식 두 가지로 검사합니다. 앞의 것만으로는 테스트가 지나가지 않는 새 코드 경로를 놓칩니다.</p>
+      </section>
+
+      <section class="reading-section" id="graft" aria-labelledby="graft-title">
+        <p class="section-kicker">03 / 화면 이식</p>
+        <h2 id="graft-title">중괄호 개수가 맞는다고 구조가 맞는 것은 아니었습니다.</h2>
+        <p>메일 화면은 따로 만든 뒤 상황판에 옮겨 넣었습니다. 옮길 때 클래스 이름이 겹치고 페이지 껍데기가 두 겹이 되므로, 손으로 고치지 않고 변환기를 만들어 통과시켰습니다.</p>
+        <p>그 변환기가 CSS에서 껍데기를 걷어낼 때 정규식 하나로 <code>선택자{선언}</code>을 긁었습니다. 그러면 조건부 스타일 블록이 통째로 풀립니다.</p>
+        <div class="comparison-wrap" role="region" aria-label="정규식이 잘못 읽은 방식" tabindex="0">
+          <table class="comparison-table">
+            <caption>좁은 화면 전용 규칙이 최상위로 튀어나온 경로</caption>
+            <thead><tr><th scope="col">원본</th><th scope="col">정규식이 읽은 것</th><th scope="col">결과</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">좁은 화면에서만 1열</th><td>조건이 선택자의 일부로 읽힘</td><td><b>모든 폭에서 1열</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>세 화면이 한꺼번에 무너졌고, 규칙 28개가 중복으로 들어갔습니다. 그때 저는 <b>"중괄호 1332개 / 1332개 균형"만 보고 통과라고 판단</b>했습니다. 개수는 맞았고 구조는 뒤집혀 있었습니다.</p>
+        <ol class="decision-list">
+          <li><div><h3>중괄호를 세어 자르고 블록 안쪽으로 재귀하게 바꿨습니다.</h3><p>정규식 한 번으로 끝나던 자리를 파서로 바꿨습니다. 조건부 블록은 블록째 보존하고 안쪽만 훑습니다.</p></div></li>
+          <li><div><h3>변환기가 스스로 결과를 검사하고, 걸리면 멈추게 했습니다.</h3><p>접두사가 안 붙은 클래스, 조건이 선택자로 샌 것, 선언 없는 토큰, 남아 있는 페이지 껍데기 네 가지를 봅니다. 하나라도 걸리면 종료 코드를 0이 아닌 값으로 냅니다 — 반쯤 망가진 결과물을 만들지 않기 위해서입니다.</p></div></li>
+          <li><div><h3>검사 규칙은 전부 한 번씩 당한 것들입니다.</h3><p>주석이 선택자에 달라붙어 여백 21군데가 0이 된 일, 이미 테두리를 가진 클래스를 컨테이너로 다시 써서 상자가 겹쳐 보인 일이 각각 규칙 한 줄이 됐습니다.</p></div></li>
+        </ol>
+        <p class="reading-note">결과물은 원본과 도구만으로 바이트 단위까지 다시 만들어집니다. 사람이 손댄 자리가 남아 있으면 그 성질이 성립하지 않습니다.</p>
+      </section>
+
+      <section class="reading-section" id="audit" aria-labelledby="audit-title">
+        <p class="section-kicker">04 / 전면 검수</p>
+        <h2 id="audit-title">테스트 281개가 전부 통과하는 상태에서 29가지가 살아 있었습니다.</h2>
+        <p>만든 것이 실제로 맞게 동작하는지 한 번 전부 확인했습니다. <b>결함은 테스트가 아니라 실제 데이터를 들여다봐서 나왔습니다.</b> 아래는 그 가운데 성격이 다른 넷입니다.</p>
+        <div class="comparison-wrap" role="region" aria-label="검수에서 나온 결함" tabindex="0">
+          <table class="comparison-table">
+            <caption>실제 데이터에서 드러난 것 · 전체 29가지 중 4가지</caption>
+            <thead><tr><th scope="col">무엇이 틀렸나</th><th scope="col">왜 안 보였나</th><th scope="col">고친 뒤</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">같은 결제를 두 번 셈</th><td>상점과 결제대행사가 상호를 다르게 씀</td><td>이번 달 총액에서 허수 18% 제거</td></tr>
+              <tr><th scope="row">달러 결제를 원화로 더함</th><td>통화 칸은 있는데 합계가 보지 않음</td><td>환산 못 한 15건을 빼고 밝힘</td></tr>
+              <tr><th scope="row">3년 전 일이 "지금 할 것"에</th><td>할 일 판정에 기간 상한이 없음</td><td>할 일 21건 → 11건</td></tr>
+              <tr><th scope="row">시도 횟수가 성공해도 안 줄어듦</th><td>실패 경로만 테스트가 있었음</td><td>한도 직전이던 24통 복구</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>맨 아래 것이 이 검수의 성격을 잘 보여줍니다. 분류에 성공해도 시도 횟수가 0으로 돌아가지 않아, 한 번도 실패한 적 없는 메일 24통이 <b>격리 한도를 하나 남겨 두고</b> 있었습니다. 실패 경로를 보는 테스트는 세 개 있었고 성공 경로를 보는 테스트는 없었습니다.</p>
+        <p class="limit"><b>29가지는 전수가 아닙니다</b><br>한 번의 검수에서 찾은 것이고, 더 있을 수 있습니다. 찾은 방식은 코드 읽기·실제 데이터 조회·재현 실험이며, 각 결함은 고친 뒤 그것을 잡는 테스트를 같이 붙였습니다(281개 → 327개).</p>
+      </section>
+
+      <section class="reading-section" id="ops" aria-labelledby="ops-title">
+        <p class="section-kicker">05 / 고장 감지</p>
+        <h2 id="ops-title">메일이 0통이면 정상과 고장이 똑같이 조용합니다.</h2>
+        <p>알림이 메일에서 파생되므로, 도구가 죽어도 사용자에게는 "조용한 날"과 구분되지 않습니다. 그래서 메일 내용과 무관한 네 번째 신호를 따로 두었습니다.</p>
+        <ol class="decision-list">
+          <li><div><h3>세 층으로 나눴습니다.</h3><p>계정 단위(인증 실패·수집 정지), 파이프라인 단위(격리 누적·큐 정체), 전체 정지. 앞의 둘은 본체가 알리고, 전체 정지는 <b>본체와 별개로 도는 감시</b>가 알립니다 — 프로그램이 죽으면 프로그램은 알릴 수 없습니다.</p></div></li>
+          <li><div><h3>PC가 통째로 안 뜨는 경우는 바깥에 맡겼습니다.</h3><p>그때는 감시도 같이 죽습니다. 외부 감시 서비스에 주기적으로 신호를 보내고, 끊기면 그쪽에서 알리도록 했습니다.</p></div></li>
+          <li><div><h3>검수에서 이 설계의 구멍도 나왔습니다.</h3><p>접속에 성공하면 새 메일이 0통이어도 "수집 성공"으로 기록해, 읽는 위치가 망가져도 조용했습니다. 알림 경로가 죽었을 때 <b>그 사실을 같은 경로로 알리려는</b> 고리도 있었습니다. 둘 다 이 모듈이 애초에 풀겠다고 선언한 문제와 같은 종류였습니다.</p></div></li>
+        </ol>
+        <p class="reading-note">알림 채널은 지금 봐야 하는 것 · 하루 요약 · 도구 자체의 고장 셋으로 나눠 두었습니다. 섞이면 고장 알림이 메일 알림에 묻힙니다.</p>
+      </section>
+
+      <section class="reading-section" id="limits" aria-labelledby="limits-title">
+        <p class="section-kicker">06 / 남은 한계</p>
+        <h2 id="limits-title">확인하지 않은 범위를 남겨 둡니다.</h2>
+        <p>화면에서 사람이 바꾼 것(발신자 판단·직접 적은 고정비)은 아직 브라우저 안에만 남습니다. 서버에 남기는 경로를 만들어 두었으나 화면이 아직 그것을 읽지 않습니다.</p>
+        <p>분류 품질은 별도로 측정하지 않았습니다. 화면에 뜨는 등급과 요약은 모델 판정이며, <b>정답 집합과 비교한 정확도 수치는 없습니다.</b> 검수에서 확인한 것은 "집계와 표시가 데이터와 일치하는가"이지 "판정이 옳은가"가 아닙니다.</p>
+        <p class="limit"><b>검증 범위와 미검증 항목</b> — 읽기 전용 보장, 집계 정합성, 이식 파이프라인의 재현성, 고장 감지 경로를 확인했습니다. 분류 정확도·다중 사용자·대규모 메일 처리·상용 운영 경험으로 확대하지 않습니다. 메일 본문과 발신자가 들어 있어 저장소와 실행 화면은 공개하지 않습니다.</p>
+      </section>
+    </main>
+    <footer class="project-page-footer"><a class="back-link" href="../../#work">← 프로젝트 목록으로</a><a class="back-link" href="../rag-retrieval-poc/">RAG Retrieval PoC 보기 →</a></footer>
+  </div>
+  <script src="../../section-navigation.js?v=20260918-1" defer></script>
+<script src="../../portfolio-ui.js?v=20260919-1" defer></script>
+</body>
+</html>
