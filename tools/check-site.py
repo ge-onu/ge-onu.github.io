@@ -10,12 +10,19 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 
+# 스스로 닫는 태그. 여는 것만 있고 짝이 없는 것이 정상이다.
+VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+        "link", "meta", "source", "track", "wbr"}
+
 
 class Page(HTMLParser):
     def __init__(self, path):
         super().__init__(convert_charrefs=True)
         self.ids, self.links, self.errors = [], [], []
+        self.open = []
         self.feed(path.read_text(encoding="utf-8"))
+        for tag, line in self.open:
+            self.errors.append(f"unclosed <{tag}> opened at line {line}")
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -26,6 +33,26 @@ class Page(HTMLParser):
                 self.links.append(attrs[key])
         if tag == "img" and "alt" not in attrs:
             self.errors.append("image missing alt")
+        if tag not in VOID:
+            self.open.append((tag, self.getpos()[0]))
+
+    def handle_endtag(self, tag):
+        # 태그 짝이 어긋나는 것을 잡는다.
+        #
+        # 홈에 여는 <p> 없이 </p> 하나가 떠 있었다. 브라우저는 관대하게
+        # 넘어가지만 그 뒤의 중첩이 통째로 어긋나고, 링크·프래그먼트만
+        # 보던 이 검사는 끝까지 통과했다.
+        if tag in VOID:
+            return
+        if not self.open:
+            self.errors.append(f"stray </{tag}> at line {self.getpos()[0]}")
+            return
+        name, line = self.open.pop()
+        if name != tag:
+            self.errors.append(
+                f"<{name}> at line {line} closed by </{tag}> "
+                f"at line {self.getpos()[0]}")
+            self.open.append((name, line))   # 뒤가 줄줄이 딸려 나오지 않게
 
 
 def check_external(url):
