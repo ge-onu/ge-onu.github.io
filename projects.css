@@ -109,7 +109,11 @@
 .project-showcase-card--k8s { border-color: rgba(50, 108, 229, .48); }
 .project-showcase-card--rag { border-color: var(--accent); }
 .project-showcase-card--didim { border-color: rgba(31, 95, 91, .45); }
-.project-cover--didim { background: #eef3f2; border-bottom-color: rgba(31, 95, 91, .2); }
+.project-cover--didim { padding: 28px; background: #eef3f2; color: var(--text); border-bottom-color: rgba(31, 95, 91, .2); display: grid; align-content: center; gap: 14px; }
+.didim-cover-label { font-size: 11px; letter-spacing: .16em; font-weight: 700; color: rgba(31, 95, 91, .8); }
+.didim-cover-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.didim-cover-grid span { font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: rgba(255, 255, 255, .78); border: 1px solid rgba(31, 95, 91, .18); }
+.project-cover--didim p { margin: 0; font-size: clamp(19px, 2.2vw, 26px); font-weight: 750; line-height: 1.5; letter-spacing: -.025em; }
 
 .project-cover--rag { padding: 28px; background: var(--accent-soft); color: var(--text); }
 .retrieval-cover-label { color: var(--accent-ink); font-size: 12px; font-weight: 750; letter-spacing: .08em; }

@@ -3,21 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="개인 메일 정리 도구 — 메일함을 읽기 전용으로만 다루고, 분류 결과를 한 화면에 모았습니다. 테스트 281개가 모두 통과하는 상태에서 전면 검수로 29가지를 찾아 고친 기록입니다.">
+  <meta name="description" content="취업 준비에 필요한 것을 한 화면에 모은 개인 상황판. 화면 열 개 중 메일 쪽만 별도 도구가 채웁니다. 테스트 281개가 모두 통과하는 상태에서 전면 검수로 29가지를 찾아 고친 기록입니다.">
   <link rel="canonical" href="https://geonu.site/projects/didim/">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="geonu.site">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:url" content="https://geonu.site/projects/didim/">
-  <meta property="og:title" content="디딤 · 메일 정리 도구 | 이건우">
-  <meta property="og:description" content="테스트가 전부 통과하는 상태에서 무엇이 틀려 있었는지 찾은 기록. 되돌릴 수 없는 것을 먼저 정하고, 검사를 도구에 넣었습니다.">
-  <meta property="og:image" content="https://geonu.site/assets/didim-mascot.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="디딤 · 메일 정리 도구 | 이건우">
-  <meta name="twitter:description" content="테스트가 전부 통과하는 상태에서 무엇이 틀려 있었는지 찾은 기록. 되돌릴 수 없는 것을 먼저 정하고, 검사를 도구에 넣었습니다.">
-  <meta name="twitter:image" content="https://geonu.site/assets/didim-mascot.png">
+  <meta property="og:title" content="디딤 · 개인 상황판 | 이건우">
+  <meta property="og:description" content="여섯 가지 요구를 하나의 면으로 만들었습니다. 화면 열 개 중 메일 쪽만 별도 도구가 채웁니다.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="디딤 · 개인 상황판 | 이건우">
+  <meta name="twitter:description" content="여섯 가지 요구를 하나의 면으로 만들었습니다. 화면 열 개 중 메일 쪽만 별도 도구가 채웁니다.">
   <meta name="theme-color" content="#f7f8fa">
-  <title>디딤 · 메일 정리 도구 | Geonwoo Lee</title>
+  <title>디딤 · 개인 상황판 | Geonwoo Lee</title>
   <link rel="stylesheet" href="../../style.css?v=20260918-compact">
   <link rel="stylesheet" href="../../projects.css?v=20260922-didim">
   <link rel="icon" type="image/svg+xml" href="../../assets/images/home-icon.svg">
@@ -56,34 +54,60 @@
       <section class="project-hero project-hero--text">
         <div>
           <a class="project-back" href="../../#work">← 프로젝트 목록</a>
-          <p class="section-kicker">개인 도구 · 자동화/운영</p>
-          <h1>디딤 · 메일 정리 도구</h1>
-          <p class="project-hero-subtitle">테스트가 전부 통과하는 상태에서 무엇이 틀려 있었는지 찾았습니다.</p>
-          <p class="project-hero-summary">지메일과 네이버 메일을 읽기 전용으로 가져와 분류하고, 중요한 것만 알리고, 결과를 개인 상황판 한 화면에 모으는 도구입니다. 만든 뒤 전면 검수를 한 번 돌려 29가지를 찾아 고쳤습니다.</p>
-          <p class="limit"><b>혼자 쓰는 도구입니다 · 계정 2개 · 메일 2,382통</b><br>아래 수치는 제 메일함 한 벌에서 나온 것입니다. 여러 사용자나 운영 규모에서의 성능을 뜻하지 않습니다. 메일 본문과 발신자가 들어 있어 저장소와 화면은 공개하지 않습니다.</p>
+          <p class="section-kicker">개인 상황판 · 자동화/운영</p>
+          <h1>디딤</h1>
+          <p class="project-hero-subtitle">답이 여러 페이지에 흩어지면 지금 뭘 해야 하는지 알 수 없습니다.</p>
+          <p class="project-hero-summary">취업 준비에 필요한 것을 한 화면에 모은 개인 상황판입니다. 화면 열 개 가운데 아홉은 제가 직접 적고 보는 것이고, <b>메일 쪽만 별도 도구가 데이터를 채웁니다.</b> 그 도구를 만든 뒤 전면 검수를 한 번 돌려 29가지를 찾아 고쳤습니다.</p>
+          <p class="limit"><b>혼자 쓰는 도구입니다</b><br>상주 서버 없이 개인 PC에서 돕니다. 아래 수치는 제 메일함 한 벌(계정 2개·2,382통)에서 나온 것이며 여러 사용자나 운영 규모를 뜻하지 않습니다. 메일 본문과 발신자가 들어 있어 저장소와 실행 화면은 공개하지 않습니다.</p>
         </div>
       </section>
-      <nav class="detail-nav" aria-label="디딤 상세 목차"><a href="#scope">문제와 범위</a><a href="#irreversible">되돌릴 수 없는 것</a><a href="#graft">화면 이식</a><a href="#audit">전면 검수</a><a href="#ops">고장 감지</a><a href="#limits">남은 한계</a></nav>
+      <nav class="detail-nav" aria-label="디딤 상세 목차"><a href="#scope">무엇인가</a><a href="#build">만든 방식</a><a href="#mail">메일 화면과 그 뒤</a><a href="#graft">화면 이식</a><a href="#audit">전면 검수</a><a href="#ops">고장 감지</a><a href="#limits">남은 한계</a></nav>
 
       <section class="reading-section" id="scope" aria-labelledby="scope-title">
-        <p class="section-kicker">01 / 문제와 범위</p>
-        <h2 id="scope-title">메일 2,382통 가운데 78%가 읽지 않아도 되는 것이었습니다.</h2>
-        <p>분류 결과에서 불필요로 판정된 비율입니다. 메일이 많아서가 아니라, 그 안에 섞인 <b>지금 해야 하는 몇 건</b>을 찾는 데 시간이 들었습니다. 읽어야 할 것과 아닌 것을 가르는 일을 도구에 넘기고, 사람은 결과만 보도록 구성했습니다.</p>
+        <p class="section-kicker">01 / 무엇인가</p>
+        <h2 id="scope-title">필요한 것 여섯 가지를 여섯 개의 도구로 만들지 않았습니다.</h2>
+        <p>우선순위 · 주간 작업 · 생각 정리 · 프로젝트 현황 · 결정 기록 · 결정의 흐름. 취업 준비에 필요하다고 적어 둔 것들입니다. 각각을 페이지로 만들면 그 사이를 오가게 되고, <b>"지금 뭘 해야 하는가"의 답이 흩어지면 그 질문에 답할 수 없습니다.</b> 그래서 하나의 면으로 만들었습니다.</p>
+        <p>화면은 열 개이고, 가운데 구분선으로 성격이 갈립니다.</p>
+        <div class="comparison-wrap" role="region" aria-label="디딤 화면 구성" tabindex="0">
+          <table class="comparison-table">
+            <caption>구분선 위는 취업, 아래는 일상 — 섞이면 "지금 할 일"이 흐려집니다</caption>
+            <thead><tr><th scope="col">갈래</th><th scope="col">화면</th><th scope="col">데이터를 넣는 쪽</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">취업</th><td>상황판 · 로드맵 · 우선순위 · Lab · 면접 · 구직</td><td>직접 적습니다</td></tr>
+              <tr><th scope="row">일상</th><td>일정 노트 · 구매 노트</td><td>직접 적습니다</td></tr>
+              <tr><th scope="row">일상</th><td><b>메일 · 고정비</b></td><td><b>별도 도구가 채웁니다</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>서버를 세우지 않았습니다. 이 화면의 값어치는 <b>대화 상대와 같은 자리에 있다</b>는 것이라, 별도 도메인으로 옮기면 그 연결이 끊깁니다. 그래서 claude.ai 아티팩트 한 장으로 두고, 빌드 도구가 없고 파일이 한 장이라는 제약은 그대로 받아들였습니다.</p>
         <p class="ownership"><b>기여 범위</b> — 설계·구현·운영 전부 제가 했습니다. 구현 과정에서 AI 도구를 사용했고, 무엇을 만들지와 무엇이 틀렸는지의 판단은 제가 내렸습니다.</p>
-        <ol class="pipeline-flow" aria-label="처리 흐름">
+      </section>
+
+      <section class="reading-section" id="build" aria-labelledby="build-title">
+        <p class="section-kicker">02 / 만든 방식</p>
+        <h2 id="build-title">여섯 개를 다 설계하고 시작했으면 첫날에 아무것도 못 띄웠습니다.</h2>
+        <p>첫 화면 하나를 두 시간 안에 띄우고 동결한 뒤, <b>필요해지는 순서대로</b> 나머지를 붙였습니다. 붙은 순서가 곧 실제로 필요했던 순서입니다.</p>
+        <ol class="decision-list">
+          <li><div><h3>하루 동안 화면이 하나씩 늘었습니다.</h3><p>상황판 → 결정 분기 → 일정 노트(o/x/△, 다음 날로 넘기기, 달력에 수행도를 색으로) → 구매 노트(우선순위 매트릭스·태그·후보 비교) → 교재. 마지막에 이름을 정했습니다.</p></div></li>
+          <li><div><h3>탭 이름을 일곱 번 고쳤습니다.</h3><p>"한눈에"는 무엇을 보는지가 없어 <b>상황판</b>으로, "게이트 36칸"은 내부 구조를 이름으로 내보낸 것이라 <b>진도</b>로, "Inbox"는 영어 낱말이 기능을 가려 <b>생각담기</b>로 바꿨습니다. 규칙은 하나입니다 — 누르기 전에 무슨 일이 생길지 이름에 있어야 합니다.</p></div></li>
+          <li><div><h3>화면 문장 규칙을 문서로 굳혔습니다.</h3><p>"무엇이 막고 있는가?" 같은 제목이 AI 말투로 읽히고 TBD 같은 약어가 그대로 남아 있었습니다. 나중에 메일 화면을 만들면서 같은 규칙이 일곱 줄짜리 문서가 됐습니다 — 한 줄에 한 문장, 실제 이름으로 쓰기, 자르지 않기, 숫자에 무엇을 센 숫자인지 붙이기 등입니다.</p></div></li>
+        </ol>
+        <p class="reading-note">이 방식의 대가도 있습니다. 만드는 동안 커밋을 하지 않아 초기 74판의 코드가 남아 있지 않습니다. 결정과 근거만 뒤늦게 설계 문서로 옮겼고, <b>코드는 되살릴 수 없다는 사실을 그 문서 첫 장에 적었습니다.</b></p>
+      </section>
+
+      <section class="reading-section" id="mail" aria-labelledby="mail-title">
+        <p class="section-kicker">03 / 메일 화면과 그 뒤</p>
+        <h2 id="mail-title">되돌릴 수 없는 것을 먼저 정했는데, 그것을 지키는 테스트가 없었습니다.</h2>
+        <p>화면 열 개 가운데 메일과 고정비만 사람이 적지 않습니다. 별도 도구가 지메일·네이버 메일을 가져와 분류하고, 그 결과를 이 보드에 <b>읽기 전용으로</b> 올립니다. 보드에서 메일함으로 돌아가는 길은 없습니다 — 사람이 링크를 눌러 메일 서비스를 직접 엽니다.</p>
+        <p>메일이 2,382통이고 그중 78%가 분류 결과 "읽지 않아도 되는 것"이었습니다. 문제는 양이 아니라 그 안에 섞인 <b>지금 해야 하는 몇 건</b>을 찾는 데 드는 시간이었습니다.</p>
+        <ol class="pipeline-flow" aria-label="메일 처리 흐름">
           <li><strong>수집</strong><span>IMAP · 읽기 전용</span></li>
           <li><strong>정제</strong><span>본문 추출 · 개인정보 마스킹</span></li>
           <li><strong>분류</strong><span>등급 · 할 일 · 결제 추출</span></li>
           <li><strong>알림</strong><span>중요한 것만 · 채널 분리</span></li>
           <li><strong>상황판</strong><span>읽기 전용 화면</span></li>
         </ol>
-        <p class="reading-note">상주 서버 없이 개인 PC의 WSL2에서 5분마다 도는 구조입니다. 대규모 메일 처리 시스템이 아니라 1인용 도구입니다.</p>
-      </section>
-
-      <section class="reading-section" id="irreversible" aria-labelledby="irreversible-title">
-        <p class="section-kicker">02 / 되돌릴 수 없는 것</p>
-        <h2 id="irreversible-title">메일함을 바꾸지 않는다는 약속에 테스트가 한 건도 없었습니다.</h2>
-        <p>본문을 평범하게 가져오면 서버가 읽음 표시를 붙이고, 그것을 되돌릴 방법이 없습니다. 읽음 상태가 오염되면 <b>무엇이 새로 왔는지</b>를 판단할 근거를 잃습니다. 그래서 폴더를 읽기 전용으로 열고, 읽음 표시가 붙지 않는 방식으로만 본문을 가져오도록 정했습니다.</p>
+        <p>이 흐름에서 <b>되돌릴 수 없는 것은 하나</b>입니다. 본문을 평범하게 가져오면 서버가 읽음 표시를 붙이고, 그것을 되돌릴 방법이 없습니다. 읽음 상태가 오염되면 <b>무엇이 새로 왔는지</b>를 판단할 근거를 잃습니다. 그래서 폴더를 읽기 전용으로 열고, 읽음 표시가 붙지 않는 방식으로만 본문을 가져오도록 정했습니다.</p>
         <p>코드는 그대로 지켜지고 있었습니다. 문제는 <b>그것을 지키는 테스트가 없었다</b>는 것입니다. 검수에서 확인해 보니 읽기 전용 설정을 지우거나 본문 가져오는 방식을 바꿔도 테스트 281개가 전부 통과했습니다.</p>
         <p>테스트를 붙인 뒤, 그 테스트가 실제로 깨지는지 코드를 일부러 훼손해 확인했습니다.</p>
         <div class="comparison-wrap" role="region" aria-label="읽기 전용 테스트 훼손 실험" tabindex="0">
@@ -101,9 +125,9 @@
       </section>
 
       <section class="reading-section" id="graft" aria-labelledby="graft-title">
-        <p class="section-kicker">03 / 화면 이식</p>
+        <p class="section-kicker">04 / 화면 이식</p>
         <h2 id="graft-title">중괄호 개수가 맞는다고 구조가 맞는 것은 아니었습니다.</h2>
-        <p>메일 화면은 따로 만든 뒤 상황판에 옮겨 넣었습니다. 옮길 때 클래스 이름이 겹치고 페이지 껍데기가 두 겹이 되므로, 손으로 고치지 않고 변환기를 만들어 통과시켰습니다.</p>
+        <p>메일 화면은 따로 만든 뒤 이 보드에 옮겨 넣었습니다. 보드는 이미 완성돼 있고 파일이 한 장이라, 옮길 때 클래스 이름이 겹치고 페이지 껍데기가 두 겹이 됩니다. 클래스가 198개라 손으로 고치면 목업을 한 줄 고칠 때마다 그 작업을 다시 해야 합니다. 그래서 변환기를 만들어 통과시켰습니다.</p>
         <p>그 변환기가 CSS에서 껍데기를 걷어낼 때 정규식 하나로 <code>선택자{선언}</code>을 긁었습니다. 그러면 조건부 스타일 블록이 통째로 풀립니다.</p>
         <div class="comparison-wrap" role="region" aria-label="정규식이 잘못 읽은 방식" tabindex="0">
           <table class="comparison-table">
@@ -124,7 +148,7 @@
       </section>
 
       <section class="reading-section" id="audit" aria-labelledby="audit-title">
-        <p class="section-kicker">04 / 전면 검수</p>
+        <p class="section-kicker">05 / 전면 검수</p>
         <h2 id="audit-title">테스트 281개가 전부 통과하는 상태에서 29가지가 살아 있었습니다.</h2>
         <p>만든 것이 실제로 맞게 동작하는지 한 번 전부 확인했습니다. <b>결함은 테스트가 아니라 실제 데이터를 들여다봐서 나왔습니다.</b> 아래는 그 가운데 성격이 다른 넷입니다.</p>
         <div class="comparison-wrap" role="region" aria-label="검수에서 나온 결함" tabindex="0">
@@ -144,7 +168,7 @@
       </section>
 
       <section class="reading-section" id="ops" aria-labelledby="ops-title">
-        <p class="section-kicker">05 / 고장 감지</p>
+        <p class="section-kicker">06 / 고장 감지</p>
         <h2 id="ops-title">메일이 0통이면 정상과 고장이 똑같이 조용합니다.</h2>
         <p>알림이 메일에서 파생되므로, 도구가 죽어도 사용자에게는 "조용한 날"과 구분되지 않습니다. 그래서 메일 내용과 무관한 네 번째 신호를 따로 두었습니다.</p>
         <ol class="decision-list">
@@ -156,9 +180,10 @@
       </section>
 
       <section class="reading-section" id="limits" aria-labelledby="limits-title">
-        <p class="section-kicker">06 / 남은 한계</p>
+        <p class="section-kicker">07 / 남은 한계</p>
         <h2 id="limits-title">확인하지 않은 범위를 남겨 둡니다.</h2>
-        <p>화면에서 사람이 바꾼 것(발신자 판단·직접 적은 고정비)은 아직 브라우저 안에만 남습니다. 서버에 남기는 경로를 만들어 두었으나 화면이 아직 그것을 읽지 않습니다.</p>
+        <p>화면에서 사람이 적은 것(일정 노트·구매 노트·발신자 판단)은 아직 <b>브라우저 안에만</b> 남습니다. 서버에 남기는 경로를 만들어 두었으나 화면이 아직 그것을 읽지 않습니다. 다른 기기에서 열면 비어 있습니다.</p>
+        <p>이름은 디딤돌에서 왔는데 <b>그 모양을 쓴 로고가 아직 없습니다.</b> 저장소에 있는 마스코트 파일 두 개는 이름과 내용이 달라, 하나는 다른 곳에서 흘러온 이미지이고 하나는 메일 서비스 로고로 쓰이고 있었습니다.</p>
         <p>분류 품질은 별도로 측정하지 않았습니다. 화면에 뜨는 등급과 요약은 모델 판정이며, <b>정답 집합과 비교한 정확도 수치는 없습니다.</b> 검수에서 확인한 것은 "집계와 표시가 데이터와 일치하는가"이지 "판정이 옳은가"가 아닙니다.</p>
         <p class="limit"><b>검증 범위와 미검증 항목</b> — 읽기 전용 보장, 집계 정합성, 이식 파이프라인의 재현성, 고장 감지 경로를 확인했습니다. 분류 정확도·다중 사용자·대규모 메일 처리·상용 운영 경험으로 확대하지 않습니다. 메일 본문과 발신자가 들어 있어 저장소와 실행 화면은 공개하지 않습니다.</p>
       </section>
