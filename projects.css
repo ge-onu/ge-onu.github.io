@@ -108,14 +108,10 @@
 .project-showcase-card--meal { border-color: rgba(242, 100, 25, .72); }
 .project-showcase-card--k8s { border-color: rgba(50, 108, 229, .48); }
 .project-showcase-card--rag { border-color: var(--accent); }
-.project-showcase-card--didim { border-color: rgba(31, 95, 91, .45); }
-.project-cover--didim { padding: 28px; background: #eef3f2; color: var(--text); border-bottom-color: rgba(31, 95, 91, .2); display: grid; align-content: center; gap: 14px; }
-.didim-cover-label { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .16em; font-weight: 700; color: rgba(31, 95, 91, .8); }
-.didim-cover-mark { width: 30px; height: 30px; }
+.project-showcase-card--didim { border-color: var(--accent); }
+.project-cover--didim { padding: 28px; background: var(--accent-soft); color: var(--text); }
+.project-cover--didim p { margin: 0; font-size: clamp(20px, 2.4vw, 28px); font-weight: 750; line-height: 1.5; letter-spacing: -.025em; }
 .didim-hero-mark { width: 44px; height: 44px; vertical-align: -8px; margin-right: 10px; }
-.didim-cover-grid { display: flex; flex-wrap: wrap; gap: 6px; }
-.didim-cover-grid span { font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: rgba(255, 255, 255, .78); border: 1px solid rgba(31, 95, 91, .18); }
-.project-cover--didim p { margin: 0; font-size: clamp(19px, 2.2vw, 26px); font-weight: 750; line-height: 1.5; letter-spacing: -.025em; }
 
 .project-cover--rag { padding: 28px; background: var(--accent-soft); color: var(--text); }
 .retrieval-cover-label { color: var(--accent-ink); font-size: 12px; font-weight: 750; letter-spacing: .08em; }
@@ -826,7 +822,7 @@ summary:focus-visible, button:focus-visible, .comparison-wrap:focus-visible { ou
   .topbar { flex-wrap: wrap; gap: 6px; padding-bottom: 6px; }
   .nav { flex-wrap: wrap; gap: 14px; }
   .nav > a { min-height: 44px; display: inline-flex; align-items: center; }
-  .project-cover--rag { aspect-ratio: auto; min-height: 230px; padding: 24px; }
+  .project-cover--rag, .project-cover--didim { aspect-ratio: auto; min-height: 230px; padding: 24px; }
   .practice-card { grid-template-columns: 1fr; }
   .practice-card .project-cover { height: 150px; border-right: 0; border-bottom: 1px solid var(--line); }
   .practice-card .project-cover-image--contain { padding: 18px; }

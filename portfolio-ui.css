@@ -60,7 +60,9 @@ body:not(.project-page) .hero-actions { grid-column:2; grid-row:4; margin-top:18
 .project-cover--unified::before { content:""; position:absolute; inset:0; z-index:-1; background:url('assets/bappul-meal-cover.png') center / cover no-repeat; opacity:.25; pointer-events:none; }
 .project-cover--unified .retrieval-cover-label { color:var(--meal-ink); }
 .project-cover--unified p { margin:0; font-size:clamp(20px,2.4vw,28px); font-weight:750; line-height:1.5; letter-spacing:-.025em; }
-.project-cover--unified, .project-cover--rag { background:#f7f8fa; }
+.project-cover--didim { position:relative; isolation:isolate; }
+.project-cover--didim::before { content:""; position:absolute; inset:0; z-index:-1; background:url('assets/didim-cover.svg') center / cover no-repeat; opacity:.25; pointer-events:none; }
+.project-cover--unified, .project-cover--rag, .project-cover--didim { background:#f7f8fa; }
 
 
 details::details-content { height:auto !important; transition:none !important; }

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024">
+  <!-- 카드 커버용. 다른 프로젝트 커버(1536x1024)와 같은 비율로 맞춘다 —
+       aspect-ratio 16/9 박스에 background-size:cover 로 깔리므로,
+       비율이 다르면 위아래가 잘린다. -->
+  <style>
+    .bd{fill:#7c8cf2}
+    .sh{fill:#cfd5dc; opacity:.5}
+    .ey{fill:#ffffff}
+    .mo{stroke:#ffffff; stroke-width:1.35; stroke-linecap:round; fill:none}
+    .hl{fill:#ffffff; opacity:.32}
+  </style>
+  <g transform="translate(378 92) scale(26)">
+    <ellipse cx="15" cy="24.6" rx="9.6" ry="1.5" class="sh"/>
+    <path class="bd" d="M15.4 5.4c4.9-.5 9.3 3.1 9.9 8.1.6 5-2.4 8.9-7.3 9.5l-5.6.6C7.5 24.2 4.6 21.4 4.2 17c-.5-5.2 2.6-10 7.2-11z"/>
+    <circle class="ey" cx="11.8" cy="14.9" r="1.45"/>
+    <circle class="ey" cx="18.4" cy="14.4" r="1.45"/>
+    <path class="mo" d="M13.2 18.2c1 .9 2.6.8 3.5-.3"/>
+    <circle class="hl" cx="9.4" cy="10.4" r="1.5"/>
+  </g>
+</svg>
