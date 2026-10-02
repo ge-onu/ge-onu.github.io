@@ -64,6 +64,7 @@
 <article><h3>연결 성공만으로는 정책을 검증할 수 없습니다.</h3><p>넓은 허용 규칙 하나가 차단 정책을 무력화했습니다. 서비스 성공과 함께 막혀야 할 연결도 확인해야 합니다.</p><a href="#lab-02">Lab 02 →</a></article>
 <article><h3>검사 경로와 사용자 경로는 다릅니다.</h3><p>health check 경로 오류는 정상 backend를 DOWN으로 만들었습니다. 터널 연결도 failover 뒤의 응답 경로를 보장하지 않았습니다.</p><a href="#lab-05">Lab 05 →</a> · <a href="#lab-12">Lab 12 →</a></article>
 <article><h3>같은 변경은 HA 양쪽을 동시에 멈출 수 있습니다.</h3><p>동일한 잘못된 설정의 동시 배포로 27초 중단이 기록됐습니다. standby 인증서 차이는 failover 때 드러났습니다.</p><a href="#lab-07">Lab 07 →</a> · <a href="#lab-11">Lab 11 →</a></article>
+<article><h3>알림이 울려도 아무에게도 가지 않으면 예방이 아닙니다.</h3><p>SSH 인증서가 만료되어 평소 쓰던 관리 경로가 닫혔습니다. 들어갈 수 없게 된 뒤에야 무슨 일인지 확인했는데, 기록을 되짚어 보니 alert는 한 시간 전부터 울리고 있었습니다. 외부로 보내는 통로를 연결하지 않아서 그 한 시간 동안 아무도 몰랐을 뿐입니다. 감시를 붙여 둔 것과 장애를 미리 아는 것이 같은 말이 아니라는 점을 이 건에서 배웠습니다. 그래서 아래 한계 절에 외부 통보 공백을 그대로 남겨 적었습니다.</p><a href="#lab-11">Lab 11 →</a> · <a href="#limitations">남은 한계 →</a></article>
 <article><h3>원인을 확정하지 못한 장애도 남겼습니다.</h3><p>NFS 중단 중 디스크를 읽지 않는 health check가 timeout된 현상은 두 차례 관측됐지만, 근본 원인은 미확정입니다. 관측 장치를 남겼으며 복구를 원인 규명으로 처리하지 않았습니다.</p><a href="#lab-09">Lab 09 →</a></article></div></section>
 <section class="reading-section infra-section" id="limitations" aria-labelledby="limits-title"><p class="section-kicker">04 / 남은 한계</p><h2 id="limits-title">남겨 둔 단일 장애점과 그 영향</h2><p>모든 단일 장애점을 없애기보다 장애 영향과 의존 범위를 확인하는 것이 이번 Lab의 범위였습니다.</p><dl class="infra-limits">
 <div><dt>공유 스토리지</dt><dd>공유 경로만 영향을 받도록 readiness를 분리했습니다. HA 스토리지나 공유 파일 의존 제거는 다음 설계 방향입니다.</dd></div>
