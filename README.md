@@ -72,4 +72,6 @@ Contact는 `contact-config.js`에 설정된 Slack 웹후크로 직접 전송 요
 브라우저의 opaque 응답은 수신 확인이 아니므로 성공 화면은 전송 요청 완료로 표시한다.
 endpoint가 비어 있으면 폼 대신 메일 주소와 메일 쓰기(mailto)·이메일 복사 버튼을 보여 준다.
 거누의 대화 UI는 준비되어 있으며 실제 RAG 응답 서버는 아직 연결하지 않았다.
+그래서 `contact-chat.js`의 `chatEnabled`를 `false`로 두어 모든 페이지에서 거누를 숨긴다.
+응답 서버를 연결한 뒤 `true`로 바꾸면 다시 나타난다. 코드는 지우지 않았다.
 테마 설정은 공통 `theme.css`와 `portfolio-ui.js`를 사용한다.
