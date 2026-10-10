@@ -70,5 +70,6 @@ SVG, 탭별 SVG, 애니메이션 SVG와 편집용 draw.io 원본을 함께 갱�
 `contact-chat.js`와 `contact-chat.css`가 공통 Contact 창과 이동 가능한 챗봇을 제공한다.
 Contact는 `contact-config.js`에 설정된 Slack 웹후크로 직접 전송 요청한다.
 브라우저의 opaque 응답은 수신 확인이 아니므로 성공 화면은 전송 요청 완료로 표시한다.
+endpoint가 비어 있으면 폼 대신 메일 주소와 메일 쓰기(mailto)·이메일 복사 버튼을 보여 준다.
 거누의 대화 UI는 준비되어 있으며 실제 RAG 응답 서버는 아직 연결하지 않았다.
 테마 설정은 공통 `theme.css`와 `portfolio-ui.js`를 사용한다.

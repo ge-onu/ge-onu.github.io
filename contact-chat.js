@@ -21,7 +21,6 @@ function contactUnavailable(status,attempted=true){
  status.replaceChildren(document.createTextNode(attempted?'전송을 확인하지 못했습니다. 입력한 내용은 그대로 남아 있습니다. 잠시 후 다시 시도하거나 이메일로 연락해 주세요. ':'현재 메시지 전송 연결을 준비 중입니다. 이메일로 연락해 주세요. '));
  const link=document.createElement('a');link.href='mailto:goonbam009@gmail.com';link.textContent='goonbam009@gmail.com';status.append(link);
 }
-if(!window.PORTFOLIO_CONTACT?.endpoint){contactUnavailable(dialog.querySelector('.contact-status'),false);}
 dialog.querySelector('form').addEventListener('submit',async e=>{
  e.preventDefault();const form=e.target,button=form.querySelector('[type=submit]'),status=form.querySelector('.contact-status');
  const endpoint=window.PORTFOLIO_CONTACT?.endpoint;
@@ -39,6 +38,17 @@ dialog.querySelector('form').addEventListener('submit',async e=>{
  catch{contactUnavailable(status);}
  finally{button.disabled=false;button.textContent='메시지 보내기';}
 });
+if(!window.PORTFOLIO_CONTACT?.endpoint){
+ // 전송 서버가 없으면 폼 대신 메일 주소와 복사 버튼을 보여 준다.
+ const mail='goonbam009@gmail.com',box=document.createElement('div');box.className='contact-mail';
+ box.innerHTML='<a class="contact-mail-address" href="mailto:'+mail+'">'+mail+'</a><div class="contact-mail-actions"><a class="primary-action" href="mailto:'+mail+'">메일 쓰기</a><button class="github-button contact-copy" type="button">이메일 복사</button></div><p class="contact-status" role="status"></p>';
+ dialog.querySelector('form').replaceWith(box);dialog.querySelector('h2').textContent='이메일로 연락하기';contact.setAttribute('aria-label','Contact 이메일 주소 보기');
+ const status=box.querySelector('.contact-status');
+ box.querySelector('.contact-copy').addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText(mail);status.textContent='이메일 주소를 복사했습니다.';}
+  catch{getSelection().selectAllChildren(box.querySelector('.contact-mail-address'));status.textContent='주소를 선택해 두었습니다. 직접 복사해 주세요.';}
+ });
+}
 const launch=document.createElement('button');launch.type='button';launch.className='chat-launcher';launch.setAttribute('aria-label','포트폴리오 챗봇 열기. 드래그 또는 방향키로 위치 이동');launch.setAttribute('aria-controls','portfolio-chat');launch.setAttribute('aria-expanded','false');launch.innerHTML='<img src="'+avatar+'" alt="" draggable="false" width="1254" height="1254" decoding="async">';
 const panel=document.createElement('section');panel.id='portfolio-chat';panel.className='chat-panel';panel.hidden=true;panel.setAttribute('role','dialog');panel.setAttribute('aria-labelledby','chat-title');panel.innerHTML='<header><img class="chat-header-avatar" src="'+avatar+'" alt="" width="1254" height="1254" decoding="async"><div><small>건우 포트폴리오 챗봇</small><h2 id="chat-title">거누</h2></div><button type="button" class="panel-close" aria-label="챗봇 닫기">×</button></header><div class="chat-messages" role="log" aria-live="polite"><p class="chat-bubble">안녕하세요! 건우와 건우의 프로젝트 및 관련 경험에 대해 알고있는 거누에요!<br>무엇이든 물어보세요!</p></div><form><label class="chat-input-label" for="chat-input">질문</label><div class="chat-compose"><textarea id="chat-input" rows="1" placeholder="저에 대해 궁금한 내용을 물어보세요!" maxlength="1000" required></textarea><button type="submit" aria-label="질문 입력"><img src="'+sendIcon+'" alt="" width="1254" height="1254" decoding="async"></button></div></form>';
 document.body.append(launch,panel);
