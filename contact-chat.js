@@ -1,8 +1,8 @@
 (() => {
 // 거누의 응답 서버를 연결하기 전까지 모든 페이지에서 챗봇을 숨긴다. 연결한 뒤 true로 바꾼다.
 const chatEnabled=false;
-const sendIcon=new URL('assets/chat-send.png',document.currentScript.src).href;
-const avatar=new URL('assets/chat-mascot.png',document.currentScript.src).href;
+const sendIcon=new URL('assets/chat-send-72.png',document.currentScript.src).href;
+const avatar=new URL('assets/chat-mascot-160.png',document.currentScript.src).href;
 const icon='<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 4h16v12H9l-5 4V4Z"/><path d="M8 8h8M8 12h5"/></svg>';
 const nav=document.querySelector('.nav-profile-links');if(!nav)return;
 const contact=document.createElement('button');contact.type='button';contact.className='github-button github-button--small contact-trigger';contact.innerHTML=icon+'<span>Contact</span>';contact.setAttribute('aria-label','Contact 메시지 작성');nav.insertBefore(contact,nav.querySelector('.theme-toggle'));
@@ -52,8 +52,8 @@ if(!window.PORTFOLIO_CONTACT?.endpoint){
  });
 }
 if(!chatEnabled)return;
-const launch=document.createElement('button');launch.type='button';launch.className='chat-launcher';launch.setAttribute('aria-label','포트폴리오 챗봇 열기. 드래그 또는 방향키로 위치 이동');launch.setAttribute('aria-controls','portfolio-chat');launch.setAttribute('aria-expanded','false');launch.innerHTML='<img src="'+avatar+'" alt="" draggable="false" width="1254" height="1254" decoding="async">';
-const panel=document.createElement('section');panel.id='portfolio-chat';panel.className='chat-panel';panel.hidden=true;panel.setAttribute('role','dialog');panel.setAttribute('aria-labelledby','chat-title');panel.innerHTML='<header><img class="chat-header-avatar" src="'+avatar+'" alt="" width="1254" height="1254" decoding="async"><div><small>건우 포트폴리오 챗봇</small><h2 id="chat-title">거누</h2></div><button type="button" class="panel-close" aria-label="챗봇 닫기">×</button></header><div class="chat-messages" role="log" aria-live="polite"><p class="chat-bubble">안녕하세요! 건우와 건우의 프로젝트 및 관련 경험에 대해 알고 있는 거누예요!<br>무엇이든 물어보세요!</p></div><form><label class="chat-input-label" for="chat-input">질문</label><div class="chat-compose"><textarea id="chat-input" rows="1" placeholder="저에 대해 궁금한 내용을 물어보세요!" maxlength="1000" required></textarea><button type="submit" aria-label="질문 입력"><img src="'+sendIcon+'" alt="" width="1254" height="1254" decoding="async"></button></div></form>';
+const launch=document.createElement('button');launch.type='button';launch.className='chat-launcher';launch.setAttribute('aria-label','포트폴리오 챗봇 열기. 드래그 또는 방향키로 위치 이동');launch.setAttribute('aria-controls','portfolio-chat');launch.setAttribute('aria-expanded','false');launch.innerHTML='<img src="'+avatar+'" alt="" draggable="false" width="160" height="160" decoding="async">';
+const panel=document.createElement('section');panel.id='portfolio-chat';panel.className='chat-panel';panel.hidden=true;panel.setAttribute('role','dialog');panel.setAttribute('aria-labelledby','chat-title');panel.innerHTML='<header><img class="chat-header-avatar" src="'+avatar+'" alt="" width="160" height="160" decoding="async"><div><small>건우 포트폴리오 챗봇</small><h2 id="chat-title">거누</h2></div><button type="button" class="panel-close" aria-label="챗봇 닫기">×</button></header><div class="chat-messages" role="log" aria-live="polite"><p class="chat-bubble">안녕하세요! 건우와 건우의 프로젝트 및 관련 경험에 대해 알고 있는 거누예요!<br>무엇이든 물어보세요!</p></div><form><label class="chat-input-label" for="chat-input">질문</label><div class="chat-compose"><textarea id="chat-input" rows="1" placeholder="저에 대해 궁금한 내용을 물어보세요!" maxlength="1000" required></textarea><button type="submit" aria-label="질문 입력"><img src="'+sendIcon+'" alt="" width="72" height="72" decoding="async"></button></div></form>';
 document.body.append(launch,panel);
 const launcherGap=24;
 let launcherAnchor={right:launcherGap,bottom:launcherGap};
