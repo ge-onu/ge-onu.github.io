@@ -3,10 +3,10 @@
 const chatEnabled=false;
 const sendIcon=new URL('assets/chat-send-72.png',document.currentScript.src).href;
 const avatar=new URL('assets/chat-mascot-160.png',document.currentScript.src).href;
-const icon='<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 4h16v12H9l-5 4V4Z"/><path d="M8 8h8M8 12h5"/></svg>';
-const nav=document.querySelector('.nav-profile-links');if(!nav)return;
-const contact=document.createElement('button');contact.type='button';contact.className='github-button github-button--small contact-trigger';contact.innerHTML=icon+'<span>Contact</span>';contact.setAttribute('aria-label','Contact 메시지 작성');nav.insertBefore(contact,nav.querySelector('.theme-toggle'));
-const dialog=document.createElement('dialog');dialog.className='contact-dialog';dialog.setAttribute('aria-labelledby','contact-title');dialog.innerHTML='<button class="panel-close" type="button" aria-label="Contact 닫기">×</button><h2 id="contact-title">메시지 남기기</h2><p>모든 문의에 대해 편하게 연락해 주세요.</p><form><label class="contact-inline-field"><span>이름</span><input name="name" autocomplete="name" required maxlength="80"></label><label class="contact-inline-field"><span>답장받을 이메일</span><input name="email" type="email" autocomplete="email" required maxlength="200"></label><label>문의내용<textarea name="message" rows="8" required maxlength="3000"></textarea></label><button class="primary-action" type="submit">메시지 보내기</button><p class="contact-note">이름·이메일·메시지는 문의 확인과 답장을 위해 저장됩니다.</p><p class="contact-status" role="status"></p></form>';
+// 머리말의 "연락하기"(data-contact)가 이 창을 연다. 스크립트가 없으면 홈의 연락 구간으로 이동한다.
+const triggers=[...document.querySelectorAll('[data-contact]')];if(!triggers.length)return;
+let contact=triggers[0];
+const dialog=document.createElement('dialog');dialog.className='contact-dialog';dialog.setAttribute('aria-labelledby','contact-title');dialog.innerHTML='<button class="panel-close" type="button" aria-label="Contact 닫기">×</button><h2 id="contact-title">메시지 남기기</h2><p>모든 문의에 대해 편하게 연락해 주세요.</p><form><label class="contact-inline-field"><span>이름</span><input name="name" autocomplete="name" required maxlength="80"></label><label class="contact-inline-field"><span>답장받을 이메일</span><input name="email" type="email" autocomplete="email" required maxlength="200"></label><label>문의내용<textarea name="message" rows="8" required maxlength="3000"></textarea></label><button class="btn btn-primary" type="submit">메시지 보내기</button><p class="contact-note">이름·이메일·메시지는 문의 확인과 답장을 위해 저장됩니다.</p><p class="contact-status" role="status"></p></form>';
 const success=document.createElement('div');success.className='contact-success';success.setAttribute('role','status');success.innerHTML='<div class="contact-success-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="currentColor"/><path d="m19 32 9 9 18-19" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>성공적으로 전송 요청을 보냈습니다.</p>';dialog.append(success);
 let successTimer;
 dialog.addEventListener('close',()=>{clearTimeout(successTimer);dialog.classList.remove('is-sent');});
@@ -18,7 +18,7 @@ function showContactSuccess(){
   dialog.close();contact.focus();
  },1600);
 }
-document.body.append(dialog);contact.addEventListener('click',()=>dialog.showModal());dialog.querySelector('.panel-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
+document.body.append(dialog);triggers.forEach(t=>{t.setAttribute('aria-haspopup','dialog');t.addEventListener('click',e=>{e.preventDefault();contact=t;dialog.showModal();});});dialog.querySelector('.panel-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
 function contactUnavailable(status,attempted=true){
  status.replaceChildren(document.createTextNode(attempted?'전송을 확인하지 못했습니다. 입력한 내용은 그대로 남아 있습니다. 잠시 후 다시 시도하거나 이메일로 연락해 주세요. ':'현재 메시지 전송 연결을 준비 중입니다. 이메일로 연락해 주세요. '));
  const link=document.createElement('a');link.href='mailto:goonbam009@gmail.com';link.textContent='goonbam009@gmail.com';status.append(link);
@@ -43,8 +43,8 @@ dialog.querySelector('form').addEventListener('submit',async e=>{
 if(!window.PORTFOLIO_CONTACT?.endpoint){
  // 전송 서버가 없으면 폼 대신 메일 주소와 복사 버튼을 보여 준다.
  const mail='goonbam009@gmail.com',box=document.createElement('div');box.className='contact-mail';
- box.innerHTML='<a class="contact-mail-address" href="mailto:'+mail+'">'+mail+'</a><div class="contact-mail-actions"><a class="primary-action" href="mailto:'+mail+'">메일 쓰기</a><button class="github-button contact-copy" type="button">이메일 복사</button></div><p class="contact-status" role="status"></p>';
- dialog.querySelector('form').replaceWith(box);dialog.querySelector('h2').textContent='이메일로 연락하기';contact.setAttribute('aria-label','Contact 이메일 주소 보기');
+ box.innerHTML='<a class="contact-mail-address" href="mailto:'+mail+'">'+mail+'</a><div class="contact-mail-actions"><a class="btn btn-primary" href="mailto:'+mail+'">메일 쓰기</a><button class="btn btn-secondary contact-copy" type="button">이메일 복사</button></div><p class="contact-status" role="status"></p>';
+ dialog.querySelector('form').replaceWith(box);dialog.querySelector('h2').textContent='이메일로 연락하기';
  const status=box.querySelector('.contact-status');
  box.querySelector('.contact-copy').addEventListener('click',async()=>{
   try{await navigator.clipboard.writeText(mail);status.textContent='이메일 주소를 복사했습니다.';}
