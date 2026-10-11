@@ -31,6 +31,20 @@ Playwright가 있는 검증 환경에서는 `node tools/qa-browser.cjs`로 6개 
 1440/768/390/320px에서 확인한다. `QA_URL`, `QA_OUTPUT`, `QA_CHROMIUM`으로
 서버 주소·캡처 위치·브라우저 실행 파일을 지정할 수 있다. 기본 캡처 폴더 `qa-output/`은 Git에서 제외한다.
 
+## 화면 구성과 CSS
+
+- `site.css`: 모든 페이지 공통 글꼴·색·머리말·꼬리말·버튼. 색 이름은 이전 CSS 변수에도 이어 준다.
+- `portfolio.css`: 홈과 Mealplanning 상세 본문(A3 개편).
+- `legacy-pages.css`: 구조를 그대로 둔 상세 페이지(RAG·Kubernetes·Infrastructure Lab·디딤)와 404의 폭 맞춤.
+- 글꼴은 Pretendard 부분집합을 `assets/fonts/`에 직접 두고(OFL, 라이선스 동봉) `scripts/build-font-subset.py`로 다시 만든다.
+- Mealplanning 상세의 이전 기록(A-1~D-3)은 `#record` 아래에 그대로 두었다. 기존 직접 링크(`#a2-serverless` 등)는 계속 열린다.
+- 팀 프로젝트의 실행 환경(EKS·Argo CD·CI/CD·관측)은 "구성 방향과 도구를 팀이 함께 정했고, 설치·운영은 역할 분담에 따라 인프라 담당"으로 적는다. 개인 구축·운영으로 쓰지 않는다.
+
+## 이력서 PDF
+
+`/resume.pdf`는 공개용 1쪽 이력 요약이다. 전화번호·주소·사진·생년월일은 넣지 않는다.
+머리말의 "이력서" 버튼과 홈의 "이력서 PDF" 버튼이 이 파일을 연다. 고칠 때는 같은 이름으로 덮어쓴다.
+
 ## 디딤 상세
 
 경로는 `projects/didim/`다. Home의 프로젝트 카드에서 연결한다.
