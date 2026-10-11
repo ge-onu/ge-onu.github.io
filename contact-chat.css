@@ -137,3 +137,9 @@
  78% { transform:translateY(0) scale(.97) rotate(365deg); }
  100% { opacity:1; transform:translateY(0) scale(1) rotate(360deg); }
 }
+
+/* 전송 서버 없이 바로 쓰는 메일 연락처. */
+.contact-mail { display:grid; gap:14px; margin-top:16px; }
+.contact-mail-address { color:var(--accent-ink); font-size:18px; font-weight:700; overflow-wrap:anywhere; }
+.contact-mail-actions { display:flex; flex-wrap:wrap; gap:8px; }
+.contact-mail-actions > * { flex:1 1 140px; font-family:inherit; font-size:15px; font-weight:600; line-height:1.4; padding:9px 16px; min-height:0; cursor:pointer; }

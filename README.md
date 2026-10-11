@@ -22,6 +22,9 @@ Mealplanning의 직접 링크로 중첩 항목이 열리는지, 모두 펼치기
 홈에 여는 `<p>` 없이 `</p>` 하나가 떠 있었는데 브라우저가 관대하게
 넘어가고 검사는 통과했다 — 그 뒤 중첩이 통째로 어긋나 있었다.
 
+`sitemap.xml`에는 공개 페이지 6개(홈과 상세 5개)를 적는다. 상세 페이지를 추가하면 여기에도 넣는다.
+없는 주소는 GitHub Pages가 `404.html`을 보여 준다. 어느 경로에서 열려도 깨지지 않도록 자원 경로는 `/`로 시작한다.
+
 외부 이미지·GitHub 링크는 네트워크가 필요하다. `--external`은 인증 정보 없이 외부 링크의 현재 HTTP 응답을 검사한다. 접근 오류는 실패로 보고하며, 응답 성공이 내용의 정확성까지 보증하지는 않는다.
 
 Playwright가 있는 검증 환경에서는 `node tools/qa-browser.cjs`로 6개 페이지(홈과 상세 5개)를
@@ -70,5 +73,8 @@ SVG, 탭별 SVG, 애니메이션 SVG와 편집용 draw.io 원본을 함께 갱�
 `contact-chat.js`와 `contact-chat.css`가 공통 Contact 창과 이동 가능한 챗봇을 제공한다.
 Contact는 `contact-config.js`에 설정된 Slack 웹후크로 직접 전송 요청한다.
 브라우저의 opaque 응답은 수신 확인이 아니므로 성공 화면은 전송 요청 완료로 표시한다.
+endpoint가 비어 있으면 폼 대신 메일 주소와 메일 쓰기(mailto)·이메일 복사 버튼을 보여 준다.
 거누의 대화 UI는 준비되어 있으며 실제 RAG 응답 서버는 아직 연결하지 않았다.
+그래서 `contact-chat.js`의 `chatEnabled`를 `false`로 두어 모든 페이지에서 거누를 숨긴다.
+응답 서버를 연결한 뒤 `true`로 바꾸면 다시 나타난다. 코드는 지우지 않았다.
 테마 설정은 공통 `theme.css`와 `portfolio-ui.js`를 사용한다.
