@@ -27,6 +27,10 @@ const assert = require('node:assert/strict');
         page.on('requestfailed', request => failedRequests.push(request.url()));
         await page.goto(origin + route, { waitUntil: 'networkidle' });
         await page.evaluate(() => document.fonts.ready);
+        // 늦게 불러오는(loading=lazy) 그림도 모두 불러온 뒤 깨진 그림을 센다.
+        await page.evaluate(() => document.querySelectorAll('img[loading=lazy]').forEach(i => { i.loading = 'eager'; }));
+        await page.waitForLoadState('networkidle');
+        await page.waitForFunction(() => [...document.images].every(i => i.complete));
         const measure = () => page.evaluate(() => ({
           width: innerWidth, documentWidth: document.documentElement.scrollWidth,
           brokenImages: [...document.images].filter(i => !i.complete || i.naturalWidth === 0).map(i => i.src),
@@ -78,6 +82,17 @@ const assert = require('node:assert/strict');
           assert.ok((await evidence.text()).includes('unseen holdout'));
         }
         if (name === 'mealplanning') {
+          // 발표 자료 뷰어: 첫 장이 보이고, 다음 버튼과 단계 넘김이 동작해야 한다.
+          const deck = page.locator('[data-deck]');
+          assert.equal(await deck.count(), 1);
+          assert.equal(await page.locator('.deck-count').textContent(), '1 / 50');
+          await page.locator('.deck-nav.next').click();
+          await page.waitForFunction(() => document.querySelector('.deck-count').textContent === '2 / 50');
+          await page.locator('.deck-chapters [data-chapter="feature"]').click();
+          await page.waitForFunction(() => document.querySelector('.deck-title').textContent.includes('핵심 기능'));
+          const layer = await page.locator('.deck-layer.on').getAttribute('src');
+          assert.equal((await page.request.get(new URL(layer, page.url()).href)).status(), 200);
+          assert.ok((await measure()).documentWidth <= width, `deck ${width}: overflow`);
           assert.equal(await page.locator('#ranking-decision, a[href*="ranking-decision"]').count(), 0);
           await page.locator('a[href="#d1-dataflow"]').first().click();
           assert.equal(await page.locator('#d1-dataflow').evaluate(e => e.open), true);
