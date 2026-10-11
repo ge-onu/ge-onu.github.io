@@ -1,0 +1,5 @@
+/* 이전 구조를 유지한 상세 페이지(RAG·Kubernetes·Infrastructure Lab·디딤)와
+ * Mealplanning 전체 기록을 새 글꼴·색·머리말에 맞춘다. site.css 다음에 읽는다. */
+/* 본문 폭을 머리말(.hdr .wrap)과 같은 선에 맞춘다. */
+.legacy-page .shell{--max:1160px;width:min(calc(100% - var(--gutter)*2),var(--max))}
+.legacy-page .project-page-footer{margin-bottom:40px}
