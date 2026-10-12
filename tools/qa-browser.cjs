@@ -86,7 +86,7 @@ const assert = require('node:assert/strict');
           const deck = page.locator('[data-deck]');
           assert.equal(await deck.count(), 1);
           assert.equal(await page.locator('.deck-count').textContent(), '1 / 50');
-          await page.locator('.deck-nav.next').click();
+          await page.locator('.deck-next').click();
           await page.waitForFunction(() => document.querySelector('.deck-count').textContent === '2 / 50');
           await page.locator('.deck-chapters [data-chapter="feature"]').click();
           await page.waitForFunction(() => document.querySelector('.deck-title').textContent.includes('핵심 기능'));

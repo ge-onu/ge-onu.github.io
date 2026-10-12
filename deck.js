@@ -40,7 +40,7 @@
   steps.replaceChildren(...(s.p.length>1?s.p.map((_,n)=>{const d=document.createElement('i');if(n<=j)d.className='done';return d;}):[]));
   steps.setAttribute('aria-label',s.p.length>1?`${s.p.length}단계 중 ${j+1}단계`:'');
   tabs.forEach(t=>{const on=t.dataset.chapter===s.c;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;});
-  $('.deck-nav.prev').disabled=i===0&&j===0;$('.deck-nav.next').disabled=i===total-1&&j===S[i].p.length-1;
+  $('.deck-prev').disabled=i===0&&j===0;$('.deck-next').disabled=i===total-1&&j===S[i].p.length-1;
  }
  function advance(){const s=S[i];if(j<s.p.length-1)return show(i,j+1,'step');if(i<total-1)return show(i+1,0,'next');stop();}
  function back(){if(j>0)return show(i,j-1,'step');if(i>0)return show(i-1,S[i-1].p.length-1,'back');}
@@ -49,8 +49,8 @@
  function start(){play.setAttribute('aria-pressed','true');play.querySelector('.lbl').textContent='멈춤';tick();}
  function stop(){clearTimeout(timer);timer=null;play.setAttribute('aria-pressed','false');play.querySelector('.lbl').textContent='자동 재생';}
  const user=fn=>()=>{stop();fn();};
- $('.deck-nav.next').addEventListener('click',user(advance));
- $('.deck-nav.prev').addEventListener('click',user(back));
+ $('.deck-next').addEventListener('click',user(advance));
+ $('.deck-prev').addEventListener('click',user(back));
  play.addEventListener('click',()=>{timer?stop():start();});
  tabs.forEach(t=>t.addEventListener('click',()=>{stop();const k=S.findIndex(s=>s.c===t.dataset.chapter);if(k>=0&&k!==i)show(k,0,k<i?'back':'next');}));
  root.querySelector('.deck-chapters').addEventListener('keydown',e=>{const k=tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();const n=tabs[(k+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];n.focus();n.click();}});
