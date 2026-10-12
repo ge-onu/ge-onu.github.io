@@ -95,10 +95,11 @@ const assert = require('node:assert/strict');
           assert.ok((await measure()).documentWidth <= width, `deck ${width}: overflow`);
           assert.equal(await page.locator('#ranking-decision, a[href*="ranking-decision"]').count(), 0);
           await page.locator('a[href="#d1-dataflow"]').first().click();
-          assert.equal(await page.locator('#d1-dataflow').evaluate(e => e.open), true);
-          assert.equal(await page.locator('#d1-dataflow').evaluate(e => e.parentElement.closest('details').open), true);
+          // 해시 이동 뒤 펼침은 이벤트로 일어나므로, 바로 확인하지 않고 펼쳐질 때까지 기다린다.
+          const opened = () => { const d = document.getElementById('d1-dataflow'); return d.open && d.parentElement.closest('details').open; };
+          await page.waitForFunction(opened, null, { timeout: 3000 });
           await page.reload({ waitUntil: 'networkidle' });
-          assert.equal(await page.locator('#d1-dataflow').evaluate(e => e.open), true);
+          await page.waitForFunction(opened, null, { timeout: 3000 });
           await page.locator('[data-expand-all]').click();
           assert.equal(await page.locator('details:not([open])').count(), 0);
           assert.ok((await measure()).documentWidth <= width, `expanded mealplanning ${width}: overflow`);

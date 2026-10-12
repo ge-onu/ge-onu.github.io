@@ -643,3 +643,10 @@ video.deck-layer{background:#111}
 @media (max-width:640px){.cover-line{font-size:18px;line-height:1.4}.cover-copy{max-width:58%}.cover img{max-width:46%}.case-card.flag .cover{min-height:180px}.cover-tags{font-size:11.5px}}
 @media (max-width:360px){.cover-line{font-size:16.5px}.cover img{max-width:42%}}
 @media (max-width:400px){.mgrid b{font-size:clamp(20px,6.4vw,26px)}.mgrid b .arr{margin:0 1px}.sum-metrics b{font-size:clamp(20px,6.4vw,26px)}}
+/* 아주 좁은 폰(≤360px)에서 이메일과 복사 버튼이 한 줄 안에 들어가게 한다. */
+.mailrow{min-width:0;max-width:100%}
+.mailrow a{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mailrow .copy-btn{flex:none}
+@media (max-width:360px){.mailrow{padding-left:12px;gap:8px}.mailrow a{font-size:14px;letter-spacing:-.02em}.mailrow .copy-btn{padding:0 10px}}
+@media (max-width:360px){.mailrow .copy-btn .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.mailrow .copy-btn{width:36px;padding:0;justify-content:center}.mailrow a{font-size:15px}}
+@media (max-width:360px){.card.contact{padding-left:16px;padding-right:16px}.contact .mailrow{padding-left:10px}.contact .mailrow a{font-size:14px;letter-spacing:-.02em}}
