@@ -20,9 +20,12 @@
 (() => {
  const nodes=[...document.querySelectorAll('details')];
  const states=new Map();
+ // 동작 줄이기를 켠 사용자에게는 높이 애니메이션 없이 바로 열고 닫는다.
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)');
  function settle(d,s){ if(s.animation){s.animation.cancel();s.animation=null;} d.style.height='';d.style.overflow=''; }
  function change(d,open,startOverride){
   const s=states.get(d);if(!s)return;
+  if(reduce.matches){settle(d,s);s.target=open;d.open=open;return;}
   const start=startOverride ?? d.getBoundingClientRect().height;
   settle(d,s);s.target=open;
   d.open=true;

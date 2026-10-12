@@ -27,10 +27,19 @@ const assert = require('node:assert/strict');
         page.on('requestfailed', request => failedRequests.push(request.url()));
         await page.goto(origin + route, { waitUntil: 'networkidle' });
         await page.evaluate(() => document.fonts.ready);
+        // 늦게 불러오는(loading=lazy) 그림도 모두 불러온 뒤 깨진 그림을 센다.
+        await page.evaluate(() => document.querySelectorAll('img[loading=lazy]').forEach(i => { i.loading = 'eager'; }));
+        await page.waitForLoadState('networkidle');
+        await page.waitForFunction(() => [...document.images].every(i => i.complete));
         const measure = () => page.evaluate(() => ({
           width: innerWidth, documentWidth: document.documentElement.scrollWidth,
           brokenImages: [...document.images].filter(i => !i.complete || i.naturalWidth === 0).map(i => i.src),
-          overflowingImages: [...document.images].filter(i => i.getBoundingClientRect().width > innerWidth).map(i => i.src),
+          // 가로 스크롤 상자(예: Infrastructure Lab 구조도 720px) 안의 이미지는 문서 밖으로 넘치지 않으므로 뺀다.
+          overflowingImages: [...document.images].filter(i => {
+            if (i.getBoundingClientRect().width <= innerWidth) return false;
+            for (let e = i.parentElement; e; e = e.parentElement) if (['auto', 'scroll'].includes(getComputedStyle(e).overflowX)) return false;
+            return true;
+          }).map(i => i.src),
           transferBytes: performance.getEntriesByType('resource').reduce((n, r) => n + r.transferSize, 0),
           domContentLoadedMs: Math.round(performance.getEntriesByType('navigation')[0].domContentLoadedEventEnd),
         }));
@@ -41,20 +50,27 @@ const assert = require('node:assert/strict');
         await page.screenshot({ path: path.join(output, `${name}-${width}.png`), fullPage: true });
 
         if (name === 'home') {
-          const cards = await page.locator('.project-showcase-card').evaluateAll(cards => cards.map(c => c.getAttribute('href')));
-          // 카드가 늘 때 여기도 같이 고친다. 이 단언은 한동안 낡아 있었다 —
-          // infrastructure-lab-series 가 빠져 있어 실제 화면과 달랐다.
+          // 대표 사례 구간(#work)에서 상세 페이지로 가는 링크. 사례가 늘면 여기도 같이 고친다.
+          const cards = await page.locator('#work a[href^="projects/"]').evaluateAll(links =>
+            [...new Set(links.map(a => a.getAttribute('href')).filter(h => !h.includes('#')))]);
           assert.deepEqual(cards, [
-            'projects/mealplanning/', 'projects/rag-retrieval-poc/',
-            'projects/didim/', 'projects/kubernetes-lab/',
-            'projects/infrastructure-lab-series/',
+            'projects/mealplanning/', 'projects/kubernetes-lab/',
+            'projects/infrastructure-lab-series/', 'projects/rag-retrieval-poc/',
+            'projects/didim/',
           ]);
           for (const href of cards) {
-            await page.locator(`a[href="${href}"]`).first().click();
+            await page.locator(`#work a[href="${href}"]`).first().click();
             await page.waitForURL(origin + '/' + href);
             assert.equal(await page.locator('h1').count(), 1);
             await page.goto(origin + '/', { waitUntil: 'networkidle' });
           }
+        }
+        if (name === 'home' || name === 'mealplanning') {
+          const resume = page.locator('a[href="/resume.pdf"]');
+          assert.ok(await resume.count() >= 1, `${name}: resume link`);
+          const pdf = await page.request.get(origin + '/resume.pdf');
+          assert.equal(pdf.status(), 200);
+          assert.ok((await pdf.body()).subarray(0, 5).toString() === '%PDF-');
         }
         if (name === 'rag') {
           const link = page.locator('#sources a');
@@ -66,6 +82,17 @@ const assert = require('node:assert/strict');
           assert.ok((await evidence.text()).includes('unseen holdout'));
         }
         if (name === 'mealplanning') {
+          // 발표 자료 뷰어: 첫 장이 보이고, 다음 버튼과 단계 넘김이 동작해야 한다.
+          const deck = page.locator('[data-deck]');
+          assert.equal(await deck.count(), 1);
+          assert.equal(await page.locator('.deck-count').textContent(), '1 / 50');
+          await page.locator('.deck-next').click();
+          await page.waitForFunction(() => document.querySelector('.deck-count').textContent === '2 / 50');
+          await page.locator('.deck-chapters [data-chapter="feature"]').click();
+          await page.waitForFunction(() => document.querySelector('.deck-title').textContent.includes('핵심 기능'));
+          const layer = await page.locator('.deck-layer.on').getAttribute('src');
+          assert.equal((await page.request.get(new URL(layer, page.url()).href)).status(), 200);
+          assert.ok((await measure()).documentWidth <= width, `deck ${width}: overflow`);
           assert.equal(await page.locator('#ranking-decision, a[href*="ranking-decision"]').count(), 0);
           await page.locator('a[href="#d1-dataflow"]').first().click();
           assert.equal(await page.locator('#d1-dataflow').evaluate(e => e.open), true);

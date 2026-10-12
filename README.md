@@ -31,6 +31,30 @@ Playwright가 있는 검증 환경에서는 `node tools/qa-browser.cjs`로 6개 
 1440/768/390/320px에서 확인한다. `QA_URL`, `QA_OUTPUT`, `QA_CHROMIUM`으로
 서버 주소·캡처 위치·브라우저 실행 파일을 지정할 수 있다. 기본 캡처 폴더 `qa-output/`은 Git에서 제외한다.
 
+## 화면 구성과 CSS
+
+- `site.css`: 모든 페이지 공통 글꼴·색·머리말·꼬리말·버튼. 색 이름은 이전 CSS 변수에도 이어 준다.
+- `portfolio.css`: 홈과 Mealplanning 상세 본문(A3 개편).
+- `legacy-pages.css`: 구조를 그대로 둔 상세 페이지(RAG·Kubernetes·Infrastructure Lab·디딤)와 404의 폭 맞춤.
+- 글꼴은 Pretendard 부분집합을 `assets/fonts/`에 직접 두고(OFL, 라이선스 동봉) `scripts/build-font-subset.py`로 다시 만든다.
+- Mealplanning 상세의 이전 기록(A-1~D-3)은 `#record` 아래에 그대로 두었다. 기존 직접 링크(`#a2-serverless` 등)는 계속 열린다.
+- 팀 프로젝트의 실행 환경(EKS·Argo CD·CI/CD·관측)은 "구성 방향과 도구를 팀이 함께 정했고, 설치·운영은 역할 분담에 따라 인프라 담당"으로 적는다. 개인 구축·운영으로 쓰지 않는다.
+
+## 이력서 PDF
+
+`/resume.pdf`는 공개용 1쪽 이력 요약이다. 전화번호·주소·사진·생년월일은 넣지 않는다.
+머리말의 "이력서" 버튼과 홈의 "이력서 PDF" 버튼이 이 파일을 연다. 고칠 때는 같은 이름으로 덮어쓴다.
+
+## Mealplanning 발표 자료 뷰어
+
+Mealplanning 상세 위쪽의 "최종 발표를 넘겨 보기"는 팀 최종 발표(Canva)를 이미지로 내보낸 것이다.
+
+- 파일: `assets/deck/mealplanning/pNNN.webp`(1600×900, 원본 페이지 번호), 영상 페이지는 `p49.mp4`·`p100.mp4`·`p112.mp4`(720p, 무음).
+- 슬라이드 구성은 `projects/mealplanning/index.html`의 `#deck-data`(JSON)에 있다. Canva에서 애니메이션 대신 여러 장으로 나눈 페이지는 한 슬라이드의 `p` 배열(단계)로 묶는다.
+- 동작은 `deck.js`: 단계는 겹쳐 넘기고 슬라이드는 옆으로 밀어 넘긴다. 방향키·스와이프·장 탭·자동 재생·전체 화면. 동작 줄이기에서는 애니메이션 없이 바뀐다.
+- 공개 전 처리: 팀원 이름(2·6·133쪽)과 계정 이메일·AWS 계정 번호(126쪽)는 모자이크, 112쪽 영상의 설정 코드 구간(63~69초)은 흐림. 숨김 페이지(50·69쪽)와 실제 팀 사진(134쪽)은 넣지 않았다.
+- 유료 Canva 요소(모니터 목업·곡선 화살표·꺾쇠)는 사용자 소유 사본에서 직접 그린 그림으로 바꾼 뒤 내보냈다.
+
 ## 디딤 상세
 
 경로는 `projects/didim/`다. Home의 프로젝트 카드에서 연결한다.

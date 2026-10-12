@@ -1,8 +1,7 @@
 
-.contact-trigger { font-family:inherit; cursor:pointer; }
-.contact-dialog { width:min(460px,calc(100% - 28px)); max-height:calc(100dvh - 32px); padding:28px; border:1px solid var(--line); border-radius:14px; background:var(--surface); color:var(--text); box-shadow:0 24px 80px #0004; }
+.contact-dialog { width:min(460px,calc(100% - 28px)); max-height:calc(100dvh - 32px); padding:28px; border:1px solid var(--line); border-radius:20px; font-family:var(--font,inherit); line-height:1.6; background:var(--surface); color:var(--text); box-shadow:0 24px 80px #0004; }
 .contact-dialog::backdrop { background:#10172288; backdrop-filter:blur(3px); }
-.contact-dialog h2 { margin:0 0 8px; font-size:22px; }
+.contact-dialog h2 { margin:0 0 8px; font-size:22px; line-height:1.35; letter-spacing:-.03em; }
 .contact-dialog p { font-size:13px; color:var(--muted); }
 .contact-dialog form,.contact-dialog label { display:grid; gap:8px; }
 .contact-dialog form { gap:14px; }.contact-dialog label { font-size:13px; }
@@ -16,8 +15,7 @@
 .chat-panel[hidden] { display:none; }.chat-panel header { display:flex; align-items:center; justify-content:space-between; padding:16px; border-bottom:1px solid var(--line); }.chat-panel h2 { font-size:16px; margin:0; }.chat-panel small { color:var(--muted); font-size:11px; }
 .chat-messages { flex:1; overflow:auto; padding:14px; }.chat-bubble { padding:11px 13px; background:var(--surface-soft); border:1px solid var(--line); border-radius:10px; font-size:13px; line-height:1.7; margin:0 20px 12px 0; overflow-wrap:anywhere; }.chat-bubble--user { margin-left:20px; margin-right:0; background:var(--accent-soft); }
 .chat-panel form { padding:12px; border-top:1px solid var(--line); }.chat-compose { display:flex; gap:8px; }.chat-compose input { font-size:13px; }.chat-compose button { width:36px; flex-shrink:0; border:0; border-radius:8px; background:var(--accent-ink); color:var(--bg); font-size:22px; cursor:pointer; }.chat-input-label { display:block; font-size:12px; margin-bottom:5px; }
-:is(.contact-dialog,.chat-panel,.chat-launcher,.contact-trigger) :focus-visible,.chat-launcher:focus-visible,.contact-trigger:focus-visible { outline:2px solid var(--accent-ink); outline-offset:3px; }
-@media(max-width:680px) { .contact-trigger span { display:none; } .topbar--profiles .identity > span:last-child { display:none; } .topbar--profiles .identity { grid-column:1 / 2; } .topbar--profiles .nav-profile-links { grid-column:2 / 7; } }
+:is(.contact-dialog,.chat-panel,.chat-launcher) :focus-visible,.chat-launcher:focus-visible { outline:2px solid var(--accent-ink); outline-offset:3px; }
 
 .chat-launcher { padding:3px; background:linear-gradient(145deg,#fffaf0,#eee6db); }
 .chat-launcher img { width:48px; height:48px; object-fit:contain; pointer-events:none; user-select:none; }
@@ -98,7 +96,7 @@
 .contact-dialog form { gap:12px; }
 .contact-dialog .contact-inline-field { display:grid; grid-template-columns:108px minmax(0,1fr); align-items:center; gap:10px; }
 .contact-dialog textarea { min-height:190px; max-height:38dvh; }
-.contact-dialog .primary-action { justify-content:center; width:100%; }
+.contact-dialog .btn-primary { justify-content:center; width:100%; }
 .contact-dialog .contact-note { margin:0; font-size:11px; line-height:1.6; text-align:center; }
 .contact-dialog .contact-status { margin:0; }
 .contact-dialog .contact-status:empty { display:none; }
@@ -107,7 +105,6 @@
  .contact-dialog .contact-inline-field { grid-template-columns:100px minmax(0,1fr); gap:8px; }
 }
 
-.contact-dialog .primary-action { font-family:inherit; font-size:15px; font-weight:600; line-height:1.4; padding:9px 16px; min-height:0; }
 
 /* Give both conversation bubbles and floating tips visible, neutral depth. */
 .chat-bubble { box-shadow:0 2px 3px #00000018,0 5px 12px #00000024; }
@@ -142,4 +139,4 @@
 .contact-mail { display:grid; gap:14px; margin-top:16px; }
 .contact-mail-address { color:var(--accent-ink); font-size:18px; font-weight:700; overflow-wrap:anywhere; }
 .contact-mail-actions { display:flex; flex-wrap:wrap; gap:8px; }
-.contact-mail-actions > * { flex:1 1 140px; font-family:inherit; font-size:15px; font-weight:600; line-height:1.4; padding:9px 16px; min-height:0; cursor:pointer; }
+.contact-mail-actions > * { flex:1 1 140px; }
