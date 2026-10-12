@@ -3,3 +3,16 @@
 /* 본문 폭을 머리말(.hdr .wrap)과 같은 선에 맞춘다. */
 .legacy-page .shell{--max:1160px;width:min(calc(100% - var(--gutter)*2),var(--max))}
 .legacy-page .project-page-footer{margin-bottom:40px}
+/* 모바일에서 누르기 쉬운 크기와 읽을 수 있는 글씨 크기 */
+.legacy-page .project-back{display:inline-flex;align-items:center;min-height:36px;padding:4px 0;font-size:13px}
+.legacy-page .section-kicker{font-size:12px}
+.legacy-page .back-link{display:inline-flex;align-items:center;min-height:40px}
+.legacy-page .infra-jump-nav a,.legacy-page .detail-nav a{display:inline-flex;align-items:center;min-height:36px}
+.legacy-page .github-button{font-size:13px}
+.legacy-page .story-tab-no{font-size:12px}
+@media (max-width:640px){.legacy-page .project-hero h1{word-break:keep-all;overflow-wrap:anywhere}}
+/* 예전 상세의 작은 라벨을 읽을 수 있는 크기로 */
+.legacy-page :is(.overview-head,.overview-meta,.overview-metrics,.story-heading) :is(span,p){font-size:12px}
+.legacy-page .story-tab-copy small,.legacy-page .flow-step span{font-size:12px}
+.legacy-page :is(.flow-step,.story-step) strong,.legacy-page .story-step p{font-size:11.5px}
+.legacy-page .infra-patterns a{display:inline-flex;align-items:center;min-height:32px}
