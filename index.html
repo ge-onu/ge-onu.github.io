@@ -22,19 +22,19 @@
   <title>이건우 | 클라우드·인프라 엔지니어 포트폴리오</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/home-icon.svg">
   <link rel="preload" href="assets/fonts/portfolio-sans-subset.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="site.css?v=20261012-a3">
-  <link rel="stylesheet" href="portfolio.css?v=20261012-a3">
-  <link rel="stylesheet" href="contact-chat.css?v=20261012-a3">
-  <script src="theme.js?v=20261012-a3"></script>
+  <link rel="stylesheet" href="site.css?v=20261012-a3e">
+  <link rel="stylesheet" href="portfolio.css?v=20261012-a3e">
+  <link rel="stylesheet" href="contact-chat.css?v=20261012-a3e">
+  <script src="theme.js?v=20261012-a3e"></script>
   <script src="infra-validation.js" defer></script>
   <script src="contact-config.js?v=wsl-1" defer></script>
-  <script src="contact-chat.js?v=20261012-a3" defer></script>
+  <script src="contact-chat.js?v=20261012-a3e" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
 <header class="hdr"><div class="wrap">
   <a class="wm" href="#main" aria-label="이건우 포트폴리오 홈"><span class="wm-ko">이건우</span><span class="wm-dot" aria-hidden="true"></span><span class="wm-en">Geonwoo Lee</span></a>
-  <nav class="hdr-nav" aria-label="주요 메뉴"><a href="#strengths">역량</a><a href="#work">사례</a><a href="#focus">기술</a><a href="#incidents">트러블슈팅</a><a href="#about">이력</a><a class="nav-contact" href="#contact">연락하기</a></nav>
+  <nav class="hdr-nav" aria-label="주요 메뉴"><a href="#work">사례</a><a href="#strengths">역량</a><a href="#incidents">트러블슈팅</a><a href="#focus">기술</a><a href="#about">이력</a><a class="nav-contact" href="#contact">연락하기</a></nav>
   <div class="hdr-actions">
     <button class="icon-btn" id="theme" type="button" aria-pressed="false" aria-label="다크 모드" title="다크 모드로 전환"><svg class="ic ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg><svg class="ic ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
     <a class="btn btn-secondary btn-sm hdr-contact" href="#contact" data-contact>연락하기</a>
@@ -48,7 +48,7 @@
       <p class="status-pill"><span class="dot" aria-hidden="true"></span>신입 채용 지원 중</p>
       <p class="hero-name">이건우<span class="en">Geonwoo Lee</span></p>
       <h1 id="hero-title"><span class="nw">클라우드·인프라</span> 엔지니어</h1>
-      <p class="lead"><span class="ln">Terraform으로 AWS 서버리스 구성을 작성한 경험이 있습니다.</span><span class="ln">장애 증상에서 원인 구간을 좁혀 간 과정을 근거와 함께 기록한 경험이 있습니다.</span><span class="ln">최우수상을 받은 5인 팀 프로젝트에서 AI/ML을 맡은 경험이 있습니다.</span></p>
+      <p class="lead"><span class="ln">Terraform으로 AWS 서버리스 구성을 작성한 경험이 있습니다.</span><span class="ln">장애 증상에서 원인 구간을 좁혀 간 과정을 근거와 함께 기록한 경험이 있습니다.</span><span class="ln">최우수상을 받은 5인 팀 프로젝트에서 핵심 AI 기능을 PoC부터 구현까지 맡은 경험이 있습니다.</span></p>
       <div class="cta">
         <a class="btn btn-primary" href="/resume.pdf" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>이력서 PDF<span class="sr">(새 탭)</span></a>
         <div class="mailrow"><a href="mailto:goonbam009@gmail.com">goonbam009@gmail.com</a><button class="copy-btn" type="button" data-copy="goonbam009@gmail.com" aria-label="이메일 주소 복사"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg><span class="lbl">복사</span></button><span class="sr copy-status" role="status"></span></div>
@@ -62,14 +62,15 @@
     <aside class="brief" aria-labelledby="brief-h">
       <div class="brief-head"><h2 id="brief-h">지원 정보 한눈에</h2><span>채용 담당자용 요약</span></div>
       <dl>
-        <div><dt>지원 직무</dt><dd>클라우드 엔지니어 · DevOps · 주니어 MLOps<small>신입 · 성장 방향 AIOps</small></dd></div>
+        <div><dt>지원 직무</dt><dd>클라우드 엔지니어 · DevOps · 주니어 MLOps<small>신입</small></dd></div>
+        <div><dt>성장 방향</dt><dd>AIOps<small>AI로 운영을 개선하는 일</small></dd></div>
         <div><dt>핵심 기술</dt><dd>AWS · Terraform · Kubernetes · Linux · 네트워크</dd></div>
         <div><dt>학력</dt><dd>한성대학교 컴퓨터공학부 졸업<small>2016 – 2026.02</small></dd></div>
         <div><dt>교육</dt><dd>더존비즈온 Cloud DX Academy 6기 수료<small>한국표준협회 · 2026.02 – 2026.08 · 반장</small></dd></div>
         <div><dt>수상</dt><dd>최종 프로젝트 최우수상<small>Mealplanning · 5인 팀 · AI/ML 담당</small></dd></div>
         <div><dt>자격</dt><dd>네트워크관리사 2급<small>2026.06 취득 · CKA 준비 중</small></dd></div>
       </dl>
-      <p class="brief-en" lang="en"><b>IN ENGLISH</b>Junior cloud &amp; infrastructure engineer applying for cloud, DevOps and junior MLOps roles. Wrote Terraform for an AWS serverless setup (Lambda, SQS, SNS, S3, EventBridge) and owned AI/ML on a 5-person team project that won the top award at the Douzone Bizon Cloud DX Academy.</p>
+      <p class="brief-en" lang="en"><b>IN ENGLISH</b>Junior cloud &amp; infrastructure engineer applying for cloud, DevOps and junior MLOps roles. Wrote Terraform for an AWS serverless setup (Lambda, SQS, SNS, S3, EventBridge) and built most of the AI features at the core of a 5-person team project, from PoC to implementation and troubleshooting. The project won the top award at the Douzone Bizon Cloud DX Academy.</p>
     </aside>
   </div>
   <section class="kpi-sec" aria-labelledby="kpi-h">
@@ -83,53 +84,20 @@
   </section>
 </div></section>
 
-<section class="sec sec-line" id="strengths" aria-labelledby="str-h"><div class="wrap">
-  <div class="sec-head"><div><p class="eyebrow"><span class="n">01</span>Strengths</p><h2 id="str-h">핵심 역량 3가지</h2></div><p class="sec-desc"><span class="ln">역량마다 맡을 수 있는 일과 근거를 함께 보여 드립니다.</span><span class="ln">근거를 누르면 원본 기록으로 이동합니다.</span></p></div>
-  <div class="strs">
-    <section class="card str" aria-labelledby="cap1">
-      <div><p class="str-n">01</p><h3 id="cap1">장애 원인을 좁히고 기록하기</h3></div>
-      <p class="str-task"><b>맡을 수 있는 일</b>장애 증상에서 원인 구간을 좁히고, 확인 순서를 문서로 남기는 일</p>
-      <ul>
-        <li><p>openssl로 인증서 SAN 목록을 확인해, DNS가 아닌 인증서 문제로 범위를 좁힌 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="#inc-https">인증서 사례<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
-        <li><p>화면부터 학습 데이터까지 구간별로 값을 대조해, session_id 누락 지점을 찾은 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="projects/mealplanning/#ev-flow">데이터 흐름 사례<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
-        <li><p>원인을 확정하지 못한 수집 실패를, 확인한 정황과 기각한 가설로 나눠 기록한 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="#inc-crawler">수집 실패 사례<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
-      </ul>
-    </section>
-    <section class="card str" aria-labelledby="cap2">
-      <div><p class="str-n">02</p><h3 id="cap2">AWS 리소스를 코드로 구성하기</h3></div>
-      <p class="str-task"><b>맡을 수 있는 일</b>AWS 리소스를 Terraform으로 작성하고, 트리거와 실패 경로를 정리하는 일</p>
-      <ul>
-        <li><p>Terraform 파일 13개로 AWS 서버리스 리소스 5종(Lambda·SQS·SNS·S3·EventBridge Scheduler)을 작성한 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="projects/mealplanning/#ev-svl">서버리스 이전<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
-        <li><p>검토 기준 5개로 AI 기능 12종을 판정해, 10종은 옮기고 2종은 근거와 함께 남긴 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="assets/evidence/mealplanning/serverless-judgment/source.html">판정표 원본<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
-        <li><p>kubeadm 멀티노드 클러스터에 Calico, Ingress, NetworkPolicy를 구성한 경험이 있습니다.</p><div class="str-ev"><span class="who lab">실습</span><a class="link" href="projects/kubernetes-lab/">Multi-node Lab<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
-      </ul>
-    </section>
-    <section class="card str" aria-labelledby="cap3">
-      <div><p class="str-n">03</p><h3 id="cap3">같은 기준으로 다시 재고 남기기</h3></div>
-      <p class="str-task"><b>맡을 수 있는 일</b>변경 전후를 같은 기준으로 다시 재고, 결과와 한계를 함께 보고하는 일</p>
-      <ul>
-        <li><p>같은 275건을 다시 재어, 응답 검증 통과를 166건에서 247건으로 늘린 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="projects/mealplanning/#ev-guard">응답 검증 사례<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
-        <li><p>CI 설정에서 빠져 있던 서버리스 테스트 실행 경로를 찾아 보완한 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="projects/mealplanning/#a2-serverless">원본 기록<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
-        <li><p>Mealplanning 근거 문서 13건과 트러블슈팅 기록 6건을 공개한 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="projects/mealplanning/#record">전체 기록<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
-      </ul>
-    </section>
-  </div>
-</div></section>
-
 <section class="sec sec-alt sec-line" id="work" aria-labelledby="cases-h"><div class="wrap">
-  <div class="sec-head"><div><p class="eyebrow"><span class="n">02</span>Projects</p><h2 id="cases-h">대표 사례</h2></div><p class="sec-desc"><span class="ln">상황, 과제, 행동, 결과 순서로 보여 드립니다.</span><span class="ln">팀 프로젝트는 제가 한 일과 팀이 한 일을 나눠 적습니다.</span></p></div>
+  <div class="sec-head"><div><p class="eyebrow"><span class="n">01</span>Projects</p><h2 id="cases-h">대표 사례</h2></div><p class="sec-desc"><span class="ln">상황, 과제, 행동, 결과 순서로 보여 드립니다.</span><span class="ln">팀 프로젝트는 제가 한 일과 팀이 한 일을 나눠 적습니다.</span></p></div>
   <div class="cases">
     <article class="card case-card flag has-cover" aria-labelledby="c-meal">
       <div class="cover cover-meal"><div class="cover-copy"><p class="cover-tags ko"><span class="t">식비 예산</span> · <span class="t">레시피 추천</span> · <span class="t">장보기</span></p><p class="cover-line">식비 예산에서<br>레시피와 장보기까지.</p></div><img src="assets/covers/meal.webp" alt="" width="960" height="640" loading="lazy" decoding="async"></div>
       <div class="case-main">
         <div class="case-top"><span class="status done"><i aria-hidden="true"></i>완료</span><span class="idx">01</span></div>
-        <div><p class="kicker">5인 팀 프로젝트 · 최우수상 · AI/ML 담당 · 2026.06 – 08</p><h3 id="c-meal">Mealplanning</h3><p class="sub">식비 예산에서 레시피 추천과 장보기까지 연결한 팀 서비스입니다.</p></div>
-        <dl class="prr star"><div><dt>상황</dt><dd>정상 응답이 응답 검증 단계에서 막혀 템플릿 답변으로 대체되고 있었습니다.</dd></div><div><dt>과제</dt><dd>모델을 바꾸기 전에, 원인이 모델인지 검증 로직인지 가려야 했습니다.</dd></div><div><dt>행동</dt><dd>막힌 케이스를 다시 분류해, 검증 로직이 사용자 질문을 근거로 보지 않던 점을 찾고 근거 범위를 고친 경험이 있습니다.</dd></div><div class="res"><dt>결과</dt><dd>같은 275건에서 통과가 166건에서 247건으로 늘었고, 추가 LLM 호출은 없었습니다.</dd></div></dl>
+        <div><p class="kicker">5인 팀 프로젝트 · 최우수상 · AI/ML 담당 · 2026.06 – 08</p><h3 id="c-meal">Mealplanning</h3><p class="sub">식비 예산에서 레시피 추천과 장보기까지 연결한 팀 서비스입니다.</p><p class="sub-ai"><span class="ln">팀 회의에서 꼭 넣기로 정한 핵심 기능의 PoC, 구현 방안, 실제 구현, 트러블슈팅을 대부분 혼자 맡은 경험이 있습니다.</span><span class="ln">이 핵심 기능은 모두 AI가 있어야 동작하는 기능이었습니다.</span></p></div>
+        <dl class="prr star"><div><dt>상황</dt><dd>정상 응답이 응답 검증 단계에서 막혀 템플릿 답변으로 대체되고 있었습니다.</dd></div><div><dt>과제</dt><dd>모델을 바꾸기 전에, 원인이 모델인지 검증 로직인지 가려야 했습니다.</dd></div><div><dt>행동</dt><dd>막힌 케이스를 다시 분류해, 검증 로직이 사용자 질문을 근거로 보지 않던 점을 찾아 근거 범위 수정을 이끈 경험이 있습니다.</dd></div><div class="res"><dt>결과</dt><dd>같은 275건에서 통과가 166건에서 247건으로 늘었고, 추가 LLM 호출은 없었습니다.</dd></div></dl>
         <div class="case-foot"><ul class="stack" aria-label="사용 기술"><li>AWS Lambda</li><li>Amazon SQS</li><li>Terraform</li><li>PostgreSQL</li><li>LLM 평가</li></ul><a class="link" href="projects/mealplanning/" data-project>사례 자세히 보기<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </div>
       <div class="case-side">
         <div class="mgrid"><div><b>166<span class="arr" aria-label="에서">→</span>247</b><span>응답 검증 통과 · 같은 275건</span></div><div><b>10<small>/ 12종</small></b><span>AI 기능 서버리스 이전</span></div><div><b>15종</b><span>LLM 비교 · 누적 1,750건 기록</span></div><div><b>44건</b><span>session_id 누락 확인 후 수정</span></div></div>
-        <div class="bnd"><p class="bnd-h">역할 경계<span>사례 상세에 전체 목록</span></p><dl><div><dt><span class="who me">본인</span></dt><dd>AI 기능 서비스 코드 · LLM 비교 · 응답 검증 수정 · 서버리스 Terraform</dd></div><div><dt><span class="who team">함께</span></dt><dd>Amazon EKS·Argo CD 실행 환경 · CI/CD · Prometheus·Grafana의 구성 방향과 도구 선택</dd></div></dl></div>
+        <div class="bnd"><p class="bnd-h">역할 경계<span>사례 상세에 전체 목록</span></p><dl><div><dt><span class="who me">본인</span></dt><dd>핵심 AI 기능의 PoC·구현 방안·구현·트러블슈팅(대부분 단독) · LLM 비교 · 응답 검증 오탐 분석 · 서버리스 Terraform</dd></div><div><dt><span class="who team">함께</span></dt><dd>꼭 넣을 기능을 정한 팀 회의 · Amazon EKS·Argo CD 실행 환경 · CI/CD · Prometheus·Grafana의 구성 방향과 도구 선택</dd></div></dl></div>
       </div>
     </article>
 
@@ -155,33 +123,48 @@
   <h3 class="sub-h">그 밖의 기록</h3>
   <div class="others">
     <a class="card other has-cover" href="projects/rag-retrieval-poc/" data-project><div class="cover cover-rag"><div class="cover-copy"><p class="cover-line">찾은 문서가 있다고<br>답해도 되는 것은 아닙니다.</p></div><img src="assets/covers/rag.webp" alt="" width="960" height="640" loading="lazy" decoding="async"></div><svg class="go-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><h3>RAG Retrieval PoC</h3><p>질문에 맞는 근거를 찾고, 답해도 되는 범위와 거절 조건을 나눠 평가한 실험입니다.</p><p class="other-fact">BM25 검색과 답변 허용 규칙을 나누고, 별도 평가의 첫 실패를 분석해 v2를 확정한 경험이 있습니다.</p><span class="note">개인 실험 · AI</span></a>
-    <a class="card other has-cover" href="projects/didim/" data-project><div class="cover cover-didim"><div class="cover-copy"><p class="cover-line">취업하는 그 날까지,<br>나만의 일상메이트.</p></div><img src="assets/didim-cover.svg" alt="" width="1536" height="1024" loading="lazy" decoding="async"></div><svg class="go-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><h3>디딤</h3><p>공고 수집, 학습 기록, 메일 요약을 한 화면에 모은 개인 상황판입니다.</p><p class="other-fact">메일함은 읽기 전용으로만 다루고, 테스트 281개가 통과하는 상태에서 29가지를 더 찾아 고친 경험이 있습니다.</p><span class="note">개인 도구 · 1인용 · 저장소 비공개</span></a>
+    <a class="card other has-cover" href="projects/didim/" data-project><div class="cover cover-didim"><div class="cover-copy"><p class="cover-line">취업하는 그날까지,<br>나만의 일상메이트.</p></div><img src="assets/didim-cover.svg" alt="" width="1536" height="1024" loading="lazy" decoding="async"></div><svg class="go-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><h3>디딤</h3><p>공고 수집, 학습 기록, 메일 요약을 한 화면에 모은 개인 상황판입니다.</p><p class="other-fact">메일함은 읽기 전용으로만 다루고, 테스트 281개가 통과하는 상태에서 추가로 고칠 점 29가지를 찾아 수정한 경험이 있습니다.</p><span class="note">개인 도구 · 1인용 · 저장소 비공개</span></a>
   </div>
 </div></section>
 
-<section class="sec sec-line" id="focus" aria-labelledby="skills-h"><div class="wrap">
-  <div class="sec-head"><div><p class="eyebrow"><span class="n">03</span>Skills</p><h2 id="skills-h">기술과 근거 수준</h2></div><p class="sec-desc"><span class="ln">기술마다 어디서, 누가 다뤘는지 함께 적었습니다.</span><span class="ln">팀이 함께 정한 환경은 설치·운영 담당과 나눠 표시합니다.</span></p></div>
-  <ul class="legend" aria-label="표시 기준"><li><span class="who me">본인</span>직접 작성·수행</li><li><span class="who lab">실습</span>개인 실습</li><li><span class="who team">함께</span>팀이 함께 정하고 그 위에서 개발</li><li><span class="who prep">준비</span>준비 중</li></ul>
-  <div class="kw-wrap"><table class="kw">
-    <thead><tr><th scope="col">영역</th><th scope="col">기술</th><th scope="col">수준</th><th scope="col">어디서</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">AWS</th><td class="tech">AWS Lambda · Amazon SQS · Amazon SNS · Amazon S3 · Amazon EventBridge Scheduler</td><td class="lv"><span class="who me">본인</span></td><td class="src">Mealplanning 서버리스 이전</td></tr>
-      <tr><th scope="row">IaC</th><td class="tech">Terraform</td><td class="lv"><span class="who me">본인</span></td><td class="src">Mealplanning 서버리스 이전 · .tf 파일 13개</td></tr>
-      <tr><th scope="row">Kubernetes</th><td class="tech">kubeadm · Calico · MetalLB · Ingress · NetworkPolicy · PV/PVC · RBAC · HPA·KEDA</td><td class="lv"><span class="who lab">실습</span></td><td class="src">Multi-node Lab</td></tr>
-      <tr><th scope="row">Linux·네트워크</th><td class="tech">Routing·NAT · DNS · TLS · Firewall · HAProxy · WireGuard</td><td class="lv"><span class="who lab">실습</span><span class="who me">본인</span></td><td class="src">Infrastructure Lab Series(AI Agent 활용) · geonu.site 인증서 진단</td></tr>
-      <tr><th scope="row">관측</th><td class="tech">Kubernetes Event · 로그 · Prometheus · Grafana</td><td class="lv"><span class="who lab">실습</span></td><td class="src">Multi-node Lab · 트러블슈팅 기록</td></tr>
-      <tr><th scope="row">데이터·AI</th><td class="tech">PostgreSQL · Python · LLM 평가</td><td class="lv"><span class="who me">본인</span></td><td class="src">Mealplanning AI 기능</td></tr>
-      <tr><th scope="row">팀 공동 환경</th><td class="tech">Amazon EKS · Argo CD · CI/CD</td><td class="lv"><span class="who team">함께</span></td><td class="src">Mealplanning (설치·운영은 인프라 담당)</td></tr>
-      <tr class="cert"><th scope="row">자격</th><td class="tech">네트워크관리사 2급 · CKA</td><td class="lv"><span class="who me">보유</span><span class="who prep">준비</span></td><td class="src">네트워크관리사 2급 2026.06 취득 · CKA 준비 중</td></tr>
-    </tbody>
-  </table></div>
+<section class="sec sec-line" id="strengths" aria-labelledby="str-h"><div class="wrap">
+  <div class="sec-head"><div><p class="eyebrow"><span class="n">02</span>Strengths</p><h2 id="str-h">핵심 역량 3가지</h2></div><p class="sec-desc"><span class="ln">역량마다 맡을 수 있는 일과 근거를 함께 보여 드립니다.</span><span class="ln">근거를 누르면 원본 기록으로 이동합니다.</span></p></div>
+  <div class="strs">
+    <section class="card str" aria-labelledby="cap1">
+      <div><p class="str-n">01</p><h3 id="cap1">장애 원인을 좁히고 기록하기</h3></div>
+      <p class="str-task"><b>맡을 수 있는 일</b>장애 증상에서 원인 구간을 좁히고, 확인 순서를 문서로 남기는 일</p>
+      <ul>
+        <li><p>openssl로 인증서 SAN 목록을 확인해, DNS가 아닌 인증서 문제로 범위를 좁힌 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="#inc-https">인증서 사례<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
+        <li><p>화면부터 학습 데이터까지 구간별로 값을 대조해, session_id 누락 지점을 찾은 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="projects/mealplanning/#ev-flow">데이터 흐름 사례<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
+        <li><p>원인을 확정하지 못한 수집 실패를, 확인한 정황과 기각한 가설로 나눠 기록한 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="#inc-crawler">수집 실패 사례<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
+      </ul>
+    </section>
+    <section class="card str" aria-labelledby="cap2">
+      <div><p class="str-n">02</p><h3 id="cap2">AWS 리소스를 코드로 구성하기</h3></div>
+      <p class="str-task"><b>맡을 수 있는 일</b>AWS 리소스를 Terraform으로 작성하고, 트리거와 실패 경로를 정리하는 일</p>
+      <ul>
+        <li><p>Terraform 파일 13개로 AWS 서버리스 리소스 5종(Lambda·SQS·SNS·S3·EventBridge Scheduler)을 작성한 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="projects/mealplanning/#ev-svl">서버리스 이전<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
+        <li><p>검토 기준 5개로 AI 기능 12종을 판정해, 10종은 옮기고 2종은 근거와 함께 남긴 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="assets/evidence/mealplanning/serverless-judgment/source.html">판정표 원본<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
+        <li><p>kubeadm 멀티노드 클러스터에 Calico, Ingress, NetworkPolicy를 구성한 경험이 있습니다.</p><div class="str-ev"><span class="who lab">실습</span><a class="link" href="projects/kubernetes-lab/">Multi-node Lab<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
+      </ul>
+    </section>
+    <section class="card str" aria-labelledby="cap3">
+      <div><p class="str-n">03</p><h3 id="cap3">같은 기준으로 다시 측정하고 기록하기</h3></div>
+      <p class="str-task"><b>맡을 수 있는 일</b>변경 전후를 같은 기준으로 다시 측정하고, 결과와 한계를 함께 보고하는 일</p>
+      <ul>
+        <li><p>같은 275건을 다시 평가해, 응답 검증 통과 건수가 166건에서 247건으로 늘어난 것을 확인한 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="projects/mealplanning/#ev-guard">응답 검증 사례<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
+        <li><p>CI 설정에서 빠져 있던 서버리스 테스트 실행 경로를 찾아 보완한 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="projects/mealplanning/#a2-serverless">원본 기록<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
+        <li><p>Mealplanning 근거 문서 13건과 트러블슈팅 기록 6건을 공개한 경험이 있습니다.</p><div class="str-ev"><span class="who me">본인</span><a class="link" href="projects/mealplanning/#record">전체 기록<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></li>
+      </ul>
+    </section>
+  </div>
 </div></section>
 
 <section class="sec sec-alt sec-line" id="incidents" aria-labelledby="ts-h"><div class="wrap">
-  <div class="sec-head"><div><p class="eyebrow"><span class="n">04</span>Troubleshooting</p><h2 id="ts-h">트러블슈팅 기록</h2></div><p class="sec-desc"><span class="ln">증상, 원인 확인, 조치, 결과 순서로 보여 드립니다.</span><span class="ln">원인을 확정하지 못한 사례도 그대로 적습니다.</span></p></div>
+  <div class="sec-head"><div><p class="eyebrow"><span class="n">03</span>Troubleshooting</p><h2 id="ts-h">트러블슈팅 기록</h2></div><p class="sec-desc"><span class="ln">증상, 원인 확인, 조치, 결과 순서로 보여 드립니다.</span><span class="ln">원인을 확정하지 못한 사례도 그대로 적습니다.</span></p></div>
   <p class="ts-log" aria-label="기록 요약"><span class="ts-log-file">incidents.log</span><span>6건</span><span class="lv-ok">해결 3</span><span>사후 점검 1</span><span class="lv-warn">원인 미확정 1</span><span>판단 기록 1</span></p>
   <div class="ts-list">
-    <details class="ts incident" id="inc-https" open><summary><span class="ts-type status done"><i aria-hidden="true"></i>해결</span><span class="ts-title">HTTPS 인증서가 발급되지 않아 카카오톡에서 링크가 열리지 않던 문제</span><span class="ts-proj"><span class="ts-id">INC-01</span>geonu.site</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ts-body">
+    <details class="ts incident" id="inc-https"><summary><span class="ts-type status done"><i aria-hidden="true"></i>해결</span><span class="ts-title">HTTPS 인증서가 발급되지 않아 카카오톡에서 링크가 열리지 않던 문제</span><span class="ts-proj"><span class="ts-id">INC-01</span>geonu.site</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ts-body">
       <p class="ts-lead">인증서 SAN 목록을 확인해 DNS가 아닌 인증서 문제로 범위를 좁히고 해결한 경험이 있습니다.</p>
       <ol class="steps"><li><b>증상</b><p>카카오톡 인앱 브라우저에서 geonu.site 링크 차단</p></li><li><b>원인 확인</b><p>DNS 레코드는 정상, 인증서 SAN 목록에 geonu.site 없음</p></li><li><b>조치</b><p>GitHub Pages 커스텀 도메인 재등록으로 인증서 발급 재요청</p></li><li class="ok"><b>결과</b><p>HTTP/2 200 응답과 인증서 approved 상태 확인</p></li></ol>
       <details class="ts-more"><summary>확인 과정 자세히 보기<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ts-more-body">
@@ -201,7 +184,7 @@
       <div class="ts-meta"><span>기여 범위 · 발견·설정 변경·결과 확인: 본인 · 진단 명령 실행·분석 보조: AI 도구</span><ul class="stack" aria-label="사용 기술"><li>GitHub Pages</li><li>DNS</li><li>TLS</li></ul></div></div></details>
     <details class="ts incident" id="inc-sessionid"><summary><span class="ts-type status done"><i aria-hidden="true"></i>해결</span><span class="ts-title">추천 이벤트의 session_id가 비어 학습용 데이터가 만들어지지 않던 문제</span><span class="ts-proj"><span class="ts-id">INC-02</span>Mealplanning</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ts-body">
       <p class="ts-lead">화면부터 학습 데이터까지 값을 따라가 누락 지점을 찾고 고친 경험이 있습니다.</p>
-      <ol class="steps"><li><b>증상</b><p>추천 노출 기록은 쌓이지만 학습용 긍정 데이터 0건</p></li><li><b>원인 확인</b><p>조회한 44건의 session_id가 모두 비어 있음</p></li><li><b>조치</b><p>Frontend 요청 본문에서 값이 빠지던 지점을 찾아 전달 경로 수정</p></li><li class="ok"><b>결과</b><p>이후 쌓이는 데이터부터 노출과 행동이 다시 연결</p></li></ol>
+      <ol class="steps"><li><b>증상</b><p>추천 노출 기록은 쌓이지만 학습용 긍정 데이터 0건</p></li><li><b>원인 확인</b><p>조회한 44건의 session_id가 모두 비어 있음</p></li><li><b>조치</b><p>프런트엔드 요청 본문에서 값이 빠지던 지점을 찾아 전달 경로 수정</p></li><li class="ok"><b>결과</b><p>이후 쌓이는 데이터부터 노출과 행동이 다시 연결</p></li></ol>
       <details class="ts-more"><summary>확인 과정 자세히 보기<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ts-more-body">
         <h4>문제</h4><p>추천이 화면에 노출된 기록은 쌓이는데, 개인화 랭킹 학습에 필요한 긍정 label이 한 건도 만들어지지 않았습니다.</p>
         <h4>확인 순서</h4>
@@ -218,8 +201,8 @@
       </div></details>
       <div class="ts-meta"><span>기여 범위 · 발견·원인 분석·수정: 본인</span><ul class="stack" aria-label="사용 기술"><li>PostgreSQL</li><li>SQL</li><li>데이터 흐름</li></ul></div></div></details>
     <details class="ts incident" id="inc-guardrail"><summary><span class="ts-type status done"><i aria-hidden="true"></i>해결</span><span class="ts-title">정상 응답이 검증 단계에서 막혀 템플릿 답변으로 대체되던 문제</span><span class="ts-proj"><span class="ts-id">INC-03</span>Mealplanning</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ts-body">
-      <p class="ts-lead">막힌 케이스를 다시 분류해, 검증 로직이 사용자 질문을 근거로 보지 않던 점을 찾고 고친 경험이 있습니다.</p>
-      <ol class="steps"><li><b>증상</b><p>문제없는 응답이 검증 단계에서 막혀 템플릿 답변으로 대체</p></li><li><b>원인 확인</b><p>근거 범위에 사용자 질문과 한글 숫자 표현이 빠져 있음</p></li><li><b>조치</b><p>근거 문자열에 질문 원문과 숫자로 편 정규화 결과 추가</p></li><li class="ok"><b>결과</b><p>같은 275건에서 통과 166건 → 247건, 추가 LLM 호출 없음</p></li></ol>
+      <p class="ts-lead">막힌 케이스를 다시 분류해, 검증 로직이 사용자 질문을 근거로 보지 않던 점을 찾아 수정을 이끈 경험이 있습니다.</p>
+      <ol class="steps"><li><b>증상</b><p>문제없는 응답이 검증 단계에서 막혀 템플릿 답변으로 대체</p></li><li><b>원인 확인</b><p>근거 범위에 사용자 질문과 한글 숫자 표현이 빠져 있음</p></li><li><b>조치</b><p>근거 문자열에 질문 원문과 한글 숫자를 숫자로 바꾼 결과 추가</p></li><li class="ok"><b>결과</b><p>같은 275건에서 통과 166건 → 247건, 추가 LLM 호출 없음</p></li></ol>
       <details class="ts-more"><summary>확인 과정 자세히 보기<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="ts-more-body">
         <h4>문제</h4><p>응답 내용은 문제가 없는데 검증 단계에서 막히는 경우가 반복됐습니다. 막히면 템플릿 답변으로 대체되므로 사용자가 보는 답의 품질이 떨어졌습니다.</p>
         <h4>확인 순서</h4>
@@ -228,7 +211,7 @@
           <li>상당수가 환각이 아니라 <b>사용자가 질문에 쓴 재료와 금액을 그대로 되풀이한 것</b>이었고, 검증 로직이 그것을 근거 없는 내용으로 오판하고 있었습니다.</li>
         </ol>
         <h4>원인</h4><p>근거로 인정하는 범위에 <b>사용자 질문이 빠져 있었습니다.</b> 「8천원」 같은 한글 수사 표현도 숫자와 이어지지 않았습니다.</p>
-        <h4>조치</h4><p>근거 문자열에 사용자 질문 원문과 한글 수사를 숫자로 편 정규화 결과를 함께 넣도록 처리 방식을 바꿨습니다. 모델은 교체하지 않았습니다.</p>
+        <h4>조치</h4><p>근거 문자열에 사용자 질문 원문과 한글 수사를 숫자로 바꾼 정규화 결과를 함께 넣도록 처리 방식을 바꿨습니다. 모델은 교체하지 않았습니다.</p>
         <h4>결과</h4><p>같은 275건 평가 세트를 다시 돌려 통과가 <b>166건에서 247건</b>으로 늘었습니다(약 60% → 90%). 문자열 구성만 바꾼 변경이라 <b>LLM 호출은 늘지 않았습니다.</b></p>
         <p class="ts-note"><b>한계</b> — 근거로 인정하는 범위를 넓힌 만큼, 사용자가 잘못된 전제를 질문에 담으면 그것이 근거로 통과할 여지가 생깁니다. 수정 후에도 남은 실패는 모르는 것을 지어내는 유형에 몰려 있었습니다.</p>
         <div class="ts-links"><a class="link" href="assets/evidence/mealplanning/guardrail/source.html">실측 문서 보기<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="link" href="assets/evidence/mealplanning/guardrail/full.html">기록 전문 보기<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
@@ -259,8 +242,8 @@
         <h4>확인 순서</h4>
         <ol>
           <li>실패한 실행의 소요 시간 15.4초를 성분으로 나눴습니다. 대기 루프가 구조상 최소 15초를 차지하므로, 페이지를 여는 데 쓴 시간은 아무리 커도 <b>0.4초 미만</b>이었습니다.</li>
-          <li>정상일 때와 비교했습니다. 같은 클러스터의 정상 파드는 0.62초, 프로덕션과 같은 브라우저로 <b>로컬에서 35회</b> 재보니 전부 0.49~0.95초였습니다. 페이지가 무거워 그 아래로 내려갈 수 없는 구조였습니다.</li>
-          <li>총 소요가 정상 셸의 대기 루프 단독보다도 짧았습니다. 매 폴링마다 도는 요소 개수 조회가 훨씬 쌌다는 뜻이고, 곧 <b>받은 문서가 작았다</b>는 뜻입니다.</li>
+          <li>정상일 때와 비교했습니다. 같은 클러스터의 정상 파드는 0.62초, 프로덕션과 같은 브라우저로 <b>로컬에서 35회</b> 재보니 전부 0.49~0.95초였습니다. 페이지가 무거워 정상이라면 그보다 빨라지기 어렵습니다.</li>
+          <li>총 소요가 정상 셸의 대기 루프 단독보다도 짧았습니다. 매 폴링마다 도는 요소 개수 조회가 훨씬 쌌다는 뜻이고, <b>받은 문서가 평소보다 작았을 가능성</b>을 시사했습니다.</li>
         </ol>
         <h4>원인 범위</h4><p>그 시각 첫 요청이 받은 것이 평소의 카테고리 페이지가 아니라 <b>앱 번들이 붙지 않은 작은 문서</b>였다는 정황까지 좁혔습니다. 다만 <b>그 응답의 실제 HTTP 상태와 종류는 확보하지 못해</b> 무엇이었는지는 확정하지 않았습니다. 차단·오류 페이지가 유력한 후보였습니다. 네트워크 지연이나 파드 축출, DNS 재시작 같은 후보는 근거가 맞지 않아 기각 목록에 남겼습니다.</p>
         <h4>조치</h4><p>응답의 종류를 구분하지 못하게 한 <b>관측 공백은 코드에 있었습니다.</b> 페이지 이동의 응답 객체를 버려서 HTTP 상태코드가 로그에 남지 않았고(브라우저 자동화는 4xx·5xx에 예외를 던지지 않습니다), 렌더 대기 함수의 반환값도 버려서 「한 장도 렌더되지 않음」과 「렌더는 됐지만 파싱이 0」이 구분되지 않았습니다. 이 관측 공백을 조사 기록으로 남겼습니다.</p>
@@ -276,7 +259,7 @@
         <h4>확인 순서</h4>
         <ol>
           <li>무엇을 성공으로 셀지부터 정했습니다. <b>합계 정합</b> — 추출한 품목 금액의 합이 영수증 총액과 맞으면 성공입니다.</li>
-          <li>같은 지표의 한계도 같이 적었습니다. 품목이 한두 개인 영수증은 쉽게 통과하고, 총액을 못 읽으면 품목이 맞아도 실패로 처리됩니다. 즉 <b>절대 수치는 무르고 방식 간 상대 순위만 견고</b>합니다.</li>
+          <li>같은 지표의 한계도 같이 적었습니다. 품목이 한두 개인 영수증은 쉽게 통과하고, 총액을 못 읽으면 품목이 맞아도 실패로 처리됩니다. 그래서 이 지표만으로 <b>전체 인식 정확도를 판단하지 않고</b>, 같은 조건에서 방식끼리 비교하는 데에만 씁니다.</li>
           <li>실물 13장을 5개 방식에 통과시켰습니다. 다운스케일, 재시도, 타임아웃을 모두 고정했습니다.</li>
         </ol>
         <h4>결과</h4><p>경량 비전 모델이 <b>합계 정합 기준 13장 중 12장</b>이었고 실행 오류가 없었습니다. 추론 옵션을 켠 상위 모델은 더 낫지 않으면서 비용이 수십 배였고, 로컬 엔진은 구조화 출력 자체가 나오지 않았습니다.</p>
@@ -288,18 +271,36 @@
   </div>
 </div></section>
 
-<section class="sec sec-line" id="collab" aria-labelledby="collab-h"><div class="wrap">
+<section class="sec sec-line" id="focus" aria-labelledby="skills-h"><div class="wrap">
+  <div class="sec-head"><div><p class="eyebrow"><span class="n">04</span>Skills</p><h2 id="skills-h">기술과 근거 수준</h2></div><p class="sec-desc"><span class="ln">기술마다 어디서, 누가 다뤘는지 함께 적었습니다.</span><span class="ln">팀이 함께 정한 환경은 설치·운영 담당과 나눠 표시합니다.</span></p></div>
+  <ul class="legend" aria-label="표시 기준"><li><span class="who me">본인</span>직접 작성·수행</li><li><span class="who lab">실습</span>개인 실습</li><li><span class="who team">함께</span>팀이 함께 정하고 그 위에서 개발</li><li><span class="who prep">준비</span>준비 중</li></ul>
+  <div class="kw-wrap"><table class="kw">
+    <thead><tr><th scope="col">영역</th><th scope="col">기술</th><th scope="col">수준</th><th scope="col">어디서</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">AWS</th><td class="tech">AWS Lambda · Amazon SQS · Amazon SNS · Amazon S3 · Amazon EventBridge Scheduler</td><td class="lv"><span class="who me">본인</span></td><td class="src">Mealplanning 서버리스 이전</td></tr>
+      <tr><th scope="row">IaC</th><td class="tech">Terraform</td><td class="lv"><span class="who me">본인</span></td><td class="src">Mealplanning 서버리스 이전 · .tf 파일 13개</td></tr>
+      <tr><th scope="row">Kubernetes</th><td class="tech">kubeadm · Calico · MetalLB · Ingress · NetworkPolicy · PV/PVC · RBAC · HPA·KEDA</td><td class="lv"><span class="who lab">실습</span></td><td class="src">Multi-node Lab</td></tr>
+      <tr><th scope="row">Linux·네트워크</th><td class="tech">Routing·NAT · DNS · TLS · Firewall · HAProxy · WireGuard</td><td class="lv"><span class="who lab">실습</span><span class="who me">본인</span></td><td class="src">Infrastructure Lab Series(AI Agent 활용) · geonu.site 인증서 진단</td></tr>
+      <tr><th scope="row">관측</th><td class="tech">Kubernetes Event · 로그 · Prometheus · Grafana</td><td class="lv"><span class="who lab">실습</span></td><td class="src">Multi-node Lab · 트러블슈팅 기록</td></tr>
+      <tr><th scope="row">데이터·AI</th><td class="tech">PostgreSQL · Python · LLM 평가</td><td class="lv"><span class="who me">본인</span></td><td class="src">Mealplanning AI 기능</td></tr>
+      <tr><th scope="row">팀 공동 환경</th><td class="tech">Amazon EKS · Argo CD · CI/CD</td><td class="lv"><span class="who team">함께</span></td><td class="src">Mealplanning (설치·운영은 인프라 담당)</td></tr>
+      <tr class="cert"><th scope="row">자격</th><td class="tech">네트워크관리사 2급 · CKA</td><td class="lv"><span class="who me">보유</span><span class="who prep">준비</span></td><td class="src">네트워크관리사 2급 2026.06 취득 · CKA 준비 중</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section class="sec sec-alt sec-line" id="collab" aria-labelledby="collab-h"><div class="wrap">
   <div class="sec-head"><div><p class="eyebrow"><span class="n">05</span>Collaboration</p><h2 id="collab-h">협업과 문서화</h2></div><p class="sec-desc"><span class="ln">함께 일한 방식과 남긴 기록을 모았습니다.</span></p></div>
   <div class="collab">
     <section class="card col" aria-labelledby="co1"><p class="col-k">리더십</p><h3 id="co1">반장 활동</h3><p>Cloud DX Academy 6기에서 반장을 맡은 경험이 있습니다.</p><p>소모임과 회식을 기획해 서먹했던 초기 분위기를 바꾼 경험이 있습니다.</p><p>팀 프로젝트에서 구성원의 의견을 조율한 경험이 있습니다.</p></section>
-    <section class="card col" aria-labelledby="co2"><p class="col-k">팀워크</p><h3 id="co2">5인 팀 역할 분담</h3><p>Amazon EKS·Argo CD 환경의 구성 방향과 도구를 팀 회의에서 함께 비교·논의해 정한 경험이 있습니다.</p><p>AI/ML을 맡아, 그 환경 위에서 서비스를 개발한 경험이 있습니다.</p><p>모델 별칭이 바뀌어 기능이 실패했을 때, 같은 위험이 있는 6개 컴포넌트까지 수정 범위를 넓힌 경험이 있습니다.</p><a class="link" href="projects/mealplanning/#d2-versionpin">변경 근거 보기<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></section>
+    <section class="card col" aria-labelledby="co2"><p class="col-k">팀워크</p><h3 id="co2">5인 팀 역할 분담</h3><p>Amazon EKS·Argo CD 환경의 구성 방향과 도구를 팀 회의에서 함께 비교·논의해 정한 경험이 있습니다.</p><p>팀 회의에서 꼭 넣기로 정한 AI 기능을 맡아, PoC부터 실제 구현과 트러블슈팅까지 대부분 혼자 진행한 경험이 있습니다.</p><p>모델 별칭이 바뀌어 기능이 실패했을 때, 같은 위험이 있는 6개 컴포넌트까지 수정 범위를 넓힌 경험이 있습니다.</p><a class="link" href="projects/mealplanning/#d2-versionpin">변경 근거 보기<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></section>
     <section class="card col" aria-labelledby="co3"><p class="col-k">문서화</p><h3 id="co3">기록과 공유</h3><p>판단 과정과 실측 결과를 근거 문서 13건으로 공개한 경험이 있습니다.</p><p>결과마다 한계와 기여 범위를 함께 적었습니다.</p><a class="link" href="projects/mealplanning/#record">근거 문서 보기<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></section>
   </div>
 </div></section>
 
-<section class="sec sec-alt sec-line" id="about" aria-labelledby="about-h"><div class="wrap about">
+<section class="sec sec-line" id="about" aria-labelledby="about-h"><div class="wrap about">
   <div class="about-copy"><p class="eyebrow"><span class="n">06</span>Profile</p><h2 id="about-h">학력·교육·자격</h2>
-    <div class="prose"><p><span class="ln">클라우드 엔지니어, DevOps, 주니어 MLOps 직무로 지원하고 있습니다.</span><span class="ln">Cloud DX Academy 6기 최종 프로젝트에서 AI/ML을 맡은 경험이 있습니다.</span><span class="ln">과정을 마친 뒤에는 CKA를 준비하며 Kubernetes 운영 기초를 다지고 있습니다.</span><span class="ln">AI로 운영을 개선하는 AIOps를 다음 성장 방향으로 삼고 있습니다.</span></p></div>
+    <div class="prose"><p><span class="ln">클라우드 엔지니어, DevOps, 주니어 MLOps 직무로 지원하고 있습니다.</span><span class="ln">Cloud DX Academy 6기 최종 프로젝트에서 핵심 AI 기능을 PoC부터 구현까지 맡은 경험이 있습니다.</span><span class="ln">과정을 마친 뒤에는 CKA를 준비하며 Kubernetes 운영 기초를 다지고 있습니다.</span><span class="ln">AI로 운영을 개선하는 AIOps를 다음 성장 방향으로 삼고 있습니다.</span></p></div>
   </div>
   <dl class="edu" aria-label="학력·교육·자격">
     <div><dt>학력</dt><dd>한성대학교 컴퓨터공학부 졸업<small>2016 – 2026.02</small></dd></div>
@@ -310,7 +311,7 @@
   </dl>
 </div></section>
 
-<section class="sec sec-line" id="contact" aria-labelledby="contact-h"><div class="wrap">
+<section class="sec sec-alt sec-line" id="contact" aria-labelledby="contact-h"><div class="wrap">
   <div class="card contact"><div><p class="eyebrow"><span class="n">07</span>Contact</p><h2 id="contact-h">채용 관련 연락은 이메일로 받습니다.</h2><p>GitHub와 각 사례 상세에서 더 자세한 기록을 볼 수 있습니다.</p>
     <div class="mailrow"><a href="mailto:goonbam009@gmail.com">goonbam009@gmail.com</a><button class="copy-btn" type="button" data-copy="goonbam009@gmail.com" aria-label="이메일 주소 복사"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg><span class="lbl">복사</span></button><span class="sr copy-status" role="status"></span></div>
     <ul class="contact-links trust"><li><a class="link" href="https://github.com/ge-onu" target="_blank" rel="noopener noreferrer"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.3 11.3 0 0 0-3.6 22c.57.1.77-.25.77-.55v-2.12c-3.15.68-3.82-1.34-3.82-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16A10.9 10.9 0 0 1 12 7.08c.97 0 1.94.13 2.85.38 2.17-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.03.77 2.08v3.14c0 .3.21.66.78.55A11.3 11.3 0 0 0 12 .7Z"/></svg>github.com/ge-onu<span class="sr">(새 탭)</span></a></li><li><a class="link" href="https://www.linkedin.com/in/geonwooleekr" target="_blank" rel="noopener noreferrer"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>LinkedIn<span class="sr">(새 탭)</span></a></li></ul></div>
@@ -323,7 +324,7 @@
 </main>
 <footer class="site-foot"><div class="wrap"><span>© 2026 이건우 · Geonwoo Lee</span><ul aria-label="연락처"><li><a href="mailto:goonbam009@gmail.com">goonbam009@gmail.com</a></li><li><a href="https://github.com/ge-onu" target="_blank" rel="noopener noreferrer">GitHub<span class="sr">(새 탭)</span></a></li><li><a href="https://www.linkedin.com/in/geonwooleekr" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr">(새 탭)</span></a></li></ul></div></footer>
 <script src="project-tabs.js?v=20260914-1" defer></script>
-<script src="portfolio-ui.js?v=20261012-a3" defer></script>
-<script src="site.js?v=20261012-a3" defer></script>
+<script src="portfolio-ui.js?v=20261012-a3e" defer></script>
+<script src="site.js?v=20261012-a3e" defer></script>
 </body>
 </html>

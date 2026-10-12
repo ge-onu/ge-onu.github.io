@@ -562,7 +562,7 @@ figure.viz{margin-left:0;margin-right:0}
 .deck-layer.on{z-index:1}
 video.deck-layer{background:#111}
 .deck-nav{position:absolute;top:50%;z-index:3;width:44px;height:44px;margin-top:-22px;border-radius:50%;border:1px solid rgba(17,17,40,.08);background:rgba(255,255,255,.88);color:#16161d;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px -8px rgba(17,17,40,.35);opacity:0;transition:opacity .2s,transform .2s;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.deck-nav.prev{left:14px}.deck-nav.next{right:14px}
+.deck-prev{left:14px}.deck-next{right:14px}
 .deck-nav .ic{width:20px;height:20px}
 .deck-stage:hover .deck-nav,.deck-stage:focus-within .deck-nav{opacity:1}
 .deck-nav:hover{transform:scale(1.06)}
@@ -624,3 +624,22 @@ video.deck-layer{background:#111}
 .steps b{font-family:var(--font);font-size:12.5px;letter-spacing:-.005em}
 .cover-tags .t{white-space:nowrap}
 .cover-tags.ko{font-family:var(--font);font-size:13px;letter-spacing:-.01em}
+/* ===== Mealplanning 맡은 일 ===== */
+.sub-ai{margin:10px 0 0;font-size:14.5px;line-height:1.7;color:var(--text)}
+.ai-flow{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;counter-reset:a}
+.ai-flow li{position:relative;padding:14px 14px 13px;border:1px solid var(--line);border-radius:14px;background:var(--surface);display:flex;flex-direction:column;gap:4px}
+.ai-flow li:not(:last-child)::after{content:"";position:absolute;right:-8px;top:50%;width:6px;height:6px;border-top:1.5px solid var(--faint);border-right:1.5px solid var(--faint);transform:translateY(-50%) rotate(45deg)}
+.ai-flow li.team{background:var(--bg-2);border-style:dashed}
+.ai-flow b{font-size:15px;letter-spacing:-.02em}
+.ai-flow small{font-size:12.5px;color:var(--muted);line-height:1.5}
+.ai-flow .who{font-size:11.5px}
+.ai-feats{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.ai-feats li{padding:14px 16px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.ai-feats b{font-size:14.5px}
+.ai-feats span{font-size:13.5px;color:var(--text-2);line-height:1.6}
+@media (max-width:760px){.ai-flow{grid-template-columns:repeat(2,minmax(0,1fr))}.ai-flow li::after{display:none}.ai-feats{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.str-ev .link,.ts-links .link,.links .link,.chead-links .link{display:inline-flex;align-items:center;min-height:36px}.crumb a{display:inline-flex;align-items:center;min-height:36px}}
+.sum-metrics b,.mgrid b,.kpis .k-v{white-space:nowrap}
+@media (max-width:640px){.cover-line{font-size:18px;line-height:1.4}.cover-copy{max-width:58%}.cover img{max-width:46%}.case-card.flag .cover{min-height:180px}.cover-tags{font-size:11.5px}}
+@media (max-width:360px){.cover-line{font-size:16.5px}.cover img{max-width:42%}}
+@media (max-width:400px){.mgrid b{font-size:clamp(20px,6.4vw,26px)}.mgrid b .arr{margin:0 1px}.sum-metrics b{font-size:clamp(20px,6.4vw,26px)}}
