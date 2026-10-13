@@ -63,18 +63,5 @@
   ],
   "art": "/assets/covers/rag.webp",
   "contain": true
- },
- "didim": {
-  "k": "개인 프로젝트 · 웹앱",
-  "t": "디딤돌",
-  "s": "혼자 쓰던 보드를 계정마다 자료가 나뉘는 웹앱으로 옮기고, 옛 자료 16종의 수를 맞춰 검증했습니다.",
-  "tags": [
-   "didimdol.site",
-   "계정별 자료 분리",
-   "옛 자료 16종 검증"
-  ],
-  "art": "/assets/didim-logo.svg",
-  "contain": true,
-  "artCss": "transform:translate(-24%,-6%) scale(1.5)"
  }
 }
