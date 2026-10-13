@@ -679,3 +679,6 @@ video.deck-layer{background:#111}
 .try-geonu img{width:20px;height:20px;border-radius:6px;object-fit:cover}
 html:not(:has(.chat-launcher)) .try-geonu{display:none}
 .chead-links .try-geonu{margin-right:14px}
+
+/* 디딤돌 사례 제목의 조약돌 표시 */
+.chead h1 .didim-hero-mark{width:.82em;height:.82em;vertical-align:-.08em;margin-right:.22em}
