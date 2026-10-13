@@ -170,5 +170,12 @@
   "question": "포트폴리오에 있는 프로젝트는 뭐예요?",
   "claim_id": "C-PROJECTS",
   "expect": "answer"
+ },
+ {
+  "qid": "D25",
+  "type": "negative",
+  "question": "CKA 연습 환경은 직접 만들었나요?",
+  "claim_id": "C-CERT",
+  "expect": "answer"
  }
 ]

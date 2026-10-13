@@ -69,7 +69,8 @@ NEW = [
         'verified': '네트워크관리사 2급을 2026년 6월에 취득했습니다. CKA는 준비 중입니다.',
         'not_verified': 'CKA는 아직 취득하지 않았습니다. AWS 자격증은 공개 자료에 없습니다.',
         'forbidden': ['CKA 보유', 'CKA 합격', 'CKA 취득', 'AWS 자격증 보유'],
-        'ownership': '-',
+        # 10/14 라이브 확인: 생성 답이 "VM에 클러스터를 구성해 85문항 환경을 만들었다"고 써서 구성 주체가 흐려졌다. 상세 페이지 기준으로 적는다.
+        'ownership': 'CKA 문항 풀이·파괴형 복구 연습 = 본인 · 연습용 VM 클러스터와 85문항 연습 환경 구성 = AI Agent',
         # CKA 준비 기록(Kubernetes Lab 상세)도 근거로 붙인다. 취득 주장은 여전히 금지.
         'evidence_chunk_ids': ['index.html::about', 'index.html::focus', 'projects/kubernetes-lab/index.html::cka-prep'],
         'evidence_urls': ['/#about', '/projects/kubernetes-lab/#cka-prep'],
