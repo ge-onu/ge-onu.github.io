@@ -8,10 +8,15 @@
  const $=s=>root.querySelector(s);
  const stage=$('.deck-stage'),frame=$('.deck-frame'),count=$('.deck-count'),title=$('.deck-title'),steps=$('.deck-steps'),bar=$('.deck-progress i'),play=$('.deck-play'),tabs=[...root.querySelectorAll('.deck-chapters button')];
  const src=p=>`${base}p${String(p).padStart(3,'0')}.webp`;
+ const A=data.anim||{};const pad=p=>String(p).padStart(3,'0');
  const total=S.length;let i=0,j=0,timer=null,busy=false;
+ // Canva 요소 애니메이션: 앞으로 넘길 때만 짧은 영상으로 재생하고, 끝나면 선명한 이미지로 바꾼다.
+ const vids=new Map();
+ const preVid=p=>{if(!A[p]||reduce.matches)return null;if(!vids.has(p)){const v=document.createElement('video');v.className='deck-layer deck-anim';v.muted=true;v.defaultMuted=true;v.setAttribute('muted','');v.playsInline=true;v.preload='auto';v.setAttribute('aria-hidden','true');v.src=`${base}a${pad(p)}.mp4`;v.load();vids.set(p,v);}return vids.get(p);};
+ const ready=v=>v.readyState>=3?Promise.resolve(true):new Promise(r=>{const t=setTimeout(()=>r(false),700);v.addEventListener('canplay',()=>{clearTimeout(t);r(true);},{once:true});v.addEventListener('error',()=>{clearTimeout(t);r(false);},{once:true});});
  const cache=new Map();
  const load=p=>{if(!cache.has(p)){const im=new Image();im.decoding='async';im.src=src(p);cache.set(p,im.decode?im.decode().catch(()=>{}).then(()=>im):Promise.resolve(im));}return cache.get(p);};
- const warm=()=>{[i+1,i+2,i-1].forEach(k=>{if(S[k])S[k].p.forEach((p,n)=>{if(n<3||k===i+1)load(p);});});S[i].p.forEach(load);};
+ const warm=()=>{[i+1,i+2,i-1].forEach(k=>{if(S[k])S[k].p.forEach((p,n)=>{if(n<3||k===i+1)load(p);});});S[i].p.forEach(load);[S[i],S[i+1]].forEach(s=>s&&s.p.forEach(preVid));};
 
  function layer(kind){const el=document.createElement(kind);el.className='deck-layer';if(kind==='img'){el.alt='';el.draggable=false;}return el;}
  function current(){return frame.querySelector('.deck-layer.on');}
@@ -19,11 +24,16 @@
   if(busy)return;busy=true;
   const s=S[nextI],p=s.p[nextJ],isVideo=s.v&&nextJ===s.p.length-1;
   await load(p);
-  const el=layer(isVideo?'video':'img');
+  let anim=!isVideo&&(mode==='next'||mode==='step')&&preVid(p);
+  if(anim&&!(await ready(anim))){vids.delete(p);anim=null;}
+  const el=anim||layer(isVideo?'video':'img');
+  if(anim){vids.delete(p);el.currentTime=0;const alt=`${s.t}${s.p.length>1?` (${nextJ+1}/${s.p.length}단계)`:''}`;
+   const settle=()=>{if(!el.isConnected)return;const im=layer('img');im.src=src(p);im.alt=alt;im.classList.add('on');el.after(im);setTimeout(()=>el.remove(),60);};
+   el.addEventListener('ended',settle,{once:true});el.addEventListener('error',settle,{once:true});}
   if(isVideo){Object.assign(el,{src:base+s.v,poster:src(p),muted:true,playsInline:true,controls:true,preload:'metadata'});el.setAttribute('aria-label',s.t);el.addEventListener('ended',()=>{if(timer)advance();});}
-  else{el.src=src(p);el.alt=`${s.t}${s.p.length>1?` (${nextJ+1}/${s.p.length}단계)`:''}`;}
+  else if(!anim){el.src=src(p);el.alt=`${s.t}${s.p.length>1?` (${nextJ+1}/${s.p.length}단계)`:''}`;}
   const old=current();
-  if(old&&old.tagName==='VIDEO')old.pause();
+  if(old&&old.tagName==='VIDEO')old.pause();frame.querySelectorAll('.deck-layer:not(.on)').forEach(x=>{if(x!==old)x.remove();});
   el.classList.add('on');
   const quick=reduce.matches||!old||mode==='init';
   if(!quick){el.classList.add(mode==='step'?'enter-fade':mode==='back'?'enter-left':'enter-right');}
@@ -32,6 +42,7 @@
   if(old){old.classList.remove('on');old.classList.add(mode==='step'?'leave-fade':mode==='back'?'leave-right':'leave-left');setTimeout(()=>old.remove(),quick?0:560);}
   i=nextI;j=nextJ;render();warm();
   if(isVideo&&root.dataset.visible==='1')el.play().catch(()=>{});
+  if(anim)el.play().catch(()=>el.dispatchEvent(new Event('ended')));
   setTimeout(()=>{busy=false;},quick?0:mode==='step'?260:380);
  }
  function render(){
@@ -44,7 +55,7 @@
  }
  function advance(){const s=S[i];if(j<s.p.length-1)return show(i,j+1,'step');if(i<total-1)return show(i+1,0,'next');stop();}
  function back(){if(j>0)return show(i,j-1,'step');if(i>0)return show(i-1,S[i-1].p.length-1,'back');}
- function delay(){const s=S[i];if(s.v&&j===s.p.length-1)return null;return s.p.length>1&&j<s.p.length-1?1500:3600;}
+ function delay(){const s=S[i];if(s.v&&j===s.p.length-1)return null;const extra=(A[s.p[j]]||0)*1000;return (s.p.length>1&&j<s.p.length-1?1500:3600)+extra;}
  function tick(){clearTimeout(timer);const d=delay();if(d===null){timer=true;return;}timer=setTimeout(async()=>{await advance();if(timer)tick();},d);}
  function start(){play.setAttribute('aria-pressed','true');play.querySelector('.lbl').textContent='멈춤';tick();}
  function stop(){clearTimeout(timer);timer=null;play.setAttribute('aria-pressed','false');play.querySelector('.lbl').textContent='자동 재생';}

@@ -650,3 +650,9 @@ video.deck-layer{background:#111}
 @media (max-width:360px){.mailrow{padding-left:12px;gap:8px}.mailrow a{font-size:14px;letter-spacing:-.02em}.mailrow .copy-btn{padding:0 10px}}
 @media (max-width:360px){.mailrow .copy-btn .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.mailrow .copy-btn{width:36px;padding:0;justify-content:center}.mailrow a{font-size:15px}}
 @media (max-width:360px){.card.contact{padding-left:16px;padding-right:16px}.contact .mailrow{padding-left:10px}.contact .mailrow a{font-size:14px;letter-spacing:-.02em}}
+/* 판단 근거(왜) 단계 */
+.star4.has-why{grid-template-columns:repeat(2,minmax(0,1fr))}
+.star4 .why,.prr .why{grid-column:1/-1;background:color-mix(in srgb,var(--accent-soft) 70%,transparent)}
+.star4 .why dd,.prr .why dd{color:var(--text)}
+.prr.star .why dt,.prr .why dt{color:var(--accent-ink)}
+@media (max-width:760px){.star4.has-why{grid-template-columns:minmax(0,1fr)}}
