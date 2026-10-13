@@ -65,7 +65,9 @@
   if(local.length){
    const secs=local.map(a=>document.querySelector(a.getAttribute('href')));
    let tick=false;
-   const spy=()=>{tick=false;const line=(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height'))||68)+innerHeight*.25;
+   const spy=()=>{tick=false;
+    // 메뉴로 미끄러지는 동안에는 지나가는 구역 대신 목적지를 바로 표시한다.
+    if(window.__navGlideId){local.forEach(a=>{if(a.getAttribute('href')==='#'+window.__navGlideId)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});syncPill();return;}const line=(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height'))||68)+innerHeight*.25;
     let cur=-1;secs.forEach((s,k)=>{if(s&&s.getBoundingClientRect().top<=line)cur=k;});
     if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)cur=secs.length-1;
     local.forEach((a,k)=>{if(k===cur)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
@@ -164,4 +166,37 @@
  if(location.hostname!=='geonu.site')return;
  const s=document.createElement('script');s.defer=true;s.src='https://static.cloudflareinsights.com/beacon.min.js';
  s.setAttribute('data-cf-beacon','{"token": "516bf72bf17841ff82231f58536e6c77"}');document.head.append(s);
+})();
+
+/* 메뉴·목차로 이동할 때: 끊김 없이 한 번에 미끄러지듯 이동한다(2026-10-14).
+ * 지나가는 구역의 떠오르기 효과는 미리 끝내고, 메뉴 표시는 목적지로 바로 옮긴다. 사용자가 휠·터치를 하면 바로 멈춘다. */
+(() => {
+ const root=document.documentElement;
+ const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+ const pad=()=>(parseFloat(getComputedStyle(root).getPropertyValue('--header-height'))||68)+20;
+ let raf=null;
+ const stop=()=>{if(raf){cancelAnimationFrame(raf);raf=null;}window.__navGlideId=null;root.style.scrollBehavior='';};
+ function glide(el,id){
+  stop();
+  const start=scrollY,max=root.scrollHeight-innerHeight;
+  const target=Math.max(0,Math.min(max,Math.round(el.getBoundingClientRect().top+scrollY-pad())));
+  const lo=Math.min(start,target)-innerHeight,hi=Math.max(start,target)+innerHeight*2;
+  document.querySelectorAll('.rv').forEach(x=>{const y=x.getBoundingClientRect().top+scrollY;if(y>lo&&y<hi){x.classList.remove('rv','in');x.style.removeProperty('--rv-d');}});
+  window.__navGlideId=id;dispatchEvent(new Event('scroll'));
+  const dist=Math.abs(target-start);
+  history.pushState(null,'','#'+id);
+  if(dist<2){stop();return;}
+  const dur=Math.min(900,360+dist*.11),t0=performance.now();
+  root.style.scrollBehavior='auto';
+  const step=t=>{const k=Math.min(1,(t-t0)/dur);scrollTo(0,start+(target-start)*ease(k));if(k<1)raf=requestAnimationFrame(step);else{raf=null;window.__navGlideId=null;root.style.scrollBehavior='';dispatchEvent(new Event('scroll'));}};
+  raf=requestAnimationFrame(step);
+ }
+ document.addEventListener('click',e=>{
+  const a=e.target.closest('.hdr-nav a[href^="#"], .toc a[href^="#"], a.wm[href^="#"]');
+  if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+  const id=decodeURIComponent(a.getAttribute('href').slice(1));const el=document.getElementById(id);if(!el)return;
+  e.preventDefault();glide(el,id);a.blur();
+ });
+ ['wheel','touchstart'].forEach(ev=>addEventListener(ev,()=>{if(raf)stop();},{passive:true}));
+ addEventListener('keydown',e=>{if(raf&&['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '].includes(e.key))stop();});
 })();
