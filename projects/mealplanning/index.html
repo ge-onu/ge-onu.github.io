@@ -22,13 +22,13 @@
   <title>Mealplanning 사례 | 이건우</title>
   <link rel="icon" type="image/svg+xml" href="/assets/images/home-icon.svg">
   <link rel="preload" href="/assets/fonts/portfolio-sans-subset.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/site.css?v=20261013-a3i">
-  <link rel="stylesheet" href="/portfolio.css?v=20261013-a3i">
-  <link rel="stylesheet" href="/legacy-pages.css?v=20261013-a3i">
-  <link rel="stylesheet" href="/contact-chat.css?v=20261013-a3i">
-  <script src="/theme.js?v=20261013-a3i"></script>
+  <link rel="stylesheet" href="/site.css?v=20261013-a3j">
+  <link rel="stylesheet" href="/portfolio.css?v=20261013-a3j">
+  <link rel="stylesheet" href="/legacy-pages.css?v=20261013-a3j">
+  <link rel="stylesheet" href="/contact-chat.css?v=20261013-a3j">
+  <script src="/theme.js?v=20261013-a3j"></script>
   <script src="/contact-config.js?v=wsl-1" defer></script>
-  <script src="/contact-chat.js?v=20261013-a3i" defer></script>
+  <script src="/contact-chat.js?v=20261013-a3j" defer></script>
 </head>
 <body class="case-page">
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -73,14 +73,14 @@
 
       <section class="blk" id="ai-role" aria-labelledby="ai-h"><p class="num">맡은 일</p><h2 id="ai-h">핵심 기능은 모두 AI 기능이었습니다</h2>
         <div class="prose"><p><span class="ln">유튜브 레시피 추출, 영수증 OCR, 레시피별 재료 최저가 연결, RAG 챗봇은 모두 AI가 있어야 동작하는 기능이었습니다.</span><span class="ln">팀 회의에서 꼭 넣기로 정한 이 기능들의 PoC, 구현 방안, 실제 구현, 트러블슈팅을 대부분 혼자 맡은 경험이 있습니다.</span></p></div>
-        <ol class="ai-flow" aria-label="AI 기능을 맡은 순서"><li class="team"><span class="who team">함께</span><b>팀 회의</b><small>꼭 넣을 기능 모으기</small></li><li><span class="who me">본인</span><b>PoC</b><small>개념 검증으로 가능성 확인</small></li><li><span class="who me">본인</span><b>구현 방안</b><small>모델과 처리 경로 결정</small></li><li><span class="who me">본인</span><b>실제 구현</b><small>서비스 코드 작성</small></li><li><span class="who me">본인</span><b>트러블슈팅</b><small>오탐·누락 수정</small></li></ol>
+        <ol class="ai-flow" aria-label="AI 기능을 맡은 순서"><li class="team"><span class="who team">팀 전원</span><b>팀 회의</b><small>꼭 넣을 기능 모으기</small></li><li><span class="who me">전담</span><b>PoC</b><small>개념 검증으로 가능성 확인</small></li><li><span class="who me">전담</span><b>구현 방안</b><small>모델과 처리 경로 결정</small></li><li><span class="who me">전담</span><b>실제 구현</b><small>서비스 코드 작성</small></li><li><span class="who me">전담</span><b>트러블슈팅</b><small>오탐·누락 수정</small></li></ol>
         <ul class="ai-feats" aria-label="핵심 AI 기능"><li><b>유튜브 레시피 추출</b><span>영상에서 재료와 조리 순서를 뽑아 레시피북에 저장</span></li><li><b>영수증 OCR</b><span>영수증 사진에서 식재료를 읽어 냉장고에 자동 추가</span></li><li><b>재료 최저가 연결</b><span>레시피 재료를 표준 품목에 맞춰 가격과 연결</span></li><li><b>RAG 챗봇</b><span>근거를 찾아 답하고, 4단계 가드레일로 범위 밖 답변을 막음</span></li></ul>
       </section>
 
-      <section class="blk" id="boundary" aria-labelledby="b-h"><p class="num">기여 범위</p><h2 id="b-h">제가 한 일과 함께 한 일</h2>
+      <section class="blk" id="boundary" aria-labelledby="b-h"><p class="num">기여 범위</p><h2 id="b-h">제가 전담한 일과 팀이 함께 한 일</h2>
         <div class="bound">
-          <section class="me" aria-labelledby="b-me"><h3 id="b-me" class="who me">본인</h3><ul><li>팀 회의에서 정한 핵심 AI 기능의 PoC·구현 방안·실제 구현·트러블슈팅 (대부분 단독)</li><li>AI 기능 서버리스 전환 검토, Lambda 구현과 Terraform 작성</li><li>응답 검증 오탐 분석과 근거 범위 수정 결정</li><li>LLM 15종 비교 기준 정의와 기능별 모델 선정</li><li>추천 이벤트 session_id 누락 확인과 수정</li><li>영수증 OCR·YouTube 레시피 추출·챗봇 응답 경로 서비스 코드</li></ul></section>
-          <section aria-labelledby="b-team"><h3 id="b-team" class="who team">함께</h3><ul><li>꼭 넣을 기능을 정한 팀 회의</li><li>Amazon EKS·Argo CD 실행 환경의 구성 방향과 도구 비교·논의</li><li>CI/CD 파이프라인과 Prometheus·Grafana 관측 환경 선택</li><li>서비스 기획과 공통 기능 구현</li><li>설치·운영 실무는 역할 분담에 따라 인프라 담당</li></ul></section>
+          <section class="me" aria-labelledby="b-me"><h3 id="b-me" class="who me">전담</h3><ul><li>팀 회의에서 정한 핵심 AI 기능의 PoC·구현 방안·실제 구현·트러블슈팅 (대부분 단독)</li><li>AI 기능 서버리스 전환 검토, Lambda 구현과 Terraform 작성</li><li>응답 검증 오탐 분석과 근거 범위 수정 결정</li><li>LLM 15종 비교 기준 정의와 기능별 모델 선정</li><li>추천 이벤트 session_id 누락 확인과 수정</li><li>영수증 OCR·YouTube 레시피 추출·챗봇 응답 경로 서비스 코드</li></ul></section>
+          <section aria-labelledby="b-team"><h3 id="b-team" class="who team">팀 전원</h3><ul><li>꼭 넣을 기능을 정한 팀 회의</li><li>서비스 기획과 공통 기능 구현</li></ul><h3 id="b-co" class="who team">공동 설계 · 담당자 구현</h3><ul><li>Amazon EKS·Argo CD 실행 환경의 구성 방향과 도구 비교·논의</li><li>CI/CD 파이프라인과 Prometheus·Grafana 관측 환경 선택</li><li>구현·운영은 역할 분담에 따라 인프라 담당 팀원</li></ul></section>
           <section aria-labelledby="b-ai"><h3 id="b-ai" class="who lab">AI 도구</h3><ul><li>일부 스크립트 작성과 반복 실행에 활용</li><li>비교 기준, 실험 조건, 결과 해석, 채택 판단은 직접 수행</li></ul></section>
         </div>
       </section>
@@ -125,7 +125,7 @@
           <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/></svg><span>근거 범위를 넓힌 만큼, 잘못된 전제가 담긴 질문이 통과할 여지가 생겼습니다.</span></li>
           <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/></svg><span>서버리스는 Lambda 구현과 동작 확인까지 했고, 운영 환경 전환은 프로젝트 일정상 하지 않았습니다.</span></li>
           <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/></svg><span>1,750건은 누적 평가 기록 수이며, 입력 케이스가 소실돼 완전한 재현은 어렵습니다.</span></li>
-          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/></svg><span>Amazon EKS·Argo CD 등 실행 환경은 팀이 함께 정했고, 설치·운영은 인프라 담당이 맡았습니다.</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/></svg><span>Amazon EKS·Argo CD 등 실행 환경은 팀이 함께 설계했고, 구현·운영은 인프라 담당 팀원이 맡았습니다.</span></li>
         </ul></div>
       </section>
 
@@ -160,7 +160,7 @@
                     <li><b>팀 공동 실행 환경</b> — Kubernetes 기반 온프렘·AWS 환경, 데이터 저장소, Cache, CI/CD, Observability. 구성 방향과 도구는 팀 회의에서 함께 비교·논의해 정했고, 저는 이 환경 위에서 개발했습니다. 설치·운영 실무는 역할 분담에 따라 인프라 담당이 맡았습니다.</li>
                   </ul>
                 </div>
-                <div class="ownership"><b>기여 범위</b> — 서비스 기획·전체 구현: <b>팀 공동</b> · AI 기능(챗·OCR·영상 추출) 서비스 코드: <b>본인 주담당</b> · 인프라 구성 방향: <b>함께</b> · 설치·운영: <b>인프라 담당</b></div>
+                <div class="ownership"><b>기여 범위</b> — 서비스 기획·전체 구현: <b>팀 전원</b> · AI 기능(챗·OCR·영상 추출) 서비스 코드: <b>전담</b> · 인프라 구성 방향: <b>공동 설계</b> · 설치·운영: <b>인프라 담당</b></div>
               </div>
             </details>
 
@@ -174,7 +174,7 @@
                 <div class="step"><h4>결과</h4><p>전환 대상 기능은 호출이 있을 때만 실행되도록 Lambda로 구현해 동작을 확인했고, 제외한 2종은 근거를 남긴 채 기존 방식으로 유지했습니다. 운영 환경으로의 실제 전환은 프로젝트 일정상 진행하지 않았습니다.</p></div>
                 <div class="limit"><b>한계 및 고려사항</b> — 옮기면 잃는 것이 있습니다. 상시 프로세스에서 유지하던 상태와 연결을 매 호출마다 다시 만들어야 하고, 콜드 스타트가 지연에 더해집니다. 그래서 «무엇을 잃는가»를 판정표에 먼저 적고 시작했습니다.</div>
                 <div class="step"><h4>CI에서 누락된 테스트 실행 경로 보완</h4><p>서버리스 테스트 파일이 저장소에 있는데도 CI 설정에는 해당 실행 경로가 들어 있지 않아 <b>한 번도 돌지 않고</b> 있었습니다. 파일 존재가 아니라 «파이프라인이 실제로 무슨 명령을 실행하는지»를 봐야 한다는 것을 확인하고 실행 경로에 편입했습니다. 같은 변경에서 제 스모크 테스트 자체의 오류도 발견해 고쳤습니다 — 잘못된 필드명을 보냈는데 200이 돌아와 통과처럼 보이던 경우였습니다.<br><span style="color:var(--soft);font-size:13px">CI/CD를 구축하거나 운영한 것이 아니라, 기존 검증 과정의 누락을 찾아 보완한 범위입니다.</span></p></div>
-                <div class="ownership"><b>기여 범위</b> — 검토 기준 정의·채택/제외 결정·Terraform 작성: <b>본인</b> · 상위 인프라 결정: <b>함께</b> · 클러스터 운영: <b>인프라 담당</b></div>
+                <div class="ownership"><b>기여 범위</b> — 검토 기준 정의·채택/제외 결정·Terraform 작성: <b>전담</b> · 상위 인프라 결정: <b>공동 설계</b> · 클러스터 운영: <b>인프라 담당</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>서버리스 검토 기준 5개와 옮기지 않은 것</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-08-18</span></div>
                   <div class="ev-body">이전 후보 12종을 다섯 개 축으로 판정한 표와, 옮기면서 <b>잃는 것</b>을 먼저 적어 둔 절입니다.
@@ -193,7 +193,7 @@
                 <div class="step"><h4>수행 및 결정</h4><p>부정 후기가 있는 레시피만 LLM으로 요약하고 나머지는 템플릿으로 처리했습니다. 가격 기준선은 소매별로 나누고, 이력이 짧은 구간의 급락은 기록만 하고 알리지 않도록 게이트를 뒀습니다.</p></div>
                 <div class="step"><h4>결과</h4><p>후기 <b>141,298건</b>을 수집하고, 이 중 <b>141,282건</b>을 감정 분류한 뒤 레시피 <b>6,873개 전부</b>에 요약 결과를 연결했습니다.</p><p>초기 비용 추정 36,291원을 기준으로 LLM 적용 대상과 입력량을 조정했고, 예상 비용을 약 2.1~2.2만원 수준으로 낮출 수 있는 구조를 확인했습니다.</p></div>
                 <div class="limit"><b>한계 및 고려사항</b> — 가격 기준선은 이력이 더 쌓이기 전까지 미성숙 상태로 둡니다. 문서에도 해결하지 못한 항목을 그대로 적어 뒀습니다.</div>
-                <div class="ownership"><b>기여 범위</b> — 후기 수집·감정 분류·요약 처리, 요약 모델 선정·비용 구조 설계·스키마 적용 검증: <b>본인</b></div>
+                <div class="ownership"><b>기여 범위</b> — 후기 수집·감정 분류·요약 처리, 요약 모델 선정·비용 구조 설계·스키마 적용 검증: <b>전담</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>리뷰 감정분석·요약 완료 리포트</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-07-29</span></div>
                   <div class="ev-body">모델을 무엇으로 골랐고 비용을 어떻게 낮췄는지, 해결하지 못한 항목까지 당시 그대로 적은 기록입니다.
@@ -231,7 +231,7 @@
                 <div class="step"><h4>결과</h4><p>후보 15종을 같은 기준으로 재측정해 누적 1,750건의 평가 기록을 남겼고, 새 측정이 나올 때마다 <b>권고를 5번 바꿨습니다</b>. 최종 결과만 남기지 않고 그때그때의 비교표와 판단 변경 시점을 함께 보존했습니다.</p></div>
                 <div class="limit"><b>한계 및 고려사항</b> — 어려운 케이스에서 저비용 모델이 끝까지 남긴 실패는 영양·가격처럼 숫자가 몰린 답변이었습니다. 이 답변은 서비스에서 LLM을 거치지 않고 템플릿 그대로 나가고, LLM이 다듬는 것은 레시피 추천뿐이라 교체해도 사용자가 보는 답에는 영향이 없다고 판단했습니다. 다만 이건 <b>지금 설정에 기댄 판단</b>이라, 숫자가 몰린 답변까지 LLM이 다듬도록 바뀌면 판정을 다시 해야 합니다.<br>또한 <b>입력 케이스풀이 이후 소실</b>돼 완전히 동일한 재현은 불가능합니다. 채점 스크립트와 결과 문서는 남아 있습니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>평가 결과가 포화될 때는 모델 차이보다 평가 케이스의 난이도를 먼저 점검해야 한다는 점을 배웠습니다.</p></div>
-                <div class="ownership"><b>기여 범위</b> — 비교 기준 정의·재측정 요구·최종 선정: <b>본인 판단</b></div>
+                <div class="ownership"><b>기여 범위</b> — 비교 기준 정의·재측정 요구·최종 선정: <b>전담</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>후보 15종 전수 실측</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-07-28</span></div>
                   <div class="ev-body">모델별 품질·안전·단가·월비용·품질손실을 한 표에 놓고 비교한 실제 리포트 구간입니다. 월비용 산정식도 함께 있습니다.
@@ -259,7 +259,7 @@
                 <div class="step"><h4>결과</h4><p>경량 비전 모델을 채택했습니다. 사용자가 결과를 확인·수정하는 단계를 앞에 둬서 인식 오류를 사람이 보정할 수 있게 했습니다.</p></div>
                 <div class="limit"><b>한계 및 고려사항</b> — 13장은 작은 표본이고, 품목명과 가격의 개별 정오는 따로 검증하지 않았습니다. 그래서 «인식 정확도»라고 쓰지 않고 <b>합계 정합 기준</b>이라고 적습니다. 외부 API 의존이 생기는 것도 감수한 부분입니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>지표를 먼저 정의하고 그 한계까지 적어 두면, 나중에 숫자를 과장해서 읽지 않게 됩니다.</p></div>
-                <div class="ownership"><b>기여 범위</b> — 비교 착수·성공 기준 정의·한계 명시·채택: <b>본인 판단</b></div>
+                <div class="ownership"><b>기여 범위</b> — 비교 착수·성공 기준 정의·한계 명시·채택: <b>전담</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>영수증 OCR 5개 방식 비교</strong><span class="ev-kind" data-k="source-derived">근거 기반 정리</span><span class="ev-date">2026-07-21</span></div>
                   <div class="ev-body">원본이 Markdown 문서라 동일한 수치로 표를 다시 구성했습니다. 측정값은 원본과 같습니다. 영수증 원본 이미지는 개인정보라 싣지 않았습니다.
@@ -291,7 +291,7 @@
                 <div class="step"><h4>결과</h4><p>같은 275건 평가 세트를 다시 돌려 통과가 <b>166건에서 247건</b>으로 늘었습니다(약 60% → 90%). 문자열 구성만 바꾼 변경이라 <b>LLM 호출은 한 건도 늘지 않았습니다</b>.</p></div>
                 <div class="limit"><b>한계 및 고려사항</b> — 근거로 인정하는 범위를 넓힌 만큼, 사용자가 잘못된 전제를 질문에 담으면 그것이 근거로 통과할 여지가 생깁니다. 수정 후에도 남은 실패는 <b>모르는 것을 지어내는 유형</b>에 몰려 있었고, 그것이 다음 개선의 표적이 됐습니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>«모델이 나쁘다»로 결론 내기 전에 판정 로직부터 확인하게 됐습니다. 이 건은 모델을 교체하거나 LLM 호출을 추가하지 않고 판정 로직 수정으로 통과 건수를 개선했습니다.</p></div>
-                <div class="ownership"><b>기여 범위</b> — 오탐 의심 제기·재측정 요구·채택: <b>본인 판단</b></div>
+                <div class="ownership"><b>기여 범위</b> — 오탐 의심 제기·재측정 요구·채택: <b>전담</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>가드레일 수정 효과 — 같은 275건 재측정</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-07-28</span></div>
                   <div class="ev-body">모델 11종 각각에서 몇 건이 회수됐는지 막대로 보여주는 실제 리포트 구간입니다. 합계와 «추가 LLM 호출 없음» 조건이 같은 화면에 있습니다.
@@ -312,7 +312,7 @@
                 <div class="step"><h4>결과</h4><p>되돌린 뒤에도 점수가 유지됐고, 서로 다른 seed에서도 비슷한 수준이 나왔습니다. 이후 생성 백엔드를 붙일 때는 «판정 결과가 같아야 한다»를 가설로 먼저 적고 확인했습니다.</p></div>
                 <div class="limit"><b>한계 및 고려사항</b> — 검증에 사용한 스위트는 <b>30건</b>입니다. 회차 간 비교는 같은 스위트 안에서만 유효하며, 더 넓은 입력에 대한 성능은 확인하지 않았습니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>점수가 오른 변경도 조건이 한정되면 손해일 수 있다는 것, 그리고 좋은 결과일수록 <b>다른 조건에서 먼저 확인</b>해야 한다는 것을 기준으로 삼게 됐습니다.</p></div>
-                <div class="ownership"><b>기여 범위</b> — 되돌림 판단·seed 일반화 확인 단계 삽입·회귀 가설 설정: <b>본인 판단</b></div>
+                <div class="ownership"><b>기여 범위</b> — 되돌림 판단·seed 일반화 확인 단계 삽입·회귀 가설 설정: <b>전담</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>9회차 반복 검증과 되돌린 판단</strong><span class="ev-kind" data-k="source-derived">근거 기반 정리</span><span class="ev-date">2026-07-14 ~ 07-15</span></div>
                   <div class="ev-body">보존된 원본 실행 기록에서 회차·seed·케이스 수를 그대로 읽어 표로 옮겼습니다. <b>이 실험은 270 호출이며, 아래 C-3의 2,276 호출과는 다른 실험입니다.</b>
@@ -332,7 +332,7 @@
                 <div class="step"><h4>결과</h4><p>실제 서비스 경로의 치명 결함이 <b>88건에서 21건</b>으로 줄었습니다(720건 기준 12.2% → 2.9%). 전체 1,138건 기준으로는 9.9% → 4.6%입니다.</p></div>
                 <div class="limit"><b>한계 및 고려사항 — 악화된 지표</b> 같은 변경에서 <b>금액 손실은 26건에서 31건으로 늘었고</b>, 재료비 카테고리 통과율은 72.2%에서 66.7%로 떨어졌습니다. 좋아진 숫자만 남기지 않고 그대로 기록했습니다. 이 실험의 입력 케이스풀도 이후 소실돼 완전한 재현은 불가능합니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>전체 평균은 실제 사용자가 겪는 것과 다를 수 있습니다. 그래서 어느 경로가 실제로 그 코드를 지나가는지 먼저 나눠서 보게 됐습니다.</p></div>
-                <div class="ownership"><b>기여 범위</b> — 실험 규모·조건 지정·판단 기준(실제 서비스 경로) 설정: <b>본인 판단</b></div>
+                <div class="ownership"><b>기여 범위</b> — 실험 규모·조건 지정·판단 기준(실제 서비스 경로) 설정: <b>전담</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>튜닝 전후 2,276회 비교</strong><span class="ev-kind" data-k="sanitized-source">정제한 실측 원본</span><span class="ev-date">2026-07-29</span></div>
                   <div class="ev-body">결과 요약과 카테고리별 통과율을 함께 담은 실제 리포트 구간입니다. 악화된 항목이 그대로 보입니다.
@@ -353,7 +353,7 @@
                 <div class="step"><h4>결과</h4><p>배포 패키지가 크게 줄면서 성능 지표는 유지됐습니다. 부수적으로 알게 된 것도 있습니다 — 학습 객체를 그대로 불러오는 방식은 파일 내용에 따라 코드가 실행되는 경로라, 모델을 외부 저장소에서 받아 오는 구조에서는 그 자체가 위험 지점이 됩니다. 네이티브 포맷은 순수 데이터라 그 경로가 없습니다.</p></div>
                 <div class="limit"><b>한계 및 고려사항</b> — 네이티브 포맷에는 학습 이력과 라벨 집합 같은 메타데이터가 담기지 않아 따로 기록해야 합니다. 경량화 아이디어의 최초 제안보다, 기존 출력과의 등가성 검증 기준을 세우고 결과를 확인해 채택 여부를 판단하는 역할을 맡았습니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>«좋아 보이는 변경»일수록 채택 조건을 먼저 숫자로 못 박아 두면, 변경 전후를 같은 기준으로 판단할 수 있습니다.</p></div>
-                <div class="ownership"><b>기여 범위</b> — 등가성 증명 요구·검증 기준 정의·최종 채택: <b>본인 판단</b></div>
+                <div class="ownership"><b>기여 범위</b> — 등가성 증명 요구·검증 기준 정의·최종 채택: <b>전담</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>CRF 서빙 포맷 등가성 — 실제 재실행</strong><span class="ev-kind" data-k="re-executed">실제 재실행</span><span class="ev-date">2026-08-31 재실행</span></div>
                   <div class="ev-body">보존된 학습 산출물과 검수 정답 50건이 남아 있어 <b>2026-08-31에 재실행한 출력</b>입니다.
@@ -385,7 +385,7 @@
                 <div class="step"><h4>결과</h4><p>끊겨 있던 노출과 행동의 연결이 복구돼, 이후 쌓이는 데이터부터는 label이 만들어질 수 있는 상태가 됐습니다.</p></div>
                 <div class="limit"><b>한계 및 고려사항</b> — 이미 지나간 기간의 label은 복구할 수 없어, 이후 데이터가 다시 쌓이는지 확인해야 했습니다.<br>확인 범위는 조회한 44건의 키 누락과 전달 경로입니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>«어느 기술이 고장났나»보다 <b>«신호가 어느 구간에서 끊겼나»</b>를 먼저 보게 됐습니다. AI 기능의 이상도 모델 내부 문제로 단정하면 원인을 놓칩니다.</p></div>
-                <div class="ownership"><b>기여 범위</b> — 발견·원인 분석·수정: <b>본인</b></div>
+                <div class="ownership"><b>기여 범위</b> — 발견·원인 분석·수정: <b>전담</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>학습 label이 생성되지 않은 경로</strong><span class="ev-kind" data-k="source-derived">근거 기반 정리</span><span class="ev-date">2026-08 초</span></div>
                   <div class="ev-body">내부 테이블명과 코드 경로는 공개하지 않고, 구간별로 무엇을 확인해 어떤 결과가 나왔는지만 정리했습니다.
@@ -411,7 +411,7 @@
                 <div class="step"><h4>결과</h4><p>운영 문서까지 포함해 12개 파일이 정렬됐고, 별칭 변경으로 계약이 바뀌는 경로가 제거됐습니다.</p></div>
                 <div class="limit"><b>한계 및 고려사항</b> — 버전을 고정하면 개선된 상위 모델이 나와도 자동으로 따라가지 않아, 올릴 때마다 다시 측정해야 합니다. 그 비용은 감수했습니다.<br>최초 장애 인지보다, 동일한 위험이 있는 호출 지점을 함께 확인하고 수정 범위를 정하는 작업을 맡았습니다.</div>
                 <div class="step"><h4>배운 점 / 다음 판단</h4><p>장애가 발생한 지점만 수정하지 않고, 동일한 실패 조건이 있는 경로까지 함께 확인하는 방식으로 범위를 넓혔습니다.</p></div>
-                <div class="ownership"><b>기여 범위</b> — 수정 범위 결정: <b>본인 판단</b></div>
+                <div class="ownership"><b>기여 범위</b> — 수정 범위 결정: <b>전담</b></div>
                 <div class="ev">
                   <div class="ev-head"><strong>모델 별칭 드리프트와 버전 고정</strong><span class="ev-kind" data-k="source-derived">근거 기반 정리</span><span class="ev-date">2026-07-22</span></div>
                   <div class="ev-body">팀 저장소 커밋에 남아 있는 변경 범위와 사유입니다. 어떤 컴포넌트가 함께 정렬됐는지 보입니다.
@@ -428,7 +428,7 @@
                 <div class="step"><h4>문제 상황</h4><p>워크로드는 정상으로 보이는데 새 배포만 실패했습니다. 겉으로는 아무 문제가 없어 보였습니다.</p></div>
                 <div class="step"><h4>확인 및 분석</h4><p>기존 Pod는 노드에 남아 있던 이미지로 계속 실행되고 있었습니다. 재시작 횟수도 0이었습니다. 반면 레지스트리 접근이 필요한 순간 — 즉 <b>새 배포나 재스케줄링</b> — 에만 실패가 드러났습니다.</p></div>
                 <div class="step"><h4>결과 / 배운 점</h4><p>Pod가 Running 상태인 것과 새 배포가 가능한 상태는 다르다는 점을 확인했습니다. 현재 상태가 정상인 것과 다음 변경을 수행할 수 있는 것은 별개이고, 둘 다 운영 상태의 일부입니다. 주기적 점검이 실패 신호를 만들고 있었지만 그 실패 자체에는 알림이 걸려 있지 않아 아무도 모르고 있었습니다.</p></div>
-                <div class="ownership"><b>기여 범위</b> — 종료 후 개인 점검: <b>본인</b> · 클러스터 설치·운영: <b>인프라 담당</b></div>
+                <div class="ownership"><b>기여 범위</b> — 종료 후 개인 점검: <b>전담</b> · 클러스터 설치·운영: <b>인프라 담당</b></div>
               </div>
             </details>
 
@@ -447,8 +447,8 @@
 </main>
 <footer class="site-foot"><div class="wrap"><span>© 2026 이건우 · Geonwoo Lee</span><ul aria-label="연락처"><li><a href="mailto:goonbam009@gmail.com">goonbam009@gmail.com</a></li><li><a href="https://github.com/ge-onu" target="_blank" rel="noopener noreferrer">GitHub<span class="sr">(새 탭)</span></a></li><li><a href="https://www.linkedin.com/in/geonwooleekr" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr">(새 탭)</span></a></li></ul></div></footer>
 <script src="/project-tabs.js?v=20260914-1" defer></script>
-<script src="/portfolio-ui.js?v=20261013-a3i" defer></script>
-<script src="/site.js?v=20261013-a3i" defer></script>
-<script src="/deck.js?v=20261013-a3i" defer></script>
+<script src="/portfolio-ui.js?v=20261013-a3j" defer></script>
+<script src="/site.js?v=20261013-a3j" defer></script>
+<script src="/deck.js?v=20261013-a3j" defer></script>
 </body>
 </html>

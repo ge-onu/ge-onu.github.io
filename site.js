@@ -40,3 +40,101 @@
  // 인쇄할 때는 접힌 기록도 모두 펼친다.
  addEventListener('beforeprint',()=>document.querySelectorAll('details').forEach(d=>{d.open=true;}));
 })();
+
+/* 움직임 (2026-10-13). 기기의 '동작 줄이기'와 관계없이 적용한다(사용자 요청). */
+(() => {
+ const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+ const raf=fn=>requestAnimationFrame(()=>requestAnimationFrame(fn));
+
+ // 상단 막대 그림자
+ const hdr=document.querySelector('.hdr');
+ const onScrollHdr=()=>hdr&&hdr.classList.toggle('is-scrolled',scrollY>4);
+ addEventListener('scroll',onScrollHdr,{passive:true});onScrollHdr();
+
+ // 메뉴: 현재 구역 알약이 미끄러지고, 마우스를 올리면 옅은 알약이 따라간다.
+ const nav=document.querySelector('.hdr-nav');
+ if(nav){
+  const pill=document.createElement('span');pill.className='nav-pill';pill.setAttribute('aria-hidden','true');
+  const hov=document.createElement('span');hov.className='nav-hover';hov.setAttribute('aria-hidden','true');
+  nav.prepend(pill,hov);nav.classList.add('has-pill');
+  const place=(p,a)=>{if(!a||!a.offsetWidth){p.style.opacity='0';return;}p.style.opacity='1';p.style.width=a.offsetWidth+'px';p.style.height=a.offsetHeight+'px';p.style.transform=`translate(${a.offsetLeft}px,${a.offsetTop}px)`;};
+  const links=$$(':scope > a',nav).filter(a=>!a.classList.contains('nav-contact'));
+  const syncPill=()=>place(pill,nav.querySelector(':scope > a[aria-current]'));
+  // 홈: 스크롤 위치를 따라 현재 구역을 표시한다.
+  const local=links.filter(a=>a.getAttribute('href').startsWith('#'));
+  if(local.length){
+   const secs=local.map(a=>document.querySelector(a.getAttribute('href')));
+   let tick=false;
+   const spy=()=>{tick=false;const line=(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height'))||68)+innerHeight*.25;
+    let cur=-1;secs.forEach((s,k)=>{if(s&&s.getBoundingClientRect().top<=line)cur=k;});
+    if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)cur=secs.length-1;
+    local.forEach((a,k)=>{if(k===cur)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
+    syncPill();};
+   addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(spy);}},{passive:true});spy();
+  }else syncPill();
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+   links.forEach(a=>a.addEventListener('pointerenter',()=>{if(!hov.style.width||hov.style.opacity==='0'){hov.classList.remove('x');}place(hov,a);}));
+   nav.addEventListener('pointerleave',()=>{hov.style.opacity='0';});
+  }
+  new ResizeObserver(syncPill).observe(nav);document.fonts?.ready.then(syncPill);
+  raf(()=>nav.classList.add('ready'));
+ }
+
+ // 스크롤하면 떠오르기 (한 번만)
+ const sel='main .sec-head, main .case-card, main .card, main .incident, main .kpis li, main .kw-wrap, main .legend, main .about-copy, main .blk > *, main .deck';
+ const items=$$(sel).filter(el=>!el.closest('.hero')&&!el.parentElement.closest(sel)&&!el.closest('details:not([open])'));
+ if(items.length&&'IntersectionObserver' in window){
+  const groups=new Map();
+  items.forEach(el=>{const k=el.parentElement;const n=groups.get(k)||0;groups.set(k,n+1);el.style.setProperty('--rv-d',Math.min(n,5)*70+'ms');el.classList.add('rv');});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;io.unobserve(el);el.classList.add('in');
+   const done=()=>{el.classList.remove('rv','in');el.style.removeProperty('--rv-d');};
+   setTimeout(done,900+Math.min(groups.get(el.parentElement)||0,5)*70);}),{rootMargin:'0px 0px -8% 0px',threshold:.08});
+  items.forEach(el=>io.observe(el));
+  // 주소의 #으로 바로 들어온 경우 해당 위치 위쪽은 바로 보여 준다.
+  if(location.hash)items.forEach(el=>{if(el.getBoundingClientRect().bottom<innerHeight){el.classList.remove('rv');}});
+ }
+
+ // KPI 숫자 올라가기. 166→247은 166에서 247로 올라간다.
+ const fmt=(v,comma)=>comma?v.toLocaleString('ko-KR'):String(v);
+ const kvs=$$('.k-v');
+ if(kvs.length&&'IntersectionObserver' in window){
+  const plans=new Map();
+  kvs.forEach(el=>{const nodes=[];const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let n;
+   while((n=w.nextNode())){if(n.parentElement.closest('small'))continue;const m=n.nodeValue.match(/^(\s*)([\d,]+)(.*)$/s);if(m)nodes.push({n,pre:m[1],to:+m[2].replace(/,/g,''),comma:m[2].includes(','),rest:m[3]});}
+   if(!nodes.length)return;
+   const anim=nodes.length>1?nodes.slice(1).map((x,k)=>({...x,from:nodes[k].to})):[{...nodes[0],from:0}];
+   anim.forEach(x=>{x.n.nodeValue=x.pre+fmt(x.from,x.comma)+x.rest;});
+   plans.set(el,anim);});
+  const run=el=>{const anim=plans.get(el);if(!anim)return;const t0=performance.now(),D=1100;
+   const step=t=>{const p=Math.min(1,(t-t0)/D),e=1-Math.pow(1-p,3);anim.forEach(x=>{x.n.nodeValue=x.pre+fmt(Math.round(x.from+(x.to-x.from)*e),x.comma)+x.rest;});if(p<1)requestAnimationFrame(step);};
+   requestAnimationFrame(step);};
+  const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io2.unobserve(e.target);setTimeout(()=>run(e.target),250);}}),{threshold:.6});
+  plans.forEach((_,el)=>io2.observe(el));
+ }
+
+ // 사례 페이지 목차: 읽는 구역 표시가 미끄러지고, 위쪽에 읽기 진행 막대
+ const toc=document.querySelector('.toc');
+ if(toc){
+  const ol=toc.querySelector('ol');const ind=document.createElement('span');ind.className='toc-ind';ind.setAttribute('aria-hidden','true');ol.append(ind);toc.classList.add('has-ind');
+  const bar=document.createElement('div');bar.className='read-prog';bar.setAttribute('aria-hidden','true');document.body.append(bar);
+  const move=()=>{const a=toc.querySelector('a.on');if(!a){ind.style.opacity='0';return;}ind.style.opacity='1';ind.style.height=a.offsetHeight+'px';ind.style.transform=`translateY(${a.offsetTop}px)`;};
+  new MutationObserver(move).observe(ol,{subtree:true,attributes:true,attributeFilter:['class']});move();
+  let t=false;const prog=()=>{t=false;const h=document.documentElement.scrollHeight-innerHeight;bar.style.transform=`scaleX(${h>0?Math.min(1,scrollY/h):0})`;};
+  addEventListener('scroll',()=>{if(!t){t=true;requestAnimationFrame(prog);}},{passive:true});prog();
+  raf(()=>toc.classList.add('ready'));
+ }
+
+ // 이메일 복사 버튼: 복사 아이콘 자리에 체크 아이콘을 겹쳐 둔다.
+ $$('.copy-btn').forEach(b=>{const ic=b.querySelector(':scope > svg.ic');if(!ic)return;const box=document.createElement('span');box.className='ic-swap';box.setAttribute('aria-hidden','true');ic.classList.add('ic-copy');ic.replaceWith(box);box.append(ic);
+  box.insertAdjacentHTML('beforeend','<svg class="ic ic-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>');});
+
+ // 홈 → 사례 페이지: 누른 카드 제목이 사례 페이지 큰 제목으로 이어진다(지원하는 브라우저만).
+ const titleOf=a=>a.closest('.card')?.querySelector('h3');
+ document.addEventListener('click',e=>{const a=e.target.closest('.card a[href^="projects/"]');if(!a||a.getAttribute('href').includes('#'))return;const h=titleOf(a);if(h)h.style.viewTransitionName='proj-title';},true);
+ addEventListener('pageshow',()=>$$('.card h3').forEach(h=>{h.style.viewTransitionName='';}));
+ addEventListener('pageswap',()=>{const h=document.querySelector('main h1:not(#hero-title)');if(h&&h.getBoundingClientRect().bottom<0)h.style.viewTransitionName='none';});
+ addEventListener('pagereveal',e=>{if(!e.viewTransition||!window.navigation?.activation?.from)return;
+  const from=new URL(navigation.activation.from.url).pathname;
+  const a=$$('.card a[href^="projects/"]').find(x=>new URL(x.href).pathname===from&&!x.getAttribute('href').includes('#'));const h=a&&titleOf(a);
+  if(h){const r=h.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight){h.style.viewTransitionName='proj-title';e.viewTransition.finished.finally(()=>{h.style.viewTransitionName='';});}}});
+})();

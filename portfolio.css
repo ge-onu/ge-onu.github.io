@@ -584,7 +584,7 @@ video.deck-layer{background:#111}
 .deck-stage:fullscreen{border:0;border-radius:0;background:#0b0b0d;display:grid;place-items:center}
 .deck-stage:fullscreen .deck-frame{width:min(100vw,calc(100vh*16/9))}
 @media (max-width:640px){.deck{margin-top:40px}.deck-stage{border-radius:12px}.deck-bar{grid-template-columns:1fr}.deck-ctl .deck-fs{display:none}.deck-title{font-size:13px}}
-@media (prefers-reduced-motion:reduce){.deck-layer,.deck-progress i{transition:none!important}}
+
 [data-theme=dark] .deck-stage{border-color:var(--line-2)}
 /* ===== 사례 카드 표지(이전 사이트의 캐릭터 표지를 되살림) ===== */
 .has-cover{overflow:hidden}
@@ -656,3 +656,15 @@ video.deck-layer{background:#111}
 .star4 .why dd,.prr .why dd{color:var(--text)}
 .prr.star .why dt,.prr .why dt{color:var(--accent-ink)}
 @media (max-width:760px){.star4.has-why{grid-template-columns:minmax(0,1fr)}}
+.bound h3.who + ul + h3.who{margin-top:22px}
+/* 움직임 (2026-10-13) */
+.kpis a{transition:background .15s,transform var(--t2) var(--ease-spring)}
+.kpis a:active{transform:scale(.97)}
+.toc ol{position:relative}
+.toc .toc-ind{position:absolute;left:-1px;top:0;width:2px;height:0;border-radius:2px;background:var(--accent);opacity:0}
+.toc.ready .toc-ind{transition:transform var(--t3) var(--ease-ios),height var(--t3) var(--ease-ios),opacity var(--t2)}
+.toc.has-ind a.on{border-left-color:transparent}
+.deck-chapters.has-ind{position:relative}
+.deck-chapters.has-ind button[aria-selected=true]::after{display:none}
+.deck-chap-ind{position:absolute;left:0;bottom:0;height:2px;width:0;border-radius:2px;background:var(--accent);pointer-events:none}
+.deck-chapters.ready .deck-chap-ind{transition:transform var(--t3) var(--ease-ios),width var(--t3) var(--ease-ios)}
