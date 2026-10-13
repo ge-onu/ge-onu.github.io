@@ -12,13 +12,13 @@ export function retrievalQuery(q, history = []) {
 }
 
 // chunk → 사이트 주소. id가 실제 요소 id인 경우에만 #를 붙인다.
-const ANCHORABLE = /^(inc-|ev-|a\d-|b\d-|c\d-|d\d-|k8s-|lab-)|^(summary|ai-role|boundary|limits|learned|record|work|strengths|incidents|focus|collab|about|contact|question|failure|measurement|sources|scope|build|mail|graft|audit|ops|overview|architecture|learning-map|failure-patterns|limitations|story)$/;
+const ANCHORABLE = /^(inc-|ev-|a\d-|b\d-|c\d-|d\d-|k8s-|lab-)|^(summary|ai-role|boundary|limits|learned|record|work|strengths|incidents|focus|collab|about|contact|question|failure|measurement|sources|scope|build|mail|graft|audit|ops|overview|architecture|learning-map|failure-patterns|limitations|story|stack|migrate|isolation|geonu|cka-prep)$/;
 export function sourceOf(c) {
   const p = c.source_path;
   let url = p === 'index.html' ? '/' : '/' + p.replace(/index\.html$/, '');
   if (ANCHORABLE.test(c.section)) url += '#' + c.section;
   const page = p === 'index.html' ? '홈' : p.startsWith('assets/evidence/') ? '근거 문서' :
-    ({ mealplanning: 'Mealplanning', 'kubernetes-lab': 'Kubernetes Lab', 'infrastructure-lab-series': 'Infrastructure Lab', 'rag-retrieval-poc': 'RAG PoC', didim: '디딤' })[p.split('/')[1]] || c.doc_title;
+    ({ mealplanning: 'Mealplanning', 'kubernetes-lab': 'Kubernetes Lab', 'infrastructure-lab-series': 'Infrastructure Lab', 'rag-retrieval-poc': 'RAG PoC', didim: '디딤돌' })[p.split('/')[1]] || c.doc_title;
   const title = (c.section_title && !/^(문제 상황|문제)$/.test(c.section_title) ? c.section_title : c.text.split('\n')[0]).replace(/\s+/g, ' ').slice(0, 40);
   return { url, label: `${page} · ${title}` };
 }

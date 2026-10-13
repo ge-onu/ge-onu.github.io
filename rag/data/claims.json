@@ -510,13 +510,13 @@
    "claim_id": "C-PROJECTS",
    "topic": "프로젝트 목록",
    "stance": "SUPPORTED",
-   "verified": "공개한 프로젝트는 5개입니다.\nMealplanning: 식비 예산에서 레시피 추천과 장보기까지 연결한 5인 팀 서비스입니다(2026.06–08, 더존비즈온 최우수상). 핵심 AI 기능의 PoC·구현 방안·구현·트러블슈팅을 대부분 혼자 맡았습니다.\nRAG Retrieval PoC: 질문에 맞는 근거를 찾고, 답해도 되는 범위와 거절 조건을 나눠 평가한 개인 실험입니다.\n디딤: 공고 수집, 학습 기록, 메일 요약을 한 화면에 모은 1인용 개인 도구입니다(저장소 비공개).\nKubernetes Multi-node Lab: kubeadm 멀티노드 클러스터를 직접 구성하고, 문제를 Event와 리소스 상태로 확인한 개인 실습입니다.\nInfrastructure Lab Series: Linux 라우팅·NAT부터 DNS·VPN, 이중화, 로그·감시까지 AI Agent와 함께 단계별로 구성한 실습 기록입니다.",
+   "verified": "공개한 프로젝트는 5개입니다.\nMealplanning: 식비 예산에서 레시피 추천과 장보기까지 연결한 5인 팀 서비스입니다(2026.06–08, 더존비즈온 최우수상). 핵심 AI 기능의 PoC·구현 방안·구현·트러블슈팅을 대부분 혼자 맡았습니다.\nRAG Retrieval PoC: 질문에 맞는 근거를 찾고, 답해도 되는 범위와 거절 조건을 나눠 평가한 개인 실험입니다. 이 엔진이 이 사이트의 RAG 챗봇 거누로 동작합니다.\n디딤돌: 공고 수집, 학습 기록, 메일 요약을 한 화면에 모은 취업 준비 웹앱입니다(didimdol.site, 저장소 비공개). 혼자 쓰던 보드 디딤을 계정마다 자료가 나뉘는 웹앱으로 옮겼습니다.\nKubernetes Multi-node Lab: kubeadm 멀티노드 클러스터를 직접 구성하고, 문제를 Event와 리소스 상태로 확인한 개인 실습입니다.\nInfrastructure Lab Series: Linux 라우팅·NAT부터 DNS·VPN, 이중화, 로그·감시까지 AI Agent와 함께 단계별로 구성한 실습 기록입니다.",
    "not_verified": "Infrastructure Lab Series를 직접 설명·재현하는 개인 검증은 아직 진행 중입니다. 이 5개 밖의 프로젝트는 공개 자료에 없습니다.",
    "forbidden": [
     "다섯 개 모두 혼자",
     "모두 팀 프로젝트"
    ],
-   "ownership": "Mealplanning = 5인 팀 프로젝트(핵심 AI 기능 전담 · 꼭 넣을 기능은 팀 전원 · 실행 환경은 공동 설계, 구현·운영은 인프라 담당 팀원) · RAG Retrieval PoC·디딤·Kubernetes Lab = 개인 · Infrastructure Lab = AI Agent 활용 개인 실습",
+   "ownership": "Mealplanning = 5인 팀 프로젝트(핵심 AI 기능 전담 · 꼭 넣을 기능은 팀 전원 · 실행 환경은 공동 설계, 구현·운영은 인프라 담당 팀원) · RAG Retrieval PoC·디딤돌·Kubernetes Lab = 개인(구현에 AI 도구 사용) · Infrastructure Lab = AI Agent 활용 개인 실습",
    "evidence_chunk_ids": [
     "index.html::mealplanning",
     "index.html::work",
@@ -537,7 +537,7 @@
     },
     {
      "url": "/projects/didim/",
-     "label": "디딤"
+     "label": "디딤돌"
     },
     {
      "url": "/projects/kubernetes-lab/",

@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="darkreader-lock">
-  <meta name="description" content="취업 준비에 필요한 것을 한 화면에 모은 개인 상황판. 화면 열 개 중 메일 쪽만 별도 도구가 채웁니다. 테스트 281개가 모두 통과하는 상태에서 전면 검수로 29가지를 찾아 고친 기록입니다.">
+  <meta name="description" content="혼자 쓰던 보드 디딤을 계정마다 자료가 나뉘는 웹앱 디딤돌(didimdol.site)로 옮긴 기록. FastAPI·SQLite, Cloudflare Tunnel, Google 로그인, 계정별 분리, 옛 자료 16종 이전 검증, 메일 도구 전면 검수.">
   <link rel="canonical" href="https://geonu.site/projects/didim/">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="geonu.site">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:url" content="https://geonu.site/projects/didim/">
-  <meta property="og:title" content="디딤 · 개인 상황판 | 이건우">
-  <meta property="og:description" content="여섯 가지 요구를 하나의 면으로 만들었습니다. 화면 열 개 중 메일 쪽만 별도 도구가 채웁니다.">
+  <meta property="og:title" content="디딤돌 · 취업 준비 웹앱 | 이건우">
+  <meta property="og:description" content="혼자 쓰던 보드를 계정마다 자료가 나뉘는 웹앱으로 옮기고, 옛 자료 16종의 수를 맞춰 검증했습니다.">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="디딤 · 개인 상황판 | 이건우">
-  <meta name="twitter:description" content="여섯 가지 요구를 하나의 면으로 만들었습니다. 화면 열 개 중 메일 쪽만 별도 도구가 채웁니다.">
+  <meta name="twitter:title" content="디딤돌 · 취업 준비 웹앱 | 이건우">
+  <meta name="twitter:description" content="혼자 쓰던 보드를 계정마다 자료가 나뉘는 웹앱으로 옮기고, 옛 자료 16종의 수를 맞춰 검증했습니다.">
   <meta name="theme-color" content="#f7f8fa">
-  <title>디딤 · 개인 상황판 | 이건우</title>
+  <title>디딤돌 · 취업 준비 웹앱 | 이건우</title>
   <link rel="stylesheet" href="../../style.css?v=20261014-polish">
   <link rel="stylesheet" href="../../projects.css?v=20261014-polish">
   <link rel="icon" type="image/svg+xml" href="../../assets/images/home-icon.svg">
@@ -46,51 +46,95 @@
       <section class="project-hero project-hero--text">
         <div>
           <a class="project-back" href="../../#work">← 프로젝트 목록</a>
-          <p class="section-kicker">개인 상황판 · 자동화/운영</p>
-          <h1><img class="didim-hero-mark" src="../../assets/didim-logo.svg" alt="" width="44" height="44" decoding="async">디딤</h1>
+          <p class="section-kicker">개인 웹앱 · FastAPI · SQLite · Cloudflare Tunnel</p>
+          <h1><img class="didim-hero-mark" src="../../assets/didim-logo.svg" alt="" width="44" height="44" decoding="async">디딤돌</h1>
           <p class="project-hero-subtitle">답이 여러 페이지에 흩어지면 지금 뭘 해야 하는지 알 수 없습니다.</p>
-          <p class="project-hero-summary">취업 준비에 필요한 것을 한 화면에 모은 개인 상황판입니다.<br>취업 공고 수집, 분석, 학습 및 학습기록, 메일 요약 및 분류, 알림 등의 다양한 개인 기능들을 이 한 페이지에서 관리할 수 있습니다. 메일 쪽을 채우는 도구를 만든 뒤 전면 검수를 한 번 돌려 29가지를 찾아 고쳤습니다.</p>
-          <p class="limit"><b>혼자 쓰는 도구입니다</b><br>상주 서버 없이 개인 PC에서 돕니다. 아래 수치는 제 메일함 한 벌(계정 2개·2,382통)에서 나온 것이며 여러 사용자나 운영 규모를 뜻하지 않습니다. 메일 본문과 발신자가 들어 있어 저장소와 실행 화면은 공개하지 않습니다.</p>
+          <p class="project-hero-summary"><span class="ln">취업 준비에 필요한 것을 한 화면에 모은 웹앱입니다.</span><span class="ln">혼자 쓰던 Claude 아티팩트 보드 "디딤"을, 계정마다 자료가 나뉘는 웹앱 "디딤돌"로 옮긴 경험이 있습니다.</span><span class="ln">공고 수집, 학습 기록, 자격증 연습, 메일 요약을 한 곳에서 봅니다.</span><span class="ln">주소: <b>didimdol.site</b> (로그인 필요)</span></p>
+          <p class="limit"><b>혼자 쓰려고 만든 도구입니다</b><br><span class="ln">저장소는 비공개이고, 화면에 실제 메일과 개인 기록이 들어 있어 실행 화면은 싣지 않습니다.</span><span class="ln">아래 메일 수치는 제 메일함 한 벌(계정 2개·2,382통)에서 나온 것이며, 사용자 수나 운영 규모를 뜻하지 않습니다.</span></p>
         </div>
       </section>
-      <nav class="detail-nav" aria-label="디딤 상세 목차"><a href="#scope">무엇인가</a><a href="#build">만든 방식</a><a href="#mail">메일 화면과 그 뒤</a><a href="#graft">화면 이식</a><a href="#audit">전면 검수</a><a href="#ops">고장 감지</a><a href="#limits">남은 한계</a></nav>
+      <nav class="detail-nav" aria-label="디딤돌 상세 목차"><a href="#scope">디딤에서 디딤돌로</a><a href="#stack">구성</a><a href="#migrate">자료 이전</a><a href="#isolation">계정 분리</a><a href="#mail">메일 화면과 그 뒤</a><a href="#audit">전면 검수</a><a href="#ops">고장 감지</a><a href="#build">옛 디딤</a><a href="#limits">남은 한계</a></nav>
 
       <section class="reading-section" id="scope" aria-labelledby="scope-title">
-        <p class="section-kicker">01 / 무엇인가</p>
-        <h2 id="scope-title">필요한 것 여섯 가지를 여섯 개의 도구로 만들지 않았습니다.</h2>
-        <p>우선순위 · 주간 작업 · 생각 정리 · 프로젝트 현황 · 결정 기록 · 결정의 흐름. 취업 준비에 필요하다고 적어 둔 것들입니다. 각각을 페이지로 만들면 그 사이를 오가게 되고, <b>"지금 뭘 해야 하는가"의 답이 흩어지면 그 질문에 답할 수 없습니다.</b> 그래서 하나의 면으로 만들었습니다.</p>
-        <p>화면은 열 개이고, 가운데 구분선으로 성격이 갈립니다.</p>
-        <div class="comparison-wrap" role="region" aria-label="디딤 화면 구성" tabindex="0">
+        <p class="section-kicker">01 / 디딤에서 디딤돌로</p>
+        <h2 id="scope-title">혼자 쓰던 보드를 계정마다 자료가 나뉘는 웹앱으로 옮겼습니다.</h2>
+        <p><span class="ln">옛 디딤은 claude.ai 아티팩트 한 장으로 된 개인 보드였습니다.</span><span class="ln">다른 사람에게 보여 주려면 자료가 사람마다 갈라져야 했고, 진짜 메일을 다루므로 계정·세션·권한을 처음부터 단단히 세워야 했습니다.</span><span class="ln">그래서 화면을 고치는 대신 서버가 있는 웹앱으로 다시 만들었습니다.</span></p>
+        <div class="comparison-wrap" role="region" aria-label="디딤과 디딤돌 비교" tabindex="0">
           <table class="comparison-table">
-            <caption>구분선 위는 취업, 아래는 일상 — 섞이면 "지금 할 일"이 흐려집니다</caption>
-            <thead><tr><th scope="col">갈래</th><th scope="col">화면</th><th scope="col">데이터를 넣는 쪽</th></tr></thead>
+            <caption>무엇이 바뀌었나</caption>
+            <thead><tr><th scope="col">항목</th><th scope="col">옛 디딤</th><th scope="col">디딤돌</th></tr></thead>
             <tbody>
-              <tr><th scope="row">취업</th><td>상황판 · 로드맵 · 우선순위 · Lab · 면접 · 구직</td><td>직접 적습니다</td></tr>
-              <tr><th scope="row">일상</th><td>일정 노트 · 구매 노트</td><td>직접 적습니다</td></tr>
-              <tr><th scope="row">일상</th><td><b>메일 · 고정비</b></td><td><b>별도 도구가 채웁니다</b></td></tr>
+              <tr><th scope="row">형태</th><td>claude.ai 아티팩트 · HTML 한 장</td><td>웹앱 · didimdol.site</td></tr>
+              <tr><th scope="row">자료</th><td>브라우저와 아티팩트 저장소</td><td>서버의 SQLite · 계정마다 따로</td></tr>
+              <tr><th scope="row">사용자</th><td>나 혼자</td><td>계정마다 자기 보드만 봄</td></tr>
+              <tr><th scope="row">메일</th><td>별도 도구가 올린 사본</td><td>주인 계정만, 메일 도구의 DB를 읽기 전용으로</td></tr>
             </tbody>
           </table>
         </div>
-        <p>서버를 세우지 않았습니다. 이 화면의 값어치는 <b>대화 상대와 같은 자리에 있다</b>는 것이라, 별도 도메인으로 옮기면 그 연결이 끊깁니다. 그래서 claude.ai 아티팩트 한 장으로 두고, 빌드 도구가 없고 파일이 한 장이라는 제약은 그대로 받아들였습니다.</p>
-        <p class="ownership"><b>기여 범위</b> — 설계·구현·운영 전부 제가 했습니다. 구현 과정에서 AI 도구를 사용했고, 무엇을 만들지와 무엇이 틀렸는지의 판단은 제가 내렸습니다.</p>
+        <p><span class="ln">메뉴는 오늘 · 취업(로드맵·자격증·Lab·지원·면접·시장·작업물) · 메일 · 돈 · 메모 다섯 갈래입니다.</span><span class="ln">로그인 전에는 소개 화면만 보이고, 로그인하면 자기 보드가 열립니다.</span></p>
+        <p class="ownership"><b>기여 범위</b> — 무엇을 만들지, 무엇을 옮기고 무엇을 옮기지 않을지, 보안 원칙은 제가 정했습니다. 구현에는 AI 도구를 사용했고, 결과가 맞는지는 테스트와 실제 화면으로 제가 확인했습니다.</p>
       </section>
 
-      <section class="reading-section" id="build" aria-labelledby="build-title">
-        <p class="section-kicker">02 / 만든 방식</p>
-        <h2 id="build-title">여섯 개를 다 설계하고 시작했으면 첫날에 아무것도 못 띄웠습니다.</h2>
-        <p>첫 화면 하나를 두 시간 안에 띄우고 동결한 뒤, <b>필요해지는 순서대로</b> 나머지를 붙였습니다. 붙은 순서가 곧 실제로 필요했던 순서입니다.</p>
-        <ol class="decision-list">
-          <li><div><h3>하루 동안 화면이 하나씩 늘었습니다.</h3><p>상황판 → 결정 분기 → 일정 노트(o/x/△, 다음 날로 넘기기, 달력에 수행도를 색으로) → 구매 노트(우선순위 매트릭스·태그·후보 비교) → 교재. 마지막에 이름을 정했습니다.</p></div></li>
-          <li><div><h3>탭 이름을 일곱 번 고쳤습니다.</h3><p>"한눈에"는 무엇을 보는지가 없어 <b>상황판</b>으로, "게이트 36칸"은 내부 구조를 이름으로 내보낸 것이라 <b>진도</b>로, "Inbox"는 영어 낱말이 기능을 가려 <b>생각담기</b>로 바꿨습니다. 규칙은 하나입니다 — 누르기 전에 무슨 일이 생길지 이름에 있어야 합니다.</p></div></li>
-          <li><div><h3>화면 문장 규칙을 문서로 굳혔습니다.</h3><p>"무엇이 막고 있는가?" 같은 제목이 AI 말투로 읽히고 TBD 같은 약어가 그대로 남아 있었습니다. 나중에 메일 화면을 만들면서 같은 규칙이 일곱 줄짜리 문서가 됐습니다 — 한 줄에 한 문장, 실제 이름으로 쓰기, 자르지 않기, 숫자에 무엇을 센 숫자인지 붙이기 등입니다.</p></div></li>
+      <section class="reading-section" id="stack" aria-labelledby="stack-title">
+        <p class="section-kicker">02 / 구성</p>
+        <h2 id="stack-title">늘 켜 두는 PC 한 대에서 돌리고, 바깥에는 터널로만 엽니다.</h2>
+        <ol class="pipeline-flow" aria-label="디딤돌 요청 경로">
+          <li><strong>didimdol.site</strong><span>Cloudflare DNS</span></li>
+          <li><strong>Cloudflare Tunnel</strong><span>열린 포트 없이 연결</span></li>
+          <li><strong>FastAPI 앱</strong><span>127.0.0.1에만 붙음</span></li>
+          <li><strong>SQLite</strong><span>계정별 자료</span></li>
         </ol>
-        <p class="reading-note">이 방식의 대가도 있습니다. 만드는 동안 커밋을 하지 않아 초기 74판의 코드가 남아 있지 않습니다. 결정과 근거만 뒤늦게 설계 문서로 옮겼고, <b>코드는 되살릴 수 없다는 사실을 그 문서 첫 장에 적었습니다.</b></p>
+        <div class="comparison-wrap" role="region" aria-label="디딤돌 구성" tabindex="0">
+          <table class="comparison-table">
+            <caption>무엇으로 만들었나</caption>
+            <thead><tr><th scope="col">층</th><th scope="col">무엇</th><th scope="col">왜</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">실행</th><td>Windows PC의 WSL Ubuntu · systemd 사용자 서비스</td><td>로그인하지 않아도 뜨고, 따로 서버를 빌리지 않음</td></tr>
+              <tr><th scope="row">공개</th><td>Cloudflare Tunnel · Turnstile</td><td>PC의 포트를 열지 않고 도메인으로 연결</td></tr>
+              <tr><th scope="row">앱</th><td>FastAPI · SQLite(WAL)</td><td>혼자 운영할 수 있는 크기의 서버와 DB</td></tr>
+              <tr><th scope="row">로그인</th><td>이메일+비밀번호(argon2id) · Google 로그인(OIDC)</td><td>Google은 기본 범위(openid·email·profile)만</td></tr>
+              <tr><th scope="row">백업</th><td>매일 새벽 DB 사본 · PC 안과 밖 두 곳</td><td>메일 비밀번호를 푸는 키는 DB 사본과 다른 폴더에 둠</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="reading-note"><span class="ln">개인정보처리방침과 이용약관(/privacy · /terms)에는 코드가 실제로 지키는 것만 적었습니다.</span><span class="ln">보관 기간이나 쿠키 이름이 설정과 어긋나면 테스트가 깨지게 해 두었습니다.</span></p>
+      </section>
+
+      <section class="reading-section" id="migrate" aria-labelledby="migrate-title">
+        <p class="section-kicker">03 / 자료 이전</p>
+        <h2 id="migrate-title">옮긴 자료는 수로 맞췄고, 옮기지 않은 것은 이유를 적었습니다.</h2>
+        <p><span class="ln">옛 디딤의 화면·자료·사용자가 남긴 상태를 주인 계정으로 옮긴 경험이 있습니다.</span><span class="ln">옮긴 뒤에는 검증 명령이 옛 쪽과 디딤돌의 행 수를 자료 종류마다 대조합니다.</span><span class="ln">자료 16종이 모두 옛 쪽과 맞았고, 사용자가 남긴 표시(푼 문항·메모·응시 기록)도 맞았습니다.</span></p>
+        <ol class="decision-list">
+          <li><div><h3>"빠짐없이"의 뜻을 먼저 정했습니다.</h3><p><span class="ln">옛 쪽에 있던 것은 옮겼거나, 디딤돌이 원본을 바로 읽거나, 옮기지 않은 이유를 표에 적었습니다.</span><span class="ln">조용히 빠진 것은 없게 했습니다.</span></p></div></li>
+          <li><div><h3>메일 본문은 일부러 옮기지 않았습니다.</h3><p><span class="ln">디딤돌은 웹에 메일 제목·본문·요약을 내보내지 않는다는 원칙을 세웠습니다.</span><span class="ln">대신 분류 묶음과 원문 링크로 메일 서비스에서 직접 열게 했습니다.</span></p></div></li>
+          <li><div><h3>여러 번 돌려도 같은 결과가 나오게 했습니다.</h3><p><span class="ln">가져오기는 적용 전에 백업을 뜨고, 디딤돌에서 고친 행은 덮지 않으며, 지운 행은 되살리지 않습니다.</span></p></div></li>
+        </ol>
+      </section>
+
+      <section class="reading-section" id="isolation" aria-labelledby="isolation-title">
+        <p class="section-kicker">04 / 계정 분리와 보안</p>
+        <h2 id="isolation-title">남의 자료는 어떤 경로로도 읽을 수 없다는 것을 테스트로 고정했습니다.</h2>
+        <p><span class="ln">모든 질의는 세션의 사용자로 거르고, 요청 본문에 사용자 번호가 들어오면 거절합니다.</span><span class="ln">남의 항목을 열면 "없음"과 똑같은 404를 돌려줘, 있는지조차 알 수 없게 했습니다.</span><span class="ln">메일 요약은 주인 계정만 볼 수 있고, 메일 도구의 DB는 읽기 전용으로만 엽니다.</span></p>
+        <div class="comparison-wrap" role="region" aria-label="디딤돌 보안 원칙" tabindex="0">
+          <table class="comparison-table">
+            <caption>무엇을 막았나</caption>
+            <thead><tr><th scope="col">위협</th><th scope="col">막는 방법</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">남의 보드 읽기</th><td>세션 사용자로만 조회 · 남의 항목은 404</td></tr>
+              <tr><th scope="row">세션 가로채기</th><td>서버 쪽 세션 · 쿠키에는 무작위 값만 · 로그인 때마다 새 값</td></tr>
+              <tr><th scope="row">요청 위조(CSRF)</th><td>쓰기 요청마다 출처와 토큰을 함께 검사</td></tr>
+              <tr><th scope="row">계정 유추</th><td>가입·로그인 실패·재설정이 계정 유무와 관계없이 같은 답</td></tr>
+              <tr><th scope="row">스크립트 삽입</th><td>자동 이스케이프 템플릿 · 인라인 스크립트 없는 CSP</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="reading-note"><span class="ln">테스트는 100개가 넘습니다.</span><span class="ln">인증, CSRF, 속도 제한, 사용자 분리, 메일 권한, 보안 머리글, 암호화를 봅니다.</span></p>
       </section>
 
       <section class="reading-section" id="mail" aria-labelledby="mail-title">
-        <p class="section-kicker">03 / 메일 화면과 그 뒤</p>
+        <p class="section-kicker">05 / 메일 화면과 그 뒤</p>
         <h2 id="mail-title">되돌릴 수 없는 것을 먼저 정했는데, 그것을 지키는 테스트가 없었습니다.</h2>
-        <p>화면 열 개 가운데 메일과 고정비만 사람이 적지 않습니다. 별도 도구가 지메일·네이버 메일을 가져와 분류하고, 그 결과를 이 보드에 <b>읽기 전용으로</b> 올립니다. 보드에서 메일함으로 돌아가는 길은 없습니다 — 사람이 링크를 눌러 메일 서비스를 직접 엽니다.</p>
+        <p>메뉴 가운데 메일과 돈(고정비·지출)만 사람이 적지 않습니다. 별도 도구가 지메일·네이버 메일을 가져와 분류하고, 디딤돌은 그 결과를 <b>읽기 전용으로</b> 읽습니다. 보드에서 메일함으로 돌아가는 길은 없습니다 — 사람이 링크를 눌러 메일 서비스를 직접 엽니다.</p>
         <p>메일이 2,382통이고 그중 78%가 분류 결과 "읽지 않아도 되는 것"이었습니다. 문제는 양이 아니라 그 안에 섞인 <b>지금 해야 하는 몇 건</b>을 찾는 데 드는 시간이었습니다.</p>
         <ol class="pipeline-flow" aria-label="메일 처리 흐름">
           <li><strong>수집</strong><span>IMAP · 읽기 전용</span></li>
@@ -116,8 +160,53 @@
         <p class="reading-note">오간 명령을 기록하는 방식과 소스를 직접 읽는 방식 두 가지로 검사합니다. 앞의 것만으로는 테스트가 지나가지 않는 새 코드 경로를 놓칩니다.</p>
       </section>
 
+      <section class="reading-section" id="audit" aria-labelledby="audit-title">
+        <p class="section-kicker">06 / 전면 검수</p>
+        <h2 id="audit-title">테스트 281개가 전부 통과하는 상태에서 29가지가 살아 있었습니다.</h2>
+        <p>만든 것이 실제로 맞게 동작하는지 한 번 전부 확인했습니다. <b>결함은 테스트가 아니라 실제 데이터를 들여다봐서 나왔습니다.</b> 아래는 그 가운데 성격이 다른 넷입니다.</p>
+        <div class="comparison-wrap" role="region" aria-label="검수에서 나온 결함" tabindex="0">
+          <table class="comparison-table">
+            <caption>실제 데이터에서 드러난 것 · 전체 29가지 중 4가지</caption>
+            <thead><tr><th scope="col">무엇이 틀렸나</th><th scope="col">왜 안 보였나</th><th scope="col">고친 뒤</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">같은 결제를 두 번 셈</th><td>상점과 결제대행사가 상호를 다르게 씀</td><td>이번 달 총액에서 허수 18% 제거</td></tr>
+              <tr><th scope="row">달러 결제를 원화로 더함</th><td>통화 칸은 있는데 합계가 보지 않음</td><td>환산 못 한 15건을 빼고 밝힘</td></tr>
+              <tr><th scope="row">3년 전 일이 "지금 할 것"에</th><td>할 일 판정에 기간 상한이 없음</td><td>할 일 21건 → 11건</td></tr>
+              <tr><th scope="row">시도 횟수가 성공해도 안 줄어듦</th><td>실패 경로만 테스트가 있었음</td><td>한도 직전이던 24통 복구</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>맨 아래 것이 이 검수의 성격을 잘 보여줍니다. 분류에 성공해도 시도 횟수가 0으로 돌아가지 않아, 한 번도 실패한 적 없는 메일 24통이 <b>격리 한도를 하나 남겨 두고</b> 있었습니다. 실패 경로를 보는 테스트는 세 개 있었고 성공 경로를 보는 테스트는 없었습니다.</p>
+        <p class="limit"><b>29가지는 전수가 아닙니다</b><br>한 번의 검수에서 찾은 것이고, 더 있을 수 있습니다. 찾은 방식은 코드 읽기·실제 데이터 조회·재현 실험이며, 각 결함은 고친 뒤 그것을 잡는 테스트를 같이 붙였습니다(281개 → 327개).</p>
+      </section>
+
+      <section class="reading-section" id="ops" aria-labelledby="ops-title">
+        <p class="section-kicker">07 / 고장 감지</p>
+        <h2 id="ops-title">메일이 0통이면 정상과 고장이 똑같이 조용합니다.</h2>
+        <p>알림이 메일에서 파생되므로, 도구가 죽어도 사용자에게는 "조용한 날"과 구분되지 않습니다. 그래서 메일 내용과 무관한 네 번째 신호를 따로 두었습니다.</p>
+        <ol class="decision-list">
+          <li><div><h3>세 층으로 나눴습니다.</h3><p>계정 단위(인증 실패·수집 정지), 파이프라인 단위(격리 누적·큐 정체), 전체 정지. 앞의 둘은 본체가 알리고, 전체 정지는 <b>본체와 별개로 도는 감시</b>가 알립니다 — 프로그램이 죽으면 프로그램은 알릴 수 없습니다.</p></div></li>
+          <li><div><h3>PC가 통째로 안 뜨는 경우는 바깥에 맡겼습니다.</h3><p>그때는 감시도 같이 죽습니다. 외부 감시 서비스에 주기적으로 신호를 보내고, 끊기면 그쪽에서 알리도록 했습니다.</p></div></li>
+          <li><div><h3>검수에서 이 설계의 구멍도 나왔습니다.</h3><p>접속에 성공하면 새 메일이 0통이어도 "수집 성공"으로 기록해, 읽는 위치가 망가져도 조용했습니다. 알림 경로가 죽었을 때 <b>그 사실을 같은 경로로 알리려는</b> 고리도 있었습니다. 둘 다 이 모듈이 애초에 풀겠다고 선언한 문제와 같은 종류였습니다.</p></div></li>
+        </ol>
+        <p class="reading-note">알림 채널은 지금 봐야 하는 것 · 하루 요약 · 도구 자체의 고장 셋으로 나눠 두었습니다. 섞이면 고장 알림이 메일 알림에 묻힙니다.</p>
+      </section>
+
+      <section class="reading-section" id="build" aria-labelledby="build-title">
+        <p class="section-kicker">08 / 옛 디딤 · 만든 방식</p>
+        <h2 id="build-title">여섯 개를 다 설계하고 시작했으면 첫날에 아무것도 못 띄웠습니다.</h2>
+        <p><span class="ln">옛 디딤은 우선순위 · 주간 작업 · 생각 정리 · 프로젝트 현황 · 결정 기록 · 결정의 흐름, 여섯 가지 요구를 한 화면에 모은 claude.ai 아티팩트였습니다.</span><span class="ln">아래는 디딤돌로 옮기기 전, 그 보드를 만들던 때의 기록입니다.</span></p>
+        <p>첫 화면 하나를 두 시간 안에 띄우고 동결한 뒤, <b>필요해지는 순서대로</b> 나머지를 붙였습니다. 붙은 순서가 곧 실제로 필요했던 순서입니다.</p>
+        <ol class="decision-list">
+          <li><div><h3>하루 동안 화면이 하나씩 늘었습니다.</h3><p>상황판 → 결정 분기 → 일정 노트(o/x/△, 다음 날로 넘기기, 달력에 수행도를 색으로) → 구매 노트(우선순위 매트릭스·태그·후보 비교) → 교재. 마지막에 이름을 정했습니다.</p></div></li>
+          <li><div><h3>탭 이름을 일곱 번 고쳤습니다.</h3><p>"한눈에"는 무엇을 보는지가 없어 <b>상황판</b>으로, "게이트 36칸"은 내부 구조를 이름으로 내보낸 것이라 <b>진도</b>로, "Inbox"는 영어 낱말이 기능을 가려 <b>생각담기</b>로 바꿨습니다. 규칙은 하나입니다 — 누르기 전에 무슨 일이 생길지 이름에 있어야 합니다.</p></div></li>
+          <li><div><h3>화면 문장 규칙을 문서로 굳혔습니다.</h3><p>"무엇이 막고 있는가?" 같은 제목이 AI 말투로 읽히고 TBD 같은 약어가 그대로 남아 있었습니다. 나중에 메일 화면을 만들면서 같은 규칙이 일곱 줄짜리 문서가 됐습니다 — 한 줄에 한 문장, 실제 이름으로 쓰기, 자르지 않기, 숫자에 무엇을 센 숫자인지 붙이기 등입니다.</p></div></li>
+        </ol>
+        <p class="reading-note">이 방식의 대가도 있습니다. 만드는 동안 커밋을 하지 않아 초기 74판의 코드가 남아 있지 않습니다. 결정과 근거만 뒤늦게 설계 문서로 옮겼고, <b>코드는 되살릴 수 없다는 사실을 그 문서 첫 장에 적었습니다.</b></p>
+      </section>
+
       <section class="reading-section" id="graft" aria-labelledby="graft-title">
-        <p class="section-kicker">04 / 화면 이식</p>
+        <p class="section-kicker">09 / 옛 디딤 · 화면 이식</p>
         <h2 id="graft-title">중괄호 개수가 맞는다고 구조가 맞는 것은 아니었습니다.</h2>
         <p>메일 화면은 따로 만든 뒤 이 보드에 옮겨 넣었습니다. 보드는 이미 완성돼 있고 파일이 한 장이라, 옮길 때 클래스 이름이 겹치고 페이지 껍데기가 두 겹이 됩니다. 클래스가 198개라 손으로 고치면 목업을 한 줄 고칠 때마다 그 작업을 다시 해야 합니다. 그래서 변환기를 만들어 통과시켰습니다.</p>
         <p>그 변환기가 CSS에서 껍데기를 걷어낼 때 정규식 하나로 <code>선택자{선언}</code>을 긁었습니다. 그러면 조건부 스타일 블록이 통째로 풀립니다.</p>
@@ -139,44 +228,13 @@
         <p class="reading-note">결과물은 원본과 도구만으로 바이트 단위까지 다시 만들어집니다. 사람이 손댄 자리가 남아 있으면 그 성질이 성립하지 않습니다.</p>
       </section>
 
-      <section class="reading-section" id="audit" aria-labelledby="audit-title">
-        <p class="section-kicker">05 / 전면 검수</p>
-        <h2 id="audit-title">테스트 281개가 전부 통과하는 상태에서 29가지가 살아 있었습니다.</h2>
-        <p>만든 것이 실제로 맞게 동작하는지 한 번 전부 확인했습니다. <b>결함은 테스트가 아니라 실제 데이터를 들여다봐서 나왔습니다.</b> 아래는 그 가운데 성격이 다른 넷입니다.</p>
-        <div class="comparison-wrap" role="region" aria-label="검수에서 나온 결함" tabindex="0">
-          <table class="comparison-table">
-            <caption>실제 데이터에서 드러난 것 · 전체 29가지 중 4가지</caption>
-            <thead><tr><th scope="col">무엇이 틀렸나</th><th scope="col">왜 안 보였나</th><th scope="col">고친 뒤</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">같은 결제를 두 번 셈</th><td>상점과 결제대행사가 상호를 다르게 씀</td><td>이번 달 총액에서 허수 18% 제거</td></tr>
-              <tr><th scope="row">달러 결제를 원화로 더함</th><td>통화 칸은 있는데 합계가 보지 않음</td><td>환산 못 한 15건을 빼고 밝힘</td></tr>
-              <tr><th scope="row">3년 전 일이 "지금 할 것"에</th><td>할 일 판정에 기간 상한이 없음</td><td>할 일 21건 → 11건</td></tr>
-              <tr><th scope="row">시도 횟수가 성공해도 안 줄어듦</th><td>실패 경로만 테스트가 있었음</td><td>한도 직전이던 24통 복구</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p>맨 아래 것이 이 검수의 성격을 잘 보여줍니다. 분류에 성공해도 시도 횟수가 0으로 돌아가지 않아, 한 번도 실패한 적 없는 메일 24통이 <b>격리 한도를 하나 남겨 두고</b> 있었습니다. 실패 경로를 보는 테스트는 세 개 있었고 성공 경로를 보는 테스트는 없었습니다.</p>
-        <p class="limit"><b>29가지는 전수가 아닙니다</b><br>한 번의 검수에서 찾은 것이고, 더 있을 수 있습니다. 찾은 방식은 코드 읽기·실제 데이터 조회·재현 실험이며, 각 결함은 고친 뒤 그것을 잡는 테스트를 같이 붙였습니다(281개 → 327개).</p>
-      </section>
-
-      <section class="reading-section" id="ops" aria-labelledby="ops-title">
-        <p class="section-kicker">06 / 고장 감지</p>
-        <h2 id="ops-title">메일이 0통이면 정상과 고장이 똑같이 조용합니다.</h2>
-        <p>알림이 메일에서 파생되므로, 도구가 죽어도 사용자에게는 "조용한 날"과 구분되지 않습니다. 그래서 메일 내용과 무관한 네 번째 신호를 따로 두었습니다.</p>
-        <ol class="decision-list">
-          <li><div><h3>세 층으로 나눴습니다.</h3><p>계정 단위(인증 실패·수집 정지), 파이프라인 단위(격리 누적·큐 정체), 전체 정지. 앞의 둘은 본체가 알리고, 전체 정지는 <b>본체와 별개로 도는 감시</b>가 알립니다 — 프로그램이 죽으면 프로그램은 알릴 수 없습니다.</p></div></li>
-          <li><div><h3>PC가 통째로 안 뜨는 경우는 바깥에 맡겼습니다.</h3><p>그때는 감시도 같이 죽습니다. 외부 감시 서비스에 주기적으로 신호를 보내고, 끊기면 그쪽에서 알리도록 했습니다.</p></div></li>
-          <li><div><h3>검수에서 이 설계의 구멍도 나왔습니다.</h3><p>접속에 성공하면 새 메일이 0통이어도 "수집 성공"으로 기록해, 읽는 위치가 망가져도 조용했습니다. 알림 경로가 죽었을 때 <b>그 사실을 같은 경로로 알리려는</b> 고리도 있었습니다. 둘 다 이 모듈이 애초에 풀겠다고 선언한 문제와 같은 종류였습니다.</p></div></li>
-        </ol>
-        <p class="reading-note">알림 채널은 지금 봐야 하는 것 · 하루 요약 · 도구 자체의 고장 셋으로 나눠 두었습니다. 섞이면 고장 알림이 메일 알림에 묻힙니다.</p>
-      </section>
-
       <section class="reading-section" id="limits" aria-labelledby="limits-title">
-        <p class="section-kicker">07 / 남은 한계</p>
+        <p class="section-kicker">10 / 남은 한계</p>
         <h2 id="limits-title">확인하지 않은 범위를 남겨 둡니다.</h2>
-        <p>화면에서 사람이 적은 것(일정 노트·구매 노트·발신자 판단)은 아직 <b>브라우저 안에만</b> 남습니다. 서버에 남기는 경로를 만들어 두었으나 화면이 아직 그것을 읽지 않습니다. 다른 기기에서 열면 비어 있습니다.</p>
+        <p><span class="ln">다른 사용자가 자기 메일을 연결하는 기능과 메일 분류 모델은 아직 만들지 않았습니다.</span><span class="ln">지금은 자격 증명 암호화와 읽기 전용 메일함 같은 안전장치만 테스트로 고정해 두었습니다.</span></p>
+        <p><span class="ln">PC 한 대에서 도는 구조라, PC가 꺼지면 사이트도 멈춥니다.</span><span class="ln">이중화나 여러 서버 운영은 하지 않았습니다.</span></p>
         <p>분류 품질은 별도로 측정하지 않았습니다. 화면에 뜨는 등급과 요약은 모델 판정이며, <b>정답 집합과 비교한 정확도 수치는 없습니다.</b> 검수에서 확인한 것은 "집계와 표시가 데이터와 일치하는가"이지 "판정이 옳은가"가 아닙니다.</p>
-        <p class="limit"><b>검증 범위와 미검증 항목</b> — 읽기 전용 보장, 집계 정합성, 이식 파이프라인의 재현성, 고장 감지 경로를 확인했습니다. 분류 정확도·다중 사용자·대규모 메일 처리·상용 운영 경험으로 확대하지 않습니다. 메일 본문과 발신자가 들어 있어 저장소와 실행 화면은 공개하지 않습니다.</p>
+        <p class="limit"><b>검증 범위와 미검증 항목</b> — 계정별 분리, 메일 읽기 전용 보장, 옛 자료 이전의 수 맞추기, 집계 정합성, 고장 감지 경로를 확인했습니다. 분류 정확도·사용자 규모·대규모 메일 처리·상용 운영 경험으로 확대하지 않습니다. 메일 본문과 발신자가 들어 있어 저장소와 실행 화면은 공개하지 않습니다.</p>
       </section>
     </main>
     <footer class="project-page-footer"><a class="back-link" href="../../#work">← 프로젝트 목록으로</a><a class="back-link" href="../rag-retrieval-poc/">RAG Retrieval PoC 보기 →</a></footer>
