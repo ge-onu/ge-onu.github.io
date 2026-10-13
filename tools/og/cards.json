@@ -1,1 +1,80 @@
-{"home": {"k": "신입 채용 지원 중", "pre": "이건우 · Geonwoo Lee", "t": "클라우드·인프라<br>엔지니어", "s": "Terraform으로 AWS 서버리스 구성을 작성하고, 장애 원인을 좁혀 근거와 함께 기록합니다.", "tags": ["AWS · Terraform", "Kubernetes 실습", "트러블슈팅 기록 6건"], "art": "/assets/chat-mascot.png", "contain": true, "foot": "<b>geonu.site</b> · 포트폴리오"}, "mealplanning": {"k": "5인 팀 프로젝트 · 최우수상", "t": "Mealplanning", "s": "AI 기능의 서버리스 전환 설계와 응답 검증 개선", "tags": ["응답 검증 통과 166→247 / 275건", "서버리스 전환 판정 10 / 12종", "LLM 15종 비교"], "art": "/assets/covers/meal.webp", "contain": true}, "kubernetes-lab": {"k": "개인 실습", "t": "Kubernetes<br>Multi-node Lab", "s": "kubeadm 멀티노드 클러스터에서 Network·Storage·RBAC·Scaling 문제를 Event와 리소스 상태로 확인했습니다.", "tags": ["Calico", "Ingress", "PV/PVC", "RBAC", "HPA/KEDA"], "art": "/assets/kubernetes-lab-cover.svg", "contain": true}, "infrastructure-lab-series": {"k": "개인 실습 · AI Agent 활용", "t": "Infrastructure<br>Lab Series", "s": "Routing/NAT부터 보안 경계, DNS·VPN, LB·HA·TLS, 로그·감시까지 이어지는 인프라 실습입니다.", "tags": ["Routing/NAT", "Firewall", "DNS/VPN", "HAProxy/HA/TLS"], "art": "/assets/covers/linux.webp", "contain": true}, "rag-retrieval-poc": {"k": "개인 실험", "t": "RAG Retrieval PoC", "s": "근거를 찾는 것과 답해도 되는지 판단하는 것을 나눈 실험입니다. 포트폴리오 챗봇 거누가 이 엔진으로 답합니다.", "tags": ["BM25", "근거 없으면 거절", "holdout 평가"], "art": "/assets/covers/rag.webp", "contain": true}}
+{
+ "home": {
+  "k": "신입 채용 지원 중",
+  "pre": "이건우 · Geonwoo Lee",
+  "t": "클라우드·인프라<br>엔지니어",
+  "s": "Terraform으로 AWS 서버리스 구성을 작성하고, 장애 원인을 좁혀 근거와 함께 기록합니다.",
+  "tags": [
+   "AWS · Terraform",
+   "Kubernetes 실습",
+   "트러블슈팅 기록 6건"
+  ],
+  "art": "/assets/chat-mascot.png",
+  "contain": true,
+  "foot": "<b>geonu.site</b> · 포트폴리오"
+ },
+ "mealplanning": {
+  "k": "5인 팀 프로젝트 · 최우수상",
+  "t": "Mealplanning",
+  "s": "AI 기능의 서버리스 전환 설계와 응답 검증 개선",
+  "tags": [
+   "응답 검증 통과 166→247 / 275건",
+   "서버리스 전환 판정 10 / 12종",
+   "LLM 15종 비교"
+  ],
+  "art": "/assets/covers/meal.webp",
+  "contain": true
+ },
+ "kubernetes-lab": {
+  "k": "개인 실습",
+  "t": "Kubernetes<br>Multi-node Lab",
+  "s": "kubeadm 멀티노드 클러스터에서 Network·Storage·RBAC·Scaling 문제를 Event와 리소스 상태로 확인했습니다.",
+  "tags": [
+   "Calico",
+   "Ingress",
+   "PV/PVC",
+   "RBAC",
+   "HPA/KEDA"
+  ],
+  "art": "/assets/kubernetes-lab-cover.svg",
+  "contain": true
+ },
+ "infrastructure-lab-series": {
+  "k": "개인 실습 · AI Agent 활용",
+  "t": "Infrastructure<br>Lab Series",
+  "s": "Routing/NAT부터 보안 경계, DNS·VPN, LB·HA·TLS, 로그·감시까지 이어지는 인프라 실습입니다.",
+  "tags": [
+   "Routing/NAT",
+   "Firewall",
+   "DNS/VPN",
+   "HAProxy/HA/TLS"
+  ],
+  "art": "/assets/covers/linux.webp",
+  "contain": true
+ },
+ "rag-retrieval-poc": {
+  "k": "개인 실험",
+  "t": "RAG Retrieval PoC",
+  "s": "근거를 찾는 것과 답해도 되는지 판단하는 것을 나눈 실험입니다. 포트폴리오 챗봇 거누가 이 엔진으로 답합니다.",
+  "tags": [
+   "BM25",
+   "근거 없으면 거절",
+   "holdout 평가"
+  ],
+  "art": "/assets/covers/rag.webp",
+  "contain": true
+ },
+ "didim": {
+  "k": "개인 프로젝트 · 웹앱",
+  "t": "디딤돌",
+  "s": "혼자 쓰던 보드를 계정마다 자료가 나뉘는 웹앱으로 옮기고, 옛 자료 16종의 수를 맞춰 검증했습니다.",
+  "tags": [
+   "didimdol.site",
+   "계정별 자료 분리",
+   "옛 자료 16종 검증"
+  ],
+  "art": "/assets/didim-logo.svg",
+  "contain": true,
+  "artCss": "transform:translate(-24%,-6%) scale(1.5)"
+ }
+}
