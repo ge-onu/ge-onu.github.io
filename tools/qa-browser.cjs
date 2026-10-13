@@ -100,15 +100,18 @@ const assert = require('node:assert/strict');
           await page.waitForFunction(opened, null, { timeout: 3000 });
           await page.reload({ waitUntil: 'networkidle' });
           await page.waitForFunction(opened, null, { timeout: 3000 });
+          // 펼치기·접기는 높이 애니메이션(약 0.4초)이 끝난 뒤의 상태를 본다. 사이트는 '동작 줄이기'와 관계없이 애니메이션을 쓴다.
+          const allOpen = () => document.querySelectorAll('details:not([open])').length === 0;
+          const allClosed = () => document.querySelectorAll('details[open]').length === 0;
           await page.locator('[data-expand-all]').click();
-          assert.equal(await page.locator('details:not([open])').count(), 0);
+          await page.waitForFunction(allOpen, null, { timeout: 3000 });
           assert.ok((await measure()).documentWidth <= width, `expanded mealplanning ${width}: overflow`);
           if ([1440, 390].includes(width)) await page.locator('#chat-comparison').screenshot({ path: path.join(output, `chat-comparison-${width}.png`) });
           await page.locator('[data-collapse-all]').click();
-          assert.equal(await page.locator('details[open]').count(), 0);
+          await page.waitForFunction(allClosed, null, { timeout: 3000 });
           await page.goto(origin + route + '#%E0%A4%A', { waitUntil: 'networkidle' });
           await page.locator('[data-expand-all]').click();
-          assert.equal(await page.locator('details:not([open])').count(), 0);
+          await page.waitForFunction(allOpen, null, { timeout: 3000 });
         }
         if (name === 'kubernetes') {
           const tabs = page.locator('[data-story-tab]');

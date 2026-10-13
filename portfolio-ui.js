@@ -20,8 +20,8 @@
 (() => {
  const nodes=[...document.querySelectorAll('details')];
  const states=new Map();
- // 동작 줄이기를 켠 사용자에게는 높이 애니메이션 없이 바로 열고 닫는다.
- const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+ // 사용자 요청(2026-10-13): '동작 줄이기' 설정과 관계없이 높이 애니메이션을 쓴다.
+ const reduce={matches:false};
  function settle(d,s){ if(s.animation){s.animation.cancel();s.animation=null;} d.style.height='';d.style.overflow=''; }
  function change(d,open,startOverride){
   const s=states.get(d);if(!s)return;
@@ -31,7 +31,7 @@
   d.open=true;
   const end=open?d.getBoundingClientRect().height:d.querySelector(':scope > summary').getBoundingClientRect().height+parseFloat(getComputedStyle(d).borderTopWidth)+parseFloat(getComputedStyle(d).borderBottomWidth);
   d.style.overflow='hidden';
-  s.animation=d.animate([{height:start+'px'},{height:end+'px'}],{duration:420,easing:'cubic-bezier(.25,.1,.25,1)'});
+  s.animation=d.animate([{height:start+'px'},{height:end+'px'}],{duration:420,easing:'cubic-bezier(.32,.72,0,1)'});
   s.animation.onfinish=()=>{d.open=s.target;settle(d,s);};
  }
  nodes.forEach(d=>{

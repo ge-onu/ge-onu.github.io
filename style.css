@@ -728,6 +728,3 @@ h1, h2, h3, h4, p, li, dt, dd, td, th, figcaption, blockquote, .hero-summary, .p
   .section-rail a:focus-visible .section-rail-label { opacity: 1; visibility: visible; }
   .section-rail[data-dismissed] a .section-rail-label { opacity: 0; visibility: hidden; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .section-rail-tick { transition: none; }
-}

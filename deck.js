@@ -4,7 +4,8 @@
  const root=document.querySelector('[data-deck]');const dataEl=document.getElementById('deck-data');
  if(!root||!dataEl)return;
  const data=JSON.parse(dataEl.textContent);const S=data.slides;const base=data.base;
- const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+ // 사용자 요청(2026-10-13): 기기의 '동작 줄이기' 설정과 관계없이 애니메이션을 보여 준다.
+ const reduce={matches:false};
  const $=s=>root.querySelector(s);
  const stage=$('.deck-stage'),frame=$('.deck-frame'),count=$('.deck-count'),title=$('.deck-title'),steps=$('.deck-steps'),bar=$('.deck-progress i'),play=$('.deck-play'),tabs=[...root.querySelectorAll('.deck-chapters button')];
  const src=p=>`${base}p${String(p).padStart(3,'0')}.webp`;
@@ -20,8 +21,11 @@
 
  function layer(kind){const el=document.createElement(kind);el.className='deck-layer';if(kind==='img'){el.alt='';el.draggable=false;}return el;}
  function current(){return frame.querySelector('.deck-layer.on');}
+ let pending=null;
+ // 넘기는 중에 누른 이동은 버리지 않고, 끝난 뒤 마지막 요청 하나를 실행한다.
+ const release=()=>{busy=false;if(pending){const q=pending;pending=null;show(...q);}};
  async function show(nextI,nextJ,mode){
-  if(busy)return;busy=true;
+  if(busy){pending=[nextI,nextJ,mode];return;}busy=true;
   const s=S[nextI],p=s.p[nextJ],isVideo=s.v&&nextJ===s.p.length-1;
   await load(p);
   let anim=!isVideo&&(mode==='next'||mode==='step')&&preVid(p);
@@ -43,14 +47,17 @@
   i=nextI;j=nextJ;render();warm();
   if(isVideo&&root.dataset.visible==='1')el.play().catch(()=>{});
   if(anim)el.play().catch(()=>el.dispatchEvent(new Event('ended')));
-  setTimeout(()=>{busy=false;},quick?0:mode==='step'?260:380);
+  setTimeout(release,quick?0:mode==='step'?260:380);
  }
+ const chapBar=root.querySelector('.deck-chapters');const chapInd=document.createElement('span');chapInd.className='deck-chap-ind';chapInd.setAttribute('aria-hidden','true');chapBar.append(chapInd);chapBar.classList.add('has-ind');
+ const moveChap=()=>{const t=tabs.find(t=>t.getAttribute('aria-selected')==='true');if(!t)return;chapInd.style.width=(t.offsetWidth-24)+'px';chapInd.style.transform=`translateX(${t.offsetLeft+12}px)`;};
+ new ResizeObserver(moveChap).observe(chapBar);requestAnimationFrame(()=>requestAnimationFrame(()=>chapBar.classList.add('ready')));
  function render(){
   const s=S[i];count.textContent=`${i+1} / ${total}`;title.textContent=s.t;
   bar.style.width=`${((i+(s.p.length>1?j/(s.p.length-1):1))/total)*100}%`;
   steps.replaceChildren(...(s.p.length>1?s.p.map((_,n)=>{const d=document.createElement('i');if(n<=j)d.className='done';return d;}):[]));
   steps.setAttribute('aria-label',s.p.length>1?`${s.p.length}단계 중 ${j+1}단계`:'');
-  tabs.forEach(t=>{const on=t.dataset.chapter===s.c;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;});
+  tabs.forEach(t=>{const on=t.dataset.chapter===s.c;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;});moveChap();
   $('.deck-prev').disabled=i===0&&j===0;$('.deck-next').disabled=i===total-1&&j===S[i].p.length-1;
  }
  function advance(){const s=S[i];if(j<s.p.length-1)return show(i,j+1,'step');if(i<total-1)return show(i+1,0,'next');stop();}

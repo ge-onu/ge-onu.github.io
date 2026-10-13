@@ -833,11 +833,6 @@ summary:focus-visible, button:focus-visible, .comparison-wrap:focus-visible { ou
   .evidence-toolbar button { min-height: 44px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .project-showcase-card { transition: none; }
-  .project-showcase-card:hover { transform: none; }
-}
 
 @media (max-width: 680px) {
   .github-button--small,
