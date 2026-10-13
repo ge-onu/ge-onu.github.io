@@ -125,3 +125,11 @@ main h1:not(#hero-title){view-transition-name:proj-title}
 /* 거누 근거 링크로 이동한 영역을 한 번 반짝인다(site.js) */
 @keyframes target-flash{22%{background-color:color-mix(in srgb,var(--text) 9%,transparent);box-shadow:0 0 0 12px color-mix(in srgb,var(--text) 9%,transparent)}}
 .flash-target{animation:target-flash 1.3s cubic-bezier(.22,1,.36,1);border-radius:14px}
+
+/* 첫 화면 소개 아래 근거 두 줄(작게) */
+.lead-sub{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px;max-width:640px}
+.lead-sub li{display:flex;gap:10px;align-items:baseline;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.lead-sub b{flex:none;white-space:nowrap;font-size:12.5px;font-weight:700;color:var(--text-2);padding:2px 9px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line)}
+.lead-sub span{text-wrap:pretty}
+.hero-copy>:nth-child(7){animation-delay:460ms}
+@media (max-width:560px){.lead-sub li{flex-direction:column;gap:4px}}

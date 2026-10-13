@@ -3,10 +3,10 @@
   "k": "신입 채용 지원 중",
   "pre": "이건우 · Geonwoo Lee",
   "t": "클라우드·인프라<br>엔지니어",
-  "s": "Terraform으로 AWS 서버리스 구성을 작성하고, 장애 원인을 좁혀 근거와 함께 기록합니다.",
+  "s": "팀 프로젝트의 핵심 AI 기능을 PoC부터 구현까지 맡고, 직접 만든 웹앱과 RAG 챗봇을 Cloudflare로 배포했습니다.",
   "tags": [
-   "AWS · Terraform",
-   "Kubernetes 실습",
+   "AI 기능 PoC → 구현",
+   "Cloudflare 배포",
    "트러블슈팅 기록 6건"
   ],
   "art": "/assets/chat-mascot.png",
