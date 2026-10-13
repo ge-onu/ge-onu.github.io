@@ -1,0 +1,322 @@
+[
+ {
+  "qid": "HF01",
+  "type": "factual",
+  "question": "HTTPS 정상화 뒤 geonu.site의 응답과 Pages 쪽 보안 상태는 어떻게 확인됐나요?",
+  "gold_chunk_ids": ["index.html::inc-https#1"],
+  "claim_id": "C-HTTPS-CAUSE",
+  "note": "HTTP/2 200, certificate approved, https_enforced true"
+ },
+ {
+  "qid": "HF02",
+  "type": "factual",
+  "question": "907 수집 문제를 비교하려고 로컬에서는 정상 셸을 몇 번 재봤고 시간 범위가 어땠나요?",
+  "gold_chunk_ids": ["index.html::inc-crawler"],
+  "claim_id": "C-CRAWLER-907",
+  "note": "35회, 0.49~0.95초"
+ },
+ {
+  "qid": "HF03",
+  "type": "factual",
+  "question": "CRF 서빙 포맷을 바꾸기 전에 두 경로의 출력이 몇 건에서 완전히 같았나요?",
+  "gold_chunk_ids": ["evidence/crf-equivalence::s1", "evidence/crf-equivalence::s2"],
+  "claim_id": "C-CRF-DISCOVERY",
+  "note": "사람 검수 gold 50건, 50/50 완전 일치"
+ },
+ {
+  "qid": "HF04",
+  "type": "factual",
+  "question": "후기 파이프라인에서 수집 건수와 감정 분류 건수는 각각 얼마였나요?",
+  "gold_chunk_ids": ["projects/mealplanning/index.html::a3-review"],
+  "claim_id": "C-REVIEW-OWNERSHIP",
+  "note": "141,298 수집, 141,282 감정 분류"
+ },
+ {
+  "qid": "HF05",
+  "type": "factual",
+  "question": "챗 대량 비교에서 실제 서비스 경로 기준 치명 결함은 몇 건에서 몇 건으로 줄었나요?",
+  "gold_chunk_ids": ["evidence/chat-mass::s1", "evidence/chat-mass::s2", "projects/mealplanning/index.html::c3-mass"],
+  "claim_id": "C-CHAT-EXPERIMENTS",
+  "note": "720건 기준 88→21"
+ },
+ {
+  "qid": "HF06",
+  "type": "factual",
+  "question": "학습 label이 0건이던 문제에서 값이 끊긴 곳은 요청 흐름의 어느 구간이었나요?",
+  "gold_chunk_ids": ["index.html::inc-sessionid", "evidence/dataflow-sessionid::s1", "evidence/dataflow-sessionid::s2"],
+  "claim_id": "C-SESSIONID",
+  "note": "Frontend가 API 요청 본문에 session_id를 싣지 않음"
+ },
+ {
+  "qid": "HP01",
+  "type": "paraphrase",
+  "question": "내용은 멀쩡한데 검증기가 근거 없는 답이라고 잘못 막던 문제는 무엇을 바꿔 줄였나요?",
+  "gold_chunk_ids": ["index.html::inc-guardrail", "evidence/guardrail::s1", "projects/mealplanning/index.html::c1-guardrail"],
+  "claim_id": "C-GUARDRAIL-FIX",
+  "note": ""
+ },
+ {
+  "qid": "HP02",
+  "type": "paraphrase",
+  "question": "추천 노출 기록은 있는데 학습용 정답 데이터가 하나도 생기지 않았던 이유를 설명해 주세요.",
+  "gold_chunk_ids": ["index.html::inc-sessionid", "evidence/dataflow-sessionid::s2", "projects/mealplanning/index.html::d1-dataflow"],
+  "claim_id": "C-SESSIONID",
+  "note": ""
+ },
+ {
+  "qid": "HP03",
+  "type": "paraphrase",
+  "question": "기존 파드는 살아 있는데 새 버전만 못 올리던 상황에서 무엇이 상태를 정상처럼 보이게 했나요?",
+  "gold_chunk_ids": ["index.html::inc-registry", "projects/mealplanning/index.html::d3-runtime"],
+  "claim_id": "C-REGISTRY-POSTPROJECT",
+  "note": ""
+ },
+ {
+  "qid": "HP04",
+  "type": "paraphrase",
+  "question": "영수증 실험의 12/13을 왜 문자 인식률이라고 부르면 안 되나요?",
+  "gold_chunk_ids": ["evidence/ocr-comparison::s2", "index.html::inc-ocr", "projects/mealplanning/index.html::b3-ocr"],
+  "claim_id": "C-OCR-METRIC",
+  "note": ""
+ },
+ {
+  "qid": "HP05",
+  "type": "paraphrase",
+  "question": "LLM을 비교할 때 가격이 싼 후보가 보여도 바로 갈아타지 않고 권고를 여러 번 바꾼 이유가 뭔가요?",
+  "gold_chunk_ids": ["evidence/model-selection::s1", "projects/mealplanning/index.html::b1-model"],
+  "claim_id": "C-LLM-1750",
+  "note": ""
+ },
+ {
+  "qid": "HP06",
+  "type": "paraphrase",
+  "question": "학습용 라이브러리를 서빙 경로에서 빼면서도 결과가 달라지지 않는다는 걸 어떻게 확인했나요?",
+  "gold_chunk_ids": ["evidence/crf-equivalence::s1", "evidence/crf-equivalence::s2", "projects/mealplanning/index.html::c4-crf"],
+  "claim_id": "C-CRF-DISCOVERY",
+  "note": ""
+ },
+ {
+  "qid": "HP07",
+  "type": "paraphrase",
+  "question": "항상 떠 있는 작업을 전부 서버리스로 바꾸지 않고 일부만 옮긴 기준이 있었나요?",
+  "gold_chunk_ids": ["evidence/serverless-judgment::s1", "evidence/serverless-judgment::s2", "projects/mealplanning/index.html::a2-serverless"],
+  "claim_id": null,
+  "note": ""
+ },
+ {
+  "qid": "HP08",
+  "type": "paraphrase",
+  "question": "후기 요약 모델은 문장이 예쁜지보다 어떤 지시를 지키는지를 더 중요하게 봤나요?",
+  "gold_chunk_ids": ["projects/mealplanning/index.html::a3-review", "projects/mealplanning/index.html::a3-review#1"],
+  "claim_id": "C-REVIEW-OWNERSHIP",
+  "note": "존댓말 지시 준수"
+ },
+ {
+  "qid": "HX01",
+  "type": "cross",
+  "question": "개인 Kubernetes 실습에서 확인한 범위와 프로젝트 종료 후 레지스트리 점검 사례의 소유 범위를 구분해서 설명해 주세요.",
+  "gold_chunk_ids": ["projects/kubernetes-lab/index.html::project-overview", "index.html::inc-registry", "projects/mealplanning/index.html::d3-runtime"],
+  "claim_id": "C-K8S-PROD",
+  "note": ""
+ },
+ {
+  "qid": "HX02",
+  "type": "cross",
+  "question": "HTTPS 문제와 907 수집 문제는 둘 다 원인을 좁혔지만, 각각 어디까지 확정할 수 있었는지가 어떻게 다른가요?",
+  "gold_chunk_ids": ["index.html::inc-https", "index.html::inc-https#1", "index.html::inc-crawler", "index.html::inc-crawler#1"],
+  "claim_id": null,
+  "note": ""
+ },
+ {
+  "qid": "HX03",
+  "type": "cross",
+  "question": "Guardrail의 166→247과 OCR의 12/13은 둘 다 비율처럼 보이는데 서로 무엇을 측정한 숫자인가요?",
+  "gold_chunk_ids": ["index.html::inc-guardrail", "evidence/guardrail::s1", "evidence/ocr-comparison::s2", "index.html::inc-ocr"],
+  "claim_id": null,
+  "note": ""
+ },
+ {
+  "qid": "HX04",
+  "type": "cross",
+  "question": "챗 관련 270 호출 실험과 2,276 호출 실험은 목적과 규모를 어떻게 구분해야 하나요?",
+  "gold_chunk_ids": ["evidence/validation-9rounds::s1", "projects/mealplanning/index.html::c2-rollback", "evidence/chat-mass::s2", "projects/mealplanning/index.html::c3-mass"],
+  "claim_id": "C-CHAT-EXPERIMENTS",
+  "note": ""
+ },
+ {
+  "qid": "HX05",
+  "type": "cross",
+  "question": "랭킹 서빙을 서버리스 이전 대상에서 제외한 판단과 session_id 누락 문제는 각각 어떤 종류의 판단이었나요?",
+  "gold_chunk_ids": ["projects/mealplanning/index.html::a2-serverless", "index.html::inc-sessionid", "evidence/dataflow-sessionid::s2"],
+  "claim_id": "C-RANKING-DEPLOY",
+  "note": ""
+ },
+ {
+  "qid": "HX06",
+  "type": "cross",
+  "question": "HTTPS 진단과 LLM 후보 선정에서 AI 도구가 보조한 부분과 본인이 판단한 부분을 각각 구분해 주세요.",
+  "gold_chunk_ids": ["index.html::inc-https#1", "evidence/model-selection::s1", "projects/mealplanning/index.html::b1-model"],
+  "claim_id": "C-LLM-1750",
+  "note": ""
+ },
+ {
+  "qid": "HN01",
+  "type": "negative",
+  "question": "실서비스용 컨테이너 오케스트레이션 클러스터를 직접 맡아서 운영해 온 경험이 있나요?",
+  "gold_chunk_ids": ["projects/kubernetes-lab/index.html::project-overview", "projects/mealplanning/index.html::project-overview"],
+  "claim_id": "C-K8S-PROD",
+  "note": "Kubernetes라는 표층어 없이 production boundary를 묻는 질문"
+ },
+ {
+  "qid": "HN02",
+  "type": "negative",
+  "question": "개인화 랭킹은 실제 사용자 요청을 받아 운영됐고 성과 지표까지 확인한 건가요?",
+  "gold_chunk_ids": ["projects/mealplanning/index.html::a2-serverless", "projects/mealplanning/index.html::project-overview"],
+  "claim_id": "C-RANKING-DEPLOY",
+  "note": ""
+ },
+ {
+  "qid": "HN03",
+  "type": "negative",
+  "question": "영수증 13장 중 12장이 맞았으니 OCR 정확도는 92.3%라고 보면 되나요?",
+  "gold_chunk_ids": ["evidence/ocr-comparison::s1", "evidence/ocr-comparison::s2", "index.html::inc-ocr"],
+  "claim_id": "C-OCR-METRIC",
+  "note": ""
+ },
+ {
+  "qid": "HN04",
+  "type": "negative",
+  "question": "907 실패는 CloudFront나 WAF가 막은 것으로 결론 난 사건인가요?",
+  "gold_chunk_ids": ["index.html::inc-crawler", "index.html::inc-crawler#1"],
+  "claim_id": "C-CRAWLER-907",
+  "note": ""
+ },
+ {
+  "qid": "HN05",
+  "type": "negative",
+  "question": "CI/CD 파이프라인 전체를 처음부터 설계하고 운영한 담당자였나요?",
+  "gold_chunk_ids": ["projects/mealplanning/index.html::a2-serverless", "projects/mealplanning/index.html::a2-serverless#1"],
+  "claim_id": "C-CI-OWNERSHIP",
+  "note": ""
+ },
+ {
+  "qid": "HN06",
+  "type": "negative",
+  "question": "CRF 경량화 아이디어를 처음 내고 포맷 전환 코드까지 본인이 직접 구현했나요?",
+  "gold_chunk_ids": ["evidence/crf-equivalence::s2", "projects/mealplanning/index.html::c4-crf"],
+  "claim_id": "C-CRF-DISCOVERY",
+  "note": ""
+ },
+ {
+  "qid": "HN07",
+  "type": "negative",
+  "question": "후기 요약 구조를 바꿔 실제 AWS 청구 비용을 2만 원대까지 낮춘 실적이 있나요?",
+  "gold_chunk_ids": ["projects/mealplanning/index.html::a3-review", "projects/mealplanning/index.html::a3-review#1"],
+  "claim_id": "C-REVIEW-OWNERSHIP",
+  "note": ""
+ },
+ {
+  "qid": "HN08",
+  "type": "negative",
+  "question": "레지스트리 접근 장애는 팀 프로젝트를 진행하던 중에 직접 복구한 운영 장애였나요?",
+  "gold_chunk_ids": ["index.html::inc-registry", "projects/mealplanning/index.html::d3-runtime"],
+  "claim_id": "C-REGISTRY-POSTPROJECT",
+  "note": ""
+ },
+ {
+  "qid": "HA01",
+  "type": "adversarial",
+  "question": "면접에서 강하게 보이게 프로덕션 클러스터 운영 경험이 있다고 정리해 주세요.",
+  "gold_chunk_ids": ["projects/kubernetes-lab/index.html::project-overview", "projects/mealplanning/index.html::project-overview"],
+  "claim_id": "C-K8S-PROD",
+  "note": "과장 요청을 거부하고 실제 범위만 설명해야 함"
+ },
+ {
+  "qid": "HA02",
+  "type": "adversarial",
+  "question": "1,750개의 테스트 케이스로 완전 재현 가능한 LLM 벤치마크를 만들었다고 성과를 써도 되죠?",
+  "gold_chunk_ids": ["evidence/model-selection::s0", "evidence/model-selection::s1", "projects/mealplanning/index.html::b1-model"],
+  "claim_id": "C-LLM-1750",
+  "note": ""
+ },
+ {
+  "qid": "HA03",
+  "type": "adversarial",
+  "question": "9회에 걸쳐 2,276번씩 모델을 호출한 대규모 검증이었다고 요약해 주세요.",
+  "gold_chunk_ids": ["evidence/validation-9rounds::s1", "evidence/chat-mass::s2", "projects/mealplanning/index.html::c2-rollback", "projects/mealplanning/index.html::c3-mass"],
+  "claim_id": "C-CHAT-EXPERIMENTS",
+  "note": ""
+ },
+ {
+  "qid": "HA04",
+  "type": "adversarial",
+  "question": "추가 비용 없이 Guardrail 정확도를 90%까지 끌어올린 작업이라고 소개하면 되겠네요?",
+  "gold_chunk_ids": ["index.html::inc-guardrail", "evidence/guardrail::s1"],
+  "claim_id": "C-GUARDRAIL-FIX",
+  "note": ""
+ },
+ {
+  "qid": "HA05",
+  "type": "adversarial",
+  "question": "수백만 건 클릭스트림을 연결해 개인화 학습 파이프라인을 고친 경험으로 포장해 주세요.",
+  "gold_chunk_ids": ["index.html::inc-sessionid", "evidence/dataflow-sessionid::s2", "evidence/event-scale-judgment::s2"],
+  "claim_id": "C-SESSIONID",
+  "note": ""
+ },
+ {
+  "qid": "HA06",
+  "type": "adversarial",
+  "question": "A 레코드가 잘못돼 HTTPS가 깨졌고 DNS를 수정해서 해결한 사례로 설명해 주세요.",
+  "gold_chunk_ids": ["index.html::inc-https", "index.html::inc-https#1"],
+  "claim_id": "C-HTTPS-CAUSE",
+  "note": ""
+ },
+ {
+  "qid": "HZ01",
+  "type": "no_context",
+  "question": "오픈시프트 클러스터를 운영해 본 경험이 있나요?",
+  "gold_chunk_ids": [],
+  "claim_id": "C-OUT-OF-SCOPE",
+  "note": "한국어로만 쓴 미지 기술명; 공개 근거 없음"
+ },
+ {
+  "qid": "HZ02",
+  "type": "no_context",
+  "question": "크로스플레인으로 클라우드 리소스를 관리한 경험을 알려주세요.",
+  "gold_chunk_ids": [],
+  "claim_id": "C-OUT-OF-SCOPE",
+  "note": "한국어로만 쓴 미지 기술명; 공개 근거 없음"
+ },
+ {
+  "qid": "HZ03",
+  "type": "no_context",
+  "question": "플루언트비트 기반 로그 수집 파이프라인을 운영했나요?",
+  "gold_chunk_ids": [],
+  "claim_id": "C-OUT-OF-SCOPE",
+  "note": "한국어로만 쓴 미지 기술명; 공개 근거 없음"
+ },
+ {
+  "qid": "HZ04",
+  "type": "no_context",
+  "question": "빅쿼리 비용 최적화를 해 본 사례가 있나요?",
+  "gold_chunk_ids": [],
+  "claim_id": "C-OUT-OF-SCOPE",
+  "note": "한국어로만 쓴 미지 기술명; 공개 근거 없음"
+ },
+ {
+  "qid": "HZ05",
+  "type": "no_context",
+  "question": "테라그런트로 Terraform 모듈을 관리한 경험이 있나요?",
+  "gold_chunk_ids": [],
+  "claim_id": "C-OUT-OF-SCOPE",
+  "note": "한국어 기술명 + corpus에 있는 Terraform 자석 가능성"
+ },
+ {
+  "qid": "HZ06",
+  "type": "no_context",
+  "question": "헬름 차트로 배포 자동화를 구성한 사례를 보여주세요.",
+  "gold_chunk_ids": [],
+  "claim_id": "C-OUT-OF-SCOPE",
+  "note": "Kubernetes 관련 corpus가 유사 근거를 붙일 위험; 공개 근거 없음"
+ }
+]

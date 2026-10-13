@@ -1,0 +1,543 @@
+{
+ "schema_version": "1.0",
+ "purpose": "각 주장에 대해 '확인된 것 / 확인되지 않은 것 / 금지 표현'을 고정한다. 검색 결과와 무관하게, 해당 주제가 잡히면 이 카드를 컨텍스트에 강제로 넣어 부정형 질문에서 모델이 근거를 지어내지 못하게 한다.",
+ "field_spec": {
+  "claim_id": "안정 식별자",
+  "topic": "라우팅용 주제",
+  "stance": "SUPPORTED | BOUNDED | NEGATIVE | UNCERTAIN | OUT_OF_SCOPE",
+  "verified": "공개 자료로 확인되는 사실. 문장 단위",
+  "not_verified": "확인되지 않았거나 확보하지 못한 것",
+  "forbidden": "이 주제에서 절대 생성하면 안 되는 표현",
+  "ownership": "본인 / 팀 / 혼합 — 기여 경계",
+  "evidence_chunk_ids": "이 카드를 뒷받침하는 chunk",
+  "evidence_urls": "공개 근거 경로",
+  "trigger_terms": "이 카드를 소환할 표층 신호 (BM25 라우팅용)"
+ },
+ "cards": [
+  {
+   "claim_id": "C-K8S-PROD",
+   "topic": "Kubernetes 실무 경험 범위",
+   "stance": "NEGATIVE",
+   "verified": "kubeadm 멀티노드 클러스터를 개인 실습으로 구성하고 Network·Storage·RBAC·Scaling을 연결해 확인했습니다. Mealplanning 팀 프로젝트는 Kubernetes 기반 환경 위에서 개발했습니다.",
+   "not_verified": "프로덕션 Kubernetes 클러스터를 직접 구축하거나 운영한 경험은 공개 자료에 없습니다.",
+   "forbidden": [
+    "프로덕션 Kubernetes 운영 경험",
+    "클러스터 운영 담당",
+    "EKS 구축",
+    "Argo CD 운영",
+    "Prometheus/Grafana 운영"
+   ],
+   "ownership": "개인 실습 = 본인 · 팀 프로젝트 클러스터 구축·운영 = 팀",
+   "evidence_chunk_ids": [
+    "projects/kubernetes-lab/index.html::project-overview",
+    "projects/mealplanning/index.html::boundary",
+    "projects/mealplanning/index.html::summary"
+   ],
+   "evidence_urls": [
+    "/projects/kubernetes-lab/",
+    "/projects/mealplanning/"
+   ],
+   "trigger_terms": [
+    "쿠버네티스",
+    "Kubernetes",
+    "K8s",
+    "프로덕션",
+    "운영",
+    "실무",
+    "클러스터",
+    "EKS",
+    "Argo CD"
+   ]
+  },
+  {
+   "claim_id": "C-OCR-METRIC",
+   "topic": "OCR 12/13 의 의미",
+   "stance": "BOUNDED",
+   "verified": "영수증 실물 13장을 5개 방식에 같은 조건으로 통과시켰고, 경량 비전 모델이 합계 정합 기준 13장 중 12장이었으며 실행 오류가 없었습니다. 성공 기준은 추출한 품목 금액의 합이 총액과 맞는지입니다.",
+   "not_verified": "문자 인식 정확도나 품목명·가격의 개별 정오는 측정하지 않았습니다. 13장은 작은 표본입니다.",
+   "forbidden": [
+    "OCR 정확도 92%",
+    "인식 정확도 12/13",
+    "인식률",
+    "정확도가 92%"
+   ],
+   "ownership": "비교 착수·성공 기준 정의·한계 명시·채택 = 본인",
+   "evidence_chunk_ids": [
+    "evidence/ocr-comparison::s1",
+    "evidence/ocr-comparison::s2",
+    "index.html::inc-ocr"
+   ],
+   "evidence_urls": [
+    "/assets/evidence/mealplanning/ocr-comparison/source.html"
+   ],
+   "trigger_terms": [
+    "OCR",
+    "12/13",
+    "정확도",
+    "합계 정합",
+    "영수증",
+    "인식"
+   ]
+  },
+  {
+   "claim_id": "C-RANKING-DEPLOY",
+   "topic": "개인화 Ranking 배포 여부",
+   "stance": "NEGATIVE",
+   "verified": "LightGBM 기반 랭킹의 학습·평가·서빙 경로를 구성했고, 랭킹 서빙 후보는 동기·지연민감 경로라 서버리스 전환 대상에서 제외했습니다. 로컬 모델 로드 하한은 약 1.05초, 성격이 유사한 실제 함수의 콜드스타트는 약 3.0초로 측정됐습니다.",
+   "not_verified": "개인화 Ranking 이 실서비스 트래픽에서 운영됐다는 근거는 공개 자료에 없습니다. 개인화가 효과를 냈는지 보여 주는 실사용 지표도 없습니다.",
+   "forbidden": [
+    "실서비스에서 랭킹 운영",
+    "개인화 성과 달성",
+    "NDCG 개선으로 개인화 입증",
+    "프로덕션 서빙"
+   ],
+   "ownership": "학습·평가·서빙 경로 구성과 전환 제외 판단 = 본인",
+   "evidence_chunk_ids": [
+    "projects/mealplanning/index.html::a2-serverless",
+    "projects/mealplanning/index.html::boundary",
+    "projects/mealplanning/index.html::summary"
+   ],
+   "evidence_urls": [
+    "/projects/mealplanning/"
+   ],
+   "trigger_terms": [
+    "랭킹",
+    "Ranking",
+    "LightGBM",
+    "개인화",
+    "추천",
+    "서빙",
+    "배포",
+    "운영"
+   ]
+  },
+  {
+   "claim_id": "C-CRAWLER-907",
+   "topic": "크롤러 야간 실패 원인",
+   "stance": "UNCERTAIN",
+   "verified": "매일 새벽 첫 카테고리 하나만 사흘 연속 수집에 실패했는데 작업은 실패 건수 0으로 기록됐습니다. 15.4초를 성분으로 나눠 페이지를 여는 데 쓴 시간이 0.4초 미만임을 확인했고, 로컬 35회 측정에서 정상은 0.49~0.95초였습니다. 받은 문서가 평소보다 작았다는 정황까지 좁혔습니다.",
+   "not_verified": "외부 응답의 실제 HTTP 상태와 종류는 확보하지 못했습니다. 차단·오류 페이지는 유력한 후보였을 뿐 확정되지 않았습니다.",
+   "forbidden": [
+    "WAF 차단으로 확정",
+    "CloudFront 차단이 원인",
+    "원인 규명 완료",
+    "차단이 확인됨"
+   ],
+   "ownership": "조사·원인 좁히기·기록 = 본인 · 크롤러 운영 = 팀",
+   "evidence_chunk_ids": [
+    "index.html::inc-crawler",
+    "index.html::inc-crawler#1"
+   ],
+   "evidence_urls": [
+    "/#inc-crawler"
+   ],
+   "trigger_terms": [
+    "크롤러",
+    "907",
+    "야간",
+    "새벽",
+    "WAF",
+    "차단",
+    "수집 실패",
+    "카테고리"
+   ]
+  },
+  {
+   "claim_id": "C-HTTPS-CAUSE",
+   "topic": "geonu.site HTTPS 차단 원인",
+   "stance": "BOUNDED",
+   "verified": "DNS 는 정상이었습니다. apex A 레코드가 GitHub Pages IP 4개를 가리키고 www CNAME 도 정상이며 CAA 레코드는 없었습니다. 원인은 GitHub 이 커스텀 도메인 인증서를 발급하지 않아 기본 와일드카드 인증서가 제시되고 호스트명이 맞지 않았던 것입니다. 커스텀 도메인을 재등록해 발급을 다시 걸고 Enforce HTTPS 를 켰습니다.",
+   "not_verified": "GitHub 내부에서 최초 발급이 왜 완료되지 않았는지는 확인할 수 없습니다.",
+   "forbidden": [
+    "DNS 설정 오류였다",
+    "DNS 를 고쳐서 해결",
+    "CAA 때문에 막혔다",
+    "A 레코드가 잘못돼 있었다"
+   ],
+   "ownership": "문제 발견·설정 변경·결과 확인 = 본인 · 진단 명령 실행·분석 보조 = AI 도구",
+   "evidence_chunk_ids": [
+    "index.html::inc-https",
+    "index.html::inc-https#1"
+   ],
+   "evidence_urls": [
+    "/#inc-https"
+   ],
+   "trigger_terms": [
+    "HTTPS",
+    "인증서",
+    "카카오톡",
+    "DNS",
+    "geonu.site",
+    "TLS",
+    "SAN"
+   ]
+  },
+  {
+   "claim_id": "C-GUARDRAIL-FIX",
+   "topic": "Guardrail 통과율 개선 방식",
+   "stance": "BOUNDED",
+   "verified": "같은 275건 평가 세트에서 통과 건수가 166건에서 247건으로 늘었습니다. 근거 문자열에 사용자 질문 원문과 한글 수사 정규화 결과를 함께 넣도록 판정 로직을 바꾼 결과이며, 모델을 교체하지 않았고 추가 LLM 호출도 없었습니다.",
+   "not_verified": "오탐 건수의 정량 분해를 누가 수행했는지는 기록으로 확정되지 않았습니다.",
+   "forbidden": [
+    "모델을 바꿔서 해결",
+    "더 좋은 모델로 교체",
+    "정확도를 90%로 개선",
+    "비용 0원으로 해결"
+   ],
+   "ownership": "오탐 의심 제기·재측정 요구·채택 = 본인 판단",
+   "evidence_chunk_ids": [
+    "evidence/guardrail::s1",
+    "index.html::inc-guardrail",
+    "projects/mealplanning/index.html::c1-guardrail"
+   ],
+   "evidence_urls": [
+    "/assets/evidence/mealplanning/guardrail/source.html"
+   ],
+   "trigger_terms": [
+    "Guardrail",
+    "가드레일",
+    "오탐",
+    "통과율",
+    "166",
+    "247",
+    "275",
+    "응답 검증"
+   ]
+  },
+  {
+   "claim_id": "C-SESSIONID",
+   "topic": "학습 label 미생성 원인",
+   "stance": "SUPPORTED",
+   "verified": "조회한 session_id 44건이 전부 NULL 이었습니다. 모델을 고치기 전에 학습 SQL 의 join 조건과 저장된 이벤트를 대조했고, Frontend 세션 생성 → API 요청 → 이벤트 저장 → 학습 데이터 순서로 값을 따라가 전달이 끊긴 지점을 찾아 수정했습니다.",
+   "not_verified": "이미 지나간 기간의 label 은 복구할 수 없습니다. 대규모 이벤트 파이프라인 규모를 주장할 근거는 없습니다.",
+   "forbidden": [
+    "clickstream",
+    "클릭스트림",
+    "대규모 행동 로그",
+    "수백만 건 이벤트"
+   ],
+   "ownership": "발견·원인 분석·수정 = 본인",
+   "evidence_chunk_ids": [
+    "evidence/dataflow-sessionid::s1",
+    "evidence/dataflow-sessionid::s2",
+    "index.html::inc-sessionid"
+   ],
+   "evidence_urls": [
+    "/assets/evidence/mealplanning/dataflow-sessionid/source.html"
+   ],
+   "trigger_terms": [
+    "session_id",
+    "label",
+    "학습 데이터",
+    "44건",
+    "NULL",
+    "이벤트"
+   ]
+  },
+  {
+   "claim_id": "C-LLM-1750",
+   "topic": "LLM 비교 평가 규모",
+   "stance": "BOUNDED",
+   "verified": "후보 15종을 같은 기준으로 비교해 누적 1,750건의 평가 기록을 남겼고, 새 측정이 나올 때마다 권고를 다섯 번 수정했습니다. 품질만이 아니라 비용·응답 지연·Guardrail 결과를 함께 봤습니다.",
+   "not_verified": "입력 케이스풀이 이후 소실돼 완전히 동일한 조건의 재현은 불가능합니다.",
+   "forbidden": [
+    "1,750개 평가 케이스",
+    "1,750 cases",
+    "재현 가능한 벤치마크",
+    "테스트 케이스 1,750개"
+   ],
+   "ownership": "비교 기준 정의·재측정 요구·최종 선정 = 본인 판단 · 스크립트 작성·반복 실행 = AI 도구 활용",
+   "evidence_chunk_ids": [
+    "evidence/model-selection::s1",
+    "projects/mealplanning/index.html::b1-model"
+   ],
+   "evidence_urls": [
+    "/assets/evidence/mealplanning/model-selection/source.html"
+   ],
+   "trigger_terms": [
+    "1,750",
+    "15종",
+    "모델 선정",
+    "LLM",
+    "벤치마크",
+    "평가"
+   ]
+  },
+  {
+   "claim_id": "C-CHAT-EXPERIMENTS",
+   "topic": "챗 검증 두 실험의 구분",
+   "stance": "BOUNDED",
+   "verified": "검증 하네스는 9회차이며 회차당 30건, 총 270 호출입니다. 이와 별도로 튜닝 전후를 비교한 대량 계측이 1,138건 × 2라운드 = 2,276 호출이며, 실제 서비스 경로 720건 기준 치명 결함이 88건에서 21건으로 줄었습니다.",
+   "not_verified": "두 실험은 조건이 달라 합산하거나 하나의 수치로 말할 수 없습니다.",
+   "forbidden": [
+    "9회차에 2,276회 호출",
+    "총 2,276회를 9번 반복",
+    "두 실험 합산"
+   ],
+   "ownership": "되돌림 판단·seed 일반화 확인·실험 규모 지정 = 본인 판단",
+   "evidence_chunk_ids": [
+    "evidence/chat-mass::s1",
+    "evidence/validation-9rounds::s1",
+    "projects/mealplanning/index.html::c2-rollback",
+    "projects/mealplanning/index.html::c3-mass"
+   ],
+   "evidence_urls": [
+    "/assets/evidence/mealplanning/validation-9rounds/source.html",
+    "/assets/evidence/mealplanning/chat-mass/source.html"
+   ],
+   "trigger_terms": [
+    "2,276",
+    "270",
+    "9회차",
+    "검증",
+    "seed",
+    "되돌",
+    "대량"
+   ]
+  },
+  {
+   "claim_id": "C-CRF-DISCOVERY",
+   "topic": "CRF 경량화 기여 경계",
+   "stance": "BOUNDED",
+   "verified": "채택 기준을 크기 감소가 아니라 예측 결과의 완전 일치로 정하고, 사람이 검수한 정답 50건에서 두 경로의 예측이 모두 일치하는 것을 확인한 뒤 반영했습니다. 학습은 기존 스택을 두고 서빙만 네이티브 포맷으로 바꿨습니다.",
+   "not_verified": "경량화 아이디어를 처음 제안한 것이 본인이라는 근거는 없습니다.",
+   "forbidden": [
+    "문제를 처음 발견",
+    "최초로 제안",
+    "직접 구현했다"
+   ],
+   "ownership": "등가성 검증 기준 정의·결과 확인·채택 판단 = 본인 · 제안과 포맷 전환 구현 = AI 도구 활용",
+   "evidence_chunk_ids": [
+    "evidence/crf-equivalence::s2",
+    "projects/mealplanning/index.html::c4-crf"
+   ],
+   "evidence_urls": [
+    "/assets/evidence/mealplanning/crf-equivalence/source.html"
+   ],
+   "trigger_terms": [
+    "CRF",
+    "경량화",
+    "등가성",
+    "F1",
+    "번들",
+    "서빙 포맷"
+   ]
+  },
+  {
+   "claim_id": "C-CI-OWNERSHIP",
+   "topic": "CI/CD 기여 범위",
+   "stance": "NEGATIVE",
+   "verified": "서버리스 테스트가 저장소에 있는데도 CI 설정의 실행 경로에 들어 있지 않아 한 번도 돌지 않던 것을 확인하고 실행 경로에 편입했습니다.",
+   "not_verified": "CI/CD 파이프라인을 구축하거나 운영한 경험은 공개 자료에 없습니다.",
+   "forbidden": [
+    "CI/CD 구축",
+    "파이프라인 설계",
+    "Jenkins 운영",
+    "GitLab CI 운영",
+    "ArgoCD 운영"
+   ],
+   "ownership": "누락 발견과 실행 경로 편입 = 본인 · 파이프라인 = 팀",
+   "evidence_chunk_ids": [
+    "projects/mealplanning/index.html::a2-serverless",
+    "projects/mealplanning/index.html::a2-serverless#1"
+   ],
+   "evidence_urls": [
+    "/projects/mealplanning/#a2-serverless"
+   ],
+   "trigger_terms": [
+    "CI",
+    "CD",
+    "파이프라인",
+    "Jenkins",
+    "GitLab",
+    "ArgoCD",
+    "테스트 실행"
+   ]
+  },
+  {
+   "claim_id": "C-REVIEW-OWNERSHIP",
+   "topic": "리뷰 데이터 기여 범위",
+   "stance": "SUPPORTED",
+   "verified": "후기 141,298건을 수집하고 이 중 141,282건을 감정 분류한 뒤 레시피 6,873개 전부에 요약 결과를 연결했습니다. 요약 모델은 문장 품질이 아니라 존댓말 지시를 지키는지로 골랐습니다.",
+   "not_verified": "비용은 초기 추정 36,291원을 기준으로 예상 비용을 약 2.1~2.2만원 수준으로 낮출 수 있는 구조를 확인한 것이며, 실제 청구된 절감액이 아닙니다.",
+   "forbidden": [
+    "비용을 22,000원으로 절감했다",
+    "실제 비용 절감 달성"
+   ],
+   "ownership": "후기 수집·감정 분류·요약 처리, 요약 모델 선정·비용 구조 설계·스키마 적용 검증 = 본인",
+   "evidence_chunk_ids": [
+    "projects/mealplanning/index.html::a3-review",
+    "projects/mealplanning/index.html::a3-review#1"
+   ],
+   "evidence_urls": [
+    "/projects/mealplanning/#a3-review"
+   ],
+   "trigger_terms": [
+    "리뷰",
+    "후기",
+    "141,298",
+    "감정",
+    "요약",
+    "비용"
+   ]
+  },
+  {
+   "claim_id": "C-REGISTRY-POSTPROJECT",
+   "topic": "레지스트리 점검의 시점",
+   "stance": "BOUNDED",
+   "verified": "파드는 Running 인데 새 배포만 실패하던 상태를 확인했습니다. 노드에 남은 이미지로 계속 실행돼 정상처럼 보였고, 레지스트리 접근이 필요한 순간에만 실패했습니다. 주기적 점검이 실패 신호를 내고 있었지만 그 실패에는 알림이 없었습니다.",
+   "not_verified": "이것은 프로젝트가 끝난 뒤 실행 환경을 점검하며 확인한 사례이며, 프로젝트 기간 중 대응한 장애가 아닙니다.",
+   "forbidden": [
+    "프로젝트 중 장애 대응",
+    "운영 중 장애를 해결",
+    "온콜 대응"
+   ],
+   "ownership": "종료 후 개인 점검 = 본인 · 클러스터 구축·운영 = 팀",
+   "evidence_chunk_ids": [
+    "index.html::inc-registry",
+    "projects/mealplanning/index.html::d3-runtime"
+   ],
+   "evidence_urls": [
+    "/#inc-registry"
+   ],
+   "trigger_terms": [
+    "레지스트리",
+    "Registry",
+    "Running",
+    "배포 실패",
+    "카나리",
+    "알림"
+   ]
+  },
+  {
+   "claim_id": "C-SERVERLESS",
+   "topic": "서버리스 전환 범위",
+   "stance": "BOUNDED",
+   "verified": "Mealplanning의 AI 기능 12종을 검토 기준 5개로 판정해 10종을 서버리스 전환 대상으로, 2종은 근거와 함께 기존 방식 유지로 정했습니다. Terraform으로 Lambda·SQS·SNS·S3·EventBridge Scheduler 구성(.tf 파일 13개)을 작성해 Lambda 구현과 동작 확인까지 했습니다.",
+   "not_verified": "운영 환경을 실제로 서버리스로 전환하지는 않았습니다(프로젝트 일정상). 전환 뒤의 비용 절감 실측도 없습니다.",
+   "forbidden": [
+    "서버리스 이전 완료",
+    "운영 환경을 서버리스로 전환",
+    "프로덕션 마이그레이션 완료",
+    "서버리스 전환으로 비용 절감 달성"
+   ],
+   "ownership": "검토 기준 정의·채택/제외 결정·Terraform 작성·Lambda 구현 = 본인(전담) · 상위 인프라 결정 = 팀 공동 설계 · 클러스터 구현·운영 = 인프라 담당 팀원",
+   "evidence_chunk_ids": [
+    "projects/mealplanning/index.html::ev-svl",
+    "projects/mealplanning/index.html::a2-serverless",
+    "evidence/serverless-judgment::s1"
+   ],
+   "evidence_urls": [
+    "/projects/mealplanning/#ev-svl"
+   ],
+   "trigger_terms": [
+    "서버리스",
+    "Serverless",
+    "Lambda",
+    "람다",
+    "Terraform",
+    "SQS",
+    "EventBridge",
+    "전환",
+    "이전",
+    "마이그레이션",
+    "12종"
+   ]
+  },
+  {
+   "claim_id": "C-AI-ROLE",
+   "topic": "Mealplanning에서 맡은 역할",
+   "stance": "BOUNDED",
+   "verified": "Mealplanning(5인 팀, 더존비즈온 최우수상)의 핵심 기능인 유튜브 레시피 추출, 영수증 OCR, 레시피별 재료 최저가 연결, RAG 챗봇은 모두 AI가 있어야 동작하는 기능이었습니다. 팀 회의에서 꼭 넣기로 정한 이 기능들의 PoC, 구현 방안, 실제 구현, 트러블슈팅을 대부분 혼자 맡았습니다.",
+   "not_verified": "꼭 넣을 기능은 팀 전원이 회의에서 정했고, 서비스 기획과 공통 기능 구현도 팀이 함께 했습니다. Amazon EKS·Argo CD·CI/CD·Prometheus·Grafana는 팀이 함께 설계했고 구현·운영은 인프라 담당 팀원이 맡았습니다.",
+   "forbidden": [
+    "프로젝트 전체를 혼자",
+    "팀장으로서",
+    "인프라 전체를 구축",
+    "EKS를 직접 구축"
+   ],
+   "ownership": "핵심 AI 기능 PoC·구현 방안·구현·트러블슈팅 = 전담(대부분 단독) · 기능 아이디어 = 팀 전원 · 인프라 = 공동 설계, 구현·운영은 담당 팀원",
+   "evidence_chunk_ids": [
+    "projects/mealplanning/index.html::ai-role",
+    "projects/mealplanning/index.html::boundary",
+    "index.html::mealplanning"
+   ],
+   "evidence_urls": [
+    "/projects/mealplanning/#ai-role",
+    "/projects/mealplanning/#boundary"
+   ],
+   "trigger_terms": [
+    "맡은 일",
+    "AI 기능",
+    "핵심 기능",
+    "PoC",
+    "단독",
+    "팀 프로젝트",
+    "Mealplanning",
+    "밀플래닝"
+   ]
+  },
+  {
+   "claim_id": "C-CERT",
+   "topic": "자격증",
+   "stance": "BOUNDED",
+   "verified": "네트워크관리사 2급을 2026년 6월에 취득했습니다. CKA는 준비 중입니다.",
+   "not_verified": "CKA는 아직 취득하지 않았습니다. AWS 자격증은 공개 자료에 없습니다.",
+   "forbidden": [
+    "CKA 보유",
+    "CKA 합격",
+    "CKA 취득",
+    "AWS 자격증 보유"
+   ],
+   "ownership": "-",
+   "evidence_chunk_ids": [
+    "index.html::about",
+    "index.html::focus"
+   ],
+   "evidence_urls": [
+    "/#about"
+   ],
+   "trigger_terms": [
+    "CKA",
+    "자격증",
+    "자격",
+    "네트워크관리사",
+    "certification",
+    "SAA"
+   ]
+  },
+  {
+   "claim_id": "C-OUT-OF-SCOPE",
+   "topic": "공개 자료 밖 질문",
+   "stance": "OUT_OF_SCOPE",
+   "verified": "이 어시스턴트는 geonu.site 에 공개된 자료만 사용합니다.",
+   "not_verified": "연봉, 지원 기업, 면접 일정, 비공개 학습 계획, 팀원 개인정보, 회사 내부 정보, 전화번호·주소·생년월일 같은 개인정보는 공개 자료에 없습니다.",
+   "forbidden": [
+    "추측해서 답하기",
+    "일반적으로 이렇습니다 로 대체하기"
+   ],
+   "ownership": "-",
+   "evidence_chunk_ids": [],
+   "evidence_urls": [],
+   "trigger_terms": [
+    "개인정보",
+    "거주지",
+    "나이",
+    "면접",
+    "생년",
+    "신상",
+    "연봉",
+    "이직",
+    "인적사항",
+    "전화",
+    "주소",
+    "팀원",
+    "회사",
+    "지원 기업",
+    "지원한 회사",
+    "전화번호"
+   ]
+  }
+ ],
+ "derived_from": "infra-aiops-career-hub experiments/rag-retrieval-poc claims.json (FROZEN_V2, sha256 a0749e64…) + rag/tools/build_claims.py"
+}

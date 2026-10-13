@@ -65,6 +65,14 @@ const assert = require('node:assert/strict');
             await page.goto(origin + '/', { waitUntil: 'networkidle' });
           }
         }
+        if (name === 'home' && width === 1440) {
+          // 거누(RAG 챗봇): 열리고, 추천 질문에 근거 링크가 붙은 답이 와야 한다. 응답 서버가 안 되면 브라우저 엔진이 답한다.
+          await page.locator('.chat-launcher').click();
+          await page.locator('.chat-suggest button').first().click();
+          await page.waitForFunction(() => document.querySelectorAll('.chat-messages .chat-sources a').length > 0, null, { timeout: 40000 });
+          assert.ok((await page.locator('.chat-panel small').first().textContent()).includes('RAG'));
+          await page.locator('.chat-panel .panel-close').click();
+        }
         if (name === 'home' || name === 'mealplanning') {
           const resume = page.locator('a[href="/resume.pdf"]');
           assert.ok(await resume.count() >= 1, `${name}: resume link`);
