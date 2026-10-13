@@ -22,7 +22,7 @@ body{background:#ccc;font-family:PS,'Noto Sans KR','Pretendard',system-ui,sans-s
 .tag.bad{background:#fdebe3;color:var(--bad)}.tag.ok{background:#e3f4ec;color:var(--ok)}.tag.warn{background:#fdf3dc;color:var(--warn)}
 .flow{display:flex;align-items:stretch;gap:0}
 .flow .st{flex:1;background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:24px 22px;text-align:center;display:flex;flex-direction:column;justify-content:center}
-.flow .st.hl{border-color:var(--acc);background:#f6f6ff}
+.flow .st.hl{border-color:var(--acc);background:var(--hl,#f6f6ff)}
 .flow .st b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em}
 .flow .st span{display:block;font-size:19px;color:var(--mut);margin-top:8px;line-height:1.45}
 .flow .ar{width:46px;display:grid;place-items:center;font-size:30px;color:var(--acc);font-weight:800}
@@ -44,10 +44,16 @@ td.n{font-weight:800;font-variant-numeric:tabular-nums}
 .big{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.5}
 .qa{font-size:22px;line-height:1.5}.qa q{font-weight:700;quotes:"“" "”"}
 .x{color:var(--bad);font-weight:800}.o{color:var(--ok);font-weight:800}
+.shot{display:block;border-radius:16px;border:1.5px solid var(--line);box-shadow:0 18px 40px -24px rgba(20,40,30,.35);background:#fff}
+.calls{display:flex;flex-direction:column;gap:16px;flex:1}
+.calls .card{padding:22px 24px}.calls .card h3{font-size:24px;margin-bottom:6px}.calls .card p{font-size:20px}
+.num-dot{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;font-size:17px;font-weight:800;margin-right:10px;vertical-align:3px}
+.cap{font-size:19px;color:var(--mut);font-weight:600;margin-top:12px;text-align:center}
 </style></head><body><div class="s" id="slide"></div>
 <script>
 const S=JSON.parse(decodeURIComponent(new URLSearchParams(location.search).get('s')));
 const el=document.getElementById('slide');
+if(S.vars)for(const k in S.vars)el.style.setProperty(k,S.vars[k]);
 if(S.cover){el.classList.add('cover');el.innerHTML=`<p class="k">${S.k}</p><h1>${S.h}</h1><p>${S.p}</p>${S.art?`<img class="art" src="${S.art}" alt="">`:''}<div class="foot">${S.foot||''}</div>`;}
 else{el.innerHTML=`<div class="top"><div class="ttl"><h1>${S.h}</h1>${S.p?`<p>${S.p}</p>`:''}</div><div class="nav">${(S.chapters||[]).map(c=>c===S.ch?`<b>${c}</b>`:`<span>${c}</span>`).join('')}</div></div><div class="body">${S.body}</div><div class="foot">${S.foot||''}</div>`;}
 </script></body></html>
