@@ -1,0 +1,53 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="color-scheme" content="light only">
+<style>
+@font-face{font-family:PS;src:url(/assets/fonts/portfolio-sans-subset.woff2) format('woff2');font-weight:100 900}
+:root{color-scheme:light only;--ink:#16171d;--mut:#5d5f6b;--line:#e4e2dc;--bg:#fbf8f3;--card:#fff;--acc:#4b4fd6;--acc2:#e8eaff;--ok:#1f8a5b;--bad:#c2410c;--warn:#b7791f}
+*{box-sizing:border-box;margin:0}
+body{background:#ccc;font-family:PS,'Noto Sans KR','Pretendard',system-ui,sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all}
+.s{width:1600px;height:900px;background:var(--bg);color:var(--ink);position:relative;overflow:hidden;padding:64px 88px 70px;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:34px}
+.ttl h1{font-size:58px;font-weight:800;letter-spacing:-.04em;line-height:1.1}
+.ttl p{font-size:27px;font-weight:600;color:var(--mut);margin-top:12px;letter-spacing:-.02em}
+.nav{display:flex;gap:26px;font-size:19px;font-weight:600;color:#9a9ba5;padding-top:14px}
+.nav b{color:var(--ink);font-weight:700;border-bottom:4px solid var(--acc);padding-bottom:6px}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:26px}
+.foot{position:absolute;left:88px;bottom:30px;display:flex;align-items:center;gap:12px;font-size:17px;color:#9a9ba5;font-weight:600}
+.foot img{width:34px;height:34px;object-fit:contain}
+.row{display:flex;gap:22px;align-items:stretch}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:28px 30px;box-shadow:0 10px 30px -18px rgba(40,30,10,.25)}
+.card h3{font-size:27px;font-weight:800;letter-spacing:-.03em;margin-bottom:12px}
+.card p,.card li{font-size:22px;line-height:1.55;color:#33343c;letter-spacing:-.015em}
+.card ul{padding-left:24px}.card li+li{margin-top:6px}
+.tag{display:inline-block;font-size:18px;font-weight:700;padding:5px 12px;border-radius:999px;background:var(--acc2);color:var(--acc);margin-bottom:12px}
+.tag.bad{background:#fdebe3;color:var(--bad)}.tag.ok{background:#e3f4ec;color:var(--ok)}.tag.warn{background:#fdf3dc;color:var(--warn)}
+.flow{display:flex;align-items:stretch;gap:0}
+.flow .st{flex:1;background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:24px 22px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+.flow .st.hl{border-color:var(--acc);background:#f6f6ff}
+.flow .st b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em}
+.flow .st span{display:block;font-size:19px;color:var(--mut);margin-top:8px;line-height:1.45}
+.flow .ar{width:46px;display:grid;place-items:center;font-size:30px;color:var(--acc);font-weight:800}
+table{border-collapse:separate;border-spacing:0;width:100%;background:var(--card);border:1.5px solid var(--line);border-radius:20px;overflow:hidden;font-size:23px}
+th,td{padding:16px 22px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:#f3f1ec;font-size:19px;color:var(--mut);font-weight:700}
+tr:last-child td{border-bottom:0}
+td.n{font-weight:800;font-variant-numeric:tabular-nums}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.kpi{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:28px}
+.kpi b{display:block;font-size:56px;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.kpi span{display:block;font-size:20px;color:var(--mut);margin-top:6px;line-height:1.4}
+.note{font-size:19px;color:var(--mut);line-height:1.5}
+.cover{justify-content:center}
+.cover .k{font-size:24px;font-weight:700;color:var(--acc);letter-spacing:-.01em}
+.cover h1{font-size:92px;font-weight:800;letter-spacing:-.05em;line-height:1.05;margin:18px 0 22px}
+.cover p{font-size:32px;color:#3b3c45;font-weight:600;letter-spacing:-.02em;line-height:1.45}
+.cover .art{position:absolute;right:90px;bottom:80px;width:430px;height:430px;object-fit:contain}
+.big{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.5}
+.qa{font-size:22px;line-height:1.5}.qa q{font-weight:700;quotes:"“" "”"}
+.x{color:var(--bad);font-weight:800}.o{color:var(--ok);font-weight:800}
+</style></head><body><div class="s" id="slide"></div>
+<script>
+const S=JSON.parse(decodeURIComponent(new URLSearchParams(location.search).get('s')));
+const el=document.getElementById('slide');
+if(S.cover){el.classList.add('cover');el.innerHTML=`<p class="k">${S.k}</p><h1>${S.h}</h1><p>${S.p}</p>${S.art?`<img class="art" src="${S.art}" alt="">`:''}<div class="foot">${S.foot||''}</div>`;}
+else{el.innerHTML=`<div class="top"><div class="ttl"><h1>${S.h}</h1>${S.p?`<p>${S.p}</p>`:''}</div><div class="nav">${(S.chapters||[]).map(c=>c===S.ch?`<b>${c}</b>`:`<span>${c}</span>`).join('')}</div></div><div class="body">${S.body}</div><div class="foot">${S.foot||''}</div>`;}
+</script></body></html>

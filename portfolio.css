@@ -597,7 +597,7 @@ video.deck-layer{background:#111}
 .cover-tags:last-child{margin:0}
 .cover-k8s{background:#f3f6fd}.cover-k8s img{height:58%;bottom:21%;right:24px;object-fit:contain}
 .cover-linux{background:#f0f7f4}.cover-linux img{right:10px}
-.cover-rag{background:#f6f7fb}.cover-didim{background:#f7f7fc}
+.cover-rag{background:#f6f7fb}.cover-didim{background:#eef6f1}
 .cover-k8s .cover-copy,.cover-linux .cover-copy{max-width:56%}
 .case-card:hover .cover img,.other:hover .cover img{transform:scale(1.03)}
 .other.has-cover{padding-top:0}
@@ -668,3 +668,7 @@ video.deck-layer{background:#111}
 .deck-chapters.has-ind button[aria-selected=true]::after{display:none}
 .deck-chap-ind{position:absolute;left:0;bottom:0;height:2px;width:0;border-radius:2px;background:var(--accent);pointer-events:none}
 .deck-chapters.ready .deck-chap-ind{transition:transform var(--t3) var(--ease-ios),width var(--t3) var(--ease-ios)}
+
+/* 발표 자료 설명(슬라이드마다 d) · 기여 범위 메모 */
+.deck-desc{margin:12px 2px 0;font-size:15.5px;line-height:1.75;color:var(--text-2);min-height:3.5em;text-wrap:pretty}
+.bnd-note{margin:18px 0 0;font-size:14.5px;line-height:1.75;color:var(--text-2);padding:14px 18px;border-left:3px solid var(--line-2,var(--line));background:var(--bg-2);border-radius:10px}
