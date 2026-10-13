@@ -203,6 +203,42 @@
           </div>
         </div>
       </section>
+
+      <section class="reading-section" id="cka-prep" aria-labelledby="cka-prep-title">
+        <p class="section-kicker">08 / CKA 준비 기록</p>
+        <h2 id="cka-prep-title">CKA를 준비하며, 약한 영역을 실제 노드가 있는 클러스터에서 반복해 연습하고 있습니다.</h2>
+        <p><span class="ln">CKA는 준비 중이며, 아직 취득하지 않았습니다.</span><span class="ln">아래는 어디서 무엇을 어떻게 연습하는지에 대한 기록입니다.</span></p>
+        <div class="comparison-wrap" role="region" aria-label="CKA 연습 방식" tabindex="0">
+          <table class="comparison-table">
+            <caption>CKA 연습 방식</caption>
+            <thead><tr><th scope="col">항목</th><th scope="col">내용</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">약한 영역</th><td>Troubleshooting · Cluster Architecture · Services &amp; Networking</td></tr>
+              <tr><th scope="row">연습 클러스터</th><td>VirtualBox VM 3대에 kubeadm으로 구성한 클러스터 (Control Plane 1 · Worker 2 · Calico)</td></tr>
+              <tr><th scope="row">문항</th><td>85문항을 이 클러스터에서 그대로 풀 수 있게 준비한 연습 환경</td></tr>
+              <tr><th scope="row">파괴형 문항</th><td>VM 스냅샷을 먼저 찍고, 깨뜨린 뒤 복구하고, 못 고치면 스냅샷으로 되돌림</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ol class="decision-list">
+          <li><div><h3>약한 영역부터 다시 풀었습니다.</h3><p><span class="ln">지난 풀이를 영역별로 되짚어, 같은 종류의 실수가 반복된 세 영역을 약한 영역으로 정했습니다.</span><span class="ln">그 영역의 문항을 85문항 연습 환경에서 반복해 푼 경험이 있습니다.</span></p></div></li>
+          <li><div><h3>노드를 망가뜨리는 문항을 피하지 않게 했습니다.</h3><p><span class="ln">노드를 NotReady로 만들거나 etcd·업그레이드를 다루는 문항은 되돌리기 어려워 건너뛰기 쉽습니다.</span><span class="ln">스냅샷을 먼저 찍어 두고, 깨뜨린 뒤 복구하고, 끝나면 스냅샷으로 되돌리는 순서로 반복한 경험이 있습니다.</span></p></div></li>
+          <li><div><h3>만든 뒤 확인할 한 줄을 정해 두었습니다.</h3><p><span class="ln">Ingress는 CLASS와 ADDRESS 칸, PVC는 VOLUME 칸, 이름을 지정하는 문항은 jsonpath로 이름을 다시 읽습니다.</span><span class="ln">파일에 쓰기 전에는 화면에서 먼저 결과를 봅니다.</span></p></div></li>
+        </ol>
+        <div class="comparison-wrap" role="region" aria-label="Kubernetes 실습 경로 구분" tabindex="0">
+          <table class="comparison-table">
+            <caption>목적에 따라 실행 환경을 나눴습니다</caption>
+            <thead><tr><th scope="col">경로</th><th scope="col">실행 환경</th><th scope="col">다루는 것</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">CKA 연습 · 노드 수준 실습</th><td>kubeadm 3노드 VM</td><td>kubelet, etcd 복구, 클러스터 업그레이드처럼 실제 노드가 필요한 연습</td></tr>
+              <tr><th scope="row">Incident Lab (진행 중)</th><td>kind (2026-10-02부터)</td><td>배포 변경으로 생기는 워크로드 수준 장애를 매번 같은 상태에서 다시 시작해 재현</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><span class="ln">kind는 노드가 컨테이너라 kubelet·런타임을 깨뜨리는 연습이나 kubeadm 설치 연습에는 맞지 않습니다.</span><span class="ln">그래서 노드가 필요한 연습은 VM에, 빠르게 다시 만들어야 하는 재현은 kind에 두었습니다.</span></p>
+        <p class="ownership"><b>기여 범위</b> — VM 클러스터와 문제 연습 환경은 AI Agent가 구성했고, 풀이와 복구 연습은 제가 직접 합니다. 문항 원문은 공개하지 않습니다.</p>
+        <p class="limit"><b>검증 범위</b><br><span class="ln">연습 방식과 환경을 적은 기록입니다.</span><span class="ln">자격 취득이나 실무 클러스터 운영 경험으로 확대하지 않습니다.</span></p>
+      </section>
     </main>
 
     <footer class="project-page-footer"><a class="back-link" href="../../#work">← 프로젝트 목록으로</a><a class="icon-button icon-button--small" href="mailto:goonbam009@gmail.com" aria-label="이메일 보내기"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3.5 6.5h17v11h-17zM3.9 7.1 12 13l8.1-5.9"/></svg><span>Email</span></a></footer>
