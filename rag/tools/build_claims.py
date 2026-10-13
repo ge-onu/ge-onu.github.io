@@ -70,8 +70,9 @@ NEW = [
         'not_verified': 'CKA는 아직 취득하지 않았습니다. AWS 자격증은 공개 자료에 없습니다.',
         'forbidden': ['CKA 보유', 'CKA 합격', 'CKA 취득', 'AWS 자격증 보유'],
         'ownership': '-',
-        'evidence_chunk_ids': ['index.html::about', 'index.html::focus'],
-        'evidence_urls': ['/#about'],
+        # CKA 준비 기록(Kubernetes Lab 상세)도 근거로 붙인다. 취득 주장은 여전히 금지.
+        'evidence_chunk_ids': ['index.html::about', 'index.html::focus', 'projects/kubernetes-lab/index.html::cka-prep'],
+        'evidence_urls': ['/#about', '/projects/kubernetes-lab/#cka-prep'],
         'trigger_terms': ['CKA', '자격증', '자격', '네트워크관리사', 'certification', 'SAA'],
     },
     {

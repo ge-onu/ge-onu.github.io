@@ -492,10 +492,12 @@
    "ownership": "-",
    "evidence_chunk_ids": [
     "index.html::about",
-    "index.html::focus"
+    "index.html::focus",
+    "projects/kubernetes-lab/index.html::cka-prep"
    ],
    "evidence_urls": [
-    "/#about"
+    "/#about",
+    "/projects/kubernetes-lab/#cka-prep"
    ],
    "trigger_terms": [
     "CKA",
