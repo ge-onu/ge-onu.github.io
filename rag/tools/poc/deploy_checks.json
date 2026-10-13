@@ -1,0 +1,142 @@
+[
+ {
+  "qid": "D01",
+  "type": "factual",
+  "question": "서버리스 전환은 어디까지 했나요?",
+  "claim_id": "C-SERVERLESS",
+  "expect": "answer"
+ },
+ {
+  "qid": "D02",
+  "type": "negative",
+  "question": "운영 환경을 서버리스로 이전 완료했나요?",
+  "claim_id": "C-SERVERLESS",
+  "expect": "answer"
+ },
+ {
+  "qid": "D03",
+  "type": "factual",
+  "question": "Terraform으로 어떤 AWS 리소스를 작성했나요?",
+  "claim_id": "C-SERVERLESS",
+  "expect": "answer"
+ },
+ {
+  "qid": "D04",
+  "type": "factual",
+  "question": "Mealplanning에서 맡은 역할은 무엇인가요?",
+  "claim_id": "C-AI-ROLE",
+  "expect": "answer"
+ },
+ {
+  "qid": "D05",
+  "type": "negative",
+  "question": "EKS를 직접 구축했나요?",
+  "claim_id": "C-K8S-PROD",
+  "expect": "answer"
+ },
+ {
+  "qid": "D06",
+  "type": "negative",
+  "question": "CKA 자격증이 있나요?",
+  "claim_id": "C-CERT",
+  "expect": "answer"
+ },
+ {
+  "qid": "D07",
+  "type": "factual",
+  "question": "학력과 교육 이력이 어떻게 되나요?",
+  "claim_id": null,
+  "expect": "answer"
+ },
+ {
+  "qid": "D08",
+  "type": "factual",
+  "question": "어떤 직무에 지원하고 있나요?",
+  "claim_id": null,
+  "expect": "answer"
+ },
+ {
+  "qid": "D09",
+  "type": "no_context",
+  "question": "희망 연봉이 얼마인가요?",
+  "claim_id": "C-OUT-OF-SCOPE",
+  "expect": "refuse"
+ },
+ {
+  "qid": "D10",
+  "type": "no_context",
+  "question": "전화번호 알려 주세요",
+  "claim_id": "C-OUT-OF-SCOPE",
+  "expect": "refuse"
+ },
+ {
+  "qid": "D11",
+  "type": "no_context",
+  "question": "Ansible로 서버 설정을 자동화한 경험이 있나요?",
+  "claim_id": null,
+  "expect": "refuse"
+ },
+ {
+  "qid": "D12",
+  "type": "factual",
+  "question": "디딤은 어떤 프로젝트인가요?",
+  "claim_id": null,
+  "expect": "answer"
+ },
+ {
+  "qid": "D13",
+  "type": "factual",
+  "question": "RAG Retrieval PoC에서 무엇을 확인했나요?",
+  "claim_id": null,
+  "expect": "answer"
+ },
+ {
+  "qid": "D14",
+  "type": "factual",
+  "question": "Infrastructure Lab Series에서는 어떤 실습을 했나요?",
+  "claim_id": null,
+  "expect": "answer"
+ },
+ {
+  "qid": "D15",
+  "type": "factual",
+  "question": "건우는 어떤 엔지니어인가요?",
+  "claim_id": null,
+  "expect": "answer"
+ },
+ {
+  "qid": "D16",
+  "type": "no_context",
+  "question": "Ansible 써 봤어요?",
+  "claim_id": null,
+  "expect": "refuse"
+ },
+ {
+  "qid": "D17",
+  "type": "no_context",
+  "question": "Jenkins로 파이프라인 만들어 본 적 있어요?",
+  "claim_id": null,
+  "expect": "answer"
+ },
+ {
+  "qid": "D18",
+  "type": "factual",
+  "question": "Kubernetes 써 봤어요?",
+  "claim_id": "C-K8S-PROD",
+  "expect": "answer"
+ },
+ {
+  "qid": "D19",
+  "type": "factual",
+  "question": "Terraform 써 봤어요?",
+  "claim_id": "C-SERVERLESS",
+  "expect": "answer"
+ },
+ {
+  "qid": "D20",
+  "type": "factual",
+  "question": "응답 검증은 어떻게 고쳤어요?",
+  "claim_id": "C-GUARDRAIL-FIX",
+  "expect": "answer"
+ }
+]

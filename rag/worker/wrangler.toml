@@ -1,0 +1,18 @@
+# 거누 응답 서버. 배포: rag/worker 에서 `npx wrangler deploy`, 키: `npx wrangler secret put GEMINI_API_KEY`
+name = "geonu-rag"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+# Workers AI (키 불필요, 무료 한도 초과 시 과금 없이 거절)
+[ai]
+binding = "AI"
+
+[vars]
+GEMINI_MODELS = "gemini-3.1-flash-lite,gemini-3.8-flash"
+
+# IP별 분당 10회. Workers Rate Limiting 바인딩(없으면 worker.js의 인스턴스별 제한을 쓴다).
+[[ratelimits]]
+name = "RL"
+namespace_id = "1001"
+simple = { limit = 10, period = 60 }

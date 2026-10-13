@@ -110,6 +110,10 @@ def main() -> int:
             text = p.read_text(encoding="utf-8", errors="ignore")
         except OSError:
             continue
+        # 거누의 주장 카드(rag/data)에는 "이 표현은 쓰면 안 된다"는 금지 목록(forbidden)이 들어 있다.
+        # 사이트에 보이는 문구가 아니라 챗봇이 피해야 할 표현이므로, 그 배열만 비우고 나머지는 그대로 검사한다.
+        if p.suffix == ".json" and p.relative_to(ROOT).parts[:2] == ("rag", "data"):
+            text = re.sub(r'"forbidden":\s*\[[^\]]*\]', '"forbidden":[]', text)
         for rid, sev, desc, token in scan_text(text):
             rel = p.relative_to(ROOT)
             print(f"  [{sev}] {rel} :: {rid} — {desc}  →  {token!r}")

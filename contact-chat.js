@@ -1,6 +1,8 @@
 (() => {
-// 거누의 응답 서버를 연결하기 전까지 모든 페이지에서 챗봇을 숨긴다. 연결한 뒤 true로 바꾼다.
-const chatEnabled=false;
+// 거누: 건우에 대한 RAG 챗봇. 응답 서버(Cloudflare Worker)가 안 되면 브라우저 안의 같은 엔진으로 간단히 답한다.
+const chatEnabled=true;
+const chatEndpoint=(window.PORTFOLIO_CHAT&&window.PORTFOLIO_CHAT.endpoint)||'';
+const ragBase=new URL('rag/',document.currentScript.src).href;
 const sendIcon=new URL('assets/chat-send-72.png',document.currentScript.src).href;
 const avatar=new URL('assets/chat-mascot-160.png',document.currentScript.src).href;
 // 머리말의 "연락하기"(data-contact)가 이 창을 연다. 스크립트가 없으면 홈의 연락 구간으로 이동한다.
@@ -52,8 +54,8 @@ if(!window.PORTFOLIO_CONTACT?.endpoint){
  });
 }
 if(!chatEnabled)return;
-const launch=document.createElement('button');launch.type='button';launch.className='chat-launcher';launch.setAttribute('aria-label','포트폴리오 챗봇 열기. 드래그 또는 방향키로 위치 이동');launch.setAttribute('aria-controls','portfolio-chat');launch.setAttribute('aria-expanded','false');launch.innerHTML='<img src="'+avatar+'" alt="" draggable="false" width="160" height="160" decoding="async">';
-const panel=document.createElement('section');panel.id='portfolio-chat';panel.className='chat-panel';panel.hidden=true;panel.setAttribute('role','dialog');panel.setAttribute('aria-labelledby','chat-title');panel.innerHTML='<header><img class="chat-header-avatar" src="'+avatar+'" alt="" width="160" height="160" decoding="async"><div><small>건우 포트폴리오 챗봇</small><h2 id="chat-title">거누</h2></div><button type="button" class="panel-close" aria-label="챗봇 닫기">×</button></header><div class="chat-messages" role="log" aria-live="polite"><p class="chat-bubble">안녕하세요! 건우와 건우의 프로젝트 및 관련 경험에 대해 알고 있는 거누예요!<br>무엇이든 물어보세요!</p></div><form><label class="chat-input-label" for="chat-input">질문</label><div class="chat-compose"><textarea id="chat-input" rows="1" placeholder="저에 대해 궁금한 내용을 물어보세요!" maxlength="1000" required></textarea><button type="submit" aria-label="질문 입력"><img src="'+sendIcon+'" alt="" width="72" height="72" decoding="async"></button></div></form>';
+const launch=document.createElement('button');launch.type='button';launch.className='chat-launcher';launch.setAttribute('aria-label','거누 열기: 건우에 대한 RAG 챗봇. 드래그 또는 방향키로 위치 이동');launch.setAttribute('aria-controls','portfolio-chat');launch.setAttribute('aria-expanded','false');launch.innerHTML='<img src="'+avatar+'" alt="" draggable="false" width="160" height="160" decoding="async">';
+const panel=document.createElement('section');panel.id='portfolio-chat';panel.className='chat-panel';panel.hidden=true;panel.setAttribute('role','dialog');panel.setAttribute('aria-labelledby','chat-title');panel.innerHTML='<header><img class="chat-header-avatar" src="'+avatar+'" alt="" width="160" height="160" decoding="async"><div><small>건우에 대한 RAG 챗봇</small><h2 id="chat-title">거누 <span class="chat-rag-badge">RAG</span></h2></div><button type="button" class="panel-close" aria-label="챗봇 닫기">×</button></header><div class="chat-messages" role="log" aria-live="polite"><div class="chat-bubble"><p>안녕하세요, 거누예요. 건우의 포트폴리오와 공개 기록을 검색해서, 찾은 근거로만 답하는 RAG 챗봇이에요.</p><p>기록에 없는 건 모른다고 말하고, 답마다 근거 링크를 붙여요.</p></div><div class="chat-suggest" aria-label="추천 질문"><button type="button">Mealplanning에서 맡은 역할은?</button><button type="button">서버리스는 어디까지 했어요?</button><button type="button">장애 원인은 어떻게 좁혀 가나요?</button></div></div><p class="chat-foot">geonu.site 공개 기록만 검색 · 문장은 AI가 근거 안에서 작성</p><form><label class="chat-input-label" for="chat-input">질문</label><div class="chat-compose"><textarea id="chat-input" rows="1" placeholder="건우에 대해 궁금한 점을 물어보세요" maxlength="1000" required></textarea><button type="submit" aria-label="질문 입력"><img src="'+sendIcon+'" alt="" width="72" height="72" decoding="async"></button></div></form>';
 document.body.append(launch,panel);
 const launcherGap=24;
 let launcherAnchor={right:launcherGap,bottom:launcherGap};
@@ -95,7 +97,37 @@ function end(){if(drag&&moved){const r=launch.getBoundingClientRect();try{localS
 launch.addEventListener('pointerup',end);launch.addEventListener('pointercancel',end);launch.addEventListener('click',()=>{if(moved){moved=false;return;}toggle(panel.hidden);});
 launch.addEventListener('keydown',e=>{const d={ArrowLeft:[-16,0],ArrowRight:[16,0],ArrowUp:[0,-16],ArrowDown:[0,16]}[e.key];if(d){e.preventDefault();const r=launch.getBoundingClientRect();place(r.left+d[0],r.top+d[1]);}});
 panel.querySelector('.panel-close').addEventListener('click',()=>toggle(false));panel.addEventListener('keydown',e=>{if(e.key==='Escape')toggle(false);});
-panel.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const input=panel.querySelector('textarea'),value=input.value.trim();if(!value)return;const log=panel.querySelector('.chat-messages');const user=document.createElement('p');user.className='chat-bubble chat-bubble--user';user.textContent=value;log.append(user);const answer=document.createElement('p');answer.className='chat-bubble';answer.textContent='자동 응답 연결 전입니다. 지금 문의를 남기려면 상단 Contact를 이용해 주세요.';log.append(answer);input.value='';resizeInput();log.scrollTop=log.scrollHeight;});
+const history=[];let asking=false,local=null;
+async function localAnswer(q){
+ if(!local)local=Promise.all([import(ragBase+'engine.js'),import(ragBase+'answer.js'),fetch(ragBase+'data/geonu-rag.json').then(r=>r.json())]).then(([E,A,d])=>({E:new E.Engine(d,{chat:true}),A}));
+ const {E,A}=await local;const ans=E.answer(A.retrievalQuery(q,history));
+ if(ans.decision==='refuse')return {text:A.refusalText(ans),sources:[],mode:'refuse'};
+ return {text:A.plainAnswer(E,ans),sources:A.sources(E,ans),mode:'plain'};
+}
+async function ask(q){
+ if(chatEndpoint){try{const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),25000);
+  const r=await fetch(chatEndpoint.replace(/\/$/,'')+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q,history:history.slice(-6)}),signal:ctl.signal,credentials:'omit'});clearTimeout(t);
+  const j=await r.json();if(j&&j.text)return j;}catch{}}
+ return localAnswer(q);
+}
+function bubble(cls){const b=document.createElement('div');b.className='chat-bubble'+(cls?' '+cls:'');return b;}
+async function submitQuestion(value){
+ if(asking||!value)return;asking=true;
+ const log=panel.querySelector('.chat-messages');panel.querySelector('.chat-suggest')?.remove();
+ const user=bubble('chat-bubble--user');user.textContent=value;log.append(user);
+ const wait=bubble('chat-bubble--wait');wait.setAttribute('aria-label','근거를 찾는 중');wait.innerHTML='<i></i><i></i><i></i>';log.append(wait);log.scrollTop=log.scrollHeight;
+ let res;try{res=await ask(value);}catch{res={text:'지금은 답을 만들지 못했어요. 잠시 뒤 다시 물어봐 주세요.',sources:[],mode:'error'};}
+ wait.remove();
+ const b=bubble(res.mode==='refuse'?'chat-bubble--refuse':'');
+ res.text.split(/\n+/).filter(Boolean).forEach(t=>{const p=document.createElement('p');p.textContent=t;b.append(p);});
+ if(res.sources&&res.sources.length){const s=document.createElement('div');s.className='chat-sources';const h=document.createElement('span');h.textContent='근거';s.append(h);
+  res.sources.forEach(x=>{const a=document.createElement('a');a.href=x.url;a.textContent=x.label;s.append(a);});b.append(s);}
+ if(res.mode==='plain'){const n=document.createElement('small');n.className='chat-mode';n.textContent='간단 모드: 근거 문장을 그대로 보여 드려요';b.append(n);}
+ log.append(b);log.scrollTop=log.scrollHeight;
+ history.push({role:'user',text:value},{role:'bot',text:res.text});asking=false;
+}
+panel.querySelector('.chat-messages').addEventListener('click',e=>{const btn=e.target.closest('.chat-suggest button');if(btn)submitQuestion(btn.textContent);});
+panel.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const input=panel.querySelector('textarea'),value=input.value.trim();if(!value||asking)return;input.value='';resizeInput();submitQuestion(value);});
 try{const p=JSON.parse(localStorage.getItem('portfolio-chat-position'));if(p&&Number.isFinite(p.right)&&Number.isFinite(p.bottom))launcherAnchor={right:Math.max(launcherGap,p.right),bottom:Math.max(launcherGap,p.bottom)};}catch{}
 renderLauncher();
 const compose=panel.querySelector('textarea');
@@ -109,7 +141,7 @@ function resizeInput(){
 compose.addEventListener('input',resizeInput);
 compose.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();panel.querySelector('form').requestSubmit();}});
 const hint=document.createElement('div');hint.className='chat-hint';hint.hidden=true;hint.setAttribute('aria-hidden','true');document.body.append(hint);
-const tips=['안녕하세요! 포트폴리오 챗봇 거누예요.','저를 드래그해 편한 곳으로 옮겨 보세요.','클릭하면 대화창이 열려요.','문의는 상단 Contact로 남겨 주세요.','궁금한 점이 생기면 저를 눌러 주세요.','화면을 둘러보는 동안 여기 있을게요.','제가 가리고 있다면 옆으로 옮겨 주세요.','대화창은 × 버튼으로 닫을 수 있어요.','상단의 해와 달로 화면 테마를 바꿔 보세요.','프로젝트 카드를 누르면 자세히 볼 수 있어요.'];
+const tips=['안녕하세요! 건우에 대한 RAG 챗봇 거누예요.','건우의 공개 기록을 검색해서 답해 드려요.','저를 드래그해 편한 곳으로 옮겨 보세요.','클릭하면 대화창이 열려요.','문의는 상단 "연락하기"로 남겨 주세요.','궁금한 점이 생기면 저를 눌러 주세요.','화면을 둘러보는 동안 여기 있을게요.','제가 가리고 있다면 옆으로 옮겨 주세요.','대화창은 × 버튼으로 닫을 수 있어요.','상단의 해와 달로 화면 테마를 바꿔 보세요.','프로젝트 카드를 누르면 자세히 볼 수 있어요.'];
 let last=-1,shown=0;
 function showHint(){if(document.hidden||!panel.hidden||dialog.open||drag)return;let i;do{i=Math.floor(Math.random()*tips.length);}while(i===last);last=i;hint.textContent=tips[i];hint.hidden=false;const r=launch.getBoundingClientRect();const w=hint.getBoundingClientRect().width;hint.style.left=Math.max(10,Math.min(innerWidth-w-10,r.right-w))+'px';hint.classList.toggle('chat-hint--below',r.top<=90);hint.style.setProperty('--tail-x',Math.max(16,Math.min(w-16,r.left+r.width/2-parseFloat(hint.style.left)))+'px');hint.style.top=(r.top>90?r.top-hint.offsetHeight-12:r.bottom+12)+'px';setTimeout(()=>hint.hidden=true,5500);shown++;}
 setTimeout(showHint,12000);const tipTimer=setInterval(()=>{if(shown>=4){clearInterval(tipTimer);return;}showHint();},45000);
