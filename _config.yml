@@ -1,0 +1,6 @@
+# GitHub Pages(Jekyll) 빌드 설정. 배포 방식은 그대로(main 브랜치 루트)이고, 공개 사이트에서 뺄 파일만 적는다.
+# 거누가 브라우저에서 쓰는 rag/engine.js · rag/answer.js · rag/data/ 는 공개해야 하므로 빼지 않는다.
+exclude:
+  - README.md
+  - tools/
+  - rag/README.md
