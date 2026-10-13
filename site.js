@@ -138,3 +138,23 @@
   const a=$$('.card a[href^="projects/"]').find(x=>new URL(x.href).pathname===from&&!x.getAttribute('href').includes('#'));const h=a&&titleOf(a);
   if(h){const r=h.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight){h.style.viewTransitionName='proj-title';e.viewTransition.finished.finally(()=>{h.style.viewTransitionName='';});}}});
 })();
+
+/* 거누 근거 링크로 이동한 경우: 스크롤이 멈춘 뒤 대상 영역을 회색으로 한 번 반짝인다.
+ * 챗봇이 sessionStorage('geonu-flash')에 목적지를 적어 두고, 이 페이지가 같은 주소로 열렸을 때만 반짝인다. */
+(() => {
+ const KEY='geonu-flash';
+ const settleThen=fn=>{let last=-1,still=0,n=0;const tick=()=>{const y=scrollY;if(Math.abs(y-last)<0.5){if(++still>=6)return fn();}else still=0;last=y;if(++n<240)requestAnimationFrame(tick);else fn();};setTimeout(()=>requestAnimationFrame(tick),150);};
+ const flash=id=>{const el=document.getElementById(id);if(!el)return;el.classList.remove('flash-target');void el.offsetWidth;el.classList.add('flash-target');el.addEventListener('animationend',()=>el.classList.remove('flash-target'),{once:true});};
+ const check=()=>{
+  let want=null;try{want=sessionStorage.getItem(KEY);}catch{}
+  if(!want)return;
+  const u=new URL(want,location.href);
+  if(u.pathname!==location.pathname||!u.hash||u.hash!==location.hash)return;
+  try{sessionStorage.removeItem(KEY);}catch{}
+  let id;try{id=decodeURIComponent(u.hash.slice(1));}catch{return;}
+  settleThen(()=>flash(id));
+ };
+ addEventListener('hashchange',check);
+ addEventListener('geonu:flash',check);
+ if(document.readyState==='complete')check();else addEventListener('load',check,{once:true});
+})();

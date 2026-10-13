@@ -122,3 +122,6 @@ main h1:not(#hero-title){view-transition-name:proj-title}
 @keyframes bd-in{from{opacity:0}to{opacity:1}}
 .contact-dialog[open]{animation:dlg-in var(--t3) var(--ease-ios)}
 .contact-dialog[open]::backdrop{animation:bd-in var(--t2) ease-out;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+/* 거누 근거 링크로 이동한 영역을 한 번 반짝인다(site.js) */
+@keyframes target-flash{22%{background-color:color-mix(in srgb,var(--text) 9%,transparent);box-shadow:0 0 0 12px color-mix(in srgb,var(--text) 9%,transparent)}}
+.flash-target{animation:target-flash 1.3s cubic-bezier(.22,1,.36,1);border-radius:14px}

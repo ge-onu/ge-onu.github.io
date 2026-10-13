@@ -126,7 +126,17 @@ async function submitQuestion(value){
  log.append(b);log.scrollTop=log.scrollHeight;
  history.push({role:'user',text:value},{role:'bot',text:res.text});asking=false;
 }
-panel.querySelector('.chat-messages').addEventListener('click',e=>{const btn=e.target.closest('.chat-suggest button');if(btn)submitQuestion(btn.textContent);});
+panel.querySelector('.chat-messages').addEventListener('click',e=>{const btn=e.target.closest('.chat-suggest button');if(btn)submitQuestion(btn.textContent);
+ // 근거 링크: 이동한 페이지가 스크롤을 마친 뒤 그 영역을 반짝이도록 목적지를 남긴다(site.js).
+ const a=e.target.closest('.chat-sources a');if(!a)return;
+ const u=new URL(a.href,location.href);if(!u.hash)return;
+ try{sessionStorage.setItem('geonu-flash',u.pathname+u.hash);}catch{}
+ if(u.pathname===location.pathname){
+  if(innerWidth<640)toggle(false); // 좁은 화면에서는 대화창이 영역을 가리므로 닫는다
+  if(u.hash===location.hash){e.preventDefault();let id;try{id=decodeURIComponent(u.hash.slice(1));}catch{return;}
+   document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});window.dispatchEvent(new Event('geonu:flash'));}
+ }
+});
 panel.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const input=panel.querySelector('textarea'),value=input.value.trim();if(!value||asking)return;input.value='';resizeInput();submitQuestion(value);});
 try{const p=JSON.parse(localStorage.getItem('portfolio-chat-position'));if(p&&Number.isFinite(p.right)&&Number.isFinite(p.bottom))launcherAnchor={right:Math.max(launcherGap,p.right),bottom:Math.max(launcherGap,p.bottom)};}catch{}
 renderLauncher();
