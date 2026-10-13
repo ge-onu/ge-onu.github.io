@@ -1,0 +1,39 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="color-scheme" content="light only">
+<style>
+@font-face{font-family:PS;src:url(/assets/fonts/portfolio-sans-subset.woff2) format('woff2');font-weight:100 900}
+*{box-sizing:border-box;margin:0}:root{color-scheme:light only}.sub,h1{word-break:keep-all}
+body{background:#ddd;font-family:PS,'Pretendard','Apple SD Gothic Neo',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.card{width:1200px;height:630px;position:relative;overflow:hidden;background:#fff;color:#111114;display:grid;grid-template-columns:1fr 470px}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(900px 500px at 85% 20%,#eef0ff 0,transparent 60%);}
+.l{position:relative;padding:64px 0 56px 72px;display:flex;flex-direction:column}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:22px;font-weight:600;color:#55565e;letter-spacing:-.01em}
+.kicker i{width:10px;height:10px;border-radius:50%;background:#4b4fd6}
+h1{font-size:76px;line-height:1.08;letter-spacing:-.045em;font-weight:800;margin:26px 0 18px}
+h1 small{display:block;font-size:30px;font-weight:600;letter-spacing:-.02em;color:#4b4fd6;margin-bottom:14px}
+.sub{font-size:27px;line-height:1.45;letter-spacing:-.02em;color:#3b3c44;font-weight:500;max-width:620px}
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.tags span{font-size:20px;font-weight:600;padding:8px 14px;border-radius:999px;background:#f2f3f7;color:#2d2e36;border:1px solid #e3e4ea}
+.foot{margin-top:auto;display:flex;align-items:center;gap:14px;font-size:22px;font-weight:600;color:#55565e}
+.foot b{color:#111114;font-weight:800}
+.r{position:relative;display:grid;place-items:center;padding:40px}
+.r .art{width:400px;height:400px;border-radius:36px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(30,32,80,.35),0 0 0 1px rgba(0,0,0,.05);background:#f6f6f9;display:grid;place-items:center}
+.r .art img{width:100%;height:100%;object-fit:cover}.r .art.contain{background:#f4f6fa}
+.r .art.contain img{object-fit:contain;padding:24px}
+.bar{position:absolute;left:0;top:0;bottom:0;width:10px;background:#4b4fd6}
+</style></head><body>
+<div class="card" id="card"><div class="bar"></div>
+ <div class="l">
+  <p class="kicker"><i></i><span id="k"></span></p>
+  <h1><small id="pre"></small><span id="t"></span></h1>
+  <p class="sub" id="s"></p>
+  <div class="tags" id="g"></div>
+  <p class="foot" id="ft"><b>이건우</b> Geonwoo Lee · geonu.site</p>
+ </div>
+ <div class="r"><div class="art" id="artbox"><img id="art" alt=""></div></div>
+</div>
+<script>
+const q=new URLSearchParams(location.search);const C=JSON.parse(decodeURIComponent(q.get('c')));
+k.textContent=C.k;pre.textContent=C.pre||'';t.innerHTML=C.t;s.textContent=C.s;art.src=C.art;if(C.contain)artbox.classList.add('contain');if(C.artCss)art.style.cssText=C.artCss;
+g.replaceChildren(...C.tags.map(x=>{const e=document.createElement('span');e.textContent=x;return e;}));
+if(!C.pre)pre.remove();if(C.foot)ft.innerHTML=C.foot;
+</script></body></html>
