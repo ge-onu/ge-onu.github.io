@@ -158,3 +158,10 @@
  addEventListener('geonu:flash',check);
  if(document.readyState==='complete')check();else addEventListener('load',check,{once:true});
 })();
+
+/* 방문 통계: Cloudflare Web Analytics(쿠키 없음). 실제 사이트에서만 불러온다(로컬 미리보기·QA 제외). */
+(() => {
+ if(location.hostname!=='geonu.site')return;
+ const s=document.createElement('script');s.defer=true;s.src='https://static.cloudflareinsights.com/beacon.min.js';
+ s.setAttribute('data-cf-beacon','{"token": "516bf72bf17841ff82231f58536e6c77"}');document.head.append(s);
+})();
