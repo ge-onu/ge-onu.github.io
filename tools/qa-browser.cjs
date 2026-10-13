@@ -81,8 +81,12 @@ const assert = require('node:assert/strict');
           assert.ok((await pdf.body()).subarray(0, 5).toString() === '%PDF-');
         }
         if (name === 'rag') {
-          const link = page.locator('#sources a');
-          assert.equal(await link.count(), 1);
+          // 평가 기록 링크 2개: 공개 요약(사이트 안) + 거누 엔진·평가 코드(GitHub). 거누로 이어진 구역도 있어야 한다.
+          const links = page.locator('#sources a');
+          assert.equal(await links.count(), 2);
+          assert.equal(await links.nth(1).getAttribute('href'), 'https://github.com/ge-onu/ge-onu.github.io/tree/main/rag');
+          assert.equal(await page.locator('#geonu').count(), 1);
+          const link = links.first();
           // Resolve relative links against the detail page, not the QA origin.
           const evidenceUrl = new URL(await link.getAttribute('href'), page.url()).href;
           const evidence = await page.request.get(evidenceUrl);

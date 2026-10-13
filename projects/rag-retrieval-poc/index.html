@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="darkreader-lock">
-  <meta name="description" content="개인 Retrieval/RAG PoC — BM25 검색과 답변 범위 판단을 분리하고 개발 평가와 남은 실패를 확인한 기록. unseen holdout v2 검증 전입니다.">
+  <meta name="description" content="개인 Retrieval/RAG PoC — BM25 검색과 답변 범위 판단을 분리하고 개발 평가와 남은 실패를 확인한 기록. 이 엔진은 사이트 챗봇 거누로 동작합니다. unseen holdout v2 검증 전입니다.">
   <link rel="canonical" href="https://geonu.site/projects/rag-retrieval-poc/">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="geonu.site">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:url" content="https://geonu.site/projects/rag-retrieval-poc/">
   <meta property="og:title" content="RAG Retrieval PoC | 이건우">
-  <meta property="og:description" content="근거를 찾는 것과 답해도 되는지 판단하는 것을 분리한 개인 실험. 개발 평가 결과와 아직 확인하지 못한 범위를 구분합니다.">
+  <meta property="og:description" content="근거를 찾는 것과 답해도 되는지 판단하는 것을 분리한 개인 실험. 이 엔진이 사이트 챗봇 거누로 이어졌습니다.">
   <meta property="og:image" content="https://geonu.site/assets/rag-thinking-robot.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="RAG Retrieval PoC | 이건우">
-  <meta name="twitter:description" content="근거를 찾는 것과 답해도 되는지 판단하는 것을 분리한 개인 실험. 개발 평가 결과와 아직 확인하지 못한 범위를 구분합니다.">
+  <meta name="twitter:description" content="근거를 찾는 것과 답해도 되는지 판단하는 것을 분리한 개인 실험. 이 엔진이 사이트 챗봇 거누로 이어졌습니다.">
   <meta name="twitter:image" content="https://geonu.site/assets/rag-thinking-robot.png">
   <meta name="theme-color" content="#f7f8fa">
   <title>RAG Retrieval PoC | 이건우</title>
@@ -51,11 +51,11 @@
           <p class="section-kicker">개인 실험 · Lab/PoC</p>
           <h1>RAG Retrieval PoC</h1>
           <p class="project-hero-subtitle">관련 문서를 찾은 것과 답할 근거가 있는 것을 구분했습니다.</p>
-          <p class="project-hero-summary">경험에 대한 질문에서 관련 근거를 검색하고, 그 근거가 답변할 범위와 기여를 실제로 뒷받침하는지 확인하는 실험입니다. BM25 검색 결과와 답변 허용 규칙을 나눠 실패를 분석했습니다.</p>
+          <p class="project-hero-summary"><span class="ln">경험에 대한 질문에서 관련 근거를 검색하고, 그 근거가 답변할 범위와 기여를 실제로 뒷받침하는지 확인하는 실험입니다.</span><span class="ln">BM25 검색 결과와 답변 허용 규칙을 나눠 실패를 분석했습니다.</span><span class="ln">이 PoC의 검색·판정 엔진은 지금 이 사이트 오른쪽 아래의 RAG 챗봇 <b>거누</b>로 동작합니다.</span></p>
           <p class="limit"><b>개발 평가 완료 · 새로운 평가 세트(holdout v2) 검증 전</b><br>아래 수치는 개발 데이터에서 확인한 결과입니다. 새로운 질문에 대한 일반화 성능이나 Production RAG 운영 경험을 뜻하지 않습니다.</p>
         </div>
       </section>
-      <nav class="detail-nav" aria-label="RAG PoC 상세 목차"><a href="#question">문제와 범위</a><a href="#failure">실패와 수정</a><a href="#measurement">개발 평가</a><a href="#limits">남은 한계</a><a href="#sources">평가 기록</a></nav>
+      <nav class="detail-nav" aria-label="RAG PoC 상세 목차"><a href="#question">문제와 범위</a><a href="#failure">실패와 수정</a><a href="#measurement">개발 평가</a><a href="#geonu">거누로 이어진 것</a><a href="#limits">남은 한계</a><a href="#sources">평가 기록</a></nav>
 
       <section class="reading-section" id="question" aria-labelledby="question-title">
         <p class="section-kicker">01 / 문제와 범위</p>
@@ -101,8 +101,43 @@
         </div>
       </section>
 
+      <section class="reading-section" id="geonu" aria-labelledby="geonu-title">
+        <p class="section-kicker">04 / 거누로 이어진 것</p>
+        <h2 id="geonu-title">동결한 엔진을 그대로 옮겨, 이 사이트의 챗봇 거누로 쓰고 있습니다.</h2>
+        <p><span class="ln">PoC에서 동결한 파이프라인(FROZEN_V2, Python)을 JavaScript로 옮겨, 브라우저와 응답 서버가 같은 엔진을 쓰게 했습니다.</span><span class="ln">PoC 평가 문항 100개와 추가 문항 10개에서 Python 원본과 출력이 같은지 대조했습니다.</span><span class="ln">거누는 이 사이트에 공개된 기록만 검색하고, 근거가 없으면 답하지 않습니다.</span></p>
+        <ol class="pipeline-flow" aria-label="거누 답변 흐름">
+          <li><strong>검색·판정</strong><span>PoC 엔진 · 거절 여부</span></li>
+          <li><strong>작성</strong><span>근거 안에서만 · Gemini</span></li>
+          <li><strong>검사</strong><span>사실 · 출력 정상성</span></li>
+          <li><strong>답 또는 간단 모드</strong><span>통과 못 하면 근거 문장</span></li>
+        </ol>
+        <div class="comparison-wrap" role="region" aria-label="거누 배포판 평가" tabindex="0">
+          <table class="comparison-table">
+            <caption>배포판 평가 · 2026-10-14 · PoC 평가 세트 100문항과 배포 점검 문항</caption>
+            <thead><tr><th scope="col">확인 항목</th><th scope="col">PoC 동결 당시 결과</th><th scope="col">거누 배포판</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">근거 없는 질문의 정상 거절</th><td>12/12</td><td>12/12</td></tr>
+              <tr><th scope="row">답할 질문의 정상 답변</th><td>88/88</td><td>88/88</td></tr>
+              <tr><th scope="row">답한 질문의 인용 정확도</th><td>0.989</td><td>0.989</td></tr>
+              <tr><th scope="row">경계 질문(부정·적대)</th><td>1.000</td><td>34/34</td></tr>
+              <tr><th scope="row">사실·바꿔 말한 질문 R@3</th><td>—</td><td>0.975 (39/40)</td></tr>
+              <tr><th scope="row">배포 점검 문항</th><td>—</td><td>24/24</td></tr>
+              <tr><th scope="row">생성 출력 정상성 검사</th><td>—</td><td>14/14</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="reading-note"><span class="ln">PoC 정답 근거의 id는 옛 사이트 기준이라, 글자가 가장 많이 겹치는 지금 근거로 옮겨 채점했습니다.</span><span class="ln">배포 점검 문항은 서버리스·역할·자격증·프로젝트 목록처럼 배포판에서 새로 다루는 질문입니다.</span></p>
+        <ol class="decision-list">
+          <li><div><h3>근거가 없으면 생성 모델을 부르지 않습니다.</h3><p><span class="ln">엔진이 거절로 판정하면 모델 호출 없이 거절 문장을 돌려줍니다.</span><span class="ln">기록에 없는 경험은 있다고도 없다고도 추측하지 않습니다.</span></p></div></li>
+          <li><div><h3>생성한 문장은 근거와 대조합니다.</h3><p><span class="ln">숫자와 기술 이름이 근거에 있는지, 금지 표현이 없는지 검사합니다.</span><span class="ln">어긋나면 한 번 고쳐 쓰게 하고, 그래도 어긋나면 생성 없이 근거 문장으로 답합니다.</span></p></div></li>
+          <li><div><h3>깨진 글은 출력 정상성 검사로 거릅니다.</h3><p><span class="ln">2026-10-14 점검에서, 대체 모델이 느낌표만 700여 개 돌려준 답을 사실 검사가 통과시켜 응답 서버가 그대로 돌려준 일이 있었습니다.</span><span class="ln">그 뒤 글자 비율, 같은 글자 반복, 기호 비율, 너무 짧은 답을 따로 검사하게 했고, 그 대체 모델은 뺐습니다.</span><span class="ln">브라우저도 같은 검사를 한 번 더 해서, 깨진 답이 오면 브라우저 안의 엔진으로 답합니다.</span></p></div></li>
+        </ol>
+        <p class="ownership"><b>기여 범위</b> — PoC 엔진을 거누에 쓰기로 한 결정, "자유롭게 쓰되 사실만 검사"라는 생성 원칙, 챗봇임을 화면에서 분명히 하는 원칙은 제가 정했습니다. JavaScript 이식·응답 서버·평가 스크립트 작성에는 AI 도구를 사용했습니다.</p>
+        <p class="limit"><b>이 수치가 뜻하지 않는 것</b><br><span class="ln">PoC 개발 평가 세트와 배포 점검 문항에서 나온 수치이며, 새로운 질문에 대한 일반화 성능이나 상용 RAG 운영 경험을 뜻하지 않습니다.</span><span class="ln">질문 원문은 저장하지 않습니다.</span></p>
+      </section>
+
       <section class="reading-section" id="limits" aria-labelledby="limits-title">
-        <p class="section-kicker">04 / 남은 한계</p>
+        <p class="section-kicker">05 / 남은 한계</p>
         <h2 id="limits-title">찾지 못한 질문과 확인하지 않은 성능을 남겼습니다.</h2>
         <p>데이터 수집부터 학습까지의 기여를 함께 묻는 개발 문항 X08에서는 필요한 근거가 4위에 남았습니다. 질문을 나누는 검색으로도 해결하지 못했고, 한 문항만을 위한 튜닝은 하지 않았습니다.</p>
         <p>v1에서 R@3가 개발 1.000 → holdout 0.800으로 낮아진 전례가 있습니다. <b>새로운 평가 세트(holdout v2)의 검증이 남아 있으므로</b> 개발 기준 통과는 설정 동결의 근거로만 사용합니다.</p>
@@ -110,10 +145,11 @@
       </section>
 
       <section class="reading-section" id="sources" aria-labelledby="sources-title">
-        <p class="section-kicker">05 / 평가 기록</p>
+        <p class="section-kicker">06 / 평가 기록</p>
         <h2 id="sources-title">개발 결과와 남은 한계를 공개 요약으로 정리했습니다.</h2>
         <ul class="source-list">
           <li><a href="../../assets/evidence/rag-retrieval-poc/development-summary.md">개발 평가표 · 기각 대안 · 남은 실패 →</a></li>
+          <li><a href="https://github.com/ge-onu/ge-onu.github.io/tree/main/rag" target="_blank" rel="noopener noreferrer">거누 엔진·평가 코드 (GitHub)<span class="sr">(새 탭)</span> →</a></li>
         </ul>
         <p class="reading-note">동결 당시 기록에서 공개 가능한 결과와 조건을 발췌한 요약입니다. 원본 코드·평가 데이터 전체나 독립 재현 패키지는 제공하지 않습니다. unseen holdout v2 검증 전의 개발 결과입니다.</p>
       </section>
