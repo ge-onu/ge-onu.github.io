@@ -81,12 +81,16 @@ const assert = require('node:assert/strict');
           assert.ok((await pdf.body()).subarray(0, 5).toString() === '%PDF-');
         }
         if (name === 'rag') {
-          // 평가 기록 링크 2개: 공개 요약(사이트 안) + 거누 엔진·평가 코드(GitHub). 거누로 이어진 구역도 있어야 한다.
-          const links = page.locator('#sources a');
-          assert.equal(await links.count(), 2);
-          assert.equal(await links.nth(1).getAttribute('href'), 'https://github.com/ge-onu/ge-onu.github.io/tree/main/rag');
-          assert.equal(await page.locator('#geonu').count(), 1);
-          const link = links.first();
+          // 사례 페이지(2026-10-14 개편): 발표 자료 10장 + 설명, 거누 배포 구역, 평가 원문 링크, 엔진 코드 링크.
+          assert.equal(await page.locator('[data-deck]').count(), 1);
+          assert.equal(await page.locator('.deck-count').textContent(), '1 / 10');
+          await page.locator('.deck-next').click();
+          await page.waitForFunction(() => document.querySelector('.deck-count').textContent === '2 / 10');
+          assert.ok((await page.locator('.deck-desc').textContent()).length > 20, 'slide caption');
+          assert.equal(await page.locator('#ev-geonu').count(), 1);
+          assert.equal(await page.locator('.chead-links a[href="https://github.com/ge-onu/ge-onu.github.io/tree/main/rag"]').count(), 1);
+          const link = page.locator('#ev-fail a[href*="development-summary"]');
+          assert.equal(await link.count(), 1);
           // Resolve relative links against the detail page, not the QA origin.
           const evidenceUrl = new URL(await link.getAttribute('href'), page.url()).href;
           const evidence = await page.request.get(evidenceUrl);

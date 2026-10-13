@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="darkreader-lock">
+  <meta name="color-scheme" content="light dark">
   <meta name="description" content="개인 Retrieval/RAG PoC — BM25 검색과 답변 범위 판단을 분리하고 개발 평가와 남은 실패를 확인한 기록. 이 엔진은 사이트 챗봇 거누로 동작합니다. unseen holdout v2 검증 전입니다.">
   <link rel="canonical" href="https://geonu.site/projects/rag-retrieval-poc/">
   <meta property="og:type" content="article">
@@ -22,21 +23,18 @@
   <meta name="twitter:image" content="https://geonu.site/assets/og/rag-retrieval-poc.png">
   <meta name="theme-color" content="#f7f8fa">
   <title>RAG Retrieval PoC | 이건우</title>
-  <link rel="stylesheet" href="../../style.css?v=20261014-polish">
-  <link rel="stylesheet" href="../../projects.css?v=20261014-polish">
-  <link rel="icon" type="image/svg+xml" href="../../assets/images/home-icon.svg">
-<link rel="stylesheet" href="../../portfolio-ui.css?v=20261014-polish">
-<link rel="stylesheet" href="../../theme.css?v=2">
-<script src="/theme.js?v=20261014-polish"></script>
-<link rel="preload" href="/assets/fonts/portfolio-sans-subset.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/site.css?v=20261014-polish">
-<link rel="stylesheet" href="/legacy-pages.css?v=20261014-polish">
-<link rel="stylesheet" href="/contact-chat.css?v=20261014-polish">
-<script src="../../contact-config.js?v=20261014-polish" defer></script>
-<script src="/contact-chat.js?v=20261014-polish" defer></script>
+  <link rel="icon" type="image/svg+xml" href="/assets/images/home-icon.svg">
+  <link rel="preload" href="/assets/fonts/portfolio-sans-subset.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/site.css?v=20261014-polish">
+  <link rel="stylesheet" href="/portfolio.css?v=20261014-deck2">
+  <link rel="stylesheet" href="/legacy-pages.css?v=20261014-polish">
+  <link rel="stylesheet" href="/contact-chat.css?v=20261014-polish">
+  <script src="/theme.js?v=20261014-polish"></script>
+  <script src="/contact-config.js?v=20261014-polish" defer></script>
+  <script src="/contact-chat.js?v=20261014-polish" defer></script>
 </head>
-<body class="legacy-page project-page project-page--rag">
-  <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
+<body class="case-page">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
 <header class="hdr"><div class="wrap">
   <a class="wm" href="/" aria-label="이건우 포트폴리오 홈"><span class="wm-ko">이건우</span><span class="wm-dot" aria-hidden="true"></span><span class="wm-en">Geonwoo Lee</span></a>
   <nav class="hdr-nav" aria-label="주요 메뉴"><a href="/#work" aria-current="true">사례</a><a href="/#strengths">역량</a><a href="/#incidents">트러블슈팅</a><a href="/#focus">기술</a><a href="/#about">이력</a><a class="nav-contact" href="/#contact">연락하기</a></nav>
@@ -46,122 +44,74 @@
     <a class="btn btn-primary btn-sm" href="/resume.pdf" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>이력서<span class="sr">(PDF, 새 탭)</span></a>
   </div>
 </div></header>
-  <div class="shell">
-    <main id="main-content">
-      <section class="project-hero project-hero--text">
-        <div>
-          <a class="project-back" href="../../#work">← 프로젝트 목록</a>
-          <p class="section-kicker">개인 실험 · Lab/PoC</p>
-          <h1>RAG Retrieval PoC</h1>
-          <p class="project-hero-subtitle">관련 문서를 찾은 것과 답할 근거가 있는 것을 구분했습니다.</p>
-          <p class="project-hero-summary"><span class="ln">경험에 대한 질문에서 관련 근거를 검색하고, 그 근거가 답변할 범위와 기여를 실제로 뒷받침하는지 확인하는 실험입니다.</span><span class="ln">BM25 검색 결과와 답변 허용 규칙을 나눠 실패를 분석했습니다.</span><span class="ln">이 PoC의 검색·판정 엔진은 지금 이 사이트 오른쪽 아래의 RAG 챗봇 <b>거누</b>로 동작합니다.</span></p>
-          <p class="limit"><b>개발 평가 완료 · 새로운 평가 세트(holdout v2) 검증 전</b><br>아래 수치는 개발 데이터에서 확인한 결과입니다. 새로운 질문에 대한 일반화 성능이나 Production RAG 운영 경험을 뜻하지 않습니다.</p>
-        </div>
-      </section>
-      <nav class="detail-nav" aria-label="RAG PoC 상세 목차"><a href="#question">문제와 범위</a><a href="#failure">실패와 수정</a><a href="#measurement">개발 평가</a><a href="#geonu">거누로 이어진 것</a><a href="#limits">남은 한계</a><a href="#sources">평가 기록</a></nav>
-
-      <section class="reading-section" id="question" aria-labelledby="question-title">
-        <p class="section-kicker">01 / 문제와 범위</p>
-        <h2 id="question-title">비슷한 문서가 검색돼도 답하면 안 되는 질문이 있었습니다.</h2>
-        <p>팀 실행 환경에 등장하는 기술이 개인 기여로 읽히거나, 근거에 없는 기술 질문에 가까운 문서가 붙을 수 있습니다. 검색 순위만으로 답변을 허용하지 않고, 문서가 다루는 주제와 기여 범위를 별도로 확인하도록 구성했습니다.</p>
-        <p class="ownership"><b>실험 범위</b> — BM25 검색·답변 허용 규칙·개발 평가. 보존된 코드와 설정 동결 기록에서 어떤 조건을 확인했는지 볼 수 있습니다.</p>
-        <ol class="pipeline-flow" aria-label="질문 처리 흐름">
-          <li><strong>질문</strong><span>주제·대상 확인</span></li>
-          <li><strong>BM25 검색</strong><span>관련 근거 top-5</span></li>
-          <li><strong>범위 판단</strong><span>주제·기여·거절 조건</span></li>
-          <li><strong>답변 또는 보류</strong><span>허용 범위와 인용 연결</span></li>
-        </ol>
-        <p class="reading-note">Vector DB나 생성 모델의 응답 품질을 평가한 시스템이 아니라, 검색과 답변 허용 범위를 검증하는 PoC입니다.</p>
-      </section>
-
-      <section class="reading-section" id="failure" aria-labelledby="failure-title">
-        <p class="section-kicker">02 / 실패와 수정</p>
-        <h2 id="failure-title">첫 holdout 실패 9건 중 8건은 검색 뒤의 판단에서 생겼습니다.</h2>
-        <ol class="decision-list">
-          <li><div><h3>가장 가까운 근거를 무조건 채택하지 않도록 했습니다.</h3><p>주제를 뒷받침하는 단서가 없으면 답변 범위 카드를 고르지 않는 선택을 넣었습니다. '구축·운영' 같은 넓은 표현만으로 적용 범위를 넓히지 않았습니다.</p></div></li>
-          <li><div><h3>문자열 일치보다 명시된 기여 범위를 먼저 봤습니다.</h3><p>검색된 문구에 기술 이름이 있다는 이유로 개인 경험을 인정하지 않고, 근거 카드에 선언된 기여와 주제 지지를 확인했습니다. 범위 밖·근거 없는 주제·기여 미귀속을 별도 신호로 처리했습니다.</p></div></li>
-          <li><div><h3>검색을 바꾸는 대안도 측정하고 기각했습니다.</h3><p>질문을 나눠 검색 결과를 합치는 대안은 cross R@3가 0.857 → 0.714로 낮아졌습니다. top-5에 근거가 있어야만 범위 카드를 허용하는 대안도 경계 질문에서 필요한 판단을 놓쳤습니다.</p><p class="reading-note">v2의 BM25 파라미터는 유지했습니다. 검색이 모든 질문에 일반화됐다는 결론은 아닙니다.</p></div></li>
-        </ol>
-      </section>
-
-      <section class="reading-section" id="measurement" aria-labelledby="measurement-title">
-        <p class="section-kicker">03 / 개발 평가</p>
-        <h2 id="measurement-title">개발 평가 100건에서 설정 확정 기준을 충족했습니다.</h2>
-        <p>개발 60건과 이미 확인한 holdout v1 40건을 합친 <b>combined100</b>입니다. 한 번 본 holdout을 개발에 사용했으므로, 이 결과를 새 질문의 성능으로 읽을 수는 없습니다.</p>
-        <div class="comparison-wrap" role="region" aria-label="RAG 개발 평가 결과표" tabindex="0">
-          <table class="comparison-table">
-            <caption>설정 동결 기록의 실측값 · 개발 60건 + 기존 holdout 40건</caption>
-            <thead><tr><th scope="col">확인 항목</th><th scope="col">동결 기준</th><th scope="col">기록된 결과</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">근거 없는 질문의 정상 거절</th><td>12/12</td><td>12/12</td></tr>
-              <tr><th scope="row">답변 가능한 질문의 정상 답변</th><td>87/88 이상</td><td>88/88</td></tr>
-              <tr><th scope="row">과도한 거절</th><td>1/88 이하</td><td>0/88</td></tr>
-              <tr><th scope="row">답변의 인용 정확성</th><td>0.98 이상</td><td>0.989</td></tr>
-              <tr><th scope="row">답변 가능 질문의 근거 coverage</th><td>0.98 이상</td><td>0.989</td></tr>
-              <tr><th scope="row">경계 질문 coverage</th><td>0.97 이상</td><td>1.000</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="reading-section" id="geonu" aria-labelledby="geonu-title">
-        <p class="section-kicker">04 / 거누로 이어진 것</p>
-        <h2 id="geonu-title">동결한 엔진을 그대로 옮겨, 이 사이트의 챗봇 거누로 쓰고 있습니다.</h2>
-        <p><span class="ln">PoC에서 동결한 파이프라인(FROZEN_V2, Python)을 JavaScript로 옮겨, 브라우저와 응답 서버가 같은 엔진을 쓰게 했습니다.</span><span class="ln">PoC 평가 문항 100개와 추가 문항 10개에서 Python 원본과 출력이 같은지 대조했습니다.</span><span class="ln">거누는 이 사이트에 공개된 기록만 검색하고, 근거가 없으면 답하지 않습니다.</span></p>
-        <ol class="pipeline-flow" aria-label="거누 답변 흐름">
-          <li><strong>검색·판정</strong><span>PoC 엔진 · 거절 여부</span></li>
-          <li><strong>작성</strong><span>근거 안에서만 · Gemini</span></li>
-          <li><strong>검사</strong><span>사실 · 출력 정상성</span></li>
-          <li><strong>답 또는 간단 모드</strong><span>통과 못 하면 근거 문장</span></li>
-        </ol>
-        <div class="comparison-wrap" role="region" aria-label="거누 배포판 평가" tabindex="0">
-          <table class="comparison-table">
-            <caption>배포판 평가 · 2026-10-14 · PoC 평가 세트 100문항과 배포 점검 문항</caption>
-            <thead><tr><th scope="col">확인 항목</th><th scope="col">PoC 동결 당시 결과</th><th scope="col">거누 배포판</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">근거 없는 질문의 정상 거절</th><td>12/12</td><td>12/12</td></tr>
-              <tr><th scope="row">답할 질문의 정상 답변</th><td>88/88</td><td>88/88</td></tr>
-              <tr><th scope="row">답한 질문의 인용 정확도</th><td>0.989</td><td>0.989</td></tr>
-              <tr><th scope="row">경계 질문(부정·적대)</th><td>1.000</td><td>34/34</td></tr>
-              <tr><th scope="row">사실·바꿔 말한 질문 R@3</th><td>—</td><td>0.975 (39/40)</td></tr>
-              <tr><th scope="row">배포 점검 문항</th><td>—</td><td>25/25</td></tr>
-              <tr><th scope="row">생성 출력 정상성 검사</th><td>—</td><td>14/14</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="reading-note"><span class="ln">PoC 정답 근거의 id는 옛 사이트 기준이라, 글자가 가장 많이 겹치는 지금 근거로 옮겨 채점했습니다.</span><span class="ln">배포 점검 문항은 서버리스·역할·자격증·프로젝트 목록처럼 배포판에서 새로 다루는 질문입니다.</span></p>
-        <ol class="decision-list">
-          <li><div><h3>근거가 없으면 생성 모델을 부르지 않습니다.</h3><p><span class="ln">엔진이 거절로 판정하면 모델 호출 없이 거절 문장을 돌려줍니다.</span><span class="ln">기록에 없는 경험은 있다고도 없다고도 추측하지 않습니다.</span></p></div></li>
-          <li><div><h3>생성한 문장은 근거와 대조합니다.</h3><p><span class="ln">숫자와 기술 이름이 근거에 있는지, 금지 표현이 없는지 검사합니다.</span><span class="ln">어긋나면 한 번 고쳐 쓰게 하고, 그래도 어긋나면 생성 없이 근거 문장으로 답합니다.</span></p></div></li>
-          <li><div><h3>깨진 글은 출력 정상성 검사로 거릅니다.</h3><p><span class="ln">2026-10-14 점검에서, 대체 모델이 느낌표만 700여 개 돌려준 답을 사실 검사가 통과시켜 응답 서버가 그대로 돌려준 일이 있었습니다.</span><span class="ln">그 뒤 글자 비율, 같은 글자 반복, 기호 비율, 너무 짧은 답을 따로 검사하게 했고, 그 대체 모델은 뺐습니다.</span><span class="ln">브라우저도 같은 검사를 한 번 더 해서, 깨진 답이 오면 브라우저 안의 엔진으로 답합니다.</span></p></div></li>
-        </ol>
-        <p class="ownership"><b>기여 범위</b> — PoC 엔진을 거누에 쓰기로 한 결정, "자유롭게 쓰되 사실만 검사"라는 생성 원칙, 챗봇임을 화면에서 분명히 하는 원칙은 제가 정했습니다. JavaScript 이식·응답 서버·평가 스크립트 작성에는 AI 도구를 사용했습니다.</p>
-        <p class="limit"><b>이 수치가 뜻하지 않는 것</b><br><span class="ln">PoC 개발 평가 세트와 배포 점검 문항에서 나온 수치이며, 새로운 질문에 대한 일반화 성능이나 상용 RAG 운영 경험을 뜻하지 않습니다.</span><span class="ln">질문 원문은 저장하지 않습니다.</span></p>
-      </section>
-
-      <section class="reading-section" id="limits" aria-labelledby="limits-title">
-        <p class="section-kicker">05 / 남은 한계</p>
-        <h2 id="limits-title">찾지 못한 질문과 확인하지 않은 성능을 남겼습니다.</h2>
-        <p>데이터 수집부터 학습까지의 기여를 함께 묻는 개발 문항 X08에서는 필요한 근거가 4위에 남았습니다. 질문을 나누는 검색으로도 해결하지 못했고, 한 문항만을 위한 튜닝은 하지 않았습니다.</p>
-        <p>v1에서 R@3가 개발 1.000 → holdout 0.800으로 낮아진 전례가 있습니다. <b>새로운 평가 세트(holdout v2)의 검증이 남아 있으므로</b> 개발 기준 통과는 설정 동결의 근거로만 사용합니다.</p>
-        <p class="limit"><b>검증 범위와 미검증 항목</b> — 검색 실패와 답변 범위 판단 실패를 나눠 분석한 과정, 기각한 대안, 개발 평가 결과입니다. 상용 RAG 운영·Vector DB 운영·RAGAS 활용 경험으로 확대하지 않습니다.</p>
-      </section>
-
-      <section class="reading-section" id="sources" aria-labelledby="sources-title">
-        <p class="section-kicker">06 / 평가 기록</p>
-        <h2 id="sources-title">개발 결과와 남은 한계를 공개 요약으로 정리했습니다.</h2>
-        <ul class="source-list">
-          <li><a href="../../assets/evidence/rag-retrieval-poc/development-summary.md">개발 평가표 · 기각 대안 · 남은 실패 →</a></li>
-          <li><a href="https://github.com/ge-onu/ge-onu.github.io/tree/main/rag" target="_blank" rel="noopener noreferrer">거누 엔진·평가 코드 (GitHub)<span class="sr">(새 탭)</span> →</a></li>
-        </ul>
-        <p class="reading-note">동결 당시 기록에서 공개 가능한 결과와 조건을 발췌한 요약입니다. 원본 코드·평가 데이터 전체나 독립 재현 패키지는 제공하지 않습니다. unseen holdout v2 검증 전의 개발 결과입니다.</p>
-      </section>
-    </main>
-    <footer class="project-page-footer"><a class="back-link" href="../../#work">← 프로젝트 목록으로</a><a class="back-link" href="../mealplanning/">Mealplanning 사례 보기 →</a></footer>
+<main id="main">
+<div class="wrap">
+  <nav class="crumb" aria-label="이동 경로"><a href="/#work"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>대표 사례</a><span aria-hidden="true">/</span><span aria-current="page">RAG Retrieval PoC</span></nav>
+  <header class="chead">
+    <p class="chead-meta"><span class="status done"><i aria-hidden="true"></i>개발 평가 완료</span><span>개인 실험</span><span>챗봇 거누로 배포</span></p>
+    <h1>RAG Retrieval PoC</h1>
+    <p class="subt">검색한 문서와 답해도 되는 근거를 나눈 실험, 그리고 챗봇 거누</p>
+    <dl class="cmeta"><div><dt>기간</dt><dd class="tnum">2026.09 – 10</dd></div><div><dt>구성</dt><dd>개인 실험 · 구현은 AI 도구 활용</dd></div><div><dt>내 역할</dt><dd>평가 기준·실패 분석·채택 판단</dd></div><div><dt>결과</dt><dd>개발 평가 기준 충족 · 거누 배포</dd></div></dl>
+    <p class="chead-links"><a class="link" href="https://github.com/ge-onu/ge-onu.github.io/tree/main/rag" target="_blank" rel="noopener noreferrer"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.3 11.3 0 0 0-3.6 22c.57.1.77-.25.77-.55v-2.12c-3.15.68-3.82-1.34-3.82-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16A10.9 10.9 0 0 1 12 7.08c.97 0 1.94.13 2.85.38 2.17-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.03.77 2.08v3.14c0 .3.21.66.78.55A11.3 11.3 0 0 0 12 .7Z"/></svg>거누 엔진·평가 코드<span class="sr">(새 탭)</span><svg class="ic ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></p>
+  </header>
+  <section class="deck" id="deck" data-deck aria-labelledby="deck-h">
+  <div class="deck-head"><div><p class="num">발표 자료</p><h2 id="deck-h">발표 자료로 넘겨 보기</h2></div><p class="deck-note"><span class="ln">문제부터 엔진, 평가, 거누 배포, 회고까지 10장입니다.</span><span class="ln">장마다 아래에 설명을 붙였습니다.</span></p></div>
+  <div class="deck-chapters" role="tablist" aria-label="발표 장"><button type="button" role="tab" data-chapter="intro" aria-selected="false" tabindex="-1">문제</button><button type="button" role="tab" data-chapter="engine" aria-selected="false" tabindex="-1">엔진</button><button type="button" role="tab" data-chapter="eval" aria-selected="false" tabindex="-1">평가</button><button type="button" role="tab" data-chapter="geonu" aria-selected="false" tabindex="-1">거누</button><button type="button" role="tab" data-chapter="retro" aria-selected="false" tabindex="-1">회고</button></div>
+  <div class="deck-stage" tabindex="0" role="region" aria-roledescription="슬라이드" aria-label="표지 · 방향키로 넘기기">
+    <div class="deck-frame"><img class="deck-layer on" src="/assets/deck/rag/p001.webp" alt="표지" width="1600" height="900" decoding="async"></div>
+    <button class="deck-nav deck-prev" type="button" aria-label="이전 슬라이드"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+    <button class="deck-nav deck-next" type="button" aria-label="다음 슬라이드"><svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </div>
+  <div class="deck-bar"><div class="deck-progress" aria-hidden="true"><i></i></div><p class="deck-meta"><span class="deck-count tnum" aria-live="polite">1 / 10</span><span class="deck-title">표지</span><span class="deck-steps" role="img" aria-label=""></span></p><div class="deck-ctl"><button class="btn btn-secondary btn-sm deck-play" type="button" aria-pressed="false"><span class="lbl">자동 재생</span></button><button class="btn btn-secondary btn-sm deck-fs" type="button" aria-pressed="false"><span class="lbl">전체 화면</span></button></div></div>
+  <p class="deck-desc" aria-live="polite">개인 실험으로 만든 검색·판정 엔진을 동결한 뒤, 같은 엔진으로 이 사이트의 챗봇 거누를 만들었습니다.</p>
+  <script type="application/json" id="deck-data">{"base":"/assets/deck/rag/","chapters":[{"id":"intro","title":"문제"},{"id":"engine","title":"엔진"},{"id":"eval","title":"평가"},{"id":"geonu","title":"거누"},{"id":"retro","title":"회고"}],"slides":[{"c":"intro","t":"표지","d":"개인 실험으로 만든 검색·판정 엔진을 동결한 뒤, 같은 엔진으로 이 사이트의 챗봇 거누를 만들었습니다.","p":[1]},{"c":"intro","t":"문제","d":"팀 프로젝트 기술이 개인 기여로 읽히거나, 공개 자료에 없는 기술 질문에 비슷한 문서가 붙는 문제를 다뤘습니다. 질문 예시는 평가 세트의 유형을 보여 주는 것입니다.","p":[2]},{"c":"engine","t":"파이프라인","d":"BM25로 근거를 찾고, 주장 카드가 답의 범위를 정하고, 세 가지 거절 신호를 따로 확인합니다. 신호를 점수로 합치지 않아 왜 거절했는지가 남습니다.","p":[3]},{"c":"engine","t":"holdout 실패 분석","d":"처음 보는 질문 40개에서 9건이 틀렸고, 그중 8건은 검색이 아니라 검색 뒤의 판단층 문제였습니다. 원인 세 가지를 일반 규칙으로 고쳤고, 검색 설정은 그대로 뒀습니다.","p":[4]},{"c":"eval","t":"기각한 대안","d":"질문 분해 검색과 엄격한 카드 적용 조건을 실제로 측정했고, 둘 다 지표가 나빠져 넣지 않았습니다.","p":[5]},{"c":"eval","t":"개발 평가","d":"동결 기준을 모두 충족했지만 개발 평가 결과이고, 새 질문에 대한 성능은 holdout v2로 확인해야 합니다.","p":[6]},{"c":"geonu","t":"거누 구조","d":"PoC 엔진을 JavaScript로 옮겨 Cloudflare Worker에서 판정하고, Gemini가 근거 안에서만 문장을 씁니다. 실패하면 근거 문장으로 답하는 간단 모드로 떨어집니다.","p":[7]},{"c":"geonu","t":"이식 검증","d":"원본과 출력이 같은지 먼저 확인한 뒤, 지금 사이트 기준 데이터로 다시 평가했습니다. 수치는 PoC 동결 때와 같은 수준입니다.","p":[8]},{"c":"geonu","t":"배포 후 수정","d":"사실 검사는 \"틀린 사실\"만 잡고 \"깨진 글\"은 못 잡았습니다. 출력 정상성 검사를 따로 두고, 문제를 낸 대체 모델은 뺐습니다.","p":[9]},{"c":"retro","t":"회고","d":"holdout v2 검증과 남은 검색 실패는 그대로 남겨 두었습니다.","p":[10]}]}</script>
+</section>
+  <div class="cbody">
+    <article>
+      <section class="blk" id="summary" aria-labelledby="sum-h">
+        <div class="card sum"><div class="sum-h"><h2 id="sum-h">30초 요약</h2><span>상황 · 과제 · 판단 근거 · 행동 · 결과</span></div>
+          <dl class="prr has-why"><div><dt><span class="sl">S</span>상황</dt><dd>경험을 묻는 질문에 비슷한 문서가 검색되면, 팀이 한 일이 내 경험으로 읽히거나 기록에 없는 기술에 답이 붙을 수 있었습니다.</dd></div><div><dt><span class="sl">T</span>과제</dt><dd>검색 순위와 답변 허용을 나누고, 근거가 없으면 답하지 않는 기준을 세워야 했습니다.</dd></div><div class="why"><dt><span class="sl">W</span>판단 근거</dt><dd><span class="ln">실패를 고치려면 검색 문제인지 판단 문제인지부터 갈라야 했습니다.</span><span class="ln">그래서 검색은 BM25로 단순하게 두고, 답해도 되는지 판단하는 층을 따로 세웠습니다.</span></dd></div><div><dt><span class="sl">A</span>행동</dt><dd><span class="ln">처음 보는 질문에서 나온 실패 9건을 검색과 판단으로 나눠 분석하고, 판단 규칙을 고친 경험이 있습니다.</span><span class="ln">동결한 엔진을 JavaScript로 옮겨 이 사이트의 챗봇 거누로 배포한 경험이 있습니다.</span></dd></div><div class="res"><dt><span class="sl">R</span>결과</dt><dd><span class="ln">개발 평가 100문항에서 근거 없는 질문은 12개 모두 거절하고, 답할 질문 88개에는 모두 답했습니다.</span><span class="ln">옮긴 엔진은 110문항에서 원본과 출력이 같았습니다.</span></dd></div></dl>
+          <div class="sum-metrics"><div><b>12<small>/ 12</small></b><span>근거 없는 질문 정상 거절</span></div><div><b>88<small>/ 88</small></b><span>답할 질문 정상 답변</span></div><div><b>0.989</b><span>답한 질문의 인용 정확도</span></div><div><b>110<small>/ 110</small></b><span>이식본 출력이 원본과 같은 문항</span></div></div>
+        </div>
+      </section>
+
+      <section class="blk" id="ev-fail" aria-labelledby="ev-fail-h"><p class="num"><span>01</span>실패 분석</p><h2 id="ev-fail-h">실패 9건 중 8건은 검색이 아니라 판단에서</h2>
+        <dl class="star4 has-why"><div><dt><span class="sl">S</span>상황</dt><dd>동결한 설정을 처음 보는 질문 40개(holdout v1)에 돌리자 9건이 틀렸습니다.</dd></div><div><dt><span class="sl">T</span>과제</dt><dd>같은 실패가 다시 나지 않게 고치되, 그 40문항에만 맞춘 수정은 피해야 했습니다.</dd></div><div class="why"><dt><span class="sl">W</span>판단 근거</dt><dd><span class="ln">검색 결과를 보니 필요한 근거는 대부분 찾았고, 틀린 것은 그 뒤의 판단이었습니다.</span><span class="ln">그래서 검색 설정은 그대로 두고 판단 규칙만 일반 원리로 바꿨습니다.</span></dd></div><div><dt><span class="sl">A</span>행동</dt><dd>가장 가까운 카드를 늘 고르던 규칙을 "단서가 없으면 고르지 않음"으로, 모르는 주제 판단을 "공개 자료에 근거가 있는지"로 바꾼 경험이 있습니다.</dd></div><div class="res"><dt><span class="sl">R</span>결과</dt><dd>개발 평가 기준을 모두 충족했고, 새 규칙에서 holdout 문항의 기술명·문장 조각은 0건이었습니다.</dd></div></dl>
+        <div class="links"><a class="link" href="#deck">발표 자료에서 보기<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="link" href="../../assets/evidence/rag-retrieval-poc/development-summary.md">개발 평가표·기각한 대안 원문<svg class="ic fwd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </section>
+
+      <section class="blk" id="ev-geonu" aria-labelledby="ev-geonu-h"><p class="num"><span>02</span>거누 배포</p><h2 id="ev-geonu-h">같은 엔진으로 만든 RAG 챗봇</h2>
+        <dl class="star4 has-why"><div><dt><span class="sl">S</span>상황</dt><dd>PoC 엔진은 Python 실험 코드여서, 사이트 방문자가 쓸 수 없었습니다.</dd></div><div><dt><span class="sl">T</span>과제</dt><dd>엔진의 판단을 바꾸지 않은 채 사이트에서 돌리고, 생성 모델이 근거 밖 내용을 말하지 않게 해야 했습니다.</dd></div><div class="why"><dt><span class="sl">W</span>판단 근거</dt><dd><span class="ln">엔진을 옮기다 판단이 달라지면 평가 결과를 그대로 믿을 수 없습니다.</span><span class="ln">그래서 옮긴 뒤 원본과 출력부터 대조하고, 생성 답은 근거와 다시 맞춰 보기로 했습니다.</span></dd></div><div><dt><span class="sl">A</span>행동</dt><dd>엔진을 JavaScript로 옮겨 Cloudflare Worker에서 판정하고, Gemini가 근거 안에서만 쓰게 한 경험이 있습니다.</dd></div><div class="res"><dt><span class="sl">R</span>결과</dt><dd>110문항에서 원본과 출력이 같았고, 지금 사이트 기준 재평가도 PoC 수치와 같은 수준이었습니다.</dd></div></dl>
+        <p class="bnd-note">기여 범위 — 엔진을 거누에 쓰기로 한 결정, "자유롭게 쓰되 사실만 검사"라는 생성 원칙, 챗봇임을 화면에서 분명히 하는 원칙은 제가 정했습니다. JavaScript 이식·응답 서버·평가 스크립트 작성에는 AI 도구를 사용했습니다.</p>
+      </section>
+
+      <section class="blk" id="ev-safety" aria-labelledby="ev-safety-h"><p class="num"><span>03</span>배포 후 수정</p><h2 id="ev-safety-h">사실 검사가 놓친 깨진 글</h2>
+        <dl class="star4 has-why"><div><dt><span class="sl">S</span>상황</dt><dd>2026-10-14에 대체 모델이 느낌표만 700여 개 돌려준 답이 화면에 나갔습니다.</dd></div><div><dt><span class="sl">T</span>과제</dt><dd>틀린 사실뿐 아니라 깨진 글도 화면에 나가지 않게 해야 했습니다.</dd></div><div class="why"><dt><span class="sl">W</span>판단 근거</dt><dd><span class="ln">사실 검사는 숫자·기술명·금지 표현만 보므로, 기호뿐인 글은 통과합니다.</span><span class="ln">그래서 글의 형식을 보는 검사를 따로 두기로 했습니다.</span></dd></div><div><dt><span class="sl">A</span>행동</dt><dd>글자·기호 비율, 반복, 길이를 보는 출력 정상성 검사를 넣고, 문제를 낸 대체 모델을 뺀 경험이 있습니다.</dd></div><div class="res"><dt><span class="sl">R</span>결과</dt><dd>깨진 글 9개와 정상 답 5개로 만든 시험을 모두 통과했고, 실패하면 근거 문장으로 답합니다.</dd></div></dl>
+      </section>
+
+      <section class="blk" id="limits" aria-labelledby="l-h"><p class="num">한계</p><h2 id="l-h">남겨 둔 것</h2>
+        <div class="limits"><ul>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/></svg><span>새 평가 세트(holdout v2) 검증 전입니다. 개발 평가 수치를 새 질문 성능으로 읽지 않습니다.</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/></svg><span>개발 문항 X08(데이터 수집부터 학습까지의 기여)은 필요한 근거가 4위에 남았고, 한 문항만을 위한 튜닝은 하지 않았습니다.</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/></svg><span>검색과 답변 허용을 검증한 PoC이며, 상용 RAG·Vector DB 운영 경험이 아닙니다.</span></li>
+        </ul></div>
+      </section>
+
+      <section class="blk" id="learned" aria-labelledby="ln-h"><p class="num">배운 점</p><h2 id="ln-h">다음 판단에 남긴 기준</h2>
+        <ol class="learned"><li>실패를 검색과 판단으로 나눠 봐야 고칠 곳이 보입니다.</li><li>측정해서 나빠진 대안은 그럴듯해도 넣지 않습니다.</li><li>생성 답은 사실과 형식을 따로 검사합니다.</li></ol>
+      </section>
+    </article>
+    <aside class="toc" aria-label="목차"><p>목차</p><ol>
+      <li><a href="#deck">발표 자료</a></li><li><a href="#summary">30초 요약</a></li>
+      <li><a href="#ev-fail"><span>01</span>실패 분석</a></li><li><a href="#ev-geonu"><span>02</span>거누 배포</a></li><li><a href="#ev-safety"><span>03</span>배포 후 수정</a></li>
+      <li><a href="#limits">한계</a></li><li><a href="#learned">배운 점</a></li></ol></aside>
+  </div>
+</div>
+</main>
 <footer class="site-foot"><div class="wrap"><span>© 2026 이건우 · Geonwoo Lee</span><ul aria-label="연락처"><li><a href="mailto:goonbam009@gmail.com">goonbam009@gmail.com</a></li><li><a href="https://github.com/ge-onu" target="_blank" rel="noopener noreferrer">GitHub<span class="sr">(새 탭)</span></a></li><li><a href="https://www.linkedin.com/in/geonwooleekr" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr">(새 탭)</span></a></li></ul></div></footer>
-  <script src="../../section-navigation.js?v=20260918-1" defer></script>
-<script src="/portfolio-ui.js?v=20261014-polish" defer></script><script src="/site.js?v=20261014-og" defer></script>
+<script src="/project-tabs.js?v=20260914-1" defer></script>
+<script src="/portfolio-ui.js?v=20261014-polish" defer></script>
+<script src="/site.js?v=20261014-og" defer></script>
+<script src="/deck.js?v=20261014-deck2" defer></script>
 </body>
 </html>
-

@@ -53,7 +53,7 @@
  const moveChap=()=>{const t=tabs.find(t=>t.getAttribute('aria-selected')==='true');if(!t)return;chapInd.style.width=(t.offsetWidth-24)+'px';chapInd.style.transform=`translateX(${t.offsetLeft+12}px)`;};
  new ResizeObserver(moveChap).observe(chapBar);requestAnimationFrame(()=>requestAnimationFrame(()=>chapBar.classList.add('ready')));
  function render(){
-  const s=S[i];count.textContent=`${i+1} / ${total}`;title.textContent=s.t;
+  const s=S[i];const desc=root.querySelector(".deck-desc");if(desc){desc.textContent=s.d||"";desc.hidden=!s.d;}count.textContent=`${i+1} / ${total}`;title.textContent=s.t;
   bar.style.width=`${((i+(s.p.length>1?j/(s.p.length-1):1))/total)*100}%`;
   steps.replaceChildren(...(s.p.length>1?s.p.map((_,n)=>{const d=document.createElement('i');if(n<=j)d.className='done';return d;}):[]));
   steps.setAttribute('aria-label',s.p.length>1?`${s.p.length}단계 중 ${j+1}단계`:'');

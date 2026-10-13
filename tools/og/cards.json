@@ -63,5 +63,18 @@
   ],
   "art": "/assets/covers/rag.webp",
   "contain": true
+ },
+ "didim": {
+  "k": "개인 웹앱 · didimdol.site",
+  "t": "디딤돌",
+  "s": "취업 준비와 하루 일을 한 화면에서 딛는 웹앱. 혼자 쓰던 보드를 계정마다 자료가 나뉘는 서비스로 옮겼습니다.",
+  "tags": [
+   "FastAPI · SQLite",
+   "Cloudflare Tunnel",
+   "계정별 자료 분리"
+  ],
+  "art": "/assets/didimdol-mark.svg",
+  "contain": true,
+  "artCss": "padding:70px"
  }
 }
