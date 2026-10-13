@@ -26,12 +26,12 @@
   <link rel="icon" type="image/svg+xml" href="assets/images/home-icon.svg">
   <link rel="preload" href="assets/fonts/portfolio-sans-subset.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="site.css?v=20261014-polish">
-  <link rel="stylesheet" href="portfolio.css?v=20261014-deck2">
+  <link rel="stylesheet" href="portfolio.css?v=20261014-geonu2">
   <link rel="stylesheet" href="contact-chat.css?v=20261014-polish">
   <script src="theme.js?v=20261014-polish"></script>
   <script src="infra-validation.js" defer></script>
   <script src="contact-config.js?v=20261014-polish" defer></script>
-  <script src="contact-chat.js?v=20261014-polish" defer></script>
+  <script src="contact-chat.js?v=20261014-geonu2" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -123,9 +123,9 @@
     </article>
   </div>
 
-  <h3 class="sub-h">그 밖의 기록</h3>
+  <div class="sub-h-row"><h3 class="sub-h">그 밖의 기록</h3><button class="btn btn-secondary btn-sm try-geonu" type="button" data-open-geonu><img src="assets/chat-mascot-160.png" alt="" width="20" height="20">거누에게 물어보기</button></div>
   <div class="others">
-    <a class="card other has-cover" href="projects/rag-retrieval-poc/" data-project><div class="cover cover-rag"><div class="cover-copy"><p class="cover-line">찾은 문서가 있다고<br>답해도 되는 것은 아닙니다.</p></div><img src="assets/covers/rag.webp" alt="" width="960" height="640" loading="lazy" decoding="async"></div><svg class="go-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><h3>RAG Retrieval PoC</h3><p>질문에 맞는 근거를 찾고, 답해도 되는 범위와 거절 조건을 나눠 평가한 실험입니다.</p><p class="other-fact">BM25 검색과 답변 허용 규칙을 나누고, 별도 평가의 첫 실패를 분석해 v2를 확정한 경험이 있습니다.</p><span class="note">개인 실험 · AI</span></a>
+    <a class="card other has-cover" href="projects/rag-retrieval-poc/" data-project><div class="cover cover-rag"><div class="cover-copy"><p class="cover-line">찾은 문서가 있다고<br>답해도 되는 것은 아닙니다.</p></div><img src="assets/covers/rag.webp" alt="" width="960" height="640" loading="lazy" decoding="async"></div><svg class="go-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><h3>RAG 챗봇 거누</h3><p>이 포트폴리오의 공개 기록을 검색해, 찾은 근거 안에서만 답하는 챗봇입니다.</p><p class="other-fact">검색(BM25)과 답변 허용 판단을 나눈 Retrieval PoC를 만들고, 같은 엔진을 Cloudflare Worker와 Gemini로 배포한 경험이 있습니다.</p><span class="note">개인 실험 · 배포 · AI</span></a>
     <a class="card other has-cover" href="projects/didim/" data-project><div class="cover cover-didim"><div class="cover-copy"><p class="cover-line">취업 준비와 하루 일을,<br>한 화면에서 딛습니다.</p></div><img src="assets/didimdol-cover.svg" alt="" width="1536" height="1024" loading="lazy" decoding="async"></div><svg class="go-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><h3>디딤돌</h3><p>공고 수집, 학습 기록, 메일 요약을 한 화면에 모은 취업 준비 웹앱입니다.</p><p class="other-fact">혼자 쓰던 보드를 계정마다 자료가 나뉘는 웹앱(FastAPI·SQLite)으로 옮기고, 옛 자료 16종의 수를 맞춰 검증한 경험이 있습니다.</p><span class="note">개인 웹앱 · didimdol.site · 저장소 비공개</span></a>
   </div>
 </div></section>
@@ -286,6 +286,7 @@
       <tr><th scope="row">Linux·네트워크</th><td class="tech">Routing·NAT · DNS · TLS · Firewall · HAProxy · WireGuard</td><td class="lv"><span class="who lab">실습</span><span class="who me">전담</span></td><td class="src">Infrastructure Lab Series(AI Agent 활용) · geonu.site 인증서 진단</td></tr>
       <tr><th scope="row">관측</th><td class="tech">Kubernetes Event · 로그 · Prometheus · Grafana</td><td class="lv"><span class="who lab">실습</span></td><td class="src">Multi-node Lab · 트러블슈팅 기록</td></tr>
       <tr><th scope="row">데이터·AI</th><td class="tech">PostgreSQL · Python · LLM 평가</td><td class="lv"><span class="who me">전담</span></td><td class="src">Mealplanning AI 기능</td></tr>
+      <tr><th scope="row">RAG 서비스</th><td class="tech">BM25 검색 · 근거 판정 · Cloudflare Workers · Gemini API</td><td class="lv"><span class="who lab">실습</span></td><td class="src">RAG 챗봇 거누 (개인 실험·배포, 구현은 AI 도구 활용)</td></tr>
       <tr><th scope="row">팀 공동 환경</th><td class="tech">Amazon EKS · Argo CD · CI/CD</td><td class="lv"><span class="who team">공동 설계</span></td><td class="src">Mealplanning (구현·운영은 인프라 담당 팀원)</td></tr>
       <tr class="cert"><th scope="row">자격</th><td class="tech">네트워크관리사 2급</td><td class="lv"><span class="who me">보유</span></td><td class="src">2026.06 취득</td></tr>
       <tr class="cert"><th scope="row">자격</th><td class="tech">CKA</td><td class="lv"><span class="who prep">준비</span></td><td class="src">준비 중 · 아직 취득하지 않음</td></tr>

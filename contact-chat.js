@@ -97,6 +97,8 @@ launch.addEventListener('pointerdown',e=>{hint.hidden=true;if(e.button!==0)retur
 launch.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>5)moved=true;if(moved)place(drag.left+dx,drag.top+dy);});
 function end(){if(drag&&moved){const r=launch.getBoundingClientRect();try{localStorage.setItem('portfolio-chat-position',JSON.stringify(launcherAnchor));}catch{}}drag=null;}
 launch.addEventListener('pointerup',end);launch.addEventListener('pointercancel',end);launch.addEventListener('click',()=>{if(moved){moved=false;return;}toggle(panel.hidden);});
+// 페이지의 "거누에게 물어보기" 버튼([data-open-geonu])도 같은 대화창을 연다.
+document.addEventListener('click',e=>{const b=e.target.closest('[data-open-geonu]');if(!b)return;e.preventDefault();if(panel.hidden)toggle(true);else panel.querySelector('textarea')?.focus();});
 launch.addEventListener('keydown',e=>{const d={ArrowLeft:[-16,0],ArrowRight:[16,0],ArrowUp:[0,-16],ArrowDown:[0,16]}[e.key];if(d){e.preventDefault();const r=launch.getBoundingClientRect();place(r.left+d[0],r.top+d[1]);}});
 panel.querySelector('.panel-close').addEventListener('click',()=>toggle(false));panel.addEventListener('keydown',e=>{if(e.key==='Escape')toggle(false);});
 const history=[];let asking=false,local=null;

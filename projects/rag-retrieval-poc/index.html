@@ -11,27 +11,27 @@
   <meta property="og:site_name" content="geonu.site">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:url" content="https://geonu.site/projects/rag-retrieval-poc/">
-  <meta property="og:title" content="RAG Retrieval PoC | 이건우">
-  <meta property="og:description" content="근거를 찾는 것과 답해도 되는지 판단하는 것을 분리한 개인 실험. 이 엔진이 사이트 챗봇 거누로 이어졌습니다.">
+  <meta property="og:title" content="RAG 챗봇 거누 | 이건우">
+  <meta property="og:description" content="이 포트폴리오의 공개 기록을 검색해 근거 안에서만 답하는 챗봇. 검색과 답변 허용 판단을 나눈 Retrieval PoC를 Cloudflare Worker와 Gemini로 배포했습니다.">
   <meta property="og:image" content="https://geonu.site/assets/og/rag-retrieval-poc.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="RAG Retrieval PoC 요약 카드">
+  <meta property="og:image:alt" content="RAG 챗봇 거누 요약 카드">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RAG Retrieval PoC | 이건우">
-  <meta name="twitter:description" content="근거를 찾는 것과 답해도 되는지 판단하는 것을 분리한 개인 실험. 이 엔진이 사이트 챗봇 거누로 이어졌습니다.">
+  <meta name="twitter:title" content="RAG 챗봇 거누 | 이건우">
+  <meta name="twitter:description" content="이 포트폴리오의 공개 기록을 검색해 근거 안에서만 답하는 챗봇. 검색과 답변 허용 판단을 나눈 Retrieval PoC를 Cloudflare Worker와 Gemini로 배포했습니다.">
   <meta name="twitter:image" content="https://geonu.site/assets/og/rag-retrieval-poc.png">
   <meta name="theme-color" content="#f7f8fa">
-  <title>RAG Retrieval PoC | 이건우</title>
+  <title>RAG 챗봇 거누 | 이건우</title>
   <link rel="icon" type="image/svg+xml" href="/assets/images/home-icon.svg">
   <link rel="preload" href="/assets/fonts/portfolio-sans-subset.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/site.css?v=20261014-polish">
-  <link rel="stylesheet" href="/portfolio.css?v=20261014-deck2">
+  <link rel="stylesheet" href="/portfolio.css?v=20261014-geonu2">
   <link rel="stylesheet" href="/legacy-pages.css?v=20261014-polish">
   <link rel="stylesheet" href="/contact-chat.css?v=20261014-polish">
   <script src="/theme.js?v=20261014-polish"></script>
   <script src="/contact-config.js?v=20261014-polish" defer></script>
-  <script src="/contact-chat.js?v=20261014-polish" defer></script>
+  <script src="/contact-chat.js?v=20261014-geonu2" defer></script>
 </head>
 <body class="case-page">
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -46,13 +46,13 @@
 </div></header>
 <main id="main">
 <div class="wrap">
-  <nav class="crumb" aria-label="이동 경로"><a href="/#work"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>대표 사례</a><span aria-hidden="true">/</span><span aria-current="page">RAG Retrieval PoC</span></nav>
+  <nav class="crumb" aria-label="이동 경로"><a href="/#work"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>대표 사례</a><span aria-hidden="true">/</span><span aria-current="page">RAG 챗봇 거누</span></nav>
   <header class="chead">
-    <p class="chead-meta"><span class="status done"><i aria-hidden="true"></i>개발 평가 완료</span><span>개인 실험</span><span>챗봇 거누로 배포</span></p>
-    <h1>RAG Retrieval PoC</h1>
-    <p class="subt">검색한 문서와 답해도 되는 근거를 나눈 실험, 그리고 챗봇 거누</p>
+    <p class="chead-meta"><span class="status done"><i aria-hidden="true"></i>개발 평가 완료</span><span>개인 실험</span><span>사이트에서 동작 중</span></p>
+    <h1>RAG 챗봇 거누</h1>
+    <p class="subt">Retrieval PoC에서 Cloudflare Worker 배포까지</p>
     <dl class="cmeta"><div><dt>기간</dt><dd class="tnum">2026.09 – 10</dd></div><div><dt>구성</dt><dd>개인 실험 · 구현은 AI 도구 활용</dd></div><div><dt>내 역할</dt><dd>평가 기준·실패 분석·채택 판단</dd></div><div><dt>결과</dt><dd>개발 평가 기준 충족 · 거누 배포</dd></div></dl>
-    <p class="chead-links"><a class="link" href="https://github.com/ge-onu/ge-onu.github.io/tree/main/rag" target="_blank" rel="noopener noreferrer"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.3 11.3 0 0 0-3.6 22c.57.1.77-.25.77-.55v-2.12c-3.15.68-3.82-1.34-3.82-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16A10.9 10.9 0 0 1 12 7.08c.97 0 1.94.13 2.85.38 2.17-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.03.77 2.08v3.14c0 .3.21.66.78.55A11.3 11.3 0 0 0 12 .7Z"/></svg>거누 엔진·평가 코드<span class="sr">(새 탭)</span><svg class="ic ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></p>
+    <p class="chead-links"><button class="btn btn-primary btn-sm try-geonu" type="button" data-open-geonu><img src="/assets/chat-mascot-160.png" alt="" width="20" height="20">거누에게 물어보기</button><a class="link" href="https://github.com/ge-onu/ge-onu.github.io/tree/main/rag" target="_blank" rel="noopener noreferrer"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.3 11.3 0 0 0-3.6 22c.57.1.77-.25.77-.55v-2.12c-3.15.68-3.82-1.34-3.82-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.66 1.23 3.31.94.1-.73.4-1.23.72-1.51-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.44.11-3 0 0 .96-.31 3.13 1.16A10.9 10.9 0 0 1 12 7.08c.97 0 1.94.13 2.85.38 2.17-1.47 3.12-1.16 3.12-1.16.62 1.56.23 2.71.11 3 .73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.03.77 2.08v3.14c0 .3.21.66.78.55A11.3 11.3 0 0 0 12 .7Z"/></svg>거누 엔진·평가 코드<span class="sr">(새 탭)</span><svg class="ic ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></p>
   </header>
   <section class="deck" id="deck" data-deck aria-labelledby="deck-h">
   <div class="deck-head"><div><p class="num">발표 자료</p><h2 id="deck-h">발표 자료로 넘겨 보기</h2></div><p class="deck-note"><span class="ln">문제부터 엔진, 평가, 거누 배포, 회고까지 10장입니다.</span><span class="ln">장마다 아래에 설명을 붙였습니다.</span></p></div>
