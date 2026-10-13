@@ -53,15 +53,15 @@
   "contain": true
  },
  "rag-retrieval-poc": {
-  "k": "개인 실험",
-  "t": "RAG Retrieval PoC",
-  "s": "근거를 찾는 것과 답해도 되는지 판단하는 것을 나눈 실험입니다. 포트폴리오 챗봇 거누가 이 엔진으로 답합니다.",
+  "k": "개인 실험 · 사이트에서 동작 중",
+  "t": "RAG 챗봇 거누",
+  "s": "이 포트폴리오의 공개 기록을 검색해, 찾은 근거 안에서만 답합니다. Retrieval PoC를 Cloudflare Worker로 배포했습니다.",
   "tags": [
-   "BM25",
-   "근거 없으면 거절",
-   "holdout 평가"
+   "BM25 · 근거 판정",
+   "Cloudflare Workers",
+   "Gemini"
   ],
-  "art": "/assets/covers/rag.webp",
+  "art": "/assets/chat-mascot.png",
   "contain": true
  },
  "didim": {

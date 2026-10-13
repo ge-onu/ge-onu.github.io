@@ -672,3 +672,10 @@ video.deck-layer{background:#111}
 /* 발표 자료 설명(슬라이드마다 d) · 기여 범위 메모 */
 .deck-desc{margin:12px 2px 0;font-size:15.5px;line-height:1.75;color:var(--text-2);min-height:3.5em;text-wrap:pretty}
 .bnd-note{margin:18px 0 0;font-size:14.5px;line-height:1.75;color:var(--text-2);padding:14px 18px;border-left:3px solid var(--line-2,var(--line));background:var(--bg-2);border-radius:10px}
+
+/* 그 밖의 기록 머리줄 + 거누 열기 버튼 */
+.sub-h-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:64px 0 18px}
+.sub-h-row .sub-h{margin:0;flex:1}
+.try-geonu img{width:20px;height:20px;border-radius:6px;object-fit:cover}
+html:not(:has(.chat-launcher)) .try-geonu{display:none}
+.chead-links .try-geonu{margin-right:14px}

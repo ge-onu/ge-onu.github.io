@@ -63,13 +63,13 @@ def rag_main():
          'slides': [{'c': x['_c'], 't': x['_t'], 'd': x['_d'], 'p': [i + 1]} for i, x in enumerate(spec)]}
     W = lambda *x: ('W', '판단 근거', ln(*x))
     return f'''<div class="wrap">
-  <nav class="crumb" aria-label="이동 경로"><a href="/#work">{BACK}대표 사례</a><span aria-hidden="true">/</span><span aria-current="page">RAG Retrieval PoC</span></nav>
+  <nav class="crumb" aria-label="이동 경로"><a href="/#work">{BACK}대표 사례</a><span aria-hidden="true">/</span><span aria-current="page">RAG 챗봇 거누</span></nav>
   <header class="chead">
-    <p class="chead-meta"><span class="status done"><i aria-hidden="true"></i>개발 평가 완료</span><span>개인 실험</span><span>챗봇 거누로 배포</span></p>
-    <h1>RAG Retrieval PoC</h1>
-    <p class="subt">검색한 문서와 답해도 되는 근거를 나눈 실험, 그리고 챗봇 거누</p>
+    <p class="chead-meta"><span class="status done"><i aria-hidden="true"></i>개발 평가 완료</span><span>개인 실험</span><span>사이트에서 동작 중</span></p>
+    <h1>RAG 챗봇 거누</h1>
+    <p class="subt">Retrieval PoC에서 Cloudflare Worker 배포까지</p>
     <dl class="cmeta"><div><dt>기간</dt><dd class="tnum">2026.09 – 10</dd></div><div><dt>구성</dt><dd>개인 실험 · 구현은 AI 도구 활용</dd></div><div><dt>내 역할</dt><dd>평가 기준·실패 분석·채택 판단</dd></div><div><dt>결과</dt><dd>개발 평가 기준 충족 · 거누 배포</dd></div></dl>
-    <p class="chead-links"><a class="link" href="https://github.com/ge-onu/ge-onu.github.io/tree/main/rag" target="_blank" rel="noopener noreferrer">{GH}거누 엔진·평가 코드<span class="sr">(새 탭)</span>{EXT}</a></p>
+    <p class="chead-links"><button class="btn btn-primary btn-sm try-geonu" type="button" data-open-geonu><img src="/assets/chat-mascot-160.png" alt="" width="20" height="20">거누에게 물어보기</button><a class="link" href="https://github.com/ge-onu/ge-onu.github.io/tree/main/rag" target="_blank" rel="noopener noreferrer">{GH}거누 엔진·평가 코드<span class="sr">(새 탭)</span>{EXT}</a></p>
   </header>
   {deck_html(d, '발표 자료로 넘겨 보기', ln('문제부터 엔진, 평가, 거누 배포, 회고까지 10장입니다.', '장마다 아래에 설명을 붙였습니다.'))}
   <div class="cbody">
