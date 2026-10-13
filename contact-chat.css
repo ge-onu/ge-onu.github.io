@@ -167,3 +167,6 @@
 .chat-rag-badge{color:#171717;background:#f1f1f1;border-color:#bdbdbd}
 .chat-suggest button{background:#fff;color:#171717;border-color:#bdbdbd}.chat-suggest button:hover{background:#f4f4f4}
 .chat-foot{color:#777;background:#fff}
+
+.contact-hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+.contact-note a{color:inherit;text-decoration:underline}
