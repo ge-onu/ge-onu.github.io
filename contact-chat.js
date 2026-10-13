@@ -107,7 +107,9 @@ async function localAnswer(q){
 async function ask(q){
  if(chatEndpoint){try{const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),25000);
   const r=await fetch(chatEndpoint.replace(/\/$/,'')+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q,history:history.slice(-6)}),signal:ctl.signal,credentials:'omit'});clearTimeout(t);
-  const j=await r.json();if(j&&j.text)return j;}catch{}}
+  const j=await r.json();
+  // 생성 답이 깨진 글(같은 글자 반복·기호 덩어리)이면 쓰지 않고 브라우저 안의 간단 모드로 답한다. 기준은 Worker와 같은 answer.js.
+  if(j&&j.text){if(j.mode==='generated'){const A=await import(ragBase+'answer.js');if(A.sanityIssues(j.text).length)return localAnswer(q);}return j;}}catch{}}
  return localAnswer(q);
 }
 function bubble(cls){const b=document.createElement('div');b.className='chat-bubble'+(cls?' '+cls:'');return b;}

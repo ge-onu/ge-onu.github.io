@@ -24,6 +24,9 @@ export function sourceOf(c) {
 }
 
 export function sources(engine, ans, n = 3) {
+  // 프로젝트 목록 카드처럼 링크 목록을 가진 카드는 그 링크를 그대로 근거로 붙인다.
+  const card = ans.constraint && engine.router?.byId?.[ans.constraint.claim_id];
+  if (card?.links?.length) return card.links.map(l => ({ url: l.url, label: l.label }));
   const seen = new Set(), out = [];
   for (const e of ans.evidence) {
     const c = engine.byId[e.chunk_id]; if (!c) continue;
@@ -83,7 +86,28 @@ export function checkFacts(answer, pack, q, ans) {
   return [...new Set(bad)];
 }
 
-// 생성 없이 만드는 답(Worker를 못 쓸 때, 또는 생성 결과가 사실 검사를 두 번 못 넘었을 때).
+// 출력 정상성 검사: 사실 검사는 숫자·기술명·금지 표현만 보므로, 깨진 글은 그대로 통과한다.
+// 2026-10-14 실제 사례: Gemini 503 뒤 대체 모델이 '!'만 700여 개 돌려줬는데 사실 검사를 통과해 그대로 나갔다.
+// 하나라도 걸리면 생성 결과를 버리고 근거 문장으로 답한다. 빈 배열이면 정상.
+export function sanityIssues(text) {
+  const t = String(text || '').trim();
+  const chars = [...t.replace(/\s+/g, '')], n = chars.length;
+  const count = re => chars.filter(c => re.test(c)).length;
+  const hangul = count(/[가-힣]/), latin = count(/[A-Za-z]/), digit = count(/[0-9]/);
+  const out = [];
+  if (n < 20) out.push(`너무 짧음(${n}자)`);
+  if (hangul + latin < 15) out.push(`글자가 거의 없음(${hangul + latin}자)`);
+  if (n && (hangul + latin) / n < 0.5) out.push(`글자 비율 낮음(${Math.round((hangul + latin) / n * 100)}%)`);
+  if (n && (n - hangul - latin - digit) / n > 0.3) out.push(`기호 비율 높음(${Math.round((n - hangul - latin - digit) / n * 100)}%)`);
+  const run = t.match(/(\S)\1{7,}/u);
+  if (run) out.push(`같은 글자 ${run[0].length}번 연속(${run[1]})`);
+  const tally = new Map(); for (const c of chars) if (!/[가-힣A-Za-z0-9]/.test(c)) tally.set(c, (tally.get(c) || 0) + 1);
+  for (const [c, k] of tally) if (k > 40) out.push(`같은 기호 ${k}번(${c})`);
+  if (!run && /(\S[\s\S]{1,29}?)\1{4,}/u.test(t)) out.push('같은 구절 반복');
+  return out;
+}
+
+// 생성 없이 만드는 답(Worker를 못 쓸 때, 또는 생성 결과가 사실 검사·정상성 검사를 못 넘었을 때).
 export function plainAnswer(engine, ans) {
   const k = ans.constraint;
   if (k) return `${k.verified}${k.not_verified ? `\n다만 ${k.not_verified}` : ''}`;

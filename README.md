@@ -98,7 +98,7 @@ SVG, 탭별 SVG, 애니메이션 SVG와 편집용 draw.io 원본을 함께 갱�
 Contact는 `contact-config.js`에 설정된 Slack 웹후크로 직접 전송 요청한다.
 브라우저의 opaque 응답은 수신 확인이 아니므로 성공 화면은 전송 요청 완료로 표시한다.
 endpoint가 비어 있으면 폼 대신 메일 주소와 메일 쓰기(mailto)·이메일 복사 버튼을 보여 준다.
-거누의 대화 UI는 준비되어 있으며 실제 RAG 응답 서버는 아직 연결하지 않았다.
-그래서 `contact-chat.js`의 `chatEnabled`를 `false`로 두어 모든 페이지에서 거누를 숨긴다.
-응답 서버를 연결한 뒤 `true`로 바꾸면 다시 나타난다. 코드는 지우지 않았다.
+거누는 건우에 대한 RAG 챗봇이다. 응답 서버(`contact-config.js`의 `PORTFOLIO_CHAT.endpoint`, Cloudflare Worker)가 근거 안에서 문장을 쓴다.
+서버가 응답하지 않거나 생성 답이 깨진 글이면 브라우저 안의 같은 엔진으로 근거 문장을 보여 준다(간단 모드).
+구성·평가·배포는 `rag/README.md`에 있다. `contact-chat.js`의 `chatEnabled`를 `false`로 바꾸면 모든 페이지에서 거누를 숨긴다.
 테마 설정은 공통 `theme.css`와 `portfolio-ui.js`를 사용한다.

@@ -1,8 +1,9 @@
-// 거누 엔진 평가: PoC 평가 세트(dev60 + holdout v1 40)와 배포 점검 15문항.
+// 거누 엔진 평가: PoC 평가 세트(dev60 + holdout v1 40), 배포 점검 문항, 생성 출력 정상성 검사 문항.
 // PoC 정답 chunk id는 옛 사이트 기준이라, 옛 chunk 글자와 가장 많이 겹치는 지금 chunk로 옮겨 채점한다.
 //   node rag/tools/eval.mjs [--fails]
 import fs from 'fs'; import path from 'path'; import { fileURLToPath } from 'url';
 import { Engine } from '../engine.js';
+import { sanityIssues } from '../answer.js';
 const H = path.dirname(fileURLToPath(import.meta.url));
 const read = p => fs.readFileSync(path.join(H, p), 'utf8');
 const jsonl = s => s.trim().split('\n').map(JSON.parse);
@@ -45,10 +46,23 @@ console.log(`  factual/paraphrase R@3         ${(fq.filter(r => r.r3).length / f
 console.log(`  no_context 오지배               ${noc.filter(r => r.gov && r.gov !== 'C-OUT-OF-SCOPE').length}`);
 const dep = JSON.parse(read('poc/deploy_checks.json'));
 let ok = 0; const dfail = [];
-for (const d of dep) { const a = e.answer(d.question); const good = a.decision === d.expect && (d.expect === 'refuse' || !d.claim_id || (a.constraint && a.constraint.claim_id === d.claim_id)); if (good) ok++; else dfail.push([d.qid, d.question, a.decision, a.reason, a.constraint?.claim_id]); }
+for (const d of dep) {
+  const a = e.answer(d.question), got = a.constraint?.claim_id;
+  // not_claim_id: 그 카드로 가면 안 되는 문항(예: 특정 프로젝트 질문이 프로젝트 목록 카드로 가는 것).
+  const good = a.decision === d.expect && (d.expect === 'refuse' || !d.claim_id || got === d.claim_id) && (!d.not_claim_id || got !== d.not_claim_id);
+  if (good) ok++; else dfail.push([d.qid, d.question, a.decision, a.reason, got]);
+}
 console.log(`배포 점검 ${ok}/${dep.length}`);
+// 생성 출력 정상성 검사: 깨진 글은 거르고 정상 답은 통과시키는지(answer.js sanityIssues).
+const oc = JSON.parse(read('output_checks.json'));
+let ook = 0; const ofail = [];
+for (const c of oc) { const text = c.repeat ? c.repeat[0].repeat(c.repeat[1]) : c.text; const why = sanityIssues(text); if ((why.length > 0) === (c.expect === 'reject')) ook++; else ofail.push([c.id, c.expect, c.note, why.join(', ') || '통과']); }
+console.log(`출력 정상성 검사 ${ook}/${oc.length}  (거를 것 ${oc.filter(c => c.expect === 'reject').length} · 통과시킬 것 ${oc.filter(c => c.expect === 'accept').length})`);
+const failed = dfail.length + ofail.length;
 if (process.argv.includes('--fails')) {
   for (const r of rows) { const bad = r.type === 'no_context' ? r.decision === 'answer' : (r.decision === 'refuse' || (!r.unmapped && !r.cited_gold)); if (bad) console.log(`  [${r.set} ${r.qid}/${r.type}] ${r.decision} ${r.reason} gov=${r.gov} cited_gold=${r.cited_gold} | ${r.question}`); }
   for (const r of fq) if (!r.r3) console.log(`  [R@3 miss ${r.qid}] ${r.question} gold=${[...r.gs]} top3=${r.top.slice(0,3)}`);
   for (const f of dfail) console.log('  [deploy]', ...f);
+  for (const f of ofail) console.log('  [output]', ...f);
 }
+if (failed) process.exitCode = 1;
