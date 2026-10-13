@@ -170,3 +170,7 @@
 
 .contact-hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
 .contact-note a{color:inherit;text-decoration:underline}
+
+/* 거누 버튼(오른쪽 아래 고정, 아래에서 24px + 높이 56px)이 맨 아래까지 내렸을 때 꼬리말 마지막 줄을 가리지 않게 한다.
+   거누가 있을 때만 적용하고, 홈 표시줄이 있는 기기는 안전 영역만큼 더 띄운다. */
+.has-chat .site-foot { padding-bottom:calc(112px + env(safe-area-inset-bottom, 0px)); }
