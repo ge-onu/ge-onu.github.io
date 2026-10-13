@@ -25,7 +25,8 @@
   "type": "factual",
   "question": "Mealplanning에서 맡은 역할은 무엇인가요?",
   "claim_id": "C-AI-ROLE",
-  "expect": "answer"
+  "expect": "answer",
+  "not_claim_id": "C-PROJECTS"
  },
  {
   "qid": "D05",
@@ -81,21 +82,24 @@
   "type": "factual",
   "question": "디딤은 어떤 프로젝트인가요?",
   "claim_id": null,
-  "expect": "answer"
+  "expect": "answer",
+  "not_claim_id": "C-PROJECTS"
  },
  {
   "qid": "D13",
   "type": "factual",
   "question": "RAG Retrieval PoC에서 무엇을 확인했나요?",
   "claim_id": null,
-  "expect": "answer"
+  "expect": "answer",
+  "not_claim_id": "C-PROJECTS"
  },
  {
   "qid": "D14",
   "type": "factual",
   "question": "Infrastructure Lab Series에서는 어떤 실습을 했나요?",
   "claim_id": null,
-  "expect": "answer"
+  "expect": "answer",
+  "not_claim_id": "C-PROJECTS"
  },
  {
   "qid": "D15",
@@ -137,6 +141,34 @@
   "type": "factual",
   "question": "응답 검증은 어떻게 고쳤어요?",
   "claim_id": "C-GUARDRAIL-FIX",
+  "expect": "answer"
+ },
+ {
+  "qid": "D21",
+  "type": "factual",
+  "question": "이건우는 어떤 프로젝트를 했나요?",
+  "claim_id": "C-PROJECTS",
+  "expect": "answer"
+ },
+ {
+  "qid": "D22",
+  "type": "paraphrase",
+  "question": "어떤 프로젝트들을 했어요?",
+  "claim_id": "C-PROJECTS",
+  "expect": "answer"
+ },
+ {
+  "qid": "D23",
+  "type": "paraphrase",
+  "question": "건우가 한 프로젝트 목록 알려 주세요",
+  "claim_id": "C-PROJECTS",
+  "expect": "answer"
+ },
+ {
+  "qid": "D24",
+  "type": "paraphrase",
+  "question": "포트폴리오에 있는 프로젝트는 뭐예요?",
+  "claim_id": "C-PROJECTS",
   "expect": "answer"
  }
 ]

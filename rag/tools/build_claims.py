@@ -74,6 +74,35 @@ NEW = [
         'evidence_urls': ['/#about'],
         'trigger_terms': ['CKA', '자격증', '자격', '네트워크관리사', 'certification', 'SAA'],
     },
+    {
+        # "어떤 프로젝트를 했나요?" 같은 넓은 질문에 맞는 chunk가 없어, 검색이 Mealplanning 페이지 조각을 골랐다(2026-10-14 QA).
+        # 홈 카드와 상세 페이지에 이미 적힌 문장만 모았다. 다른 카드를 가로채지 않도록
+        # 트리거는 '목록을 묻는 말'만 쓰고, 금지 표현에는 3글자 이상 한글 단어를 넣지 않는다(금지 표현의 단어도 라우팅 단서가 된다).
+        # stance는 SUPPORTED: 다른 카드와 함께 걸리면 경계가 있는 카드가 이긴다.
+        'claim_id': 'C-PROJECTS', 'topic': '프로젝트 목록', 'stance': 'SUPPORTED',
+        'verified': '\n'.join([
+            '공개한 프로젝트는 5개입니다.',
+            'Mealplanning: 식비 예산에서 레시피 추천과 장보기까지 연결한 5인 팀 서비스입니다(2026.06–08, 더존비즈온 최우수상). 핵심 AI 기능의 PoC·구현 방안·구현·트러블슈팅을 대부분 혼자 맡았습니다.',
+            'RAG Retrieval PoC: 질문에 맞는 근거를 찾고, 답해도 되는 범위와 거절 조건을 나눠 평가한 개인 실험입니다.',
+            '디딤: 공고 수집, 학습 기록, 메일 요약을 한 화면에 모은 1인용 개인 도구입니다(저장소 비공개).',
+            'Kubernetes Multi-node Lab: kubeadm 멀티노드 클러스터를 직접 구성하고, 문제를 Event와 리소스 상태로 확인한 개인 실습입니다.',
+            'Infrastructure Lab Series: Linux 라우팅·NAT부터 DNS·VPN, 이중화, 로그·감시까지 AI Agent와 함께 단계별로 구성한 실습 기록입니다.',
+        ]),
+        'not_verified': 'Infrastructure Lab Series를 직접 설명·재현하는 개인 검증은 아직 진행 중입니다. 이 5개 밖의 프로젝트는 공개 자료에 없습니다.',
+        'forbidden': ['다섯 개 모두 혼자', '모두 팀 프로젝트'],
+        'ownership': 'Mealplanning = 5인 팀 프로젝트(핵심 AI 기능 전담 · 꼭 넣을 기능은 팀 전원 · 실행 환경은 공동 설계, 구현·운영은 인프라 담당 팀원) · RAG Retrieval PoC·디딤·Kubernetes Lab = 개인 · Infrastructure Lab = AI Agent 활용 개인 실습',
+        'evidence_chunk_ids': ['index.html::mealplanning', 'index.html::work', 'index.html::kubernetes-multi-node-lab', 'index.html::infrastructure-lab-series'],
+        'evidence_urls': ['/#work'],
+        # 화면의 근거 링크. answer.js sources()가 이 목록을 그대로 붙인다.
+        'links': [
+            {'url': '/projects/mealplanning/', 'label': 'Mealplanning · 사례 상세'},
+            {'url': '/projects/rag-retrieval-poc/', 'label': 'RAG Retrieval PoC'},
+            {'url': '/projects/didim/', 'label': '디딤'},
+            {'url': '/projects/kubernetes-lab/', 'label': 'Kubernetes Multi-node Lab'},
+            {'url': '/projects/infrastructure-lab-series/', 'label': 'Infrastructure Lab Series'},
+        ],
+        'trigger_terms': ['프로젝트 목록', '어떤 프로젝트를', '무슨 프로젝트를', '어떤 프로젝트들', '무슨 프로젝트들', '프로젝트들', '프로젝트를 했', '한 프로젝트', '프로젝트 소개', '프로젝트는 뭐', '프로젝트가 뭐', '프로젝트 뭐', '프로젝트가 몇', '프로젝트는 몇', '무엇을 만들', '뭐 만들', '뭘 만들', '어떤 작업을'],
+    },
 ]
 
 

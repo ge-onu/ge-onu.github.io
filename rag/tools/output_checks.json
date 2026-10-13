@@ -1,0 +1,92 @@
+[
+ {
+  "id": "O01",
+  "expect": "reject",
+  "note": "2026-10-14 실제 사례: 대체 모델이 '!'만 700여 개",
+  "repeat": [
+   "!",
+   700
+  ]
+ },
+ {
+  "id": "O02",
+  "expect": "reject",
+  "note": "빈 답",
+  "text": ""
+ },
+ {
+  "id": "O03",
+  "expect": "reject",
+  "note": "너무 짧음",
+  "text": "네, 맞아요."
+ },
+ {
+  "id": "O04",
+  "expect": "reject",
+  "note": "앞은 정상, 뒤는 물음표 덩어리",
+  "text": "건우는 Mealplanning에서 핵심 AI 기능을 맡았어요??????????????????????????????"
+ },
+ {
+  "id": "O05",
+  "expect": "reject",
+  "note": "말줄임표 덩어리",
+  "repeat": [
+   "…",
+   50
+  ]
+ },
+ {
+  "id": "O06",
+  "expect": "reject",
+  "note": "같은 구절 반복",
+  "text": "건우는 건우는 건우는 건우는 건우는 건우는 건우는 건우는"
+ },
+ {
+  "id": "O07",
+  "expect": "reject",
+  "note": "숫자만",
+  "text": "1234567890 1234567890 1234567890 1234567890"
+ },
+ {
+  "id": "O08",
+  "expect": "reject",
+  "note": "정상 문장 끝에 같은 기호 연속",
+  "text": "건우는 Kubernetes 멀티노드 실습을 했어요!!!!!!!!!!"
+ },
+ {
+  "id": "O09",
+  "expect": "reject",
+  "note": "기호가 대부분",
+  "text": "## ** -- ** ## ~~ ** -- 건우 ** ## ~~ ** -- ** ## ~~ ** -- **"
+ },
+ {
+  "id": "O10",
+  "expect": "accept",
+  "note": "넓은 질문의 정상 답(목록)",
+  "text": "건우는 공개한 프로젝트가 5개예요.\n- Mealplanning: 5인 팀 서비스로, 핵심 AI 기능의 PoC부터 구현까지 대부분 혼자 맡았어요.\n- RAG Retrieval PoC: 근거 검색과 거절 조건을 나눠 평가한 개인 실험이에요.\n- 디딤: 공고 수집, 학습 기록, 메일 요약을 모은 1인용 개인 도구예요.\n- Kubernetes Multi-node Lab: kubeadm 멀티노드 클러스터를 직접 구성한 개인 실습이에요.\n- Infrastructure Lab Series: AI Agent와 함께 단계별로 구성한 실습 기록이에요."
+ },
+ {
+  "id": "O11",
+  "expect": "accept",
+  "note": "숫자가 많은 정상 답",
+  "text": "건우는 같은 275건에서 응답 검증 통과를 166건에서 247건으로 늘렸어요. 모델을 바꾸지 않고 근거로 인정하는 범위를 고쳤고, 추가 LLM 호출은 없었어요."
+ },
+ {
+  "id": "O12",
+  "expect": "accept",
+  "note": "영어 답",
+  "text": "Geonwoo wrote Terraform for an AWS serverless setup and built most of the core AI features of a 5-person team project."
+ },
+ {
+  "id": "O13",
+  "expect": "accept",
+  "note": "말줄임표 한 번",
+  "text": "포트폴리오 기록에는 그 이상 내용이 없어요... 궁금하시면 연락하기로 물어봐 주세요."
+ },
+ {
+  "id": "O14",
+  "expect": "accept",
+  "note": "기술명 나열",
+  "text": "건우는 Terraform으로 Lambda·SQS·SNS·S3·EventBridge Scheduler 구성을 작성했어요. 운영 환경을 실제로 전환하지는 않았어요."
+ }
+]
