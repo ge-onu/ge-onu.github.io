@@ -49,7 +49,7 @@ S.append(sl("화면","screens","좁은 화면 · 어두운 화면","좁은 화�
 S.append(sl("구성","arch","구성","PC 한 대에서 돌리고, 바깥에는 터널로만 엽니다","Windows PC의 WSL Ubuntu · 따로 빌린 서버 없음",
   '<div class="flow"><div class="st"><b>브라우저</b><span>didimdol.site</span></div><div class="ar">→</div><div class="st"><b>Cloudflare</b><span>DNS · TLS<br>Turnstile</span></div><div class="ar">→</div><div class="st hl"><b>Tunnel</b><span>바깥으로<br>열린 포트 없음</span></div><div class="ar">→</div><div class="st"><b>FastAPI</b><span>systemd 사용자 서비스<br>127.0.0.1에만</span></div><div class="ar">→</div><div class="st"><b>SQLite</b><span>계정별 자료<br>WAL · 0600</span></div></div>'
   '<div class="row">'+card("메일 도구 (mail-sift)","지메일 · 네이버 메일을 가져와 분류합니다. 디딤돌은 그 DB를 읽기 전용으로만 엽니다.")
-  +card("백업","매일 03:30 사본을 PC 안과 D: 두 곳에. 메일 비밀번호를 푸는 키는 다른 폴더에 둡니다.")
+  +card("백업","매일 03:30 사본을 같은 PC의 두 디스크(SSD·HDD)에. PC 밖 사본은 아직 없습니다.")
   +card("감시","백업 사본이 36시간보다 오래되면 별도 감시가 알립니다.")+'</div>',
   "Cloudflare Tunnel로 PC의 포트를 열지 않고 도메인에 연결했습니다. 앱은 루프백 주소에만 붙고, 메일 도구의 DB는 읽기 전용으로 엽니다."))
 S.append(sl("선택","choice","도구와 서비스","무엇으로 만들었고, 왜 골랐나","혼자 운영할 수 있는 크기로",
@@ -58,7 +58,7 @@ S.append(sl("선택","choice","도구와 서비스","무엇으로 만들었고, 
   '<tr><td><b>공개</b></td><td>Cloudflare Tunnel · Turnstile</td><td>포트를 열지 않고 도메인으로 연결 · 자동 가입 막기</td></tr>'
   '<tr><td><b>앱</b></td><td>FastAPI · SQLite(WAL)</td><td>혼자 운영할 수 있는 크기의 서버와 DB</td></tr>'
   '<tr><td><b>로그인</b></td><td>이메일+비밀번호(argon2id) · Google(OIDC)</td><td>Google은 기본 범위(openid · email · profile)만</td></tr>'
-  '<tr><td><b>백업</b></td><td>매일 사본 · PC 안과 밖 두 곳</td><td>키는 DB 사본과 다른 폴더에</td></tr></tbody></table>',
+  '<tr><td><b>백업</b></td><td>매일 사본 · 같은 PC의 두 디스크</td><td>SSD 고장에 견딤 · 키는 DB 사본과 다른 폴더에</td></tr></tbody></table>',
   "실행, 공개, 앱, 로그인, 백업 다섯 층으로 나눴습니다. 기준은 PC 한 대에서 혼자 운영하고 지킬 수 있는가였습니다."))
 S.append(sl("선택","choice","DB 선택","DB는 왜 SQLite인가","PC 한 대 · 혼자 운영하는 규모에 맞춘 선택",
   '<div class="row">'+card("지킬 서버가 하나 줄어듭니다","DB가 파일 하나라 DB 서버를 따로 띄우고 지킬 필요가 없습니다. WAL 모드로 읽기가 쓰기를 기다리지 않게 했습니다.",'<span class="tag ok">운영</span>')
@@ -69,7 +69,7 @@ S.append(sl("선택","choice","DB 선택","DB는 왜 SQLite인가","PC 한 대 �
   "서버형 DB 대신 SQLite를 고른 이유는 운영 부담, 백업, 메일 도구와의 연결, 삭제 보장 네 가지입니다. 사용자가 크게 늘면 바꿔야 하는 선택이라는 점도 함께 적었습니다."))
 S.append(sl("선택","choice","AI와 모델","AI는 잘하는 일에만 나눠 씁니다","생각 갈래(주인 계정 전용) · 메일 분류",
   '<div class="flow"><div class="st"><b>생각 한 줄</b><span>메모에 담은 고민</span></div><div class="ar">→</div><div class="st"><b>Codex</b><span>갈래 만들기<br>정해 둔 JSON 모양으로만</span></div><div class="ar">→</div><div class="st hl"><b>Jev</b><span>어느 갈래가 합리적인지<br>확률 · 점수로 판단</span></div><div class="ar">→</div><div class="st"><b>Claude</b><span>자세한 비교<br>누를 때만</span></div></div>'
-  '<div class="row">'+card("안 될 때","Claude가 안 되면 Codex가 대신 쓰고, 모두 안 되면 미리 적어 둔 방향 사전에서 고릅니다.")
+  '<div class="row">'+card("안 될 때","갈래 만들기가 실패하면 미리 적어 둔 방향 사전(24개)에서 고르고, 비교는 Claude가 안 되면 Codex가 씁니다.")
   +card("비용 상한","Jev는 하루 입력 20만 토큰을 넘기면 요청 전에 막습니다.")
   +card("보내지 않는 것","메일 내용은 보내지 않고, 비밀번호 · 토큰처럼 보이는 문자열은 보내기 전에 가립니다.")+'</div>'
   '<p class="note">메일 분류는 메일 도구가 Claude(claude -p, 구독)로 등급 · 할 일 · 결제를 뽑습니다. 앱 구현에는 AI 도구를 썼고, 결과는 테스트와 실제 화면으로 확인했습니다.</p>',

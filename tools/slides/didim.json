@@ -196,7 +196,7 @@
   ],
   "h": "PC 한 대에서 돌리고, 바깥에는 터널로만 엽니다",
   "p": "Windows PC의 WSL Ubuntu · 따로 빌린 서버 없음",
-  "body": "<div class=\"flow\"><div class=\"st\"><b>브라우저</b><span>didimdol.site</span></div><div class=\"ar\">→</div><div class=\"st\"><b>Cloudflare</b><span>DNS · TLS<br>Turnstile</span></div><div class=\"ar\">→</div><div class=\"st hl\"><b>Tunnel</b><span>바깥으로<br>열린 포트 없음</span></div><div class=\"ar\">→</div><div class=\"st\"><b>FastAPI</b><span>systemd 사용자 서비스<br>127.0.0.1에만</span></div><div class=\"ar\">→</div><div class=\"st\"><b>SQLite</b><span>계정별 자료<br>WAL · 0600</span></div></div><div class=\"row\"><div class=\"card\" style=\"flex:1\"><h3>메일 도구 (mail-sift)</h3><p>지메일 · 네이버 메일을 가져와 분류합니다. 디딤돌은 그 DB를 읽기 전용으로만 엽니다.</p></div><div class=\"card\" style=\"flex:1\"><h3>백업</h3><p>매일 03:30 사본을 PC 안과 D: 두 곳에. 메일 비밀번호를 푸는 키는 다른 폴더에 둡니다.</p></div><div class=\"card\" style=\"flex:1\"><h3>감시</h3><p>백업 사본이 36시간보다 오래되면 별도 감시가 알립니다.</p></div></div>",
+  "body": "<div class=\"flow\"><div class=\"st\"><b>브라우저</b><span>didimdol.site</span></div><div class=\"ar\">→</div><div class=\"st\"><b>Cloudflare</b><span>DNS · TLS<br>Turnstile</span></div><div class=\"ar\">→</div><div class=\"st hl\"><b>Tunnel</b><span>바깥으로<br>열린 포트 없음</span></div><div class=\"ar\">→</div><div class=\"st\"><b>FastAPI</b><span>systemd 사용자 서비스<br>127.0.0.1에만</span></div><div class=\"ar\">→</div><div class=\"st\"><b>SQLite</b><span>계정별 자료<br>WAL · 0600</span></div></div><div class=\"row\"><div class=\"card\" style=\"flex:1\"><h3>메일 도구 (mail-sift)</h3><p>지메일 · 네이버 메일을 가져와 분류합니다. 디딤돌은 그 DB를 읽기 전용으로만 엽니다.</p></div><div class=\"card\" style=\"flex:1\"><h3>백업</h3><p>매일 03:30 사본을 같은 PC의 두 디스크(SSD·HDD)에. PC 밖 사본은 아직 없습니다.</p></div><div class=\"card\" style=\"flex:1\"><h3>감시</h3><p>백업 사본이 36시간보다 오래되면 별도 감시가 알립니다.</p></div></div>",
   "foot": "<img src=\"/assets/didimdol-mark.svg\" alt=\"\">디딤돌 · 이건우",
   "vars": {
    "--hl": "#eef7f2",
@@ -220,7 +220,7 @@
   ],
   "h": "무엇으로 만들었고, 왜 골랐나",
   "p": "혼자 운영할 수 있는 크기로",
-  "body": "<table><thead><tr><th>층</th><th>무엇</th><th>왜</th></tr></thead><tbody><tr><td><b>실행</b></td><td>WSL Ubuntu · systemd 사용자 서비스</td><td>로그인하지 않아도 뜨고, 서버를 빌리지 않음</td></tr><tr><td><b>공개</b></td><td>Cloudflare Tunnel · Turnstile</td><td>포트를 열지 않고 도메인으로 연결 · 자동 가입 막기</td></tr><tr><td><b>앱</b></td><td>FastAPI · SQLite(WAL)</td><td>혼자 운영할 수 있는 크기의 서버와 DB</td></tr><tr><td><b>로그인</b></td><td>이메일+비밀번호(argon2id) · Google(OIDC)</td><td>Google은 기본 범위(openid · email · profile)만</td></tr><tr><td><b>백업</b></td><td>매일 사본 · PC 안과 밖 두 곳</td><td>키는 DB 사본과 다른 폴더에</td></tr></tbody></table>",
+  "body": "<table><thead><tr><th>층</th><th>무엇</th><th>왜</th></tr></thead><tbody><tr><td><b>실행</b></td><td>WSL Ubuntu · systemd 사용자 서비스</td><td>로그인하지 않아도 뜨고, 서버를 빌리지 않음</td></tr><tr><td><b>공개</b></td><td>Cloudflare Tunnel · Turnstile</td><td>포트를 열지 않고 도메인으로 연결 · 자동 가입 막기</td></tr><tr><td><b>앱</b></td><td>FastAPI · SQLite(WAL)</td><td>혼자 운영할 수 있는 크기의 서버와 DB</td></tr><tr><td><b>로그인</b></td><td>이메일+비밀번호(argon2id) · Google(OIDC)</td><td>Google은 기본 범위(openid · email · profile)만</td></tr><tr><td><b>백업</b></td><td>매일 사본 · 같은 PC의 두 디스크</td><td>SSD 고장에 견딤 · 키는 DB 사본과 다른 폴더에</td></tr></tbody></table>",
   "foot": "<img src=\"/assets/didimdol-mark.svg\" alt=\"\">디딤돌 · 이건우",
   "vars": {
    "--hl": "#eef7f2",
@@ -268,7 +268,7 @@
   ],
   "h": "AI는 잘하는 일에만 나눠 씁니다",
   "p": "생각 갈래(주인 계정 전용) · 메일 분류",
-  "body": "<div class=\"flow\"><div class=\"st\"><b>생각 한 줄</b><span>메모에 담은 고민</span></div><div class=\"ar\">→</div><div class=\"st\"><b>Codex</b><span>갈래 만들기<br>정해 둔 JSON 모양으로만</span></div><div class=\"ar\">→</div><div class=\"st hl\"><b>Jev</b><span>어느 갈래가 합리적인지<br>확률 · 점수로 판단</span></div><div class=\"ar\">→</div><div class=\"st\"><b>Claude</b><span>자세한 비교<br>누를 때만</span></div></div><div class=\"row\"><div class=\"card\" style=\"flex:1\"><h3>안 될 때</h3><p>Claude가 안 되면 Codex가 대신 쓰고, 모두 안 되면 미리 적어 둔 방향 사전에서 고릅니다.</p></div><div class=\"card\" style=\"flex:1\"><h3>비용 상한</h3><p>Jev는 하루 입력 20만 토큰을 넘기면 요청 전에 막습니다.</p></div><div class=\"card\" style=\"flex:1\"><h3>보내지 않는 것</h3><p>메일 내용은 보내지 않고, 비밀번호 · 토큰처럼 보이는 문자열은 보내기 전에 가립니다.</p></div></div><p class=\"note\">메일 분류는 메일 도구가 Claude(claude -p, 구독)로 등급 · 할 일 · 결제를 뽑습니다. 앱 구현에는 AI 도구를 썼고, 결과는 테스트와 실제 화면으로 확인했습니다.</p>",
+  "body": "<div class=\"flow\"><div class=\"st\"><b>생각 한 줄</b><span>메모에 담은 고민</span></div><div class=\"ar\">→</div><div class=\"st\"><b>Codex</b><span>갈래 만들기<br>정해 둔 JSON 모양으로만</span></div><div class=\"ar\">→</div><div class=\"st hl\"><b>Jev</b><span>어느 갈래가 합리적인지<br>확률 · 점수로 판단</span></div><div class=\"ar\">→</div><div class=\"st\"><b>Claude</b><span>자세한 비교<br>누를 때만</span></div></div><div class=\"row\"><div class=\"card\" style=\"flex:1\"><h3>안 될 때</h3><p>갈래 만들기가 실패하면 미리 적어 둔 방향 사전(24개)에서 고르고, 비교는 Claude가 안 되면 Codex가 씁니다.</p></div><div class=\"card\" style=\"flex:1\"><h3>비용 상한</h3><p>Jev는 하루 입력 20만 토큰을 넘기면 요청 전에 막습니다.</p></div><div class=\"card\" style=\"flex:1\"><h3>보내지 않는 것</h3><p>메일 내용은 보내지 않고, 비밀번호 · 토큰처럼 보이는 문자열은 보내기 전에 가립니다.</p></div></div><p class=\"note\">메일 분류는 메일 도구가 Claude(claude -p, 구독)로 등급 · 할 일 · 결제를 뽑습니다. 앱 구현에는 AI 도구를 썼고, 결과는 테스트와 실제 화면으로 확인했습니다.</p>",
   "foot": "<img src=\"/assets/didimdol-mark.svg\" alt=\"\">디딤돌 · 이건우",
   "vars": {
    "--hl": "#eef7f2",
