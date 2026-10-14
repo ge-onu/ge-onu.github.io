@@ -1,5 +1,7 @@
 /* 발표 자료 뷰어. 같은 슬라이드 안의 단계(Canva에서 여러 장으로 나눠 만든 애니메이션)는 겹쳐 넘기고,
- * 슬라이드가 바뀔 때는 옆으로 밀어 넘긴다. 데이터는 #deck-data(JSON)에 있다. */
+ * 슬라이드가 바뀔 때는 옆으로 밀어 넘긴다. 데이터는 #deck-data(JSON)에 있다.
+ * data.fx(tools/deck/fx.py가 만듦)가 있으면 단계 사이를 실제 움직임으로 잇는다:
+ *   lift = 새로 또렷해진 영역이 떠오르며 나타남, mv = 캐릭터가 앞 위치에서 새 위치로 이동, hdr = 슬라이드를 넘겨도 움직이지 않는 위쪽 높이. */
 (() => {
  const root=document.querySelector('[data-deck]');const dataEl=document.getElementById('deck-data');
  if(!root||!dataEl)return;
@@ -10,6 +12,7 @@
  const stage=$('.deck-stage'),frame=$('.deck-frame'),count=$('.deck-count'),title=$('.deck-title'),steps=$('.deck-steps'),bar=$('.deck-progress i'),play=$('.deck-play'),tabs=[...root.querySelectorAll('.deck-chapters button')];
  const src=p=>`${base}p${String(p).padStart(3,'0')}.webp`;
  const A=data.anim||{};const pad=p=>String(p).padStart(3,'0');
+ const FX=data.fx||{};const sprites=new Map();const spr=n=>{if(!sprites.has(n)){const im=new Image();im.src=base+n;sprites.set(n,im);}return sprites.get(n);};
  const total=S.length;let i=0,j=0,timer=null,busy=false;
  // Canva 요소 애니메이션: 앞으로 넘길 때만 짧은 영상으로 재생하고, 끝나면 선명한 이미지로 바꾼다.
  const vids=new Map();
@@ -17,7 +20,30 @@
  const ready=v=>v.readyState>=3?Promise.resolve(true):new Promise(r=>{const t=setTimeout(()=>r(false),700);v.addEventListener('canplay',()=>{clearTimeout(t);r(true);},{once:true});v.addEventListener('error',()=>{clearTimeout(t);r(false);},{once:true});});
  const cache=new Map();
  const load=p=>{if(!cache.has(p)){const im=new Image();im.decoding='async';im.src=src(p);cache.set(p,im.decode?im.decode().catch(()=>{}).then(()=>im):Promise.resolve(im));}return cache.get(p);};
- const warm=()=>{[i+1,i+2,i-1].forEach(k=>{if(S[k])S[k].p.forEach((p,n)=>{if(n<3||k===i+1)load(p);});});S[i].p.forEach(load);[S[i],S[i+1]].forEach(s=>s&&s.p.forEach(preVid));};
+ const warm=()=>{[i+1,i+2,i-1].forEach(k=>{if(S[k])S[k].p.forEach((p,n)=>{if(n<3||k===i+1)load(p);});});S[i].p.forEach(load);[S[i],S[i+1]].forEach(s=>s&&s.p.forEach(preVid));const nx=S[i].p[j+1]??(S[i+1]&&S[i+1].p[0]);const f=nx&&FX[S[i].p[j]+'-'+nx];if(f&&f.mv)spr(f.mv.s);};
+ // 단계 사이 움직임: 바뀐 영역만 오버레이로 움직이고, 끝나면 지운다.
+ let fxLayer=null;
+ const clearFx=()=>{if(fxLayer){fxLayer.getAnimations({subtree:true}).forEach(a=>a.finish());fxLayer.remove();fxLayer=null;}};
+ function patch(box,url,fw,fh){const d=document.createElement('div');d.className='deck-patch';const [x,y,w,h]=box;
+  Object.assign(d.style,{left:x*fw+'px',top:y*fh+'px',width:w*fw+'px',height:h*fh+'px',backgroundImage:`url("${url}")`,backgroundSize:`${fw}px ${fh}px`,backgroundPosition:`${-x*fw}px ${-y*fh}px`});return d;}
+ function runFx(f,fromP,toP,mode){
+  clearFx();if(!f)return 0;const fw=frame.clientWidth,fh=frame.clientHeight;if(!fw)return 0;
+  const L=document.createElement('div');L.className='deck-fx';L.setAttribute('aria-hidden','true');let end=0;
+  if(mode==='step'){
+   (f.lift||[]).forEach((b,k)=>{const d=patch(b,src(toP),fw,fh);L.append(d);const delay=60+k*70;
+    d.animate([{opacity:0,transform:'translateY(10px) scale(.975)'},{opacity:1,transform:'none'}],{duration:560,delay,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'});end=Math.max(end,delay+560);});
+   if(f.mv){const m=f.mv,to=m.to;const hide=patch(to,src(fromP),fw,fh);L.append(hide);
+    if(m.from){L.append(patch(m.from,src(toP),fw,fh));}
+    const im=spr(m.s).cloneNode();im.className='deck-sprite';im.alt='';const s0=m.from||to;
+    Object.assign(im.style,{left:s0[0]*fw+'px',top:s0[1]*fh+'px',width:to[2]*fw+'px',height:to[3]*fh+'px'});L.append(im);
+    let a;if(m.from){const dx=(to[0]-m.from[0])*fw,dy=(to[1]-m.from[1])*fh,dist=Math.hypot(dx,dy),hop=Math.min(70,dist*.28+8),dur=Math.min(1150,520+dist*.9);
+     a=im.animate([{transform:'translate(0,0) scale(1)'},{transform:`translate(${dx*.5}px,${dy*.5-hop}px) scale(1.12)`,offset:.5},{transform:`translate(${dx}px,${dy}px) scale(1)`}],{duration:dur,delay:80,easing:'cubic-bezier(.45,0,.25,1)',fill:'both'});end=Math.max(end,dur+80);}
+    else{a=im.animate([{opacity:0,transform:'scale(.4)'},{opacity:1,transform:'scale(1.12)',offset:.6},{opacity:1,transform:'scale(1)'}],{duration:460,delay:120,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'});end=Math.max(end,580);}
+    a.finished.then(()=>{hide.remove();}).catch(()=>{});}
+  }
+  if(f.hdr&&mode!=='step'){const h=patch([0,0,1,f.hdr],src(toP),fw,fh);h.classList.add('hdr');L.append(h);h.animate([{opacity:1},{opacity:1}],{duration:520});end=Math.max(end,520);}
+  if(!L.childElementCount)return 0;frame.append(L);fxLayer=L;const me=L;setTimeout(()=>{if(fxLayer===me)clearFx();},end+40);return end;
+ }
 
  function layer(kind){const el=document.createElement(kind);el.className='deck-layer';if(kind==='img'){el.alt='';el.draggable=false;}return el;}
  function current(){return frame.querySelector('.deck-layer.on');}
@@ -36,7 +62,7 @@
    el.addEventListener('ended',settle,{once:true});el.addEventListener('error',settle,{once:true});}
   if(isVideo){Object.assign(el,{src:base+s.v,poster:src(p),muted:true,playsInline:true,controls:true,preload:'metadata'});el.setAttribute('aria-label',s.t);el.addEventListener('ended',()=>{if(timer)advance();});}
   else if(!anim){el.src=src(p);el.alt=`${s.t}${s.p.length>1?` (${nextJ+1}/${s.p.length}단계)`:''}`;}
-  const old=current();
+  const old=current();const prevP=S[i]&&S[i].p[j];
   if(old&&old.tagName==='VIDEO')old.pause();frame.querySelectorAll('.deck-layer:not(.on)').forEach(x=>{if(x!==old)x.remove();});
   el.classList.add('on');
   const quick=reduce.matches||!old||mode==='init';
@@ -44,10 +70,14 @@
   frame.append(el);
   if(!quick){requestAnimationFrame(()=>requestAnimationFrame(()=>{el.classList.remove('enter-fade','enter-left','enter-right');}));}
   if(old){old.classList.remove('on');old.classList.add(mode==='step'?'leave-fade':mode==='back'?'leave-right':'leave-left');setTimeout(()=>old.remove(),quick?0:560);}
+  let fxEnd=0;if(old&&!anim&&!isVideo&&mode!=='init'&&prevP!==undefined){const fwd=FX[prevP+'-'+p],bwd=FX[p+'-'+prevP];
+   if(mode==='step'&&fwd&&(nextI===i&&nextJ===j+1))fxEnd=runFx(fwd,prevP,p,'step');
+   else if(mode!=='step'&&(fwd||bwd)&&Math.abs(nextI-i)===1)fxEnd=runFx({hdr:(fwd||bwd).hdr},prevP,p,mode);
+   else clearFx();}else clearFx();
   i=nextI;j=nextJ;render();warm();
   if(isVideo&&root.dataset.visible==='1')el.play().catch(()=>{});
   if(anim)el.play().catch(()=>el.dispatchEvent(new Event('ended')));
-  setTimeout(release,quick?0:mode==='step'?260:380);
+  setTimeout(release,quick?0:mode==='step'?380:400);
  }
  const chapBar=root.querySelector('.deck-chapters');const chapInd=document.createElement('span');chapInd.className='deck-chap-ind';chapInd.setAttribute('aria-hidden','true');chapBar.append(chapInd);chapBar.classList.add('has-ind');
  const moveChap=()=>{const t=tabs.find(t=>t.getAttribute('aria-selected')==='true');if(!t)return;chapInd.style.width=(t.offsetWidth-24)+'px';chapInd.style.transform=`translateX(${t.offsetLeft+12}px)`;};
@@ -62,7 +92,7 @@
  }
  function advance(){const s=S[i];if(j<s.p.length-1)return show(i,j+1,'step');if(i<total-1)return show(i+1,0,'next');stop();}
  function back(){if(j>0)return show(i,j-1,'step');if(i>0)return show(i-1,S[i-1].p.length-1,'back');}
- function delay(){const s=S[i];if(s.v&&j===s.p.length-1)return null;const extra=(A[s.p[j]]||0)*1000;return (s.p.length>1&&j<s.p.length-1?1500:3600)+extra;}
+ function delay(){const s=S[i];if(s.v&&j===s.p.length-1)return null;const extra=(A[s.p[j]]||0)*1000;const f=j>0&&FX[s.p[j-1]+'-'+s.p[j]];const mv=f&&f.mv?900:f&&f.lift?300:0;return (s.p.length>1&&j<s.p.length-1?1700:3600)+extra+mv;}
  function tick(){clearTimeout(timer);const d=delay();if(d===null){timer=true;return;}timer=setTimeout(async()=>{await advance();if(timer)tick();},d);}
  function start(){play.setAttribute('aria-pressed','true');play.querySelector('.lbl').textContent='멈춤';tick();}
  function stop(){clearTimeout(timer);timer=null;play.setAttribute('aria-pressed','false');play.querySelector('.lbl').textContent='자동 재생';}

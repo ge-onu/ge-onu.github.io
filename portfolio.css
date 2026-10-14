@@ -557,7 +557,7 @@ figure.viz{margin-left:0;margin-right:0}
 .deck-layer.enter-left{transform:translateX(-5%);opacity:0}
 .deck-layer.leave-left{transform:translateX(-5%);opacity:0}
 .deck-layer.leave-right{transform:translateX(5%);opacity:0}
-.deck-layer.enter-fade,.deck-layer.leave-fade{opacity:0;transition-duration:.26s}
+.deck-layer.enter-fade,.deck-layer.leave-fade{opacity:0;transition-duration:.4s;transition-timing-function:cubic-bezier(.4,0,.2,1)}
 .deck-layer.leave-left,.deck-layer.leave-right,.deck-layer.leave-fade{z-index:0}
 .deck-layer.on{z-index:1}
 video.deck-layer{background:#111}
@@ -682,3 +682,8 @@ html:not(:has(.chat-launcher)) .try-geonu{display:none}
 
 /* 디딤돌 사례 제목의 조약돌 표시 */
 .chead h1 .didim-hero-mark{width:.82em;height:.82em;vertical-align:-.08em;margin-right:.22em}
+
+/* 발표 자료 단계 사이 움직임(deck.js runFx) */
+.deck-fx{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.deck-patch{position:absolute;background-repeat:no-repeat;will-change:transform,opacity}
+.deck-sprite{position:absolute;max-width:none;will-change:transform;filter:drop-shadow(0 6px 8px rgba(40,30,10,.18))}
