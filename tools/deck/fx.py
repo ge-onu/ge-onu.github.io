@@ -189,6 +189,11 @@ def analyze(a, b, sprites=True):
             f = max(cand, key=lambda b_: (b_[2] - b_[0]) * (b_[3] - b_[1]))
             f = [max(f[0], bb[0] - 12), f[1], min(f[2], bb[2] + 12), bb[1] - 2]   # 화면 + 그 아래 설명 글자까지
             fx["focus"] = R(f)
+            # 커질 화면이 위로 솟을 수 있는 높이: 바로 위 글자(소제목·제목)까지의 빈 띠. deck.js가 이만큼만 키운다.
+            gB = B.mean(2); lim = int(0.08 * H)
+            dark = np.nonzero((gB[lim:f[1], f[0]:f[2]] < 115).sum(1) > 2)[0]
+            last = lim + int(dark.max()) if dark.size else lim
+            fx["rise"] = round(max(0, f[1] - last - 6) / H, 4)
             fx["bar"] = {"to": R([bb[0] - 4, bb[1] - 4, bb[2] + 4, bb[3] + 4])}
             if ba:
                 fx["bar"]["from"] = R([ba[0] - 4, ba[1] - 4, ba[2] + 4, ba[3] + 4])

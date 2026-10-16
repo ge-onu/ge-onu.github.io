@@ -26,7 +26,7 @@
  const warm=()=>{[i+1,i+2,i-1].forEach(k=>{if(S[k])S[k].p.forEach((p,n)=>{if(n<3||k===i+1)load(p);});});S[i].p.forEach(load);[S[i],S[i+1]].forEach(s=>s&&s.p.forEach(preVid));const nx=S[i].p[j+1]??(S[i+1]&&S[i+1].p[0]);const f=nx&&FX[S[i].p[j]+'-'+nx];if(f&&f.mv)spr(f.mv.s);};
  // 단계 사이 움직임: 바뀐 영역만 오버레이로 움직이고, 끝나면 지운다.
  let fxLayer=null;
- let held=false;
+ let held=false,heldS=1.06;
  const clearFx=()=>{if(fxLayer){fxLayer.getAnimations({subtree:true}).forEach(a=>{try{a.finish();}catch(e){}});fxLayer.remove();fxLayer=null;}};
  function patch(box,url,fw,fh){const d=document.createElement('div');d.className='deck-patch';const [x,y,w,h]=box;
   Object.assign(d.style,{left:x*fw+'px',top:y*fh+'px',width:w*fw+'px',height:h*fh+'px',backgroundImage:`url("${url}")`,backgroundSize:`${fw}px ${fh}px`,backgroundPosition:`${-x*fw}px ${-y*fh}px`});return d;}
@@ -41,14 +41,16 @@
    if(f.spot){const d=patch(f.spot,src(toP),fw,fh);d.classList.add('spotp');L.append(d);
     d.animate([{transform:'scale(1)'},{transform:'scale(1.045)',offset:.45},{transform:'scale(1)'}],{duration:900,delay:260,easing:'cubic-bezier(.3,0,.2,1)'});end=Math.max(end,1160);}
    if(f.unfocus){const d=patch(f.unfocus,src(fromP),fw,fh);d.classList.add('foc');L.append(d);
-    d.animate([{opacity:1,transform:`scale(${wasHeld?1.06:1})`},{opacity:0,transform:'scale(.9)'}],{duration:560,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});end=Math.max(end,560);}
+    d.animate([{opacity:1,transform:`scale(${wasHeld?heldS:1})`},{opacity:0,transform:'scale(.9)'}],{duration:560,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});end=Math.max(end,560);}
    if(f.bar){const to=f.bar.to;L.append(patch(to,src(fromP),fw,fh));if(f.bar.from)L.append(patch(f.bar.from,src(toP),fw,fh));
     const bar=patch(to,src(toP),fw,fh);L.append(bar);
     if(f.bar.from){const dx=(f.bar.from[0]-to[0])*fw;bar.animate([{transform:`translateX(${dx}px)`},{transform:'none'}],{duration:620,easing:'cubic-bezier(.65,0,.35,1)',fill:'backwards'});}
     else bar.animate([{opacity:0,transform:'scaleX(.3)'},{opacity:1,transform:'none'}],{duration:520,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'});end=Math.max(end,620);}
    if(f.focus){const d=patch(f.focus,src(toP),fw,fh);d.classList.add('foc','held');L.append(d);
+    // 아래(진행 막대)를 기준으로 커지므로 위로 솟는다. 위 글자(소제목)를 덮지 않을 만큼만 키운다(rise, fx.py).
+    const sc=f.rise!=null?Math.min(1.06,Math.max(1,1+f.rise/f.focus[3])):1.06;heldS=sc;
     const dx=f.unfocus?(f.unfocus[0]-f.focus[0])*fw*.35:0;
-    d.animate([{opacity:0,transform:`translateX(${dx}px) scale(.9)`},{opacity:1,transform:'scale(1.06)'}],{duration:700,delay:90,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'});
+    d.animate([{opacity:0,transform:`translateX(${dx}px) scale(.9)`},{opacity:1,transform:`scale(${sc})`}],{duration:700,delay:90,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'});
     held=true;}
    if(f.mv){const m=f.mv,to=m.to;const hide=patch(to,src(fromP),fw,fh);L.append(hide);
     if(m.from){L.append(patch(m.from,src(toP),fw,fh));}
