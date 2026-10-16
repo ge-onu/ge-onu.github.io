@@ -687,3 +687,6 @@ html:not(:has(.chat-launcher)) .try-geonu{display:none}
 .deck-fx{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
 .deck-patch{position:absolute;background-repeat:no-repeat;will-change:transform,opacity}
 .deck-sprite{position:absolute;max-width:none;will-change:transform;filter:drop-shadow(0 6px 8px rgba(40,30,10,.18))}
+.deck-patch.foc{transform-origin:50% 100%}
+.deck-patch.held{z-index:2}
+.deck-patch.pop{transform-origin:50% 50%}
