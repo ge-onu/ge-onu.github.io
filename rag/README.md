@@ -58,3 +58,18 @@ python3 rag/tools/bundle_worker.py /tmp/geonu-rag.mjs   # Worker 한 파일로 �
 ```
 
 Worker 비밀값은 `GEMINI_API_KEY` 하나입니다. 무료 등급 Gemini 프로젝트(geonu-rag)의 키를 쓰고, 질문 원문은 저장하지 않습니다.
+
+## 운영 설계 (2026-10-17)
+
+목적: 채용 담당자가 한 번 물어봤을 때 **빠르고 정확하게** 답하는 것. 비용은 작게, 막힐 때도 답은 나가게.
+
+| 층 | 무엇 | 왜 |
+|---|---|---|
+| 작성 | 유료 키(Default Gemini Project, 선불 크레딧) `gemini-3.1-flash-lite` → `3.5-flash-lite` → 무료 예비 키(`free:`) → 간단 모드(근거 문장) | 무료 등급은 요청이 몰리면 503(high demand)을 먼저 받는다(10/17 확인: 같은 때 유료는 200). 유료 기준 1.1~1.5초 |
+| 비용 상한 | ① 선불 크레딧·자동 충전 꺼짐(절대 상한) ② 프로젝트 월 지출 한도 ₩6,000(AI Studio, 약 10분 안에 차단, 매월 1일 초기화) ③ IP별 분당 10회 ④ 거절 질문은 모델을 부르지 않음 | 답 1건 약 $0.0006(입력 ~1,700·출력 ~110 토큰). 한 IP가 분당 10회로 하루 내내 보내도 월 한도에서 멈추고, 그 뒤에는 무료 예비 키·간단 모드로 계속 답한다 |
+| 답 품질 | 사실 검사(`checkFacts`: 숫자·기술명·금지 표현) + 정상성 검사 → 걸리면 한 번 고쳐 쓰기 → 간단 모드 | 답을 막는 가드레일 |
+| 그림자 판정 | 답을 보낸 뒤 Jev(`jev-latest`)가 근거·답을 보고 3가지(근거 밖 사실·기여 과장·수치/기술) 위험 점수를 매겨 로그에만 남김. 응답 시간 영향 0초, 1건 약 $0.00014 | 실험 F(jev-lab `reports/2026-10-17-f-geonu.md`)에서 근거를 주면 정확도 98.5%였지만 정상 답 오탐이 있어 막는 데는 쓰지 않는다. 실제 질문에서 오류율·오탐률을 잰 뒤 결정 |
+| 관측 | Workers Logs에 요청마다 `ev=chat`(모드·모델·시간)·`ev=jev`(점수) 한 줄. `tools/geonu_logs.py collect`가 매일 07:30 WSL로 모아 `~/.local/share/geonu-rag/events.jsonl`에 쌓고 `summary`로 요약 | 무료 요금제 로그는 3일 보관. 질문 원문·IP는 남기지 않는다 |
+
+비밀값(wrangler secret): `GEMINI_API_KEY`(유료), `GEMINI_FREE_KEY`(무료 예비, geonu-rag 프로젝트), `JEV_API_KEY`. `/health`에는 있는지 여부만 나온다.
+결제 계정에 연결할 수 있는 프로젝트 수가 다 차서(geonu-rag 결제 연결 실패) 유료 키는 Default Gemini Project에서 만들었다. 이 프로젝트는 jev-lab 실험도 같이 쓴다.

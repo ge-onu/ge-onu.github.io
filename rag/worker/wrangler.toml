@@ -6,12 +6,17 @@ workers_dev = true
 # 버전별 미리보기 주소는 쓰지 않는다(공개 주소 하나만 둔다).
 preview_urls = false
 
-# 작성 모델: 앞에서부터 차례로 시도(무료 등급 503 대비, 시간 예산 18초 안). 다 실패하면 간단 모드(근거 문장)로 답한다.
+# 작성 모델: 유료 키(선불 크레딧, Default Gemini Project 월 지출 한도 ₩6,000)로 먼저, 막히면 free: 무료 예비 키. 다 실패하면 간단 모드(근거 문장).
 [vars]
-GEMINI_MODELS = "gemini-3.1-flash-lite,gemini-3.5-flash-lite,gemini-flash-lite-latest"
+GEMINI_MODELS = "gemini-3.1-flash-lite,gemini-3.5-flash-lite,free:gemini-3.5-flash-lite,free:gemini-flash-lite-latest"
 
 # IP별 분당 10회. Workers Rate Limiting 바인딩(없으면 worker.js의 인스턴스별 제한을 쓴다).
 [[ratelimits]]
 name = "RL"
 namespace_id = "1001"
 simple = { limit = 10, period = 60 }
+
+# 요청마다 지표 한 줄(모드·모델·시간)과 그림자 판정 한 줄을 Workers Logs에 남긴다. 질문 원문은 남기지 않는다.
+[observability]
+enabled = true
+head_sampling_rate = 1
