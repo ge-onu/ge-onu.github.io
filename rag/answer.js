@@ -6,9 +6,14 @@ const SITE = 'https://geonu.site';
 // 이어 묻기("그건 혼자 했어요?", "왜요?")만 직전 질문과 합쳐 검색한다. 새 질문은 그대로 검색해야
 // 앞 질문의 주제가 거절 판단을 흐리지 않는다.
 const FOLLOW = /^(그|그건|그거|그게|그걸|그럼|그러면|그래서|그때|거기|거기서|이건|이거|저건|왜|어떻게요|어째서|그\s)/;
+// 거누 자신을 묻는 말("거누는", "이 챗봇", "너는 누구")은 조사·지시어 때문에 거누 사례를 놓친다(2026-10-17, 디딤돌로 감).
+// 그런 질문에만 검색어를 덧붙인다. 화면에 보이는 질문과 생성 프롬프트는 그대로다.
+const SELF = /거누|(이|그)\s*(챗봇|봇|대화창)|(너|넌|당신)\s*(는|은)?\s*(누구|뭐|어떻게)/;
+const SELF_TERMS = 'RAG 챗봇 거누 Cloudflare Worker';
 export function retrievalQuery(q, history = []) {
   const prev = [...history].reverse().find(m => m.role === 'user');
-  return prev && FOLLOW.test(q.trim()) ? `${prev.text} ${q}` : q;
+  const base = prev && FOLLOW.test(q.trim()) ? `${prev.text} ${q}` : q;
+  return SELF.test(base) && !base.includes('RAG 챗봇 거누') ? `${base} ${SELF_TERMS}` : base;
 }
 
 // chunk → 사이트 주소. id가 실제 요소 id인 경우에만 #를 붙인다.

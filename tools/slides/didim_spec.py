@@ -60,13 +60,13 @@ S.append(sl("선택","choice","도구와 서비스","무엇으로 만들었고, 
   '<tr><td><b>로그인</b></td><td>이메일+비밀번호(argon2id) · Google(OIDC)</td><td>Google은 기본 범위(openid · email · profile)만</td></tr>'
   '<tr><td><b>백업</b></td><td>매일 사본 · 같은 PC의 두 디스크</td><td>SSD 고장에 견딤 · 키는 DB 사본과 다른 폴더에</td></tr></tbody></table>',
   "실행, 공개, 앱, 로그인, 백업 다섯 층으로 나눴습니다. 기준은 PC 한 대에서 혼자 운영하고 지킬 수 있는가였습니다."))
-S.append(sl("선택","choice","DB 선택","DB는 왜 SQLite인가","PC 한 대 · 혼자 운영하는 규모에 맞춘 선택",
+S.append(sl("선택","choice","DB 선택","SQLite, 이 규모에 맞는가","AI 도구 추천으로 정하고, 운영하며 확인한 점",
   '<div class="row">'+card("지킬 서버가 하나 줄어듭니다","DB가 파일 하나라 DB 서버를 따로 띄우고 지킬 필요가 없습니다. WAL 모드로 읽기가 쓰기를 기다리지 않게 했습니다.",'<span class="tag ok">운영</span>')
   +card("백업과 되살리기가 단순합니다","온라인 백업 API로 사본을 뜨고, 무결성 검사가 ok일 때만 남깁니다. 되살릴 때는 사본 파일을 제자리에 둡니다.",'<span class="tag ok">백업</span>')+'</div>'
   '<div class="row">'+card("메일 도구와 같은 방식","메일 도구도 SQLite라, 디딤돌은 그 파일을 읽기 전용(mode=ro · query_only)으로 열어 쓰기를 막습니다.",'<span class="tag ok">연결</span>')
   +card("지운 자료가 파일에 남지 않게","secure_delete로 지운 행을 덮어쓰고, 파일 권한은 0600입니다.",'<span class="tag ok">보안</span>')+'</div>'
   '<p class="note"><span class="x">한계</span> · 쓰기는 한 번에 하나라, 사용자가 크게 늘면 서버형 DB(PostgreSQL 등)로 옮겨야 합니다.</p>',
-  "서버형 DB 대신 SQLite를 고른 이유는 운영 부담, 백업, 메일 도구와의 연결, 삭제 보장 네 가지입니다. 사용자가 크게 늘면 바꿔야 하는 선택이라는 점도 함께 적었습니다."))
+  "SQLite는 AI 도구가 추천한 구성을 받아들인 선택입니다. 운영 부담, 백업, 메일 도구와의 연결, 삭제 보장 네 가지로 이 규모에 맞는지 확인했고, 사용자가 크게 늘면 바꿔야 한다는 점도 함께 적었습니다."))
 S.append(sl("선택","choice","AI와 모델","AI는 잘하는 일에만 나눠 씁니다","생각 갈래(주인 계정 전용) · 메일 분류",
   '<div class="flow"><div class="st"><b>생각 한 줄</b><span>메모에 담은 고민</span></div><div class="ar">→</div><div class="st"><b>Codex</b><span>갈래 만들기<br>정해 둔 JSON 모양으로만</span></div><div class="ar">→</div><div class="st hl"><b>Jev</b><span>어느 갈래가 합리적인지<br>확률 · 점수로 판단</span></div><div class="ar">→</div><div class="st"><b>Claude</b><span>자세한 비교<br>누를 때만</span></div></div>'
   '<div class="row">'+card("안 될 때","갈래 만들기가 실패하면 미리 적어 둔 방향 사전(24개)에서 고르고, 비교는 Claude가 안 되면 Codex가 씁니다.")

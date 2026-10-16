@@ -146,11 +146,12 @@ def didim_main():
       </section>
 
       <section class="blk" id="ev-stack" aria-labelledby="ev-stack-h"><p class="num"><span>01</span>구성과 선택</p><h2 id="ev-stack-h">PC 한 대에서 혼자 지킬 수 있는 구성</h2>
-        {star([('S','상황','늘 켜 두는 Windows PC(WSL Ubuntu) 한 대에서 혼자 운영해야 했습니다.'),('T','과제','서버를 따로 빌리지 않고, PC의 포트를 열지 않은 채 도메인으로 공개해야 했습니다.'),W('혼자 운영하면 지킬 것이 늘수록 놓치는 곳이 생깁니다.','그래서 DB 서버 대신 파일 하나인 SQLite를, 포트 개방 대신 Cloudflare Tunnel을 골랐습니다.'),('A','행동','FastAPI를 systemd 사용자 서비스로 127.0.0.1에만 띄우고, Cloudflare Tunnel·Turnstile로 공개한 경험이 있습니다.'),('R','결과','바깥으로 연 포트 없이 didimdol.site로 접속되고, 매일 DB 사본을 같은 PC의 두 디스크(SSD·HDD)에 남깁니다. PC 밖 사본은 아직 없습니다.')])}
+        {star([('S','상황','늘 켜 두는 Windows PC(WSL Ubuntu) 한 대에서 혼자 운영해야 했습니다.'),('T','과제','서버를 따로 빌리지 않고, PC의 포트를 열지 않은 채 도메인으로 공개해야 했습니다.'),W('혼자 운영하면 지킬 것이 늘수록 놓치는 곳이 생깁니다.','그래서 포트 개방 대신 Cloudflare Tunnel을 골랐고, DB는 AI 도구가 추천한 SQLite가 이 규모에 맞는지 운영하며 확인했습니다.'),('A','행동','FastAPI를 systemd 사용자 서비스로 127.0.0.1에만 띄우고, Cloudflare Tunnel·Turnstile로 공개한 경험이 있습니다.'),('R','결과','바깥으로 연 포트 없이 didimdol.site로 접속되고, 매일 DB 사본을 같은 PC의 두 디스크(SSD·HDD)에 남깁니다. PC 밖 사본은 아직 없습니다.')])}
         <h3 class="sub-blk" id="stack-table">무엇으로 만들었나</h3>
         {tbl(['층','무엇','왜'],[['실행','WSL Ubuntu · systemd 사용자 서비스','로그인하지 않아도 뜨고, 서버를 빌리지 않음'],['공개','Cloudflare Tunnel · Turnstile','포트를 열지 않고 도메인으로 연결'],['앱','FastAPI · SQLite(WAL)','혼자 운영할 수 있는 크기의 서버와 DB'],['로그인','이메일+비밀번호(argon2id) · Google 로그인(OIDC) · 확인 메일 Resend','Google은 기본 범위(openid·email·profile)만'],['백업','매일 03:30 DB 사본 · 같은 PC의 두 디스크(SSD·HDD)','메일 비밀번호를 푸는 키는 DB 사본과 다른 폴더에 둠']],'디딤돌 구성')}
-        <h3 class="sub-blk" id="db-choice">DB는 왜 SQLite인가</h3>
-        {tbl(['이유','내용'],[['운영','DB가 파일 하나라 DB 서버를 따로 띄우고 지킬 필요가 없습니다. WAL 모드로 읽기가 쓰기를 기다리지 않게 했습니다.'],['백업','온라인 백업 API로 사본을 뜨고, 무결성 검사가 ok일 때만 남깁니다. 되살릴 때는 사본 파일을 제자리에 둡니다.'],['연결','메일 도구도 SQLite라, 디딤돌은 그 파일을 읽기 전용(mode=ro · query_only)으로 열어 쓰기를 막습니다.'],['보안','secure_delete로 지운 행을 파일에서도 덮어쓰고, 파일 권한은 0600입니다.']],'SQLite를 고른 이유')}
+        <h3 class="sub-blk" id="db-choice">SQLite, 이 규모에 맞는가</h3>
+        <p class="tbl-note"><span class="ln">SQLite는 AI 도구가 추천한 구성을 받아들인 선택입니다. 아래는 이 규모(PC 한 대 · 혼자 운영)에 맞는지 운영하며 확인한 점입니다.</span></p>
+        {tbl(['확인한 점','내용'],[['운영','DB가 파일 하나라 DB 서버를 따로 띄우고 지킬 필요가 없습니다. WAL 모드로 읽기가 쓰기를 기다리지 않게 했습니다.'],['백업','온라인 백업 API로 사본을 뜨고, 무결성 검사가 ok일 때만 남깁니다. 되살릴 때는 사본 파일을 제자리에 둡니다.'],['연결','메일 도구도 SQLite라, 디딤돌은 그 파일을 읽기 전용(mode=ro · query_only)으로 열어 쓰기를 막습니다.'],['보안','secure_delete로 지운 행을 파일에서도 덮어쓰고, 파일 권한은 0600입니다.']],'SQLite를 고른 이유')}
         <p class="tbl-note"><span class="ln">쓰기는 한 번에 하나라, 사용자가 크게 늘면 서버형 DB(PostgreSQL 등)로 옮겨야 합니다.</span></p>
         <h3 class="sub-blk" id="ai-roles">AI는 잘하는 일에만</h3>
         {tbl(['일','모델','지키는 것'],[['생각 갈래 만들기','Codex (ChatGPT 구독)','정해 둔 JSON 모양으로만 답하게 함 · 실패하면 미리 적어 둔 방향 사전(24개)에서'],['어느 갈래가 합리적인지','Jev (jev-latest)','글을 쓰지 않고 확률·점수로 판단 · 하루 입력 20만 토큰 상한'],['자세한 비교','Claude Sonnet (누를 때만, 자동화 전용 토큰)','Claude가 안 되면 Codex가 대신 씀'],['메일 분류','메일 도구가 Claude(claude-sonnet-5)로','등급·할 일·결제 추출 · 애매한 결제 메일만 상위 모델로 재확인 · 정확도는 측정 전']],'AI 역할 나누기')}
