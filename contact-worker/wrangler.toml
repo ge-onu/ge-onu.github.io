@@ -3,6 +3,8 @@ name = "geonu-contact"
 main = "worker.js"
 compatibility_date = "2026-10-01"
 workers_dev = true
+# 버전별 미리보기 주소는 쓰지 않는다(공개 주소 하나만 둔다).
+preview_urls = false
 
 [[ratelimits]]
 name = "RL_IP"

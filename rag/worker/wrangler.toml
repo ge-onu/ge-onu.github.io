@@ -3,6 +3,8 @@ name = "geonu-rag"
 main = "worker.js"
 compatibility_date = "2026-10-01"
 workers_dev = true
+# 버전별 미리보기 주소는 쓰지 않는다(공개 주소 하나만 둔다).
+preview_urls = false
 
 # 작성 모델: 첫 모델이 실패하거나 깨진 글이면 두 번째 모델로 한 번만 다시 부르고, 그래도 안 되면 간단 모드(근거 문장)로 답한다.
 [vars]
