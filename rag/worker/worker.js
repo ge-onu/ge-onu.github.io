@@ -13,10 +13,14 @@ const engine = new Engine(data, { chat: true });
 const ORIGINS = new Set(['https://geonu.site', 'https://www.geonu.site', 'http://localhost:8790', 'http://localhost:8765']);
 // 첫 모델이 실패(503·시간 초과·깨진 글)하면 다음 모델로 한 번만 다시 부른다. 목록이 하나면 같은 모델을 다시 부른다.
 // Workers AI 대체 작성(gpt-oss-120b 등)은 뺐다: 2026-10-14에 '!'만 700여 개 돌려준 답이 그대로 나갔다.
-const MODELS = ['gemini-3.1-flash-lite', 'gemini-3.8-flash'];
+// 무료 등급 키는 요청이 몰리면 503(high demand)을 먼저 받는다(2026-10-17 확인: 같은 때 유료 키는 200).
+// 그래서 용량이 따로인 모델을 뒤에 두고, 시간 예산 안에서 차례로 시도한다.
+// 2026-10-17 무료 키 시험: 3.8-flash·3.7-flash는 503, 2.5-flash-lite는 404(새 사용자 불가), Gemma는 시간 초과·500, 3.6-flash는 답이 잘림.
+const MODELS = ['gemini-3.1-flash-lite', 'gemini-3.5-flash-lite', 'gemini-flash-lite-latest'];
 const THINKING = { 'gemini-3.8-flash': { thinkingLevel: 'low' } };
 const BUDGET = 18000;   // 화면은 25초를 기다린다. 모델 호출 전체를 이 안에서 끝낸다.
-const PER_CALL = 8000;
+const PER_CALL = 9000;
+const isGemma = m => m.startsWith('gemma-');
 const hits = new Map(); // 같은 인스턴스 안의 간단한 IP별 제한(분당 8회). 바인딩이 있으면 그쪽을 쓴다.
 
 function cors(origin) {
@@ -35,10 +39,16 @@ async function callModel(env, model, system, prompt, ms) {
   try {
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: 'POST', signal: ctl.signal, headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY },
-      body: JSON.stringify({ systemInstruction: { parts: [{ text: system }] }, contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      body: JSON.stringify({ ...(isGemma(model) ? {} : { systemInstruction: { parts: [{ text: system }] } }),
+        contents: [{ role: 'user', parts: [{ text: isGemma(model) ? `${system}\n\n${prompt}` : prompt }] }],
         generationConfig: { temperature: 0.3, maxOutputTokens: 600, ...(THINKING[model] ? { thinkingConfig: THINKING[model] } : {}) } }),
     });
-    if (!r.ok) throw new Error(`${model} ${r.status}`);
+    if (!r.ok) {
+      // 원인 파악용: Gemini 오류 본문을 Worker 로그에만 남긴다(키는 본문에 없다, 화면 응답에는 넣지 않는다).
+      const body = (await r.text().catch(() => '')).replace(/\s+/g, ' ').slice(0, 400);
+      console.log(JSON.stringify({ gemini_error: model, status: r.status, body }));
+      throw new Error(`${model} ${r.status}`);
+    }
     const j = await r.json();
     const text = tidy((j.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join(''));
     if (!text) throw new Error(`${model} empty`);
@@ -53,11 +63,11 @@ const tidy = t => t.replace(/[\u200B-\u200D\uFEFF]/g, '').replace(/`/g, '').repl
 const timeout = (ms, what) => new Promise((_, rej) => setTimeout(() => rej(new Error(`${what} timeout`)), ms));
 const models = env => { const m = (env.GEMINI_MODELS || '').split(',').map(s => s.trim()).filter(Boolean); return m.length ? m : MODELS; };
 
-// 작성: Gemini 첫 모델 → 실패하거나 깨진 글이면 한 번만 다시(다음 모델) → 그래도 안 되면 호출한 쪽이 간단 모드로 답한다.
+// 작성: 목록의 모델을 차례로(시간 예산 안에서) → 실패하거나 깨진 글이면 다음 모델 → 다 안 되면 호출한 쪽이 간단 모드로 답한다.
 async function write(env, system, prompt, errors, deadline) {
   if (!env.GEMINI_API_KEY) { errors.push('no key'); throw new Error('no key'); }
   const list = models(env);
-  for (const m of [list[0], list[1] || list[0]]) {
+  for (const m of (list.length > 1 ? list : [list[0], list[0]])) {
     const left = deadline - Date.now();
     if (left < 2500) { errors.push('time budget'); break; }
     try {
@@ -76,7 +86,7 @@ export default {
     const origin = req.headers.get('Origin') || '';
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors(origin) });
     const url = new URL(req.url);
-    if (req.method === 'GET' && url.pathname === '/health') return json({ ok: true, data: data.version, writers: models(env).slice(0, 2), fallback: 'plain', key: Boolean(env.GEMINI_API_KEY) }, 200, origin);
+    if (req.method === 'GET' && url.pathname === '/health') return json({ ok: true, data: data.version, writers: models(env), fallback: 'plain', key: Boolean(env.GEMINI_API_KEY) }, 200, origin);
     if (req.method !== 'POST' || url.pathname !== '/chat') return json({ error: 'not_found' }, 404, origin);
     if (!ORIGINS.has(origin)) return json({ error: 'origin' }, 403, origin);
     if (await limited(env, req.headers.get('CF-Connecting-IP') || 'x')) return json({ error: 'rate_limited', text: '질문이 조금 많았어요. 1분 뒤에 다시 물어봐 주세요.' }, 429, origin);
