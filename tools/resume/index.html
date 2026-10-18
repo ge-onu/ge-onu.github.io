@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>이건우 | 이력 요약 · 클라우드 엔지니어</title>
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 210mm; }
+body {
+  font-family: "Pretendard", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  color: #1d2125; font-size: 8.55pt; line-height: 1.46;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+.page { width: 210mm; height: 296.5mm; padding: 11mm 13mm 8mm; position: relative; overflow: hidden; }
+.page::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2.2mm; background: #b9c23a; }
+a { color: inherit; text-decoration: none; }
+b, strong { font-weight: 700; color: #111; }
+.acc { color: #6b7200; }
+
+header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 3.2mm; border-bottom: 0.3mm solid #d7dadd; }
+h1 { font-size: 21pt; font-weight: 800; letter-spacing: -0.5pt; line-height: 1.1; }
+h1 small { font-size: 10pt; font-weight: 500; color: #6b7177; margin-left: 2mm; letter-spacing: 0; }
+.role { font-size: 10.4pt; font-weight: 700; margin-top: 1.6mm; }
+.role .tag { font-size: 8pt; font-weight: 500; color: #6b7177; margin-left: 1.2mm; }
+.dir { font-size: 8.2pt; color: #4a4f55; margin-top: 0.8mm; }
+.dir b { color: #6b7200; }
+.contact { font-size: 8.2pt; text-align: right; line-height: 1.75; margin-top: 2mm; }
+.contact span { color: #8a9096; margin-right: 2mm; font-size: 7.4pt; }
+.contact a { font-weight: 700; color: #6b7200; }
+
+section { display: grid; grid-template-columns: 27mm 1fr; column-gap: 4mm; padding: 2.6mm 0; border-bottom: 0.25mm solid #e4e6e8; }
+section:last-of-type { border-bottom: 0; }
+.lab { font-size: 6.6pt; font-weight: 700; letter-spacing: 0.9pt; color: #6b7200; }
+.lab b { display: block; font-size: 9pt; letter-spacing: 0; color: #1d2125; margin-top: 0.4mm; }
+
+ul.dots { list-style: none; }
+ul.dots li { position: relative; padding-left: 3.2mm; margin: 0.45mm 0; }
+ul.dots li::before { content: ""; position: absolute; left: 0.4mm; top: 1.85mm; width: 1.2mm; height: 1.2mm; border-radius: 50%; background: #b9c23a; }
+
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); border: 0.25mm solid #dfe2e5; border-radius: 2mm; margin-top: 2mm; }
+.card { padding: 1.8mm 2.6mm; border-left: 0.25mm solid #e4e6e8; }
+.card:first-child { border-left: 0; }
+.card .n { font-size: 12.5pt; font-weight: 800; letter-spacing: -0.3pt; line-height: 1.25; }
+.card .n small { font-size: 7.4pt; font-weight: 600; color: #6b7177; }
+.card .d { font-size: 7pt; color: #5d6369; line-height: 1.35; }
+
+.ptitle { display: flex; justify-content: space-between; align-items: baseline; }
+.ptitle h2 { font-size: 11pt; font-weight: 800; }
+.ptitle .when { font-size: 7.6pt; color: #6b7177; }
+.pmeta { font-size: 7.9pt; color: #4a4f55; margin-top: 0.3mm; }
+.pmeta .acc { font-weight: 700; }
+.pdesc { font-size: 7.9pt; color: #6b7177; margin-bottom: 0.8mm; }
+
+.roles { margin-top: 1.4mm; border: 0.25mm solid #e1e4e6; border-radius: 2mm; padding: 1.2mm 2.6mm; display: grid; grid-template-columns: 19mm 1fr; row-gap: 0.6mm; column-gap: 2mm; font-size: 7.6pt; }
+.roles dt { font-weight: 700; }
+.roles dd { color: #3c4146; }
+
+.labs { display: grid; grid-template-columns: 38mm 1fr; row-gap: 1.3mm; column-gap: 3mm; }
+.labs dt { font-weight: 700; font-size: 8.2pt; line-height: 1.3; }
+.labs dt small { display: block; font-weight: 500; font-size: 7pt; color: #6b7200; }
+.labs dd { font-size: 8.1pt; }
+
+.skills { display: grid; grid-template-columns: 24mm 1fr 16mm; row-gap: 0.7mm; column-gap: 2mm; align-items: baseline; }
+.skills dt { font-weight: 700; }
+.skills .b { font-size: 6.6pt; text-align: center; border: 0.25mm solid #c9cf6a; border-radius: 3mm; padding: 0 1mm; color: #5a6000; white-space: nowrap; }
+.skills .b.s { border-color: #ccd0d4; color: #5d6369; }
+
+.prof { display: grid; grid-template-columns: 31mm 1fr; row-gap: 0.7mm; column-gap: 3mm; }
+.prof dt { color: #6b7177; font-size: 7.9pt; }
+
+footer { position: absolute; left: 13mm; right: 13mm; bottom: 6mm; display: flex; justify-content: space-between; font-size: 6.9pt; color: #8a9096; }
+footer b { color: #6b7200; font-weight: 700; }
+/* 1쪽 맞춤 */
+body{font-size:8.3pt;line-height:1.42}
+section{padding:2.3mm 0}
+.page{padding:10.5mm 12.5mm 8mm}
+header{padding-bottom:2.8mm}
+.cards{margin-top:1.6mm}
+.roles{margin-top:1.1mm;padding:1.1mm 2.4mm}
+.labs{row-gap:1mm}
+ul.dots li{margin:0.3mm 0}
+.labs dd{font-size:8pt}
+.pdesc{margin-bottom:0.5mm}
+body{font-size:8.5pt;line-height:1.44}
+section{padding:2.4mm 0}
+.labs dd{font-size:8.15pt}
+body{word-break:keep-all;overflow-wrap:anywhere}
+footer .ai{color:#a7acb1;font-size:6.6pt}
+body{font-size:8.3pt;line-height:1.4}
+section{padding:2mm 0}
+.labs dd{font-size:8pt}
+.page{padding-top:9.5mm}
+.roles{margin-top:0.9mm}
+section{padding:1.9mm 0}
+footer{bottom:4.5mm}
+.labs{row-gap:0.8mm}
+.skills{row-gap:0.5mm}
+.when .lnk{color:#6b7200;text-decoration:underline;text-underline-offset:1.5px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div>
+    <h1>이건우<small>Geonwoo Lee</small></h1>
+    <p class="role">클라우드 · 네트워크 · ML 엔지니어 지원<span class="tag">신입</span></p>
+    <p class="dir"><b>성장 방향</b> AI·ML 워크플로우와 이를 받치는 인프라·운영</p>
+  </div>
+  <p class="contact"><span>Email</span><a href="mailto:goonbam009@gmail.com">goonbam009@gmail.com</a><br><span>Portfolio</span><a href="https://geonu.site">geonu.site</a><br><span>GitHub</span><a href="https://github.com/ge-onu">github.com/ge-onu</a></p>
+</header>
+
+<section>
+  <p class="lab">SUMMARY<b>핵심 경험</b></p>
+  <div>
+    <ul class="dots">
+      <li>최우수상을 받은 5인 팀 프로젝트에서 AI/ML 담당으로 <b>핵심 AI 기능의 PoC·구현·트러블슈팅</b>을 대부분 혼자 맡은 경험이 있습니다.</li>
+      <li>LLM 응답을 <b>같은 기준으로 다시 측정</b>해, 좋아진 지표와 나빠진 지표를 함께 기록한 경험이 있습니다.</li>
+      <li>AI 기능 12종의 <b>서버리스 전환</b>을 판정하고, Lambda 등 AWS 리소스를 <b>Terraform</b>으로 작성한 경험이 있습니다.</li>
+      <li>kubeadm 멀티노드 실습에서 ImagePull·Service·RBAC·PVC 문제를 <b>Event와 리소스 상태</b>로 좁힌 경험이 있습니다.</li>
+    </ul>
+    <div class="cards">
+      <div class="card"><p class="n">12.2→2.9<small>%</small></p><p class="d">치명 결함률 · 서비스 경로<br>720건 기준 (전체 9.9→4.6%)</p></div>
+      <div class="card"><p class="n">166→247<small> / 275건</small></p><p class="d">응답 검증 통과 · 같은 275건<br>LLM 호출 추가 없음</p></div>
+      <div class="card"><p class="n">10<small> / 12종</small></p><p class="d">AI 기능 서버리스 전환 판정<br>Lambda · Terraform</p></div>
+      <div class="card"><p class="n">15<small>종</small> 1,750<small>건</small></p><p class="d">LLM 후보 비교<br>누적 평가 기록</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="lab">PROJECT<b>대표 프로젝트</b></p>
+  <div>
+    <div class="ptitle"><h2>Mealplanning</h2><span class="when">2026.06.29 – 2026.08.26 · <a class="lnk" href="https://geonu.site/projects/mealplanning/">geonu.site/projects/mealplanning</a></span></div>
+    <p class="pmeta">더존비즈온 Cloud DX Academy 최종 5인 팀 프로젝트 · <span class="acc">최우수상</span> · AI/ML 담당</p>
+    <p class="pdesc">식비 예산과 사용자 행동 데이터로 레시피·상품 추천과 AI 기능을 연결한 팀 서비스 · 아래는 제가 맡은 일</p>
+    <ul class="dots">
+      <li><b>응답 품질 재측정</b>: 1,138건을 튜닝 전후 2회(2,276회 호출) 비교, 서비스 경로 720건의 치명 결함 88→21건(12.2→2.9%). 같은 변경에서 전체 1,138건 기준 금액 손실이 26→31건으로 늘어난 것도 함께 기록</li>
+      <li><b>응답 검증 오탐 개선</b>: 사용자 질문을 근거로 보지 않던 판정 로직을 찾아 근거 범위 수정을 이끎. 같은 275건에서 통과 166→247건, LLM 호출 추가 없음. 남은 실패는 지어내기 유형</li>
+      <li><b>LLM 후보 15종 비교</b>: 누적 1,750건 평가 기록으로 품질·비용·지연·응답 검증 결과를 함께 보고 모델 선정</li>
+      <li><b>서버리스 전환 판정</b>: 검토 기준 5개로 AI 기능 12종 중 10종 전환 판정, Lambda 구현. Lambda·SQS·SNS·S3·EventBridge Scheduler를 Terraform으로 작성</li>
+      <li><b>session_id 누락 수정</b>: 조회 44건 전부 NULL, Frontend → API → Event Storage → Training Dataset 순서로 추적해 프런트엔드 요청의 전달 경로 수정</li>
+    </ul>
+    <dl class="roles">
+      <dt>제가 맡은 일</dt><dd>위 5가지와 핵심 AI 기능의 PoC·구현 방안·구현·트러블슈팅</dd>
+      <dt>AI 도구</dt><dd>일부 스크립트 작성과 반복 실행에 사용 · 비교 기준·실험 조건·결과 해석·채택 판단은 직접</dd>
+      <dt>공동 설계</dt><dd>Amazon EKS · Argo CD · CI/CD · Prometheus/Grafana의 도구 선택을 팀 회의에서 함께 결정 · 설치·운영은 인프라 담당 팀원</dd>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <p class="lab">LABS<b>실습 · 운영 · 기록</b></p>
+  <dl class="labs">
+    <dt>Kubernetes Multi-node Lab<small>kubeadm 개인 실습</small></dt>
+    <dd>Control Plane·Worker 구성, Calico · MetalLB · Ingress · NetworkPolicy · PV/PVC · RBAC · HPA/KEDA 설정, Prometheus·Grafana로 지표 확인. ImagePull·Service·RBAC·PVC 문제를 Event·리소스 상태로 확인</dd>
+    <dt>트러블슈팅<small>geonu.site 공개 · 개인·팀 사례</small></dt>
+    <dd>HTTPS 인증서 SAN 진단, session_id 누락 추적, 응답 검증 오탐 분석, 새 배포만 실패하던 Pod 사후 점검, 수집 실패 원인 좁히기(원인 미확정), 영수증 OCR 성공 기준 정의 등의 경험이 있습니다.</dd>
+    <dt>디딤돌 · 개인 웹앱<small>개인 운영 · didimdol.site</small></dt>
+    <dd>기획·보안 원칙·검증을 맡음. FastAPI를 systemd 사용자 서비스로 127.0.0.1에만 띄우고, 포트를 열지 않고 Cloudflare Tunnel·Turnstile로 공개. 매일 DB 백업</dd>
+    <dt>RAG 챗봇 거누<small>개인 실험 · geonu.site</small></dt>
+    <dd>개인 포트폴리오 사이트(geonu.site)의 공개 기록을 검색해 답하는 RAG 챗봇. 평가 기준·실패 분석·채택 판단을 맡음. BM25 검색과 답변 허용 판단을 나눈 PoC에서 처음 보는 질문 40개 중 9건 실패를 분석해 고침. 사이트 챗봇(Cloudflare Workers)의 답변은 Gemini가 쓰고, 허용 판단은 이후 학습·수정에 참고하도록 기록으로 남김. 새 질문 검증 전</dd>
+  </dl>
+</section>
+
+<section>
+  <p class="lab">SKILLS<b>기술</b></p>
+  <dl class="skills">
+    <dt>Cloud · IaC</dt><dd>AWS Lambda · SQS · SNS · S3 · EventBridge Scheduler · Terraform</dd><dd class="b">전담</dd>
+    <dt>Data · AI</dt><dd>Python · PostgreSQL/SQL · LLM 평가</dd><dd class="b">전담</dd>
+    <dt>Kubernetes</dt><dd>kubeadm · Calico · Ingress · NetworkPolicy · PV/PVC · RBAC · HPA/KEDA</dd><dd class="b">실습</dd>
+    <dt>관측 · 진단</dt><dd>Kubernetes Event · 로그 · Prometheus · Grafana</dd><dd class="b">실습</dd>
+    <dt>Linux · 네트워크</dt><dd>Linux(Ubuntu) · Bash · DNS · TLS 인증서 진단 · Git · GitHub PR</dd><dd class="b s">사용</dd>
+    <dt>개인 서비스</dt><dd>Cloudflare Tunnel · Turnstile · Workers · systemd · FastAPI · SQLite</dd><dd class="b s">개인 운영</dd>
+    <dt>팀 공동 환경</dt><dd>Amazon EKS · Argo CD · CI/CD</dd><dd class="b s">공동 설계</dd>
+  </dl>
+</section>
+
+<section>
+  <p class="lab">PROFILE<b>학력 · 교육 · 자격</b></p>
+  <dl class="prof">
+    <dt>2026.02.25 – 2026.08.26</dt><dd><b>Cloud DX Academy 6기 수료 (반장)</b> · 한국표준협회 / 더존비즈온</dd>
+    <dt>2026.06.30</dt><dd><b>네트워크관리사 2급</b> · 한국정보통신자격협회</dd>
+    <dt>준비 중</dt><dd><b>CKA</b> (Certified Kubernetes Administrator) · 아직 취득하지 않음</dd>
+    <dt>2016 – 2026.02</dt><dd><b>한성대학교 컴퓨터공학부 졸업</b></dd>
+  </dl>
+</section>
+
+
+<section>
+  <p class="lab">AI · ENV<b>다뤄 본 AI · 환경</b></p>
+  <dl class="skills ai-models">
+    <dt>코딩 에이전트</dt><dd>Claude&nbsp;Code(VS&nbsp;Code&nbsp;확장&nbsp;+&nbsp;CLI) · Codex (스크립트 작성·구현 보조)</dd><dd class="b s">작업 도구</dd>
+    <dt>대화형 AI</dt><dd>Claude · ChatGPT · Gemini (조사·설계 검토·문서 검수)</dd><dd class="b s">작업 도구</dd>
+    <dt>에이전트 · 판단</dt><dd>Aside(AI 브라우저 에이전트, 작업 도구) · Jev(TypeSafe 판단 모델 API, 서비스 연동)</dd><dd class="b s">작업 · 연동</dd>
+    <dt>다뤄 본 환경</dt><dd>WSL Ubuntu · VM Ubuntu Linux · Rocky Linux</dd><dd class="b s">환경</dd>
+  </dl>
+</section>
+
+<footer><span></span><span>2026.10 기준</span></footer>
+</div>
+</body>
+</html>
