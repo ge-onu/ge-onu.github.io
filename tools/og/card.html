@@ -33,7 +33,7 @@ h1 small{display:block;font-size:30px;font-weight:600;letter-spacing:-.02em;colo
 </div>
 <script>
 const q=new URLSearchParams(location.search);const C=JSON.parse(decodeURIComponent(q.get('c')));
-k.textContent=C.k;pre.textContent=C.pre||'';t.innerHTML=C.t;s.textContent=C.s;art.src=C.art;if(C.contain)artbox.classList.add('contain');if(C.artCss)art.style.cssText=C.artCss;
+k.textContent=C.k;pre.textContent=C.pre||'';t.innerHTML=C.t;s.textContent=C.s;art.src=C.art;if(C.contain)artbox.classList.add('contain');if(C.artCss)art.style.cssText=C.artCss;if(C.tSize)document.querySelector('h1,.t').style.fontSize=C.tSize;
 g.replaceChildren(...C.tags.map(x=>{const e=document.createElement('span');e.textContent=x;return e;}));
 if(!C.pre)pre.remove();if(C.foot)ft.innerHTML=C.foot;
 </script></body></html>
