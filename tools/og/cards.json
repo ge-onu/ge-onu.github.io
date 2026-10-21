@@ -2,7 +2,7 @@
  "home": {
   "k": "신입 채용 지원 중",
   "pre": "이건우 · Geonwoo Lee",
-  "t": "클라우드·인프라<br>엔지니어",
+  "t": "클라우드·네트워크·<br>인프라·AI/ML 엔지니어",
   "s": "팀 프로젝트의 핵심 AI 기능을 PoC부터 구현까지 맡고, 직접 만든 웹앱과 RAG 챗봇을 Cloudflare로 배포했습니다.",
   "tags": [
    "AI 기능 PoC → 구현",
@@ -11,7 +11,8 @@
   ],
   "art": "/assets/chat-mascot.png",
   "contain": true,
-  "foot": "<b>geonu.site</b> · 포트폴리오"
+  "foot": "<b>geonu.site</b> · 포트폴리오",
+  "tSize": "62px"
  },
  "mealplanning": {
   "k": "5인 팀 프로젝트 · 최우수상",
