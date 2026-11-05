@@ -66,7 +66,7 @@ NEW = [
     },
     {
         'claim_id': 'C-CERT', 'topic': '자격증', 'stance': 'BOUNDED',
-        'verified': '네트워크관리사 2급을 2026년 6월에 취득했습니다. CKA는 준비 중입니다.',
+        'verified': '네트워크관리사 2급을 2026년 6월에, 리눅스마스터 2급을 2026년 7월에 취득했습니다. CKA는 준비 중입니다.',
         'not_verified': 'CKA는 아직 취득하지 않았습니다. AWS 자격증은 공개 자료에 없습니다.',
         'forbidden': ['CKA 보유', 'CKA 합격', 'CKA 취득', 'AWS 자격증 보유'],
         # 10/14 라이브 확인: 생성 답이 "VM에 클러스터를 구성해 85문항 환경을 만들었다"고 써서 구성 주체가 흐려졌다. 상세 페이지 기준으로 적는다.
@@ -74,7 +74,7 @@ NEW = [
         # CKA 준비 기록(Kubernetes Lab 상세)도 근거로 붙인다. 취득 주장은 여전히 금지.
         'evidence_chunk_ids': ['index.html::about', 'index.html::focus', 'projects/kubernetes-lab/index.html::cka-prep'],
         'evidence_urls': ['/#about', '/projects/kubernetes-lab/#cka-prep'],
-        'trigger_terms': ['CKA', '자격증', '자격', '네트워크관리사', 'certification', 'SAA'],
+        'trigger_terms': ['CKA', '자격증', '자격', '네트워크관리사', '리눅스마스터', 'certification', 'SAA'],
     },
     {
         # "어떤 프로젝트를 했나요?" 같은 넓은 질문에 맞는 chunk가 없어, 검색이 Mealplanning 페이지 조각을 골랐다(2026-10-14 QA).
