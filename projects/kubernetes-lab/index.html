@@ -11,14 +11,14 @@
   <meta property="og:locale" content="ko_KR">
   <meta property="og:url" content="https://geonu.site/projects/kubernetes-lab/">
   <meta property="og:title" content="Kubernetes Multi-node Lab | 이건우">
-  <meta property="og:description" content="kubeadm 멀티노드 클러스터에서 Network, Storage, RBAC, Scaling 문제를 Event와 리소스 상태로 확인한 개인 실습.">
+  <meta property="og:description" content="부트캠프에서 직접 구성한 kubeadm 멀티노드 클러스터의 Network, Storage, RBAC, Scaling 실습과, AI Agent로 만든 개인 VM 클러스터에서의 CKA 반복 연습.">
   <meta property="og:image" content="https://geonu.site/assets/og/kubernetes-lab.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Kubernetes Multi-node Lab 요약 카드">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kubernetes Multi-node Lab | 이건우">
-  <meta name="twitter:description" content="kubeadm 멀티노드 클러스터에서 Network, Storage, RBAC, Scaling 문제를 Event와 리소스 상태로 확인한 개인 실습.">
+  <meta name="twitter:description" content="부트캠프에서 직접 구성한 kubeadm 멀티노드 클러스터의 Network, Storage, RBAC, Scaling 실습과, AI Agent로 만든 개인 VM 클러스터에서의 CKA 반복 연습.">
   <meta name="twitter:image" content="https://geonu.site/assets/og/kubernetes-lab.png">
   <meta name="theme-color" content="#f5f8fe">
   <title>Kubernetes Multi-node Lab | 이건우</title>
@@ -57,7 +57,7 @@
           <h1>Kubernetes <span class="title-keep">Multi-node</span> Lab</h1>
           <p class="project-hero-subtitle">kubeadm 기반 클러스터 구축과 장애 확인</p>
           <p class="project-hero-summary">
-            멀티노드 Kubernetes 환경에서 네트워크, 스토리지, RBAC, 스케일링을 구성했습니다.
+            부트캠프(Cloud DX Academy)에서 kubeadm 멀티노드 클러스터를 직접 구성해 네트워크, 스토리지, RBAC, 스케일링을 설정했습니다.
             문제가 생기면 설정부터 바꾸기보다 Event와 리소스 상태를 먼저 확인했습니다.
           </p>
           <div class="project-hero-actions">
@@ -79,7 +79,7 @@
         </div>
         <div class="overview-meta">
           <div><span>기간</span><strong>2026</strong></div>
-          <div><span>구분</span><strong>개인 실습</strong></div>
+          <div><span>구분</span><strong>부트캠프 실습 · 개인 반복 연습</strong></div>
           <div><span>실습 범위</span><strong>Cluster · Network · Storage · RBAC · Scaling · Monitoring</strong></div>
         </div>
         <div class="overview-metrics">
@@ -87,7 +87,7 @@
           <div><strong>Calico</strong><span>network</span><p>Service · Ingress · NetworkPolicy</p></div>
           <div><strong>Events</strong><span>troubleshooting</span><p>리소스 상태와 함께 원인 범위 확인</p></div>
         </div>
-        <p class="scope-note">개인 실습으로 클러스터를 구성하고 리소스 상태와 이벤트를 점검했습니다.</p>
+        <p class="scope-note">02–07은 부트캠프 실습에서 직접 구성한 클러스터 기록입니다. 08의 CKA 연습 클러스터는 이와 별개로, AI Agent가 개인 데스크톱에 만든 VM 클러스터입니다.</p>
       </section>
 
       <section class="story-section" aria-labelledby="stories-title">
@@ -217,7 +217,7 @@
             <thead><tr><th scope="col">항목</th><th scope="col">내용</th></tr></thead>
             <tbody>
               <tr><th scope="row">약한 영역</th><td>Troubleshooting · Cluster Architecture · Services &amp; Networking</td></tr>
-              <tr><th scope="row">연습 클러스터</th><td>VirtualBox VM 3대에 kubeadm으로 구성한 클러스터 (Control Plane 1 · Worker 2 · Calico)</td></tr>
+              <tr><th scope="row">연습 클러스터</th><td>AI Agent가 개인 데스크톱의 VirtualBox VM 3대에 kubeadm으로 구성한 클러스터 (Control Plane 1 · Worker 2 · Calico). 부트캠프 실습 클러스터와는 별개</td></tr>
               <tr><th scope="row">문항</th><td>85문항을 이 클러스터에서 그대로 풀 수 있게 준비한 연습 환경</td></tr>
               <tr><th scope="row">파괴형 문항</th><td>VM 스냅샷을 먼저 찍고, 깨뜨린 뒤 복구하고, 못 고치면 스냅샷으로 되돌림</td></tr>
             </tbody>
@@ -239,7 +239,7 @@
           </table>
         </div>
         <p><span class="ln">kind는 노드가 컨테이너라 kubelet·런타임을 깨뜨리는 연습이나 kubeadm 설치 연습에는 맞지 않습니다.</span><span class="ln">그래서 노드가 필요한 연습은 VM에, 빠르게 다시 만들어야 하는 재현은 kind에 두었습니다.</span></p>
-        <p class="ownership"><b>기여 범위</b> — VM 클러스터와 문제 연습 환경은 AI Agent가 구성했고, 풀이와 복구 연습은 제가 직접 합니다. 문항 원문은 공개하지 않습니다.</p>
+        <p class="ownership"><b>기여 범위</b> — 위쪽 02–07의 부트캠프 클러스터는 제가 직접 구성했습니다. CKA 연습용 VM 클러스터와 문제 연습 환경은 AI Agent가 구성했고, 풀이와 복구 연습은 제가 직접 합니다. 문항 원문은 공개하지 않습니다.</p>
         <p class="limit"><b>검증 범위</b><br><span class="ln">연습 방식과 환경을 적은 기록입니다.</span><span class="ln">자격 취득이나 실무 클러스터 운영 경험으로 확대하지 않습니다.</span></p>
       </section>
     </main>
